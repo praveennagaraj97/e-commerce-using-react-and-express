@@ -1,0 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap");
+
+.secondary-header-menu {
+  margin: 4px !important;
+}
+.secondary-header {
+  display: grid !important;
+  grid-template-columns: repeat(7, 1fr) 2fr;
+  align-items: stretch;
+  justify-items: center;
+}
+
+.nav-links {
+  width: 80%;
+  font-family: "Tangerine", cursive !important;
+  word-wrap: break-word;
+}
+
+.secondary-header-mobile {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+}

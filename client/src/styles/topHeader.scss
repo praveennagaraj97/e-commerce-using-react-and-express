@@ -1,0 +1,24 @@
+// Fonts
+@import url("https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap");
+
+$main-headings-font: "Berkshire Swash";
+
+// Colours
+$header-colour: rgba(0, 0, 0, 0.938);
+$logo-colour: rgb(255, 255, 255);
+
+.top-header-bar {
+  background-color: $header-colour;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  align-items: center;
+  border-radius: 5px;
+  padding: 3px;
+}
+
+.top-header__logo {
+  color: $logo-colour;
+  font-family: $main-headings-font;
+  font-size: 5vh;
+  padding: 5px;
+}
