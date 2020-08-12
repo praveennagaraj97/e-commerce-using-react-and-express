@@ -7,13 +7,13 @@ const MusicPlayer = (props) => {
   const { windowWidth } = props;
   const [playing, setPlaying] = useState(false);
   const audioRef = useRef();
-  const currentSong =
-    "https://res.cloudinary.com/praveennagaraj97/video/upload/v1597232142/Britney-Spears-Baby-One-More-Time_u6hfvv.mp3";
 
   const onPlayButtonClick = () => {
     return (
       <audio onEnded={() => setPlaying(false)} id='song'>
-        <source src={currentSong} type='audio/mpeg'></source>
+        <source
+          src='https://res.cloudinary.com/praveennagaraj97/video/upload/v1597232142/Britney-Spears-Baby-One-More-Time_u6hfvv.mp3'
+          type='audio/mpeg'></source>
       </audio>
     );
   };
