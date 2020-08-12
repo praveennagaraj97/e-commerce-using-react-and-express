@@ -1,10 +1,11 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 
 import "../../styles/musicPlayerAtHeader.scss";
 import LinearBuffer from "./LinearBuffer";
 
 const MusicPlayer = (props) => {
   const { windowWidth } = props;
+  const [playing, setPlaying] = useState(false);
 
   const onPlayButtonClick = () => {
     return (
@@ -14,6 +15,12 @@ const MusicPlayer = (props) => {
           type='audio/mpeg'></source>
       </audio>
     );
+  };
+
+  const musicPlayStatus = () => {
+    const audio = document.getElementById("song");
+    setPlaying(!playing);
+    audio.paused ? audio.play() : audio.pause();
   };
 
   return (
@@ -28,12 +35,13 @@ const MusicPlayer = (props) => {
             height='48px'
           />
           <img
-            onClick={() => {
-              const audio = document.getElementById("song");
-              audio.paused ? audio.play() : audio.pause();
-            }}
+            onClick={musicPlayStatus}
             className='music-player__control-Btn'
-            src='https://img.icons8.com/bubbles/2x/play.png'
+            src={
+              playing
+                ? "https://img.icons8.com/bubbles/50/000000/pause.png"
+                : "https://img.icons8.com/bubbles/2x/play.png"
+            }
             height='45px'
             alt='Play'
           />
