@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useRef } from "react";
 
 import "../../styles/musicPlayerAtHeader.scss";
 import LinearBuffer from "./LinearBuffer";
@@ -6,21 +6,24 @@ import LinearBuffer from "./LinearBuffer";
 const MusicPlayer = (props) => {
   const { windowWidth } = props;
   const [playing, setPlaying] = useState(false);
+  const audioRef = useRef();
+  const currentSong =
+    "https://res.cloudinary.com/praveennagaraj97/video/upload/v1597232142/Britney-Spears-Baby-One-More-Time_u6hfvv.mp3";
 
   const onPlayButtonClick = () => {
     return (
-      <audio id='song'>
-        <source
-          src='https://res.cloudinary.com/praveennagaraj97/video/upload/v1597155035/Alec_Benjamin_-_Let_Me_Down_Slowly_Official_Music_Video_buhiip.mp3'
-          type='audio/mpeg'></source>
+      <audio onEnded={() => setPlaying(false)} id='song'>
+        <source src={currentSong} type='audio/mpeg'></source>
       </audio>
     );
   };
 
   const musicPlayStatus = () => {
-    const audio = document.getElementById("song");
+    audioRef.current = document.getElementById("song");
     setPlaying(!playing);
-    audio.paused ? audio.play() : audio.pause();
+    audioRef.current.paused
+      ? audioRef.current.play()
+      : audioRef.current.pause();
   };
 
   return (
@@ -56,7 +59,7 @@ const MusicPlayer = (props) => {
         {windowWidth > 900 ? (
           <Fragment>
             <div className='music-player__currentTrack'>
-              Alec_Benjamin_-_Let_Me_Down_Slowly_Official_Music
+              {"Under Development"}
             </div>
 
             <LinearBuffer />

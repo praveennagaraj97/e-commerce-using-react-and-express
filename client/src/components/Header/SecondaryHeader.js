@@ -1,13 +1,15 @@
 import React, { Component, Fragment } from "react";
 import { Menu, Segment, Icon, Button } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 
 import SearchBar from "../SearchBar";
 import DropdownMenu from "../DropdownMenu";
+import Cart from "../Product/Cart";
+import UserMenu from "../User/UserMenu";
+
 import "../../styles/secondaryHeader.scss";
 
 export default class SecondaryHeader extends Component {
-  state = { isSignedIn: false };
-
   renderMobileView() {
     return <DropdownMenu navItems={this.props.navItems} />;
   }
@@ -19,23 +21,22 @@ export default class SecondaryHeader extends Component {
       return (
         <Segment inverted className='secondary-header-menu'>
           <Menu inverted secondary className='secondary-header'>
-            {navItems.map(({ name, icon }, index) => {
-              if (this.state.isSignedIn === true) {
-                if (name === "Login") {
-                  name = "Logout";
-                }
-              }
+            {navItems.map(({ name, icon, route }, index) => {
               return (
-                <Button className='nav-links' animated key={index}>
-                  <Button.Content hidden>{name}</Button.Content>
-                  <Button.Content visible>
-                    <Icon name={icon} />
-                  </Button.Content>
-                </Button>
+                <Link to={route} className='nav-links' key={index}>
+                  <Button className='nav-links' animated>
+                    <Button.Content hidden>{name}</Button.Content>
+                    <Button.Content visible>
+                      <Icon name={icon} />
+                    </Button.Content>
+                  </Button>
+                </Link>
               );
             })}
 
             <SearchBar />
+            <Cart />
+            <UserMenu />
           </Menu>
         </Segment>
       );
@@ -46,6 +47,8 @@ export default class SecondaryHeader extends Component {
           <Menu inverted secondary className='secondary-header-mobile'>
             <SearchBar />
             {this.renderMobileView()}
+            <Cart />
+            <UserMenu />
           </Menu>
         </Segment>
       </Fragment>

@@ -5,19 +5,19 @@
 }
 .secondary-header {
   display: grid !important;
-  grid-template-columns: repeat(7, 1fr) 2fr;
+  grid-template-columns: repeat(5, 1fr) 2fr 1fr 1fr;
   align-items: stretch;
   justify-items: center;
 }
 
 .nav-links {
-  width: 80%;
+  width: 89%;
   font-family: "Tangerine", cursive !important;
   word-wrap: break-word;
 }
 
 .secondary-header-mobile {
   display: grid !important;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(4, 1fr);
   justify-items: center;
 }
