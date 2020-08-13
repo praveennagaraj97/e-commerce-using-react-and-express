@@ -15,7 +15,7 @@
 
 .form-input__label {
   display: block;
-  width: 20vw;
+  width: 40vw;
   margin: auto;
   text-align: left;
   font-size: 25px;
@@ -24,7 +24,7 @@
 }
 
 .form-input__field {
-  width: 20vw;
+  width: 40vw;
   margin: auto;
   height: 4ch;
   border: none;
@@ -41,6 +41,6 @@
   }
   .form-input__label,
   .form-input__field {
-    width: 50vw;
+    width: 80vw;
   }
 }
