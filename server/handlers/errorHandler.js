@@ -20,3 +20,27 @@ export const unCaughtExceptionErrorHandler = (err) => {
     }`
   );
 };
+
+const handleMongoError = (errName) => {
+  if (errName === "ValidationError") {
+    return {
+      errCode: 422,
+    };
+  }
+};
+
+export const globalErrorHandler = (err, req, res, next) => {
+  err.statusCode = err.statusCode || 500;
+  err.message = err.message;
+  err.stack = err.stack;
+
+  if (err.name === "ValidationError") {
+    const error = handleMongoError(err.name);
+    err.statusCode = error.errCode;
+  }
+
+  res.status(err.statusCode).json({
+    message: err.message,
+    occuredAt: err.stack,
+  });
+};

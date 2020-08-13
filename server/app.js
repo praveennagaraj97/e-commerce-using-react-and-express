@@ -1,5 +1,4 @@
 import dotenvConfig from "./config/dotenvConfig";
-dotenvConfig();
 import { resolve } from "path";
 import express from "express";
 import helmet from "helmet";
@@ -8,15 +7,26 @@ import cors from "cors";
 import mongoSanitize from "express-mongo-sanitize";
 import xss from "xss-clean";
 import rateLimit from "express-rate-limit";
+import morgon from "morgan";
 
 import {
   pageNotFoundError,
   unCaughtExceptionErrorHandler,
+  globalErrorHandler,
 } from "./handlers/errorHandler";
+import { multerSetup } from "./utils/multerSetup";
 
+import { userRouter } from "./route/userRouter";
+
+dotenvConfig();
+multerSetup();
 process.on("uncaughtException", unCaughtExceptionErrorHandler);
 
 const app = express();
+
+// Logger
+app.use(morgon("dev"));
+
 // Secured Http Headers
 app.use(helmet());
 
@@ -47,7 +57,7 @@ const limiter = rateLimit({
 
 app.use(express.static(resolve(__dirname, "public")));
 app.use(express.json({ limit: "20kb" }));
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res, next) => {
   res.send(
@@ -55,6 +65,10 @@ app.get("/", (req, res, next) => {
   );
 });
 
+app.use("/api/v1", userRouter);
+
 app.use("*", pageNotFoundError);
+
+app.use(globalErrorHandler);
 
 export default app;
