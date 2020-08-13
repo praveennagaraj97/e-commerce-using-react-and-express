@@ -2,6 +2,7 @@ import React from "react";
 import { Button, Icon } from "semantic-ui-react";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import history from "../../history";
 
 const UserMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -14,16 +15,13 @@ const UserMenu = () => {
     setAnchorEl(null);
   };
 
+  const redirectToAuth = () => {
+    handleClose();
+    history.push("/user_auth");
+  };
+
   return (
     <div>
-      {/* <Button
-        aria-controls='simple-menu'
-        aria-haspopup='true'
-        style={{ color: "white" }}
-        onClick={handleClick}>
-        UserName
-      </Button> */}
-
       <Button
         style={{ width: "12vw" }}
         aria-controls='simple-menu'
@@ -45,8 +43,9 @@ const UserMenu = () => {
         onClose={handleClose}>
         <MenuItem onClick={handleClose}>Profile</MenuItem>
         <MenuItem onClick={handleClose}>Saved Address</MenuItem>
-        <MenuItem onClick={handleClose}>Whish List</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem onClick={handleClose}>Whishlist</MenuItem>
+
+        <MenuItem onClick={redirectToAuth}>Login/Create New Account</MenuItem>
       </Menu>
     </div>
   );
