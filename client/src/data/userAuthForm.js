@@ -19,7 +19,7 @@ export const signUpFormFields = [
   },
 
   {
-    htmlFor: "email",
+    htmlFor: "signUpemail",
     label: "Email",
     type: "email",
   },
@@ -29,7 +29,7 @@ export const signUpFormFields = [
     type: "text",
   },
   {
-    htmlFor: "password",
+    htmlFor: "signUppassword",
     label: "Password",
     type: "password",
   },

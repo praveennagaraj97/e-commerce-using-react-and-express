@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Aladin&family=Fondamento&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Itim&family=Tangerine&display=swap");
+
 .form-container {
   margin-top: 5vh;
   width: 55vw;
@@ -19,8 +20,9 @@
   margin: auto;
   text-align: left;
   font-size: 25px;
-  font-family: "Aladin", cursive;
+  font-family: "Tangerine", cursive;
   color: white;
+  text-transform: capitalize;
 }
 
 .form-input__field {
@@ -32,7 +34,7 @@
   outline: none;
   box-shadow: 7px 9px 11px rgba(255, 255, 255, 0.336);
   font-size: 20px;
-  font-family: "Fondamento", cursive;
+  font-family: "Itim", cursive;
 }
 
 @media (max-width: 890px) {
