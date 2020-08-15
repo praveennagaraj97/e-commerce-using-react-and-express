@@ -59,9 +59,17 @@ function* userAuthLoginWorker() {
     const response = yield call(userSigner, values.email, values.password);
     yield put(loginUser(response));
   } catch (err) {
-    yield put(loginUserFailed("Invalid Credentials Provided!"));
-    yield delay(3000);
-    yield put(loginUserFailed(null));
+    if (err.message === "Request failed with status code 401") {
+      yield put(loginUserFailed("Invalid Credentials Provided!"));
+      yield delay(3000);
+      yield put(loginUserFailed(null));
+    } else {
+      yield put(
+        loginUserFailed("Something went wrong Please Try Again Later!")
+      );
+      yield delay(3000);
+      yield put(loginUserFailed(null));
+    }
   }
 }
 
