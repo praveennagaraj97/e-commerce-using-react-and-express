@@ -21,7 +21,9 @@
   justify-items: center;
 }
 
-i.user {
-  position: relative;
-  right: 6px;
+@media (max-width: 390px) {
+  i.user {
+    position: relative;
+    right: 7px;
+  }
 }
