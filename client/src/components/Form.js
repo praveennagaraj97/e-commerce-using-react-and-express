@@ -17,7 +17,8 @@ const Form = (props) => {
       <form
         style={{ padding: "8% 0%" }}
         autoComplete='off'
-        onSubmit={handleSubmit(onSubmitFormValues)}>
+        onSubmit={handleSubmit(onSubmitFormValues)}
+        noValidate>
         {formSelected.map(({ htmlFor, label, type }, index) => {
           return (
             <div className='form-input' key={index}>

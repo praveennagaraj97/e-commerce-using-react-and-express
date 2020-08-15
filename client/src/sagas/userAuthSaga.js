@@ -1,4 +1,4 @@
-import { takeEvery, select, put, call } from "redux-saga/effects";
+import { takeEvery, select, put, call, delay } from "redux-saga/effects";
 
 import { USER_AUTH_TYPES } from "../constants";
 import { loginUser, loginUserFailed } from "../actions";
@@ -25,15 +25,32 @@ function* userAuthLoginWorker() {
 
     // If Email is Not Filled Create A Error And Sent to store.
     if (!values.hasOwnProperty("email")) {
-      return yield put(loginUserFailed("Please Enter Email"));
+      yield put(loginUserFailed("Please Enter Email"));
+      yield delay(3000);
+      yield put(loginUserFailed(null));
+      return;
     }
     // If Password is Not Filled Create A Error And Sent to store.
     if (!values.hasOwnProperty("password")) {
-      return yield put(loginUserFailed("Please Enter Password"));
+      yield put(loginUserFailed("Please Enter Password"));
+      yield delay(3000);
+      yield put(loginUserFailed(null));
+      return;
     }
+    // If Email field is entered with invalid char!!
+    if (!/\S+@\S+\.\S+/.test(values.email)) {
+      yield put(loginUserFailed("Please Enter Valid Email"));
+      yield delay(3000);
+      yield put(loginUserFailed(null));
+      return;
+    }
+
     // If Both Email and Password Are not filled Inform User to Fill.
   } else {
-    return yield put(loginUserFailed("Please Enter Email and password"));
+    yield put(loginUserFailed("Please Enter Email and password"));
+    yield delay(3000);
+    yield put(loginUserFailed(null));
+    return;
   }
 
   // Above Checks are Called To Avoid Over Fetching Our API.
@@ -43,6 +60,8 @@ function* userAuthLoginWorker() {
     yield put(loginUser(response));
   } catch (err) {
     yield put(loginUserFailed("Invalid Credentials Provided!"));
+    yield delay(3000);
+    yield put(loginUserFailed(null));
   }
 }
 

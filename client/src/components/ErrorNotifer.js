@@ -1,41 +1,61 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 
 import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+import { makeStyles } from "@material-ui/core/styles";
 
-const ErrorNotifer = (props) => {
-  const [showError, setShowError] = useState(false);
+function Alert(props) {
+  return <MuiAlert elevation={6} variant='filled' {...props} />;
+}
 
-  const { loginFailure } = props;
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: "100%",
+    "& > * + *": {
+      marginTop: theme.spacing(2),
+    },
+  },
+}));
+
+const ErrorNotifer = ({ errors }) => {
+  const classes = useStyles();
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    if (loginFailure) setShowError(true);
+    if (errors !== null) setOpen(true);
 
-    const timeOutId = setTimeout(() => {
-      setShowError(false);
+    const clearTimeOutID = setTimeout(() => {
+      setOpen(false);
     }, 2000);
 
-    return () => clearTimeout(timeOutId);
-  }, [loginFailure]);
+    return () => clearTimeout(clearTimeOutID);
+  }, [errors]);
 
-  const handleClose = () => {
-    setShowError(false);
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
   };
 
   return (
-    <Fragment>
+    <div className={classes.root}>
       <Snackbar
-        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-        open={showError}
+        open={open}
+        autoHideDuration={3000}
         onClose={handleClose}
-        message={loginFailure}
-      />
-    </Fragment>
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}>
+        <Alert onClose={handleClose} severity='error'>
+          {errors}
+        </Alert>
+      </Snackbar>
+    </div>
   );
 };
 
 const mapStateToProps = ({ loginFailure }) => ({
-  loginFailure,
+  errors: loginFailure,
 });
 
 export default connect(mapStateToProps, null)(ErrorNotifer);
