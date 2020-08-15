@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { reduxForm } from "redux-form";
-import CssBaseline from "@material-ui/core/CssBaseline";
+import { connect } from "react-redux";
 
+import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
 import { makeStyles, Button } from "@material-ui/core";
 
 import Form from "../Form";
 import { loginFormFields, signUpFormFields } from "../../data";
+
+import { loadLogin } from "../../actions";
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -21,10 +24,10 @@ const useStyles = makeStyles((theme) => ({
 const SignUpAndLogin = (props) => {
   const classes = useStyles();
   const [showForm, setShowForm] = useState("login");
-  const { handleSubmit } = props;
+  const { handleSubmit, loadLogin } = props;
 
   const onSubmitForm = (formValues) => {
-    console.log(formValues);
+    if (showForm === "login") return loadLogin();
   };
 
   return (
@@ -56,4 +59,14 @@ const reduxFormWrapper = reduxForm({
   form: "SignUpOrLogin",
 })(SignUpAndLogin);
 
-export default reduxFormWrapper;
+const mapStatetoProps = ({ loadLogin, loginFailure, loginSuccess }) => ({
+  loadLogin,
+  loginFailure,
+  loginSuccess,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  loadLogin: () => dispatch(loadLogin()),
+});
+
+export default connect(mapStatetoProps, mapDispatchToProps)(reduxFormWrapper);

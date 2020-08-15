@@ -4,6 +4,7 @@ import "animate.css";
 
 import TopHeader from "./Header/TopHeader";
 import SecondaryHeader from "./Header/SecondaryHeader";
+import ErrorNotifer from "./ErrorNotifer";
 import "../styles/app.scss";
 import { navItems } from "../data";
 import Pages from "./Pages";
@@ -41,6 +42,7 @@ export default () => {
           <Route exact path='/user_auth' component={SignUpAndLogin} />
         </Switch>
       </Router>
+      <ErrorNotifer />
     </div>
   );
 };
