@@ -9,7 +9,6 @@ export const signUpHandler = (ModelName, responseMessage) =>
     const { message } = responseMessage;
     res.status(201).json({
       message,
-      user,
       token,
     });
   });
@@ -33,7 +32,6 @@ export const signInHandler = (ModelName, responseMessage) =>
 
     res.status(202).json({
       message,
-      user,
       token,
     });
   });
