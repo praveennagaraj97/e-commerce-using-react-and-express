@@ -17,6 +17,10 @@
   }
 }
 
+.music-player__control-Btn {
+  cursor: pointer;
+}
+
 .music-player__control-Btn:active {
   animation: bounceIn;
   animation-duration: 0.5s;
