@@ -1,1 +1,4 @@
-export { loginEndPoint as userSigner } from "./userAuthAPI";
+export {
+  loginEndPoint as UserLogger,
+  signUpEndPoint as UserSigner,
+} from "./userAuthAPI";

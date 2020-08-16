@@ -18,19 +18,28 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ErrorNotifer = ({ errors }) => {
+const Notifer = ({ errors, success }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
+  const [theme, setTheme] = useState("info");
+
   useEffect(() => {
-    if (errors !== null) setOpen(true);
+    if (errors !== null) {
+      setTheme("error");
+      setOpen(true);
+    }
+    if (success !== null) {
+      setTheme("success");
+      setOpen(true);
+    }
 
     const clearTimeOutID = setTimeout(() => {
       setOpen(false);
-    }, 2000);
+    }, 3500);
 
     return () => clearTimeout(clearTimeOutID);
-  }, [errors]);
+  }, [errors, success]);
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -43,19 +52,20 @@ const ErrorNotifer = ({ errors }) => {
     <div className={classes.root}>
       <Snackbar
         open={open}
-        autoHideDuration={3000}
+        autoHideDuration={3500}
         onClose={handleClose}
         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}>
-        <Alert onClose={handleClose} severity='error'>
-          {errors}
+        <Alert onClose={handleClose} severity={theme}>
+          {errors || success}
         </Alert>
       </Snackbar>
     </div>
   );
 };
 
-const mapStateToProps = ({ loginFailure }) => ({
-  errors: loginFailure,
+const mapStateToProps = ({ loginFailure, signupFailure, loggedIn }) => ({
+  errors: loginFailure || signupFailure,
+  success: loggedIn,
 });
 
-export default connect(mapStateToProps, null)(ErrorNotifer);
+export default connect(mapStateToProps, null)(Notifer);

@@ -9,7 +9,7 @@ import { makeStyles, Button } from "@material-ui/core";
 import Form from "../Form";
 import { loginFormFields, signUpFormFields } from "../../data";
 
-import { loadLogin } from "../../actions";
+import { loadLogin, loadSignup } from "../../actions";
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -24,10 +24,11 @@ const useStyles = makeStyles((theme) => ({
 const SignUpAndLogin = (props) => {
   const classes = useStyles();
   const [showForm, setShowForm] = useState("login");
-  const { handleSubmit, loadLogin } = props;
+  const { handleSubmit, loadLogin, loadSignup } = props;
 
   const onSubmitForm = (formValues) => {
     if (showForm === "login") return loadLogin();
+    loadSignup();
   };
 
   return (
@@ -59,14 +60,9 @@ const reduxFormWrapper = reduxForm({
   form: "SignUpOrLogin",
 })(SignUpAndLogin);
 
-const mapStatetoProps = ({ loadLogin, loginFailure, loginSuccess }) => ({
-  loadLogin,
-  loginFailure,
-  loginSuccess,
-});
-
 const mapDispatchToProps = (dispatch) => ({
   loadLogin: () => dispatch(loadLogin()),
+  loadSignup: () => dispatch(loadSignup()),
 });
 
-export default connect(mapStatetoProps, mapDispatchToProps)(reduxFormWrapper);
+export default connect(null, mapDispatchToProps)(reduxFormWrapper);
