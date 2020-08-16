@@ -70,9 +70,17 @@ function* userAuthLoginWorker() {
     yield delay(3700);
     yield put(loginSuccess(null));
   } catch (err) {
-    yield put(loginUserFailed(err.response.data.message));
-    yield delay(3700);
-    yield put(loginUserFailed(null));
+    try {
+      yield put(loginUserFailed(err.response.data.message));
+      yield delay(3700);
+      yield put(loginUserFailed(null));
+    } catch (err) {
+      yield put(
+        loginUserFailed("Something Went Wrong Please Try again Later!!")
+      );
+      yield delay(3700);
+      yield put(loginUserFailed(null));
+    }
   }
 }
 
@@ -168,9 +176,17 @@ function* userAuthSignUpWorker() {
     yield delay(3700);
     yield put(loginSuccess(null));
   } catch (err) {
-    yield put(loginUserFailed(err.response.data.message));
-    yield delay(3700);
-    yield put(loginUserFailed(null));
+    try {
+      yield put(loginUserFailed(err.response.data.message));
+      yield delay(3700);
+      yield put(loginUserFailed(null));
+    } catch (err) {
+      yield put(
+        loginUserFailed("Something Went Wrong Please Try again Later!!")
+      );
+      yield delay(3700);
+      yield put(loginUserFailed(null));
+    }
   }
 }
 
