@@ -1,7 +1,7 @@
 import React, { useEffect, Fragment } from "react";
 
 import "../../styles/topHeader.scss";
-import MusicPlayer from "./MusicPlayer";
+import MusicPlayer from "../MusicPlayer/MusicPlayer";
 
 const TopHeader = (props) => {
   useEffect(() => {});

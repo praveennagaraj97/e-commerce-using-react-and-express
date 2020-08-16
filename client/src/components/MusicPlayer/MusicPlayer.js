@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useRef } from "react";
 
 import "../../styles/musicPlayerAtHeader.scss";
-import LinearBuffer from "./LinearBuffer";
+import LinearBuffer from "../Header/LinearBuffer";
 
 const MusicPlayer = (props) => {
   const { windowWidth } = props;
