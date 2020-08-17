@@ -1,7 +1,9 @@
 import axios from "axios";
 
+import { API } from "./index";
+
 export const loginEndPoint = async (email, password) => {
-  const response = await axios.post("http://localhost:8080/api/v1/signin", {
+  const response = await axios.post(`${API}/api/v1/signin`, {
     email,
     password,
   });
@@ -24,7 +26,7 @@ export const signUpEndPoint = async (
     phoneNumber,
   };
 
-  const response = await axios.post("http://localhost:8080/api/v1/signup", {
+  const response = await axios.post(`${API}/api/v1/signup`, {
     ...signUpFields,
   });
 
