@@ -66,6 +66,9 @@ function* userAuthLoginWorker() {
   try {
     const response = yield call(UserLogger, values.email, values.password);
     yield put(loginUser(response));
+
+    yield window.localStorage.setItem("auth_token", response.token);
+
     yield put(loginSuccess("Successfully Logged In"));
     yield delay(3700);
     yield put(loginSuccess(null));
@@ -172,6 +175,9 @@ function* userAuthSignUpWorker() {
       phoneNumber
     );
     yield put(signUpUser(response));
+
+    yield window.localStorage.setItem("auth_token", response.token);
+
     yield put(loginSuccess("Successfully SignedUp and Logged In."));
     yield delay(3700);
     yield put(loginSuccess(null));
