@@ -1,12 +1,19 @@
 import axios from "axios";
 
-import { API } from "./index";
+import { API_BASE_URL_LIVE, API_BASE_URL_LOCAL } from "./index";
 
 export const loginEndPoint = async (email, password) => {
-  const response = await axios.post(`${API}/api/v1/signin`, {
-    email,
-    password,
-  });
+  const response = await axios.post(
+    `${
+      process.env.NODE_ENV === "production"
+        ? API_BASE_URL_LIVE
+        : API_BASE_URL_LOCAL
+    }/api/v1/signin`,
+    {
+      email,
+      password,
+    }
+  );
 
   return response.data;
 };
@@ -26,9 +33,16 @@ export const signUpEndPoint = async (
     phoneNumber,
   };
 
-  const response = await axios.post(`${API}/api/v1/signup`, {
-    ...signUpFields,
-  });
+  const response = await axios.post(
+    `${
+      process.env.NODE_ENV === "production"
+        ? API_BASE_URL_LIVE
+        : API_BASE_URL_LOCAL
+    }/api/v1/signup`,
+    {
+      ...signUpFields,
+    }
+  );
 
   return response.data;
 };
