@@ -8,6 +8,7 @@ import mongoSanitize from "express-mongo-sanitize";
 import xss from "xss-clean";
 import rateLimit from "express-rate-limit";
 import morgon from "morgan";
+import cookieParser from "cookie-parser";
 
 import {
   pageNotFoundError,
@@ -59,11 +60,8 @@ app.use(express.static(resolve(__dirname, "public")));
 app.use(express.json({ limit: "20kb" }));
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/", (req, res, next) => {
-  res.send(
-    "<h1>Welcome , <br/> This is an API Build for Learning Purpose! <br/> By Praveen Nagaraj </h1>"
-  );
-});
+// Cookie Parser
+app.use(cookieParser());
 
 app.use("/api/v1", userRouter);
 
