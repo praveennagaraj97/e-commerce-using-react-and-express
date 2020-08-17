@@ -14,6 +14,10 @@ import {
 
 import { UserLogger, UserSigner } from "../api";
 
+import { useCookies } from "../utils/useCookies";
+
+const { setCookie } = useCookies;
+
 const {
   LOGIN: { LOAD_LOGIN },
 } = USER_AUTH_TYPES;
@@ -67,7 +71,7 @@ function* userAuthLoginWorker() {
     const response = yield call(UserLogger, values.email, values.password);
     yield put(loginUser(response));
 
-    yield window.localStorage.setItem("auth_token", response.token);
+    yield setCookie("auth_token", response.token, "infinite");
 
     yield put(loginSuccess("Successfully Logged In"));
     yield delay(3700);
@@ -176,7 +180,7 @@ function* userAuthSignUpWorker() {
     );
     yield put(signUpUser(response));
 
-    yield window.localStorage.setItem("auth_token", response.token);
+    yield setCookie("auth_token", response.token, "infinite");
 
     yield put(loginSuccess("Successfully SignedUp and Logged In."));
     yield delay(3700);

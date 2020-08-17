@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Router, Route, Switch } from "react-router-dom";
-import { connect } from "react-redux";
 import "animate.css";
 
 import TopHeader from "./Header/TopHeader";
@@ -12,9 +11,11 @@ import Pages from "./Pages";
 import SignUpAndLogin from "./User/SignUpAndLogin";
 import history from "../history";
 
+import AuthCheck from "./AuthCheck";
+
 const { Home, Supreme, LexaPay, Service, Orders, Cart } = Pages;
 
-const App = (props) => {
+const App = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -27,12 +28,6 @@ const App = (props) => {
         setWindowWidth(window.innerWidth);
       });
   });
-
-  useEffect(() => {
-    const auth_token = window.localStorage.getItem("auth_token");
-
-    if (auth_token) console.log(auth_token);
-  }, []);
 
   return (
     <div>
@@ -50,12 +45,9 @@ const App = (props) => {
         </Switch>
       </Router>
       <Notifer />
+      <AuthCheck />
     </div>
   );
 };
 
-const mapStateToProps = (state) => {
-  return state;
-};
-
-export default connect(mapStateToProps)(App);
+export default App;
