@@ -8,6 +8,7 @@ const {
     LOAD_LOGGED_SUCCESS,
   },
   SIGNUP: { LOAD_SIGNUP, LOAD_SIGNUP_SUCCESS, LOAD_SIGNUP_FAILURE },
+  AUTH: { ACCREDITED, LOAD_ACCREDIT },
 } = USER_AUTH_TYPES;
 
 export const loadLogin = () => ({
@@ -41,4 +42,11 @@ export const signUpUser = (response) => ({
 export const signUpUserFailed = (error) => ({
   type: LOAD_SIGNUP_FAILURE,
   error,
+});
+
+export const loadUserAccredite = () => ({ type: LOAD_ACCREDIT });
+
+export const userAccredited = (isAccredited) => ({
+  type: ACCREDITED,
+  isAccredited,
 });

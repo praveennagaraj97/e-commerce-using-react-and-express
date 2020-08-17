@@ -1,6 +1,7 @@
 export {
   loginEndPoint as UserLogger,
   signUpEndPoint as UserSigner,
+  authAccreditEndPoint as AuthAccredit,
 } from "./userAuthAPI";
 
 export const API_BASE_URL_LOCAL = "http://localhost:8080";

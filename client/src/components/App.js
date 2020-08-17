@@ -11,8 +11,6 @@ import Pages from "./Pages";
 import SignUpAndLogin from "./User/SignUpAndLogin";
 import history from "../history";
 
-import AuthCheck from "./AuthCheck";
-
 const { Home, Supreme, LexaPay, Service, Orders, Cart } = Pages;
 
 const App = () => {
@@ -45,7 +43,6 @@ const App = () => {
         </Switch>
       </Router>
       <Notifer />
-      <AuthCheck />
     </div>
   );
 };

@@ -10,16 +10,21 @@ import {
   // SignUp
   signUpUser,
   signUpUserFailed,
+
+  // Accredit
+  userAccredited,
 } from "../actions";
 
-import { UserLogger, UserSigner } from "../api";
+import { UserLogger, UserSigner, AuthAccredit } from "../api";
 
 import { useCookies } from "../utils/useCookies";
 
-const { setCookie } = useCookies;
+const { setCookie, getCookie } = useCookies;
 
 const {
   LOGIN: { LOAD_LOGIN },
+  SIGNUP: { LOAD_SIGNUP },
+  AUTH: { LOAD_ACCREDIT },
 } = USER_AUTH_TYPES;
 
 const getFormValues = ({ form }) => form;
@@ -74,6 +79,7 @@ function* userAuthLoginWorker() {
     yield setCookie("auth_token", response.token, "infinite");
 
     yield put(loginSuccess("Successfully Logged In"));
+    yield put(userAccredited(true));
     yield delay(3700);
     yield put(loginSuccess(null));
   } catch (err) {
@@ -95,11 +101,6 @@ function* userAuthLoginWorker() {
 export function* userAuthLoginWatcher() {
   yield takeEvery(LOAD_LOGIN, userAuthLoginWorker);
 }
-
-// Sign Up Saga
-const {
-  SIGNUP: { LOAD_SIGNUP },
-} = USER_AUTH_TYPES;
 
 const getSignUpValues = ({ form }) => form;
 
@@ -183,6 +184,7 @@ function* userAuthSignUpWorker() {
     yield setCookie("auth_token", response.token, "infinite");
 
     yield put(loginSuccess("Successfully SignedUp and Logged In."));
+    yield put(userAccredited(true));
     yield delay(3700);
     yield put(loginSuccess(null));
   } catch (err) {
@@ -202,4 +204,17 @@ function* userAuthSignUpWorker() {
 
 export function* userSignUpWatcher() {
   yield takeEvery(LOAD_SIGNUP, userAuthSignUpWorker);
+}
+
+function* handleUserAccreditWorker() {
+  const auth_token = yield getCookie("auth_token");
+  try {
+    const response = yield call(AuthAccredit, auth_token);
+    if (response.message === "User is Authorized")
+      yield put(userAccredited(true));
+  } catch (err) {}
+}
+
+export function* userAccreditWatcher() {
+  yield takeEvery(LOAD_ACCREDIT, handleUserAccreditWorker);
 }

@@ -10,6 +10,8 @@ import loadSignUpReducer from "./userAuthReducer/userAuthSignupLoadReducer";
 import loadSignUpSuccessReducer from "./userAuthReducer/userAuthSignUpSuccessReducer";
 import loadSignupErrorReducer from "./userAuthReducer/userAuthSignupErrorReducer";
 
+import userAccreditedReducer from "./userAuthReducer/userAuthAccreditedReducer";
+
 export default combineReducers({
   form: formReducer,
   loadLogin: userAuthLoadReducer,
@@ -20,4 +22,6 @@ export default combineReducers({
   loadSignUp: loadSignUpReducer,
   signupSuccess: loadSignUpSuccessReducer,
   signupFailure: loadSignupErrorReducer,
+
+  userAuthorized: userAccreditedReducer,
 });

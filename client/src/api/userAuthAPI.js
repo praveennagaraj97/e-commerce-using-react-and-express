@@ -46,3 +46,18 @@ export const signUpEndPoint = async (
 
   return response.data;
 };
+
+export const authAccreditEndPoint = async (auth_token) => {
+  const response = await axios.post(
+    `${
+      process.env.NODE_ENV === "production"
+        ? API_BASE_URL_LIVE
+        : API_BASE_URL_LOCAL
+    }/api/v1/accredit`,
+    {
+      auth_token,
+    }
+  );
+
+  return response.data;
+};

@@ -8,4 +8,6 @@ export {
   loadSignup,
   signUpUser,
   signUpUserFailed,
+  // Accredit,
+  userAccredited,
 } from "./userAuthActions";
