@@ -13,13 +13,18 @@ const {
 
 const sagaMiddleware = createReduxSagaMiddleware();
 
-const composeEnhancher = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+let composeEnhancer;
+if (process.env.NODE_ENV === "development") {
+  composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+} else {
+  composeEnhancer = compose;
+}
 
 const middlewares = [sagaMiddleware];
 
 const store = createStore(
   reducers,
-  composeEnhancher(applyMiddleware(...middlewares))
+  composeEnhancer(applyMiddleware(...middlewares))
 );
 
 sagaMiddleware.run(rootSaga);
