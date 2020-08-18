@@ -1,10 +1,11 @@
-import React from "react";
+import React, { Fragment, useEffect } from "react";
 import { Button, Icon } from "semantic-ui-react";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import history from "../../history";
+import { connect } from "react-redux";
 
-const UserMenu = () => {
+const UserMenu = ({ userAuthorized }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -20,8 +21,14 @@ const UserMenu = () => {
     history.push("/user_auth");
   };
 
+  useEffect(() => {
+    if (userAuthorized) {
+      if (history.location.pathname === "/user_auth") history.goBack();
+    }
+  }, [userAuthorized]);
+
   return (
-    <div>
+    <Fragment>
       <Button
         style={{ width: "12vw" }}
         aria-controls='simple-menu'
@@ -41,14 +48,21 @@ const UserMenu = () => {
         keepMounted
         open={Boolean(anchorEl)}
         onClose={handleClose}>
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>Saved Address</MenuItem>
-        <MenuItem onClick={handleClose}>Whishlist</MenuItem>
-
-        <MenuItem onClick={redirectToAuth}>Login/Create New Account</MenuItem>
+        {!userAuthorized ? (
+          <MenuItem onClick={redirectToAuth}>Login/Create New Account</MenuItem>
+        ) : (
+          <div>
+            <MenuItem onClick={handleClose}>Profile</MenuItem>
+            <MenuItem onClick={handleClose}>Saved Address</MenuItem>
+            <MenuItem onClick={handleClose}>Whishlist</MenuItem>
+          </div>
+        )}
+        <MenuItem onClick={handleClose}>Settings</MenuItem>
       </Menu>
-    </div>
+    </Fragment>
   );
 };
 
-export default UserMenu;
+const mapStateToProps = ({ userAuthorized }) => ({ userAuthorized });
+
+export default connect(mapStateToProps)(UserMenu);

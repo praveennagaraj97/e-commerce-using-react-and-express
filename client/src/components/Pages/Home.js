@@ -1,7 +1,14 @@
-import React from "react";
+import React, { Fragment } from "react";
+
+// Main Categories of Products!
+import { Categories } from "../Home";
 
 const Home = () => {
-  return <h1 style={{ color: "white" }}>Home</h1>;
+  return (
+    <Fragment>
+      <Categories />
+    </Fragment>
+  );
 };
 
 export default Home;
