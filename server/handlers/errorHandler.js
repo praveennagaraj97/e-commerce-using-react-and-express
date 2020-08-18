@@ -1,3 +1,7 @@
+import { resolve } from "path";
+import { config } from "dotenv";
+config({ path: resolve("config", "config.env") });
+
 export const pageNotFoundError = (req, res, next) => {
   res.status(404).json({
     message: "Page Not Found",
@@ -44,8 +48,18 @@ export const globalErrorHandler = (err, req, res, next) => {
     err.message = "nothing to show";
   }
 
-  res.status(err.statusCode).json({
-    message: err.message,
-    occuredAt: err.stack,
-  });
+  if (process.env.NODE_ENV === "development") {
+    res.status(err.statusCode).json({
+      message: err.message,
+      occuredAt: err.stack,
+    });
+  }
+
+  if (process.env.NODE_ENV === "production") {
+    res.status(err.statusCode).json({
+      message: err.message,
+    });
+  }
 };
+
+console.log(process.env.NODE_ENV);

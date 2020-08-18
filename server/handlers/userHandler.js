@@ -46,10 +46,17 @@ export const protectForReact = catchAsyncError(async (req, res, next) => {
   const { auth_token } = req.body;
   // As it is a Promise if token is expired server will respond with error
   // and our async error catcher will catch that.
-  await verifyJWToken(auth_token);
+  let verified = true;
+  if (auth_token) {
+    await verifyJWToken(auth_token);
+  } else {
+    verified = false;
+  }
+
   // This is to Tell Our API protect Routes That Token Exists
   // So we can Skip Writing one more middleware.
   // req.bearerfromReact
   req.bearerfromReact = auth_token;
+  req.verified = verified;
   next();
 });
