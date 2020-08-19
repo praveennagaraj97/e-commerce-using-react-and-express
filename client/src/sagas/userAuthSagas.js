@@ -1,4 +1,11 @@
-import { call, select, put, delay, takeLatest, take } from "redux-saga/effects";
+import {
+  call,
+  select,
+  put,
+  delay,
+  takeLatest,
+  takeEvery,
+} from "redux-saga/effects";
 
 import { USER_AUTH_TYPES, COOKIE_NAMES } from "../constants";
 import history from "../history";
@@ -7,15 +14,17 @@ import {
   authSuccessMessage,
   authFailueMessage,
   signUpUser,
+  userAccredited,
 } from "../actions";
-import { UserLogger, UserSigner } from "../api";
+import { UserLogger, UserSigner, AuthAccreditation } from "../api";
 import { useCookies } from "../utils/useCookies";
 
-const { setCookie } = useCookies;
+const { setCookie, getCookie } = useCookies;
 
 const {
   LOGIN: { LOAD_LOGIN },
   SIGNUP: { LOAD_SIGNUP },
+  USER_STATUS: { LOAD_ACCREDITATION },
 } = USER_AUTH_TYPES;
 
 const { AUTH_TOKEN } = COOKIE_NAMES;
@@ -89,7 +98,7 @@ function* handleUserLoginWorker() {
 }
 
 export function* userLoginWatcher() {
-  yield take(LOAD_LOGIN, handleUserLoginWorker);
+  yield takeLatest(LOAD_LOGIN, handleUserLoginWorker);
 }
 
 function* handleUserSignUpWorker() {
@@ -181,4 +190,18 @@ function* handleUserSignUpWorker() {
 
 export function* userSignUpWatcher() {
   yield takeLatest(LOAD_SIGNUP, handleUserSignUpWorker);
+}
+
+function* handleUserAccreditationWorker() {
+  const cookie = yield call(getCookie, AUTH_TOKEN);
+  try {
+    const { data } = yield call(AuthAccreditation, cookie);
+    yield put(userAccredited(data.message === "User is Authorized"));
+  } catch (err) {
+    // Email
+  }
+}
+
+export function* userAccreditationWatcher() {
+  yield takeEvery(LOAD_ACCREDITATION, handleUserAccreditationWorker);
 }

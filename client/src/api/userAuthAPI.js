@@ -48,7 +48,7 @@ export const signUpEndPoint = async (
   return response;
 };
 
-export const authAccreditEndPoint = async (auth_token) => {
+export const authAccreditationEndPoint = async (auth_token) => {
   const response = await axios.post(
     `${
       process.env.NODE_ENV === "production"
@@ -60,5 +60,5 @@ export const authAccreditEndPoint = async (auth_token) => {
     }
   );
 
-  return response.data;
+  return response;
 };

@@ -8,4 +8,7 @@ export {
   // signUp
   loadSignUp,
   signUpUser,
+  // accreditation
+  loadAccreditation,
+  userAccredited,
 } from "./userAuthActions";

@@ -34,8 +34,7 @@ const SignUpAndLogin = (props) => {
   const { handleSubmit, loadLogin, loadSignUp } = props;
 
   const onSubmitForm = () => {
-    if (showForm === "login") return loadLogin();
-    loadSignUp();
+    showForm === "login" ? loadLogin() : loadSignUp();
   };
 
   const keepMeSignedIn = () => {

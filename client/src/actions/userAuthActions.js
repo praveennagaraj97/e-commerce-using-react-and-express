@@ -4,6 +4,7 @@ const {
   LOGIN: { LOAD_LOGIN, LOAD_LOGGGED_USER },
   MESSAGE: { LOAD_AUTH_SUCCESS_MESSAGE, LOAD_AUTH_FAILURE_MESSAGE },
   SIGNUP: { LOAD_SIGNUP, LOAD_SIGNED_UP_USER },
+  USER_STATUS: { IS_LOGGED_IN, LOAD_ACCREDITATION },
 } = USER_AUTH_TYPES;
 
 export const loadLogin = () => ({
@@ -31,4 +32,13 @@ export const authSuccessMessage = (message) => ({
 export const authFailueMessage = (message) => ({
   type: LOAD_AUTH_FAILURE_MESSAGE,
   message,
+});
+
+// Global user logged status tracker
+
+export const loadAccreditation = () => ({ type: LOAD_ACCREDITATION });
+
+export const userAccredited = (isSigned) => ({
+  type: IS_LOGGED_IN,
+  isSigned,
 });
