@@ -2,10 +2,12 @@ import React, { Fragment, useEffect } from "react";
 import { Button, Icon } from "semantic-ui-react";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import history from "../../history";
 import { connect } from "react-redux";
 
-const UserMenu = ({ userAuthorized }) => {
+import history from "../../history";
+// import { loadLogout } from "../../actions";
+
+const UserMenu = ({ userAuthorized, loadLogout, logoutSuccess }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -19,6 +21,11 @@ const UserMenu = ({ userAuthorized }) => {
   const redirectToAuth = () => {
     handleClose();
     history.push("/user_auth");
+  };
+
+  const onClickLogout = () => {
+    handleClose();
+    loadLogout();
   };
 
   useEffect(() => {
@@ -48,7 +55,7 @@ const UserMenu = ({ userAuthorized }) => {
         keepMounted
         open={Boolean(anchorEl)}
         onClose={handleClose}>
-        {!userAuthorized ? (
+        {!userAuthorized && !logoutSuccess ? (
           <MenuItem onClick={redirectToAuth}>Login/Create New Account</MenuItem>
         ) : (
           <div>
@@ -58,11 +65,24 @@ const UserMenu = ({ userAuthorized }) => {
           </div>
         )}
         <MenuItem onClick={handleClose}>Settings</MenuItem>
+
+        {userAuthorized && !logoutSuccess ? (
+          <MenuItem onClick={onClickLogout}>LogOut</MenuItem>
+        ) : (
+          ""
+        )}
       </Menu>
     </Fragment>
   );
 };
 
-const mapStateToProps = ({ userAuthorized }) => ({ userAuthorized });
+const mapStateToProps = ({ userAuthorized, logoutSuccess }) => ({
+  userAuthorized,
+  logoutSuccess,
+});
 
-export default connect(mapStateToProps)(UserMenu);
+const mapDispatchToProps = (dispatch) => ({
+  // loadLogout: () => dispatch(loadLogout()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserMenu);

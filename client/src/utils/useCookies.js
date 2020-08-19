@@ -2,9 +2,9 @@ export class useCookies {
   // expires Takes 1d 24h and infinite or in seconds;
   static setCookie(name, value, expiresIn) {
     if (expiresIn === "24h") expiresIn = 86400;
-    if (expiresIn.includes("d")) expiresIn = expiresIn.split("d")[0] * 86400;
+    else if (expiresIn === "infinite") expiresIn = 84600 * 365 * 5;
+    else expiresIn = 86400;
 
-    if (expiresIn === "infinite") expiresIn = 84600 * 365 * 5;
     document.cookie = `${name}=${value} ;max-age=${expiresIn};SameSite=Strict;Path=/`;
   }
 

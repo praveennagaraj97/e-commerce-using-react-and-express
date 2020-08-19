@@ -10,13 +10,14 @@ const Form = (props) => {
     onSubmitFormValues,
     formSelected,
     buttonToShow,
+    signedInOption,
   } = props;
 
   return (
     <div className='form-container'>
       <form
         style={{ padding: "8% 0%" }}
-        autoComplete='off'
+        autoComplete={process.env.NODE_ENV === "development" ? "on" : "off"}
         onSubmit={handleSubmit(onSubmitFormValues)}
         noValidate>
         {formSelected.map(({ htmlFor, label, type }, index) => {
@@ -34,6 +35,8 @@ const Form = (props) => {
             </div>
           );
         })}
+        {signedInOption}
+
         <Button style={{ backgroundColor: "white" }} type='submit'>
           {buttonToShow}
         </Button>

@@ -1,13 +1,11 @@
 export {
+  // Global Messenger
+  authSuccessMessage,
+  authFailueMessage,
   // Login
   loadLogin,
   loginUser,
-  loginUserFailed,
-  loginSuccess,
-  // SignUp
-  loadSignup,
+  // signUp
+  loadSignUp,
   signUpUser,
-  signUpUserFailed,
-  // Accredit,
-  userAccredited,
 } from "./userAuthActions";

@@ -1,14 +1,9 @@
 import { USER_AUTH_TYPES } from "../constants";
 
 const {
-  LOGIN: {
-    LOAD_LOGIN,
-    LOAD_LOGIN_SUCCESS,
-    LOAD_LOGIN_FAILURE,
-    LOAD_LOGGED_SUCCESS,
-  },
-  SIGNUP: { LOAD_SIGNUP, LOAD_SIGNUP_SUCCESS, LOAD_SIGNUP_FAILURE },
-  AUTH: { ACCREDITED, LOAD_ACCREDIT },
+  LOGIN: { LOAD_LOGIN, LOAD_LOGGGED_USER },
+  MESSAGE: { LOAD_AUTH_SUCCESS_MESSAGE, LOAD_AUTH_FAILURE_MESSAGE },
+  SIGNUP: { LOAD_SIGNUP, LOAD_SIGNED_UP_USER },
 } = USER_AUTH_TYPES;
 
 export const loadLogin = () => ({
@@ -16,37 +11,24 @@ export const loadLogin = () => ({
 });
 
 export const loginUser = (response) => ({
-  type: LOAD_LOGIN_SUCCESS,
+  type: LOAD_LOGGGED_USER,
   response,
 });
 
-export const loginUserFailed = (error) => ({
-  type: LOAD_LOGIN_FAILURE,
-  error,
+export const loadSignUp = () => ({ type: LOAD_SIGNUP });
+
+export const signUpUser = (response) => ({
+  type: LOAD_SIGNED_UP_USER,
+  response,
 });
 
-export const loginSuccess = (message) => ({
-  type: LOAD_LOGGED_SUCCESS,
+// Global Success message for user auth activity!
+export const authSuccessMessage = (message) => ({
+  type: LOAD_AUTH_SUCCESS_MESSAGE,
   message,
 });
 
-export const loadSignup = () => ({
-  type: LOAD_SIGNUP,
-});
-
-export const signUpUser = (response) => ({
-  type: LOAD_SIGNUP_SUCCESS,
-  response,
-});
-
-export const signUpUserFailed = (error) => ({
-  type: LOAD_SIGNUP_FAILURE,
-  error,
-});
-
-export const loadUserAccredite = () => ({ type: LOAD_ACCREDIT });
-
-export const userAccredited = (isAccredited) => ({
-  type: ACCREDITED,
-  isAccredited,
+export const authFailueMessage = (message) => ({
+  type: LOAD_AUTH_FAILURE_MESSAGE,
+  message,
 });

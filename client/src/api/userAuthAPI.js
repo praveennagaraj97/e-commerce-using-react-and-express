@@ -2,7 +2,7 @@ import axios from "axios";
 
 import { API_BASE_URL_LIVE, API_BASE_URL_LOCAL } from "./index";
 
-export const loginEndPoint = async (email, password) => {
+export const loginEndPoint = async (email, password, expiresIn) => {
   const response = await axios.post(
     `${
       process.env.NODE_ENV === "production"
@@ -12,10 +12,11 @@ export const loginEndPoint = async (email, password) => {
     {
       email,
       password,
+      expiresIn,
     }
   );
 
-  return response.data;
+  return response;
 };
 
 export const signUpEndPoint = async (
@@ -44,7 +45,7 @@ export const signUpEndPoint = async (
     }
   );
 
-  return response.data;
+  return response;
 };
 
 export const authAccreditEndPoint = async (auth_token) => {
