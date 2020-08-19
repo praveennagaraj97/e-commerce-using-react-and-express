@@ -1,0 +1,32 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "categoryName": "Mobiles",
+      "categoryLogo": "mobilelogo"
+    },
+    {
+      "id": 2,
+      "categoryName": "Pet",
+      "categoryLogo": "Pet Logo"
+    },
+    {
+      "id": 3,
+      "categoryName": "Kitchen",
+      "categoryLogo": "Kitchen Logo"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "productName": "Preethi Mixer 950 watt",
+      "productPrice": 3975,
+      "images": [
+        "grinde1",
+        "grinde2",
+        "grinde3"
+      ],
+      "category": "3"
+    }
+  ]
+}

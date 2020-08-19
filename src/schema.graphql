@@ -1,0 +1,40 @@
+type Query {
+  categories: [Category!]
+  products: [Product!]
+}
+
+type Mutation {
+  addCategorie(data: createCategoryInput!): Category!
+  addProduct(data: createProductInput!): Product!
+}
+
+type Subscription {
+  count: Int!
+}
+
+type Category {
+  id: ID!
+  categoryName: String!
+  categoryLogo: String!
+  products: [Product!]
+}
+
+type Product {
+  id: ID!
+  productName: String!
+  productPrice: Float!
+  images: [String!]
+  category: Category!
+}
+
+input createCategoryInput {
+  categoryName: String!
+  categoryLogo: String!
+}
+
+input createProductInput {
+  productName: String!
+  productPrice: Float!
+  images: [String!]
+  category: ID!
+}
