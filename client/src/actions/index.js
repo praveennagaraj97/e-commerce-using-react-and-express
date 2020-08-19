@@ -11,4 +11,6 @@ export {
   // accreditation
   loadAccreditation,
   userAccredited,
+  // LogoutUser
+  loadLogout,
 } from "./userAuthActions";

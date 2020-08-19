@@ -19,12 +19,13 @@ import {
 import { UserLogger, UserSigner, AuthAccreditation } from "../api";
 import { useCookies } from "../utils/useCookies";
 
-const { setCookie, getCookie } = useCookies;
+const { setCookie, getCookie, removeCookie } = useCookies;
 
 const {
   LOGIN: { LOAD_LOGIN },
   SIGNUP: { LOAD_SIGNUP },
   USER_STATUS: { LOAD_ACCREDITATION },
+  USER_LOGOUT: { LOAD_LOGOUT },
 } = USER_AUTH_TYPES;
 
 const { AUTH_TOKEN } = COOKIE_NAMES;
@@ -80,7 +81,9 @@ function* handleUserLoginWorker() {
       data.token,
       values.signedIn ? "infinite" : "24"
     );
+
     yield history.goBack();
+    yield call(handleUserAccreditationWorker);
     yield delay(3200);
     yield put(authSuccessMessage(null));
   } catch (err) {
@@ -172,6 +175,7 @@ function* handleUserSignUpWorker() {
     yield put(authSuccessMessage("Thank You ,keep shopping!🐱‍🏍"));
     yield call(setCookie, AUTH_TOKEN, data.token);
     yield history.goBack();
+    yield call(handleUserAccreditationWorker);
     yield delay(3200);
     yield put(authSuccessMessage(null));
   } catch (err) {
@@ -204,4 +208,16 @@ function* handleUserAccreditationWorker() {
 
 export function* userAccreditationWatcher() {
   yield takeEvery(LOAD_ACCREDITATION, handleUserAccreditationWorker);
+}
+
+function* handleUserLogoutWorker() {
+  yield call(removeCookie, AUTH_TOKEN);
+  yield put(authSuccessMessage("Logged Out Successfully, come back soon!🐱‍"));
+  yield call(handleUserAccreditationWorker);
+  yield delay(3200);
+  yield put(authSuccessMessage(null));
+}
+
+export function* userLogoutWatcher() {
+  yield takeEvery(LOAD_LOGOUT, handleUserLogoutWorker);
 }

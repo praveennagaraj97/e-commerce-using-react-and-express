@@ -5,6 +5,7 @@ const {
   MESSAGE: { LOAD_AUTH_SUCCESS_MESSAGE, LOAD_AUTH_FAILURE_MESSAGE },
   SIGNUP: { LOAD_SIGNUP, LOAD_SIGNED_UP_USER },
   USER_STATUS: { IS_LOGGED_IN, LOAD_ACCREDITATION },
+  USER_LOGOUT: { LOAD_LOGOUT },
 } = USER_AUTH_TYPES;
 
 export const loadLogin = () => ({
@@ -42,3 +43,6 @@ export const userAccredited = (isSigned) => ({
   type: IS_LOGGED_IN,
   isSigned,
 });
+
+// Logout will clear cookie
+export const loadLogout = () => ({ type: LOAD_LOGOUT });

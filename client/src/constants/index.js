@@ -15,6 +15,10 @@ export const USER_AUTH_TYPES = {
     LOAD_ACCREDITATION: "LOAD_ACCREDITATION",
     IS_LOGGED_IN: "IS_LOGGED_IN",
   },
+
+  USER_LOGOUT: {
+    LOAD_LOGOUT: "LOAD_LOGOUT",
+  },
 };
 
 export const COOKIE_NAMES = {

@@ -5,9 +5,9 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { connect } from "react-redux";
 
 import history from "../../history";
-// import { loadLogout } from "../../actions";
+import { loadLogout } from "../../actions";
 
-const UserMenu = ({ userAuthorized, loadLogout, logoutSuccess }) => {
+const UserMenu = ({ userAccredited, loadLogout }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -29,10 +29,10 @@ const UserMenu = ({ userAuthorized, loadLogout, logoutSuccess }) => {
   };
 
   useEffect(() => {
-    if (userAuthorized) {
+    if (userAccredited) {
       if (history.location.pathname === "/user_auth") history.goBack();
     }
-  }, [userAuthorized]);
+  }, [userAccredited]);
 
   return (
     <Fragment>
@@ -55,7 +55,7 @@ const UserMenu = ({ userAuthorized, loadLogout, logoutSuccess }) => {
         keepMounted
         open={Boolean(anchorEl)}
         onClose={handleClose}>
-        {!userAuthorized && !logoutSuccess ? (
+        {!userAccredited ? (
           <MenuItem onClick={redirectToAuth}>Login/Create New Account</MenuItem>
         ) : (
           <div>
@@ -66,7 +66,7 @@ const UserMenu = ({ userAuthorized, loadLogout, logoutSuccess }) => {
         )}
         <MenuItem onClick={handleClose}>Settings</MenuItem>
 
-        {userAuthorized && !logoutSuccess ? (
+        {userAccredited ? (
           <MenuItem onClick={onClickLogout}>LogOut</MenuItem>
         ) : (
           ""
@@ -76,13 +76,12 @@ const UserMenu = ({ userAuthorized, loadLogout, logoutSuccess }) => {
   );
 };
 
-const mapStateToProps = ({ userAuthorized, logoutSuccess }) => ({
-  userAuthorized,
-  logoutSuccess,
+const mapStateToProps = ({ userAccredited }) => ({
+  userAccredited,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  // loadLogout: () => dispatch(loadLogout()),
+  loadLogout: () => dispatch(loadLogout()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserMenu);
