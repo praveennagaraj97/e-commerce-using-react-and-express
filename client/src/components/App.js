@@ -9,6 +9,10 @@ import "../styles/app.scss";
 import { navItems } from "../data";
 import Pages from "./Pages";
 import SignUpAndLogin from "./User/SignUpAndLogin";
+import ProductCategories from "./Product/ProductCategories";
+
+import ProductDisplay from "./Product/ProductDisplay";
+
 import history from "../history";
 
 const { Home, Supreme, LexaPay, Service, Orders, Cart } = Pages;
@@ -32,6 +36,9 @@ const App = () => {
       <Router history={history}>
         <TopHeader windowWidth={windowWidth} />
         <SecondaryHeader navItems={navItems} windowWidth={windowWidth} />
+        <div className='product-categories'>
+          <ProductCategories />
+        </div>
         <Switch>
           <Route exact path='/' component={Home} />
           <Route exact path='/service' component={Service} />
@@ -40,6 +47,11 @@ const App = () => {
           <Route exact path='/supreme' component={Supreme} />
           <Route exact path='/cart' component={Cart} />
           <Route exact path='/user_auth' component={SignUpAndLogin} />
+          <Route
+            exact
+            path='/categories/:categoryName'
+            component={ProductDisplay}
+          />
         </Switch>
       </Router>
       <Notifer />

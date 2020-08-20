@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
-
 import axios from "axios";
 
+import history from "../../history";
 import "../../styles/productCategories.scss";
 
 export const ProductCategories = () => {
@@ -18,12 +18,18 @@ export const ProductCategories = () => {
       });
   }, []);
 
+  const onCategoryClick = (title) => {
+    history.push(`/categories/${title}`);
+  };
+
   return (
     <Fragment>
       {categories.map(({ title, icon }) => {
         return (
           <Fragment key={title}>
-            <div className='product-category-container'>
+            <div
+              onClick={() => onCategoryClick(title)}
+              className='product-category-container'>
               <div className='product-category-item'>
                 <img
                   className='product-category-item__icon'

@@ -5,3 +5,14 @@ html {
 body {
   background-color: black !important;
 }
+
+.product-categories {
+  background-color: #1b1c1d;
+  margin: 4px !important;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: auto;
+  padding: 0 1vh;
+}

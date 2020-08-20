@@ -1,3 +1,18 @@
-import Categories from "./Categories";
+import React, { Fragment } from "react";
 
-export { Categories };
+import ProductAdvertisementBoard from "../Product/ProductAdvertisementBoard";
+
+const HomePage = () => {
+  return (
+    <Fragment>
+      <h1 style={{ textAlign: "center", color: "wheat" }}>
+        <span>Everything you love,</span>
+        <span>is online.</span>
+      </h1>
+
+      <ProductAdvertisementBoard />
+    </Fragment>
+  );
+};
+
+export default HomePage;

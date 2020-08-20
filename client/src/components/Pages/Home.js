@@ -1,12 +1,12 @@
 import React, { Fragment } from "react";
 
 // Main Categories of Products!
-import { Categories } from "../Home";
+import HomePage from "../Home";
 
 const Home = () => {
   return (
     <Fragment>
-      <Categories />
+      <HomePage />
     </Fragment>
   );
 };
