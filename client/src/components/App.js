@@ -17,6 +17,10 @@ import history from "../history";
 
 const { Home, Supreme, LexaPay, Service, Orders, Cart } = Pages;
 
+const displayProductCategory = [...Object.keys(Pages)]
+  .filter((each) => each !== "Cart")
+  .map((each) => each.toLowerCase());
+
 const App = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -30,14 +34,14 @@ const App = () => {
         setWindowWidth(window.innerWidth);
       });
   });
-
   return (
     <div>
       <Router history={history}>
         <TopHeader windowWidth={windowWidth} />
         <SecondaryHeader navItems={navItems} windowWidth={windowWidth} />
+
         <div className='product-categories'>
-          <ProductCategories />
+          <ProductCategories displayProductCategory={displayProductCategory} />
         </div>
         <Switch>
           <Route exact path='/' component={Home} />

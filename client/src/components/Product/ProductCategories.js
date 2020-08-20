@@ -3,8 +3,12 @@ import axios from "axios";
 
 import history from "../../history";
 import "../../styles/productCategories.scss";
+import { withRouter } from "react-router-dom";
 
-export const ProductCategories = () => {
+export const ProductCategories = ({
+  displayProductCategory,
+  location: { pathname },
+}) => {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -25,7 +29,7 @@ export const ProductCategories = () => {
   return (
     <Fragment>
       {categories.map(({ title, icon }) => {
-        return (
+        return !displayProductCategory.includes(pathname.split("/")[1]) ? (
           <Fragment key={title}>
             <div
               onClick={() => onCategoryClick(title)}
@@ -40,10 +44,12 @@ export const ProductCategories = () => {
               <p className='product-category-item__title'>{title}</p>
             </div>
           </Fragment>
+        ) : (
+          ""
         );
       })}
     </Fragment>
   );
 };
 
-export default ProductCategories;
+export default withRouter(ProductCategories);
