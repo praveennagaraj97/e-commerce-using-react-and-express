@@ -18,11 +18,7 @@ export const serverCloser = (server, mongooseConnection) =>
 //   UnCaught Exception Handler
 export const unCaughtExceptionErrorHandler = (err) => {
   console.log(err.name, err.message);
-  console.log(
-    `Error occured at ${
-      err.stack.split("at Object.<anonymous>")[1].split("at Module._compile")[0]
-    }`
-  );
+  console.log(err);
 };
 
 const handleMongoError = (errName) => {

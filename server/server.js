@@ -1,4 +1,4 @@
-import { connect } from "mongoose";
+import { connect, connection } from "mongoose";
 
 import app from "./app";
 import { serverCloser } from "./handlers/errorHandler";
@@ -23,5 +23,6 @@ const server = app.listen(process.env.PORT || 8080, () => {
 
 process.on("unhandledRejection", (err) => {
   console.log(err.name, err.message);
+  console.log(err);
   serverCloser(server, connection);
 });

@@ -67,3 +67,6 @@ node_modules
 
 #yaml
 gcloud.yaml
+
+# GAPI config
+lexa-api.json
