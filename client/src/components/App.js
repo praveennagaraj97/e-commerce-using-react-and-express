@@ -1,30 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
-import "animate.css";
-
-import TopHeader from "./Header/TopHeader";
-import SecondaryHeader from "./Header/SecondaryHeader";
-import "../styles/app.scss";
-import { navItems } from "../data/navLinks";
-
-export default (props) => {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
-  useEffect(() => {
-    window.addEventListener("resize", () => {
-      setWindowWidth(window.innerWidth);
-    });
-
-    return () =>
-      window.removeEventListener("resize", () => {
-        setWindowWidth(window.innerWidth);
-      });
-  });
-
+const App = () => {
   return (
     <div>
-      <TopHeader windowWidth={windowWidth} />
-      <SecondaryHeader navItems={navItems} windowWidth={windowWidth} />
+      <h1>APp</h1>
     </div>
   );
 };
+
+export default App;
