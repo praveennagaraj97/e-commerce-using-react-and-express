@@ -1,10 +1,6 @@
 import catchAsyncError from "../utils/catchAsyncError";
 import { AppError } from "../utils/AppError";
-import {
-  generateJWToken,
-  verifyJWToken,
-  isJWTokenValid,
-} from "../utils/jsonWebToken";
+import { generateJWToken, verifyJWToken } from "../utils/jsonWebToken";
 
 export const signUpHandler = (ModelName, responseMessage) =>
   catchAsyncError(async (req, res, next) => {
