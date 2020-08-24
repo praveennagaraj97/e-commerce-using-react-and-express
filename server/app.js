@@ -15,17 +15,15 @@ import {
   unCaughtExceptionErrorHandler,
   globalErrorHandler,
 } from "./handlers/errorHandler";
-import { multerSetup } from "./utils/multerSetup";
 
 import { userRouter } from "./route/userRouter";
-import { productRouter } from "./route/productRouter";
+import { categoryRouter } from "./route/categoryRouter";
 
 dotenvConfig();
 process.on("uncaughtException", unCaughtExceptionErrorHandler);
 
 const app = express();
 
-app.use(multerSetup().array("image"));
 // Logger
 app.use(morgon("dev"));
 
@@ -68,7 +66,7 @@ app.use(cookieParser());
 app.disable("x-powered-by");
 
 app.use("/api/v1", userRouter);
-app.use("/api/v1", productRouter);
+app.use("/api/v1", categoryRouter);
 
 app.use("*", pageNotFoundError);
 

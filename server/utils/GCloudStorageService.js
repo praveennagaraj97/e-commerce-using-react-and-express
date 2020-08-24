@@ -1,7 +1,7 @@
 import { Storage } from "@google-cloud/storage";
 import { resolve } from "path";
 
-export class GCloudServices {
+export class GCloudStorageServices {
   constructor() {
     this.storage = new Storage({
       projectId: "lexa-api",
@@ -72,4 +72,25 @@ export class GCloudServices {
         .end(buffer);
     });
   }
+
+  // Final uploader function
 }
+
+const {
+  createStorage,
+  uploadImage,
+  listBuckets,
+  storageBucketAssigner,
+} = new GCloudStorageServices();
+
+export const uploadImageToGoogle = async (file, bucketName) => {
+  const bucketsList = await listBuckets();
+  if (!bucketsList.includes(bucketName)) {
+    await createStorage(bucketName);
+  } else {
+    console.log(`bucket name : ${bucketName} already exists!!!`);
+  }
+  const googleStorage = storageBucketAssigner(bucketName);
+  const publicUrl = await uploadImage(file, googleStorage);
+  return publicUrl;
+};

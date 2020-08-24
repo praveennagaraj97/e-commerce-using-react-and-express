@@ -1,23 +1,13 @@
 import { AppError } from "../utils/AppError";
 import catchAsyncError from "../utils/catchAsyncError";
-import { GCloudServices } from "../utils/GCloudService";
 
-const {
-  createStorage,
-  uploadImage,
-  listBuckets,
-  storageBucketAssigner,
-} = new GCloudServices();
-
-export const uploadSingleImageToGoogle = (bucketName) =>
+export const createNewDocumnet = (ModelName, responseMessage) =>
   catchAsyncError(async (req, res, next) => {
-    const bucketsList = await listBuckets();
-    if (!bucketsList.includes(bucketName)) {
-      await createStorage(bucketName);
-    } else {
-      console.log(`bucket name : ${bucketName} already exists!!!`);
-    }
-    const googleStorage = storageBucketAssigner(bucketName);
-    const response = await uploadImage(req.files[0], googleStorage);
-    res.send(response);
+    const response = await ModelName.create(req.body);
+    if (!response) return next(new AppError("request failed", 422));
+
+    res.status(201).json({
+      message: responseMessage.message,
+      details: response,
+    });
   });
