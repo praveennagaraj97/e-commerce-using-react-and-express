@@ -62,11 +62,15 @@ app.use(express.urlencoded({ extended: true }));
 // Cookie Parser
 app.use(cookieParser());
 
-// x-powered-by
-app.disable("x-powered-by");
+app.get("/", (req, res, next) => {
+  res.send(`<h1>Lexa Ecommerce Api Build By</h1>
+  <h3>Praveen Nagaraj</h3>`);
+});
 
-app.use("/api/v1", userRouter);
 app.use("/api/v1", categoryRouter);
+
+app.use("/v1", limiter);
+app.use("/api/v1", userRouter);
 
 app.use("*", pageNotFoundError);
 
