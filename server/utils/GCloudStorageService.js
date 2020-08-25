@@ -63,7 +63,7 @@ export class GCloudStorageServices {
       });
       blobStream
         .on("finish", () => {
-          const publicUrl = `https://storage.cloud.google.com/${storageBucket.name}/${blob.name}`;
+          const publicUrl = `https://storage.googleapis.com/${storageBucket.name}/${blob.name}`;
           resolve(publicUrl);
         })
         .on("error", () => {
