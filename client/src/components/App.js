@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
-import { Route, BrowserRouter } from "react-router-dom";
+import { Route, Router } from "react-router-dom";
+import history from "../history";
 
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -37,10 +38,10 @@ const App = () => {
           </Toolbar>
         </AppBar>
       </div>
-      <BrowserRouter>
+      <Router history={history}>
         <Route exact path='/' component={HomePage} />
         <Route exact path='/category' component={CategoryPage} />
-      </BrowserRouter>
+      </Router>
     </Fragment>
   );
 };

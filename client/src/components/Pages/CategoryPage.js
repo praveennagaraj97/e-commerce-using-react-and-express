@@ -1,16 +1,20 @@
-import React, { Fragment, useRef, useState } from "react";
+import React, { Fragment, useRef } from "react";
 import { reduxForm } from "redux-form";
 import { connect } from "react-redux";
 
 import Form from "../Form";
 import { categoryPage } from "../data";
 import MessageDisplay from "../MessageDisplay";
+import ModalLoader from "../Modal";
 
-import Axios from "axios";
+import { loadCrud, createCategory, globalError } from "../../actions";
 
-const CategoryPage = (props) => {
-  const { handleSubmit } = props;
-
+const CategoryPage = ({
+  handleSubmit,
+  loadCrud,
+  createCategory,
+  globalError,
+}) => {
   const file = useRef();
 
   const fileUpload = () => {
@@ -29,25 +33,17 @@ const CategoryPage = (props) => {
     );
   };
 
-  const onSubmitFormValues = (formValues) => {
+  const onSubmitFormValues = ({ categoryName }) => {
+    loadCrud(true);
     const data = new FormData();
     for (let i = 0; i < file.current.length; i++) {
       data.append("categoryImage", file.current[i]);
     }
 
-    data.append("categoryName", formValues.categoryName);
+    data.append("categoryImage", data);
+    data.append("categoryName", categoryName);
 
-    Axios.post("http://localhost:8080/api/v1/dev/addNewCategory", data)
-      .then((response) => {
-        alert(response.data.message);
-      })
-      .catch((err) => {
-        try {
-          alert(err.response.data.message);
-        } catch (err) {
-          alert("Something went wrong");
-        }
-      });
+    createCategory(data);
   };
 
   return (
@@ -59,6 +55,7 @@ const CategoryPage = (props) => {
         onSubmitFormValues={onSubmitFormValues}
       />
       <MessageDisplay />
+      <ModalLoader />
     </Fragment>
   );
 };
@@ -67,4 +64,10 @@ const FormWrapped = reduxForm({
   form: "CategoryForm",
 })(CategoryPage);
 
-export default connect(null, null)(FormWrapped);
+const mapDispatchToProps = (dispatch) => ({
+  loadCrud: (boolean) => dispatch(loadCrud(boolean)),
+  createCategory: (data) => dispatch(createCategory(data)),
+  globalError: (error) => dispatch(globalError(error)),
+});
+
+export default connect(null, mapDispatchToProps)(FormWrapped);

@@ -1,0 +1,1 @@
+export { addNewCategory } from "./categoryEndpoints";
