@@ -1,20 +1,19 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
 
 import "../../styles/productAdvertisement.scss";
 
 const ProductAdvertisementBoard = () => {
-  const [advertisement, setAdvertisement] = useState("");
+  const advertisement = "";
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3002/advertisement")
-      .then((response) => {
-        setAdvertisement(response.data.wallImage);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // axios
+    //   .get("http://localhost:3002/advertisement")
+    //   .then((response) => {
+    //     setAdvertisement(response.data.wallImage);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   }, []);
 
   return (

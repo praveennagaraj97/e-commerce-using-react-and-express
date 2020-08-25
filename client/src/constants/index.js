@@ -1,3 +1,6 @@
+export const GLOBAL_ERROR = "GLOBAL_ERROR";
+export const WEBSITE_LOAD = "WEBSITE_LOAD";
+
 export const USER_AUTH_TYPES = {
   LOGIN: {
     LOAD_LOGIN: "LOAD_LOGIN",
@@ -23,4 +26,8 @@ export const USER_AUTH_TYPES = {
 
 export const COOKIE_NAMES = {
   AUTH_TOKEN: "AUTH_TOKEN",
+};
+
+export const PRODUCT_TYPES = {
+  GET_ALL_CATEGORIES: "GET_ALL_CATEGORIES",
 };
