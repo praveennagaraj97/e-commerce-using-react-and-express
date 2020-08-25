@@ -1,16 +1,31 @@
 import { Router } from "express";
+import multer from "multer";
+
 import {
-  createNewCategory,
+  // create
+  preCheckCategoryInputs,
   getCatgoryImageProcessed,
   categoryImageLink,
+  createNewCategory,
+
+  // Fetch all categories
+  getAllCategories,
 } from "../controller/categoriesController";
-import { multerSetup } from "../utils/multerSetup";
 
 export const categoryRouter = Router();
 
-// Developers Only..
+const upload = multer();
 
+// Public Routes
+categoryRouter.route("/getAllCategories").get(getAllCategories);
+
+// Developers Only Routes..
 categoryRouter
-  .use(multerSetup().array("categoryImage"))
+  .use(upload.array("categoryImage"))
   .route("/dev/addNewCategory")
-  .post(getCatgoryImageProcessed, categoryImageLink, createNewCategory);
+  .post(
+    preCheckCategoryInputs,
+    getCatgoryImageProcessed,
+    categoryImageLink,
+    createNewCategory
+  );
