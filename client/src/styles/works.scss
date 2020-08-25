@@ -1,0 +1,12 @@
+.works-column {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 4vh 5vw;
+  grid-gap: 5px;
+}
+
+.crudOperations {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+}
