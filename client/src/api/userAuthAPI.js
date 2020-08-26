@@ -1,9 +1,9 @@
-import axios from "axios";
+import Axios from "axios";
 
 import { API_BASE_URL_LIVE, API_BASE_URL_LOCAL } from "./index";
 
 export const loginEndPoint = async (email, password, expiresIn) => {
-  const response = await axios.post(
+  const response = await Axios.post(
     `${
       process.env.NODE_ENV === "production"
         ? API_BASE_URL_LIVE
@@ -34,7 +34,7 @@ export const signUpEndPoint = async (
     phoneNumber,
   };
 
-  const response = await axios.post(
+  const response = await Axios.post(
     `${
       process.env.NODE_ENV === "production"
         ? API_BASE_URL_LIVE
@@ -49,7 +49,7 @@ export const signUpEndPoint = async (
 };
 
 export const authAccreditationEndPoint = async (auth_token) => {
-  const response = await axios.post(
+  const response = await Axios.post(
     `${
       process.env.NODE_ENV === "production"
         ? API_BASE_URL_LIVE
