@@ -7,6 +7,6 @@ export const getAllCategoriesEndpoint = async () => {
       process.env.NODE_ENV === "production"
         ? API_BASE_URL_LIVE
         : API_BASE_URL_LOCAL
-    }/api/v1/getAllCategories`
+    }/api/v1/category/getAllCategories`
   );
 };

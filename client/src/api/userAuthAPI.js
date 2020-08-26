@@ -8,7 +8,7 @@ export const loginEndPoint = async (email, password, expiresIn) => {
       process.env.NODE_ENV === "production"
         ? API_BASE_URL_LIVE
         : API_BASE_URL_LOCAL
-    }/api/v1/signin`,
+    }/api/v1/user/signin`,
     {
       email,
       password,
@@ -39,7 +39,7 @@ export const signUpEndPoint = async (
       process.env.NODE_ENV === "production"
         ? API_BASE_URL_LIVE
         : API_BASE_URL_LOCAL
-    }/api/v1/signup`,
+    }/api/v1/user/signup`,
     {
       ...signUpFields,
     }
@@ -54,7 +54,7 @@ export const authAccreditationEndPoint = async (auth_token) => {
       process.env.NODE_ENV === "production"
         ? API_BASE_URL_LIVE
         : API_BASE_URL_LOCAL
-    }/api/v1/accredit`,
+    }/api/v1/user/accredit`,
     {
       auth_token,
     }
