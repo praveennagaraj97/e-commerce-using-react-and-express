@@ -18,6 +18,7 @@ import {
 
 import { userRouter } from "./route/userRouter";
 import { categoryRouter } from "./route/categoryRouter";
+import { productRouter } from "./route/productRouter";
 
 dotenvConfig();
 process.on("uncaughtException", unCaughtExceptionErrorHandler);
@@ -50,7 +51,7 @@ app.use(xss());
 
 // 130 Requests Per Hour Rate-Limiter
 const limiter = rateLimit({
-  max: 130,
+  max: 30,
   windowMs: 60 * 60 * 1000,
   message: "Too Many Request Please Try Again After 1 hr",
 });
@@ -67,10 +68,11 @@ app.get("/", (req, res, next) => {
   <h3>Praveen Nagaraj</h3>`);
 });
 
-app.use("/api/v1", categoryRouter);
+app.use("/api/v1/category", categoryRouter);
+app.use("/api/v1/product", productRouter);
 
-app.use("/v1", limiter);
-app.use("/api/v1", userRouter);
+app.use("/api/v1/user", limiter);
+app.use("/api/v1/user", userRouter);
 
 app.use("*", pageNotFoundError);
 
