@@ -10,5 +10,6 @@ export const accreditReact = (req, res, next) => {
 
   res.status(200).json({
     message: "User is Authorized",
+    user: req.user._id,
   });
 };
