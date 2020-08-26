@@ -67,6 +67,7 @@ export const protectForReact = (ModelName) =>
 export const protectRoute = (ModelName) =>
   catchAsyncError(async (req, res, next) => {
     // If the token is from react app authenticate the use as token is already verified
+
     if (req.bearerfromReact) {
       return next();
     }
@@ -111,12 +112,14 @@ export const updateUserDetails = (ModelName, responseMessage) =>
 
 export const createSellerAccount = (ModelName, responseMessage) =>
   catchAsyncError(async (req, res, next) => {
+    console.log(req.body);
+
     req.body.warehouseLocation = req.body.warehouseLocation
       .split(",")
       .map((each) => Number(each));
     const sellerData = { ...req.body };
 
-    sellerData.userId = req.user._id;
+    sellerData.userId = req.user._id || req.body.userId;
 
     delete sellerData.warehouseLocation;
 
@@ -125,6 +128,11 @@ export const createSellerAccount = (ModelName, responseMessage) =>
       coordinates: req.body.warehouseLocation,
     };
 
+    console.log(sellerData);
+
     const seller = await ModelName.create(sellerData);
-    res.send(seller);
+    res.status(201).json({
+      responseMessage,
+      seller,
+    });
   });
