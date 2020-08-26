@@ -30,6 +30,4 @@ userRouter
 
 // Don't Modify This Route
 // Modifing will cause react app to shut Down.
-userRouter
-  .route("/accredit")
-  .post(protectForReact, protectRoutes, accreditReact);
+userRouter.route("/accredit").post(protectForReact, accreditReact);

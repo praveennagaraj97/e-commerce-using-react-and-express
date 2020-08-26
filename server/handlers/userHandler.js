@@ -38,6 +38,7 @@ export const signInHandler = (ModelName, responseMessage) =>
   });
 
 // This is Actually an Middleware
+// Make sure pass auth_token with req body wherever protected routes are called
 export const protectForReact = (ModelName) =>
   catchAsyncError(async (req, res, next) => {
     // If Request is from Express/Postman API
