@@ -10,6 +10,7 @@ import {
 
   // Fetch all categories
   getAllCategories,
+  updateCategory,
 } from "../controller/categoriesController";
 
 export const categoryRouter = Router();
@@ -29,3 +30,5 @@ categoryRouter
     categoryImageLink,
     createNewCategory
   );
+
+categoryRouter.route("/dev/:id/updateCategory").patch(updateCategory);

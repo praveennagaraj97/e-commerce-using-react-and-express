@@ -1,5 +1,9 @@
 import Category from "../model/categoryModel";
-import { createNewDocumnet, readAllDocument } from "../handlers/factoryHandler";
+import {
+  createNewDocumnet,
+  readAllDocument,
+  updateDocumentByID,
+} from "../handlers/factoryHandler";
 import {
   handleImageUpload,
   processSingleImage,
@@ -17,4 +21,8 @@ export const createNewCategory = createNewDocumnet(Category, {
 
 export const getAllCategories = readAllDocument(Category, {
   message: "List Of Categories",
+});
+
+export const updateCategory = updateDocumentByID(Category, {
+  message: "Category Update Successfully",
 });

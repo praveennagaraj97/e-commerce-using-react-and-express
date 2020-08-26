@@ -5,7 +5,7 @@ import { serverCloser } from "./handlers/errorHandler";
 
 connect(process.env.URIS, {
   useCreateIndex: true,
-  useFindAndModify: true,
+  useFindAndModify: false,
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })

@@ -23,3 +23,29 @@ export const readAllDocument = (ModelName, responseMessage) =>
       details: response,
     });
   });
+
+export const updateDocumentByID = (ModelName, responseMessage) =>
+  catchAsyncError(async (req, res, next) => {
+    if (!Object.keys(req.body).length)
+      return next(new AppError("Document Not Changed As No Values Given", 304));
+
+    console.log(req.params);
+    console.log(req.body);
+
+    const docx = await ModelName.findByIdAndUpdate(req.params.id, req.body, {
+      upsert: true,
+      runValidators: true,
+      setDefaultsOnInsert: true,
+      context: "query",
+      new: true,
+    });
+
+    if (!docx)
+      return next(
+        new AppError(`Document with ${req.params.id} is not Found`, 500)
+      );
+
+    responseMessage.document = docx;
+    responseMessage.updatedValue = req.body;
+    res.status(202).json(responseMessage);
+  });
