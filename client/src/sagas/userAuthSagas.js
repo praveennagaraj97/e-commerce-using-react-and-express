@@ -198,6 +198,9 @@ export function* userSignUpWatcher() {
 
 function* handleUserAccreditationWorker() {
   const cookie = yield call(getCookie, AUTH_TOKEN);
+
+  if (!cookie) return yield put(userAccredited(false));
+
   try {
     const { data } = yield call(AuthAccreditation, cookie);
     yield put(userAccredited(data.message === "User is Authorized"));
