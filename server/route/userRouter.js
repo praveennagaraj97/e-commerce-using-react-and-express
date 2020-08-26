@@ -2,7 +2,7 @@ import { Router } from "express";
 
 import {
   //Protect Routes
-  protectRoutesForReact,
+  protectForReact,
   protectRoutes,
   accreditReact,
 
@@ -21,15 +21,13 @@ userRouter.route("/signup").post(signUp);
 
 userRouter.route("/signin").post(signIn);
 
-userRouter
-  .route("/updateme")
-  .patch(protectRoutesForReact, protectRoutes, updateMe);
+userRouter.route("/updateme").patch(protectForReact, protectRoutes, updateMe);
 
 // Seller
 userRouter
   .route("/signup/seller")
-  .post(protectRoutesForReact, protectRoutes, becomeSeller);
+  .post(protectForReact, protectRoutes, becomeSeller);
 
 // Don't Modify This Route
 // Modifing will cause react app to shut Down.
-userRouter.route("/accredit").post(protectRoutesForReact, accreditReact);
+userRouter.route("/accredit").post(protectForReact, accreditReact);

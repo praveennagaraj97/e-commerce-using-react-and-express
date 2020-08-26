@@ -10,13 +10,11 @@ import {
 
   // middleware
   protectRoute,
-  protectForReact,
 } from "../handlers/userHandler";
-
+export { protectForReact } from "../handlers/userHandler";
 export { accreditReact } from "../middleware/accreditReact";
 
 export const protectRoutes = protectRoute(User);
-export const protectRoutesForReact = protectForReact(User);
 
 export const signUp = signUpHandler(User, {
   message: "Signed Up Successfully",
