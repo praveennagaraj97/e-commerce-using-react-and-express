@@ -40,10 +40,15 @@ export const signInHandler = (ModelName, responseMessage) =>
 // This is Actually an Middleware
 export const protectForReact = (ModelName) =>
   catchAsyncError(async (req, res, next) => {
+    // If Request is from Express/Postman API
+    if (req.headers.authorization) {
+      if (req.headers.authorization.startsWith("Bearer")) return next();
+    }
+
     const { auth_token } = req.body;
     if (!auth_token) {
       return res.status(200).json({
-        message: "Auth Token Not Found",
+        message: "Auth Token Not Found|Bearer Token Not Found",
       });
     }
     // As it is a Promise if token is expired server will respond with error
@@ -55,8 +60,6 @@ export const protectForReact = (ModelName) =>
     } else {
       verified = false;
     }
-
-    console.log(tokenDetails);
 
     const user = await ModelName.findById(tokenDetails.id);
     // if user account is deleted
