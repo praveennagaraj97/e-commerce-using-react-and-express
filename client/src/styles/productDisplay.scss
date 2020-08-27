@@ -2,7 +2,7 @@ $view-btn-colour: rgba(217, 236, 145, 0.637);
 $cart-btn-colour: rgba(238, 155, 117, 0.774);
 .products-container {
   display: grid;
-  margin: 15px 5vw;
+  margin: 15px 7vw;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 20px;
 }
