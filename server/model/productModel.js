@@ -6,6 +6,7 @@ const productSchema = new Schema(
     productName: {
       type: String,
       required: [true, "Please Enter Product Name"],
+      index: true,
     },
     productCoverImage: {
       type: String,
@@ -33,14 +34,25 @@ const productSchema = new Schema(
 );
 
 productSchema.plugin(mangooseUniqueValidatorPlugin);
+productSchema.pre(/^findOne/, function (next) {
+  this.populate({
+    path: "categoryId",
+    model: "Category",
+  });
 
-// productSchema.pre(/^find/, function (next) {
-//   this.populate({
-//     path: "categoryId",
-//     model: "Category",
-//   });
+  next();
+});
 
-//   next();
-// });
+if (process.env.NODE_ENV === "development") {
+  productSchema.pre("find", function () {
+    this._startTime = Date.now();
+  });
+
+  productSchema.post("find", function () {
+    if (this._startTime != null) {
+      console.log("Query Took : ", Date.now() - this._startTime);
+    }
+  });
+}
 
 export const Product = model("Product", productSchema);
