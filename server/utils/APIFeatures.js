@@ -7,7 +7,14 @@ export class ApiFeatures {
   }
   filter() {
     const query = { ...this.query };
-    const excludeFileds = ["page", "limit", "sort", "fields"];
+    const excludeFileds = [
+      "page",
+      "limit",
+      "sort",
+      "fields",
+      "searchin",
+      "searchTerm",
+    ];
     excludeFileds.forEach((fields) => {
       delete query[fields];
     });
@@ -36,7 +43,7 @@ export class ApiFeatures {
     }
     return this;
   }
-  paging() {
+  pagination() {
     if (this.query.page) {
       const page = parseInt(this.query.page) || 1;
       const limit = parseInt(this.query.limit) || 6;
@@ -47,4 +54,17 @@ export class ApiFeatures {
     }
     return this;
   }
+
+  search() {
+    if (this.query.searchin) {
+      const { searchin, searchTerm } = this.query;
+      const regex = new RegExp(escapeRegex(searchTerm), "gi");
+      this.queryObj = this.queryObj.find({ [searchin]: regex });
+    }
+    return this;
+  }
 }
+
+const escapeRegex = (text) => {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};

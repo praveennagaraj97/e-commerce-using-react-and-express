@@ -18,13 +18,14 @@ export const readAllDocument = (ModelName, responseMessage) =>
     const featuredModel = new ApiFeatures(ModelName.find(), req.query)
       .filter()
       .limit()
-      .paging()
+      .pagination()
+      .search()
       .sort();
 
     const response = await featuredModel.queryObj;
 
     if (!response || response.length === 0)
-      return next(new AppError("No Document Found", 204));
+      return next(new AppError("No Document Found", 200));
 
     res.status(200).json({
       foundResults: response.length,
@@ -37,9 +38,6 @@ export const updateDocumentByID = (ModelName, responseMessage) =>
   catchAsyncError(async (req, res, next) => {
     if (!Object.keys(req.body).length)
       return next(new AppError("Document Not Changed As No Values Given", 304));
-
-    console.log(req.params);
-    console.log(req.body);
 
     const docx = await ModelName.findByIdAndUpdate(req.params.id, req.body, {
       upsert: true,
