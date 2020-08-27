@@ -3,18 +3,9 @@ import React, { useEffect } from "react";
 import "../../styles/productAdvertisement.scss";
 
 const ProductAdvertisementBoard = () => {
-  const advertisement = "";
+  const advertisement = "https://i.ytimg.com/vi/cVEemOmHw9Y/maxresdefault.jpg";
 
-  useEffect(() => {
-    // axios
-    //   .get("http://localhost:3002/advertisement")
-    //   .then((response) => {
-    //     setAdvertisement(response.data.wallImage);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <div className='advertisement'>

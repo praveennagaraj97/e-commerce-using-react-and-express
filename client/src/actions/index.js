@@ -23,4 +23,11 @@ export {
   loadLogout,
 } from "./userAuthActions";
 
-export { getAllCategories } from "./productCategoryAction";
+export {
+  // Get all categories on website load
+  getAllCategories,
+  // Load products related to categories clicked
+  loadGetProductsOnQuery,
+  holdPreviousProductQuery,
+  getProductsOnQuery,
+} from "./productsAction";

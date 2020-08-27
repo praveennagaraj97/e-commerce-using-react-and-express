@@ -9,6 +9,8 @@ import {
 
 import { websiteLoadWatcher } from "./globalWebsiteSaga";
 
+import { loadProductsWatcher } from "./productsSaga";
+
 function* rootSaga() {
   all([
     yield fork(websiteLoadWatcher),
@@ -16,6 +18,7 @@ function* rootSaga() {
     yield fork(userSignUpWatcher),
     yield fork(userAccreditationWatcher),
     yield fork(userLogoutWatcher),
+    yield fork(loadProductsWatcher),
   ]);
 }
 

@@ -11,10 +11,10 @@ function* handleWebsiteLoadWorker() {
     yield put(getAllCategories(data.details));
   } catch (err) {
     try {
-      yield globalFailureMessenger(err.response.data.message);
+      yield put(globalFailureMessenger(err.response.data.message));
     } catch (error) {
-      yield globalFailureMessenger(
-        "Something went Wrong Please try Again Later"
+      yield put(
+        globalFailureMessenger("Something went Wrong Please try Again Later")
       );
     }
   }

@@ -53,7 +53,7 @@ const App = () => {
           <Route exact path='/user_auth' component={SignUpAndLogin} />
           <Route
             exact
-            path='/categories/:categoryName'
+            path='/category/:categoryName'
             component={ProductDisplay}
           />
         </Switch>

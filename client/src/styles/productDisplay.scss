@@ -16,18 +16,19 @@
   background-color: white;
   text-align: center;
   box-shadow: 4px 4px 10px white;
+  display: grid;
 }
 
 .product-card__image {
   object-fit: contain;
   width: 100%;
   border-radius: inherit;
-  opacity: 0.8;
   height: 45vh;
 }
 
 .product-card__price {
-  margin-bottom: 2vh;
+  justify-self: center;
+  align-self: end;
 }
 
 .product-card__reviewstar {

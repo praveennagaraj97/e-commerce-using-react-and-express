@@ -1,12 +1,19 @@
 import React, { Fragment } from "react";
 import { connect } from "react-redux";
+
 import history from "../../history";
+import { loadGetProductsOnQuery } from "../../actions";
 
 import "../../styles/productCategories.scss";
 
-export const ProductCategories = ({ categories }) => {
-  const selectCategoryOnClick = (categoryName) => {
-    history.push(`/${categoryName.toLowerCase()}`);
+export const ProductCategories = ({
+  categories,
+  loadProductsRelatedToCategoryClicked,
+}) => {
+  const selectCategoryOnClick = (categoryName, category_id) => {
+    history.push(`/category/${categoryName.toLowerCase()}`);
+    const query = `?categoryId=${category_id}`;
+    loadProductsRelatedToCategoryClicked(query);
   };
 
   return (
@@ -17,7 +24,9 @@ export const ProductCategories = ({ categories }) => {
               <Fragment key={_id}>
                 <div
                   className='product-category-container'
-                  onClick={() => selectCategoryOnClick(categoryName)}>
+                  onClick={() => {
+                    selectCategoryOnClick(categoryName, _id);
+                  }}>
                   <div className='product-category-item'>
                     <img
                       className='product-category-item__icon'
@@ -39,4 +48,9 @@ const mapStateToProps = ({ productCategories: { categories } }) => ({
   categories,
 });
 
-export default connect(mapStateToProps)(ProductCategories);
+const mapDispatchToProps = (dispatch) => ({
+  loadProductsRelatedToCategoryClicked: (query) =>
+    dispatch(loadGetProductsOnQuery(query)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductCategories);

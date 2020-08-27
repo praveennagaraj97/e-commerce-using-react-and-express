@@ -1,26 +1,11 @@
-import React, { useEffect, useState, Fragment } from "react";
-import axios from "axios";
+import React, { Fragment } from "react";
+import { connect } from "react-redux";
 import _ from "lodash";
 
 import "../../styles/productDisplay.scss";
-import { withRouter } from "react-router-dom";
 
-const ProductDisplay = (props) => {
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    const requestUrl = props.history.location.pathname
-      .split("/")[2]
-      .toLowerCase();
-
-    try {
-      axios.get(`http://localhost:3002/${requestUrl}`).then((response) => {
-        setProducts(response.data);
-      });
-    } catch (err) {
-      setProducts([]);
-    }
-  }, [props.history.location.pathname]);
+const ProductDisplay = ({ productsList }) => {
+  const { products } = productsList;
 
   const reviewStarRender = (reviewNumber) => {
     let stars = [];
@@ -49,21 +34,28 @@ const ProductDisplay = (props) => {
     return stars;
   };
 
+  function randomIntFromInterval(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+
   return (
     <div className='products-container'>
       {products.length > 0 ? (
         <Fragment>
           {products.map(
-            ({ id, productImage, productName, productPrice, review }) => {
+            ({ _id, productCoverImage, productName, productPrice }) => {
               return (
-                <div key={id} className='product-card'>
+                <div key={_id} className='product-card'>
                   <img
                     className='product-card__image'
-                    src={productImage}
+                    src={productCoverImage}
                     alt={productName}
                   />
-
-                  {reviewStarRender(review).map((star) => star)}
+                  <div className='product-review-container'>
+                    {reviewStarRender(randomIntFromInterval(1, 5)).map(
+                      (star) => star
+                    )}
+                  </div>
 
                   <h1 className='product-card__title'>{productName}</h1>
                   <p className='product-card__price'>₹{productPrice}</p>
@@ -79,4 +71,12 @@ const ProductDisplay = (props) => {
   );
 };
 
-export default withRouter(ProductDisplay);
+const mapStateToProps = ({ productsList }) => ({ productsList });
+
+export default connect(mapStateToProps)(ProductDisplay);
+
+/*
+
+
+
+*/

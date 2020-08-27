@@ -7,4 +7,7 @@ export {
   authAccreditationEndPoint as AuthAccreditation,
 } from "./userAuthAPI";
 
-export { getAllCategoriesEndpoint } from "./productCategoryEndpoints";
+export {
+  getAllCategoriesEndpoint,
+  getProductsBasedOnQuery,
+} from "./productEndpoints";
