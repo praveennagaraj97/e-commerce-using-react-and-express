@@ -80,7 +80,6 @@ function* handleLoadMoreResultsWorker() {
         query.current + `&page=${query.pageNumber}&limit=${9}`
       );
       if (data.message === "No Document Found") {
-        console.log("i ll disable load btn");
         yield put(noMoreResultsFound(false));
         return;
       }
@@ -91,7 +90,13 @@ function* handleLoadMoreResultsWorker() {
 
       yield put(getProductsOnQuery([...products, ...data.details]));
     } catch (err) {
-      console.log(err);
+      try {
+        yield put(globalFailureMessenger(err.response.data.message));
+      } catch (err) {
+        yield put(
+          globalFailureMessenger("Something went wrong Please try again later!")
+        );
+      }
     }
   }
 }
