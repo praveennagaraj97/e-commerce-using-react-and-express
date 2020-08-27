@@ -22,7 +22,6 @@ const productSchema = new Schema(
     },
   },
   {
-    timestamps: true,
     versionKey: false,
     toJSON: {
       virtuals: true,
