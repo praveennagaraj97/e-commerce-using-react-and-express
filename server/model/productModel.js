@@ -34,13 +34,13 @@ const productSchema = new Schema(
 
 productSchema.plugin(mangooseUniqueValidatorPlugin);
 
-productSchema.pre(/^find/, function (next) {
-  this.populate({
-    path: "categoryId",
-    model: "Category",
-  });
+// productSchema.pre(/^find/, function (next) {
+//   this.populate({
+//     path: "categoryId",
+//     model: "Category",
+//   });
 
-  next();
-});
+//   next();
+// });
 
 export const Product = model("Product", productSchema);

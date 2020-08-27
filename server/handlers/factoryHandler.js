@@ -1,5 +1,6 @@
 import { AppError } from "../utils/AppError";
 import catchAsyncError from "../utils/catchAsyncError";
+import { ApiFeatures } from "../utils/APIFeatures";
 
 export const createNewDocumnet = (ModelName, responseMessage) =>
   catchAsyncError(async (req, res, next) => {
@@ -14,11 +15,19 @@ export const createNewDocumnet = (ModelName, responseMessage) =>
 
 export const readAllDocument = (ModelName, responseMessage) =>
   catchAsyncError(async (req, res, next) => {
-    const response = await ModelName.find();
+    const featuredModel = new ApiFeatures(ModelName.find(), req.query)
+      .filter()
+      .limit()
+      .paging()
+      .sort();
+
+    const response = await featuredModel.queryObj;
+
     if (!response || response.length === 0)
       return next(new AppError("No Document Found", 204));
 
     res.status(200).json({
+      foundResults: response.length,
       message: responseMessage.message,
       details: response,
     });
