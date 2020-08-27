@@ -30,4 +30,7 @@ export {
   loadGetProductsOnQuery,
   holdPreviousProductQuery,
   getProductsOnQuery,
+  setLimitsPerPage,
+  setPageNumber,
+  noMoreResultsFound,
 } from "./productsAction";

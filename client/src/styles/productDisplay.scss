@@ -1,6 +1,8 @@
+$view-btn-colour: rgba(217, 236, 145, 0.637);
+$cart-btn-colour: rgba(238, 155, 117, 0.774);
 .products-container {
   display: grid;
-  margin: 15px 9vw;
+  margin: 15px 5vw;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 20px;
 }
@@ -33,4 +35,22 @@
 
 .product-card__reviewstar {
   height: 5vh;
+}
+
+// .product-card__view__cart_btn_option {
+// }
+
+.product-card__btn {
+  padding: 1vw;
+  margin: 1vw;
+  border: none;
+  border-radius: 8px;
+}
+
+.product__cart-btn {
+  background-color: $cart-btn-colour;
+}
+
+.product__view-btn {
+  background-color: $view-btn-colour;
 }

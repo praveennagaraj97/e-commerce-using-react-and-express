@@ -2,10 +2,15 @@ import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import _ from "lodash";
 
+import { setPageNumber } from "../../actions";
 import "../../styles/productDisplay.scss";
 
-const ProductDisplay = ({ productsList }) => {
-  const { products } = productsList;
+const ProductDisplay = ({ productsList, loadMoreResults }) => {
+  const { products, query } = productsList;
+
+  const loadMoreResultsOnClick = () => {
+    loadMoreResults((productsList.query.pageNumber += 1));
+  };
 
   const reviewStarRender = (reviewNumber) => {
     let stars = [];
@@ -59,13 +64,41 @@ const ProductDisplay = ({ productsList }) => {
 
                   <h1 className='product-card__title'>{productName}</h1>
                   <p className='product-card__price'>₹{productPrice}</p>
+                  <div className='product-card__view__cart_btn_option'>
+                    <button className='product-card__btn product__cart-btn'>
+                      Add To Cart
+                    </button>
+                    <button className='product-card__btn product__view-btn'>
+                      View Product
+                    </button>
+                  </div>
                 </div>
               );
             }
           )}
         </Fragment>
       ) : (
-        <h1 style={{ color: "white" }}>No Products Found</h1>
+        ""
+      )}
+      {query.moreResultsAvailable ? (
+        <Fragment>
+          <p></p>
+          <button
+            id='elem'
+            style={{ justifySelf: "center" }}
+            onClick={loadMoreResultsOnClick}>
+            Load More
+          </button>
+        </Fragment>
+      ) : (
+        <Fragment>
+          <p></p>
+          <img
+            style={{ justifySelf: "center" }}
+            src='https://img.icons8.com/nolan/64/empty-box.png'
+            alt='empty'
+          />
+        </Fragment>
       )}
     </div>
   );
@@ -73,10 +106,8 @@ const ProductDisplay = ({ productsList }) => {
 
 const mapStateToProps = ({ productsList }) => ({ productsList });
 
-export default connect(mapStateToProps)(ProductDisplay);
+const mapDispatchToProps = (dispatch) => ({
+  loadMoreResults: (pageNumber) => dispatch(setPageNumber(pageNumber)),
+});
 
-/*
-
-
-
-*/
+export default connect(mapStateToProps, mapDispatchToProps)(ProductDisplay);

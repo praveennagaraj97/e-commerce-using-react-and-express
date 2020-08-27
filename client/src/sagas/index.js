@@ -9,7 +9,7 @@ import {
 
 import { websiteLoadWatcher } from "./globalWebsiteSaga";
 
-import { loadProductsWatcher } from "./productsSaga";
+import { loadProductsWatcher, loadMoreResultsWatcher } from "./productsSaga";
 
 function* rootSaga() {
   all([
@@ -19,6 +19,7 @@ function* rootSaga() {
     yield fork(userAccreditationWatcher),
     yield fork(userLogoutWatcher),
     yield fork(loadProductsWatcher),
+    yield fork(loadMoreResultsWatcher),
   ]);
 }
 
