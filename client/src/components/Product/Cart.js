@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
   cartBottonContainer: {
     backgroundColor: "#cacbcd",
-    padding: "1vh",
+    padding: "8px",
     borderRadius: "3px",
     textAlign: "center",
   },

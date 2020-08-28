@@ -14,7 +14,7 @@ import { loadLogin, loadSignUp } from "../../actions";
 const useStyles = makeStyles((theme) => ({
   formContainer: {
     margin: "auto",
-    marginTop: "3vh",
+    marginTop: "5vh",
     display: "flex",
     justifyContent: "space-evenly",
     marginBottom: "3vh",

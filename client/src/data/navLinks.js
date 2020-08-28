@@ -1,11 +1,6 @@
 // nav Items
 export const navItems = [
   {
-    name: "Home",
-    icon: "home",
-    route: "/",
-  },
-  {
     name: "Service",
     icon: "chat",
     route: "/service",

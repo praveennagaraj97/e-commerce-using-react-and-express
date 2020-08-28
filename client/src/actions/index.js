@@ -33,4 +33,7 @@ export {
   setLimitsPerPage,
   setPageNumber,
   noMoreResultsFound,
+  // cart
+  addItemToCart,
+  removeItemFromCart,
 } from "./productsAction";

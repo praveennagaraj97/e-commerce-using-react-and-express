@@ -3,7 +3,6 @@ import { Router, Route, Switch } from "react-router-dom";
 import "animate.css";
 
 import TopHeader from "./Header/TopHeader";
-import SecondaryHeader from "./Header/SecondaryHeader";
 import Notifer from "./Notifer";
 import "../styles/app.scss";
 import { navItems } from "../data";
@@ -44,8 +43,7 @@ const App = () => {
     <div>
       <Router history={history}>
         <div id='section-header' className='header-container'>
-          <TopHeader windowWidth={windowWidth} />
-          <SecondaryHeader navItems={navItems} windowWidth={windowWidth} />
+          <TopHeader navItems={navItems} windowWidth={windowWidth} />
 
           <div className='product-categories'>
             <ProductCategories
@@ -68,7 +66,7 @@ const App = () => {
               component={ProductDisplay}
             />
           </Switch>
-          {windowWidth < 900 ? (
+          {windowWidth < 1025 ? (
             <img
               onClick={handleScrollTotop}
               className='scroll-up-btn__mobile-screen_only'

@@ -2,17 +2,26 @@ import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
 import _ from "lodash";
 
-import { setPageNumber } from "../../actions";
+import {
+  setPageNumber,
+  addItemToCart,
+  removeItemFromCart,
+} from "../../actions";
 import "../../styles/productDisplay.scss";
 
 import { useInfiniteScrolling } from "../../utils/useInfiniteScrolling";
 
-const ProductDisplay = ({ productsList, loadMoreResults }) => {
-  const { products } = productsList;
+const ProductDisplay = ({
+  productsList,
+  loadMoreResults,
+  addItemToCart,
+  removeItemFromCart,
+}) => {
+  const { products, query } = productsList;
   const [element, setElement] = useState(null);
 
   const loadMoreResultsOnScroll = () => {
-    loadMoreResults((productsList.query.pageNumber += 1));
+    loadMoreResults((query.pageNumber += 1));
   };
 
   useInfiniteScrolling(element, loadMoreResultsOnScroll);
@@ -44,10 +53,6 @@ const ProductDisplay = ({ productsList, loadMoreResults }) => {
     return stars;
   };
 
-  function randomIntFromInterval(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) + min);
-  }
-
   return (
     <Fragment>
       <div className='products-container'>
@@ -63,18 +68,20 @@ const ProductDisplay = ({ productsList, loadMoreResults }) => {
                       alt={productName}
                     />
                     <div className='product-review-container'>
-                      {reviewStarRender(randomIntFromInterval(1, 5)).map(
-                        (star) => star
-                      )}
+                      {reviewStarRender(4).map((star) => star)}
                     </div>
 
                     <h1 className='product-card__title'>{productName}</h1>
                     <p className='product-card__price'>₹{productPrice}</p>
                     <div className='product-card__view__cart_btn_option'>
-                      <button className='product-card__btn product__cart-btn'>
+                      <button
+                        onClick={() => addItemToCart(_id)}
+                        className='product-card__btn product__cart-btn'>
                         Add To Cart
                       </button>
-                      <button className='product-card__btn product__view-btn'>
+                      <button
+                        onClick={() => removeItemFromCart(_id)}
+                        className='product-card__btn product__view-btn'>
                         View Product
                       </button>
                     </div>
@@ -87,7 +94,7 @@ const ProductDisplay = ({ productsList, loadMoreResults }) => {
           ""
         )}
       </div>
-      {products.length > 0 && productsList.query.moreResultsAvailable ? (
+      {products.length > 0 && query.moreResultsAvailable ? (
         <div
           className='products-loading'
           ref={setElement}
@@ -98,7 +105,7 @@ const ProductDisplay = ({ productsList, loadMoreResults }) => {
             alt='Loading...'
           />
         </div>
-      ) : productsList.products.length > 0 ? (
+      ) : products.length > 0 ? (
         <h1 style={{ color: "white", textAlign: "center" }}>End Of Results</h1>
       ) : (
         <h1 style={{ color: "white", textAlign: "center" }}>
@@ -113,6 +120,8 @@ const mapStateToProps = ({ productsList }) => ({ productsList });
 
 const mapDispatchToProps = (dispatch) => ({
   loadMoreResults: (pageNumber) => dispatch(setPageNumber(pageNumber)),
+  addItemToCart: (item) => dispatch(addItemToCart(item)),
+  removeItemFromCart: (item) => dispatch(removeItemFromCart(item)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductDisplay);

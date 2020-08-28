@@ -8,6 +8,8 @@ const {
   SET_NUMBER_OF_RESULTS_PERPAGE,
   SET_PAGE_NUMBER,
   NO_MORE_RESULTS_FOUND,
+  ADD_PRODUCT_TO_CART,
+  REMOVE_PRODUCT_FROM_CART,
 } = PRODUCT_TYPES;
 
 const categoriesReducer = (state = {}, action) => {
@@ -21,7 +23,7 @@ const categoriesReducer = (state = {}, action) => {
 
 const getProductsrelatedToQuery = {
   products: [],
-  query: { pageNumber: 1, limit: 9 },
+  query: { pageNumber: 1, limit: 8 },
 };
 
 export const getProductsReducer = (
@@ -50,6 +52,23 @@ export const getProductsReducer = (
 
     case NO_MORE_RESULTS_FOUND:
       state.query["moreResultsAvailable"] = action.isAvailable;
+      return { ...state };
+
+    default:
+      return state;
+  }
+};
+
+export const productCartReducer = (state = { cart: [] }, action) => {
+  switch (action.type) {
+    case ADD_PRODUCT_TO_CART:
+      // return [...state, action.item];
+      state["addItem"] = action.item;
+      return { ...state };
+
+    case REMOVE_PRODUCT_FROM_CART:
+      // return [...state.filter((item) => item !== action.item)];
+      state["removeItem"] = action.item;
       return { ...state };
 
     default:

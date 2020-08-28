@@ -11,7 +11,12 @@ import {
   setPageNumber,
 } from "../actions";
 
-const { LOAD_GET_PRODUCTS_BASED_ON_QUERY, SET_PAGE_NUMBER } = PRODUCT_TYPES;
+const {
+  LOAD_GET_PRODUCTS_BASED_ON_QUERY,
+  SET_PAGE_NUMBER,
+  ADD_PRODUCT_TO_CART,
+  REMOVE_PRODUCT_FROM_CART,
+} = PRODUCT_TYPES;
 
 const getQueryRequestedFromStore = ({ productsList }) => productsList;
 
@@ -72,12 +77,12 @@ function* handleLoadMoreResultsWorker() {
     try {
       yield put(
         holdPreviousProductQuery(
-          query.current + `&page=${query.pageNumber}&limit=${9}`
+          query.current + `&page=${query.pageNumber}&limit=${query.limit}`
         )
       );
       const { data } = yield call(
         getProductsBasedOnQuery,
-        query.current + `&page=${query.pageNumber}&limit=${9}`
+        query.current + `&page=${query.pageNumber}&limit=${query.limit}`
       );
       if (data.message === "No Document Found") {
         yield put(noMoreResultsFound(false));
@@ -103,4 +108,25 @@ function* handleLoadMoreResultsWorker() {
 
 export function* loadMoreResultsWatcher() {
   yield takeLatest(SET_PAGE_NUMBER, handleLoadMoreResultsWorker);
+}
+
+// Cart
+
+const getCartStatefromStore = ({ productCart }) => productCart;
+
+function* handleProductAddCartWatcher() {
+  const { addItem, cart } = yield select(getCartStatefromStore);
+  yield cart.push(addItem);
+}
+
+function* handleProductRemoveCartWatcher() {
+  const { cart } = yield select(getCartStatefromStore);
+
+  console.log(cart);
+}
+
+// Cart
+export function* productCartWatcher() {
+  yield takeLatest(ADD_PRODUCT_TO_CART, handleProductAddCartWatcher);
+  yield takeLatest(REMOVE_PRODUCT_FROM_CART, handleProductRemoveCartWatcher);
 }
