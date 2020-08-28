@@ -16,3 +16,33 @@ body {
   overflow: auto;
   padding: 0 1vh;
 }
+
+@media only screen and (min-width: 900px) {
+  .header-container {
+    position: fixed;
+    background: black;
+
+    z-index: 12;
+    top: 0px;
+  }
+
+  .contents-section {
+    position: relative;
+    top: 192px;
+  }
+}
+
+.scroll-up-btn__mobile-screen_only {
+  opacity: 0;
+}
+
+@media (max-width: 900px) {
+  .scroll-up-btn__mobile-screen_only {
+    float: left;
+    position: fixed;
+    bottom: 5%;
+    left: 2%;
+    opacity: 1;
+    height: 50px;
+  }
+}

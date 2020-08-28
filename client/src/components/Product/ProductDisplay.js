@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useRef } from "react";
 import { connect } from "react-redux";
 import _ from "lodash";
 
@@ -80,7 +80,7 @@ const ProductDisplay = ({ productsList, loadMoreResults }) => {
       ) : (
         ""
       )}
-      {query.moreResultsAvailable ? (
+      {/* {query.moreResultsAvailable ? (
         <Fragment>
           <p></p>
           <button
@@ -99,7 +99,8 @@ const ProductDisplay = ({ productsList, loadMoreResults }) => {
             alt='empty'
           />
         </Fragment>
-      )}
+      )} */}
+      <div id='load-more'></div>
     </div>
   );
 };

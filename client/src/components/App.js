@@ -34,29 +34,47 @@ const App = () => {
         setWindowWidth(window.innerWidth);
       });
   });
+
+  const handleScrollTotop = () => {
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  };
+
   return (
     <div>
       <Router history={history}>
-        <TopHeader windowWidth={windowWidth} />
-        <SecondaryHeader navItems={navItems} windowWidth={windowWidth} />
+        <div className='header-container'>
+          <TopHeader windowWidth={windowWidth} />
+          <SecondaryHeader navItems={navItems} windowWidth={windowWidth} />
 
-        <div className='product-categories'>
-          <ProductCategories displayProductCategory={displayProductCategory} />
+          <div className='product-categories'>
+            <ProductCategories
+              displayProductCategory={displayProductCategory}
+            />
+          </div>
         </div>
-        <Switch>
-          <Route exact path='/' component={Home} />
-          <Route exact path='/service' component={Service} />
-          <Route exact path='/lexapay' component={LexaPay} />
-          <Route exact path='/orders' component={Orders} />
-          <Route exact path='/supreme' component={Supreme} />
-          <Route exact path='/cart' component={Cart} />
-          <Route exact path='/user_auth' component={SignUpAndLogin} />
-          <Route
-            exact
-            path='/category/:categoryName'
-            component={ProductDisplay}
+        <div className='contents-section'>
+          <Switch>
+            <Route exact path='/' component={Home} />
+            <Route exact path='/service' component={Service} />
+            <Route exact path='/lexapay' component={LexaPay} />
+            <Route exact path='/orders' component={Orders} />
+            <Route exact path='/supreme' component={Supreme} />
+            <Route exact path='/cart' component={Cart} />
+            <Route exact path='/user_auth' component={SignUpAndLogin} />
+            <Route
+              exact
+              path='/category/:categoryName'
+              component={ProductDisplay}
+            />
+          </Switch>
+          <img
+            onClick={handleScrollTotop}
+            className='scroll-up-btn__mobile-screen_only'
+            src='https://img.icons8.com/bubbles/100/000000/up.png/'
+            alt='scrollup'
           />
-        </Switch>
+        </div>
       </Router>
       <Notifer />
     </div>
