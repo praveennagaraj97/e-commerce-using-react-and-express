@@ -68,12 +68,16 @@ const App = () => {
               component={ProductDisplay}
             />
           </Switch>
-          <img
-            onClick={handleScrollTotop}
-            className='scroll-up-btn__mobile-screen_only'
-            src='https://img.icons8.com/bubbles/100/000000/up.png/'
-            alt='scrollup'
-          />
+          {windowWidth < 900 ? (
+            <img
+              onClick={handleScrollTotop}
+              className='scroll-up-btn__mobile-screen_only'
+              src='https://img.icons8.com/bubbles/100/000000/up.png/'
+              alt='scrollup'
+            />
+          ) : (
+            ""
+          )}
         </div>
       </Router>
       <Notifer />

@@ -54,3 +54,12 @@ $cart-btn-colour: rgba(238, 155, 117, 0.774);
 .product__view-btn {
   background-color: $view-btn-colour;
 }
+
+.products-loading {
+  height: 20px;
+  text-align: center;
+}
+
+.loading-spinner-gif {
+  height: 22vh;
+}

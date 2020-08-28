@@ -21,19 +21,14 @@ body {
   .header-container {
     position: fixed;
     background: black;
-
     z-index: 12;
     top: 0px;
   }
 
   .contents-section {
     position: relative;
-    top: 192px;
+    top: 175px;
   }
-}
-
-.scroll-up-btn__mobile-screen_only {
-  opacity: 0;
 }
 
 @media (max-width: 900px) {
@@ -42,7 +37,6 @@ body {
     position: fixed;
     bottom: 5%;
     left: 2%;
-    opacity: 1;
     height: 50px;
   }
 }

@@ -1,16 +1,21 @@
-import React, { Fragment, useRef } from "react";
+import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
 import _ from "lodash";
 
 import { setPageNumber } from "../../actions";
 import "../../styles/productDisplay.scss";
 
-const ProductDisplay = ({ productsList, loadMoreResults }) => {
-  const { products, query } = productsList;
+import { useInfiniteScrolling } from "../../utils/useInfiniteScrolling";
 
-  const loadMoreResultsOnClick = () => {
+const ProductDisplay = ({ productsList, loadMoreResults }) => {
+  const { products } = productsList;
+  const [element, setElement] = useState(null);
+
+  const loadMoreResultsOnScroll = () => {
     loadMoreResults((productsList.query.pageNumber += 1));
   };
+
+  useInfiniteScrolling(element, loadMoreResultsOnScroll);
 
   const reviewStarRender = (reviewNumber) => {
     let stars = [];
@@ -44,64 +49,59 @@ const ProductDisplay = ({ productsList, loadMoreResults }) => {
   }
 
   return (
-    <div className='products-container'>
-      {products.length > 0 ? (
-        <Fragment>
-          {products.map(
-            ({ _id, productCoverImage, productName, productPrice }) => {
-              return (
-                <div key={_id} className='product-card'>
-                  <img
-                    className='product-card__image'
-                    src={productCoverImage}
-                    alt={productName}
-                  />
-                  <div className='product-review-container'>
-                    {reviewStarRender(randomIntFromInterval(1, 5)).map(
-                      (star) => star
-                    )}
-                  </div>
+    <Fragment>
+      <div className='products-container'>
+        {products.length > 0 ? (
+          <Fragment>
+            {products.map(
+              ({ _id, productCoverImage, productName, productPrice }) => {
+                return (
+                  <div key={_id} className='product-card'>
+                    <img
+                      className='product-card__image'
+                      src={productCoverImage}
+                      alt={productName}
+                    />
+                    <div className='product-review-container'>
+                      {reviewStarRender(randomIntFromInterval(1, 5)).map(
+                        (star) => star
+                      )}
+                    </div>
 
-                  <h1 className='product-card__title'>{productName}</h1>
-                  <p className='product-card__price'>₹{productPrice}</p>
-                  <div className='product-card__view__cart_btn_option'>
-                    <button className='product-card__btn product__cart-btn'>
-                      Add To Cart
-                    </button>
-                    <button className='product-card__btn product__view-btn'>
-                      View Product
-                    </button>
+                    <h1 className='product-card__title'>{productName}</h1>
+                    <p className='product-card__price'>₹{productPrice}</p>
+                    <div className='product-card__view__cart_btn_option'>
+                      <button className='product-card__btn product__cart-btn'>
+                        Add To Cart
+                      </button>
+                      <button className='product-card__btn product__view-btn'>
+                        View Product
+                      </button>
+                    </div>
                   </div>
-                </div>
-              );
-            }
-          )}
-        </Fragment>
-      ) : (
-        ""
-      )}
-      {/* {query.moreResultsAvailable ? (
-        <Fragment>
-          <p></p>
-          <button
-            id='elem'
-            style={{ justifySelf: "center" }}
-            onClick={loadMoreResultsOnClick}>
-            Load More
-          </button>
-        </Fragment>
-      ) : (
-        <Fragment>
-          <p></p>
+                );
+              }
+            )}
+          </Fragment>
+        ) : (
+          ""
+        )}
+      </div>
+      {products.length > 0 && productsList.query.moreResultsAvailable ? (
+        <div
+          className='products-loading'
+          ref={setElement}
+          style={{ color: "white" }}>
           <img
-            style={{ justifySelf: "center" }}
-            src='https://img.icons8.com/nolan/64/empty-box.png'
-            alt='empty'
+            className='loading-spinner-gif'
+            src='https://storage.googleapis.com/lexa-component-styles/Curve-Loading.gif'
+            alt='Loading...'
           />
-        </Fragment>
-      )} */}
-      <div id='load-more'></div>
-    </div>
+        </div>
+      ) : (
+        <h1 style={{ color: "white" }}>End Of Results</h1>
+      )}
+    </Fragment>
   );
 };
 
