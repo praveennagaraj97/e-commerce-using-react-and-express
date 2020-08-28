@@ -14,6 +14,8 @@ export const ProductCategories = ({
     history.push(`/category/${categoryName.toLowerCase()}`);
     const query = `?categoryId=${category_id}`;
     loadProductsRelatedToCategoryClicked(query);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
   };
 
   return (

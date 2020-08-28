@@ -9,7 +9,7 @@ export const useInfiniteScrolling = (element, loadfunction) => {
           loadfunction();
         }
       },
-      { threshold: 0.5 }
+      { threshold: 0.1 }
     )
   );
 

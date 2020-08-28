@@ -98,8 +98,12 @@ const ProductDisplay = ({ productsList, loadMoreResults }) => {
             alt='Loading...'
           />
         </div>
+      ) : productsList.products.length > 0 ? (
+        <h1 style={{ color: "white", textAlign: "center" }}>End Of Results</h1>
       ) : (
-        <h1 style={{ color: "white" }}>End Of Results</h1>
+        <h1 style={{ color: "white", textAlign: "center" }}>
+          No Results Found
+        </h1>
       )}
     </Fragment>
   );

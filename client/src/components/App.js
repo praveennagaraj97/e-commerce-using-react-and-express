@@ -43,7 +43,7 @@ const App = () => {
   return (
     <div>
       <Router history={history}>
-        <div className='header-container'>
+        <div id='section-header' className='header-container'>
           <TopHeader windowWidth={windowWidth} />
           <SecondaryHeader navItems={navItems} windowWidth={windowWidth} />
 
@@ -53,7 +53,7 @@ const App = () => {
             />
           </div>
         </div>
-        <div className='contents-section'>
+        <div id='section-content' className='contents-section'>
           <Switch>
             <Route exact path='/' component={Home} />
             <Route exact path='/service' component={Service} />
