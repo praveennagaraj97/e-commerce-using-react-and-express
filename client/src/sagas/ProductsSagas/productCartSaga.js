@@ -1,14 +1,17 @@
-import { takeLatest, select, call, put } from "redux-saga/effects";
+import { takeLatest, select, put } from "redux-saga/effects";
 
 import { PRODUCT_TYPES } from "../../constants";
-import { getProductsBasedOnQuery } from "../../api";
 
 import {
   // Error Or Success Messager
   globalSuccesMessengerWithImg,
 } from "../../actions";
 
-const { ADD_PRODUCT_TO_CART, REMOVE_PRODUCT_FROM_CART } = PRODUCT_TYPES;
+const {
+  ADD_PRODUCT_TO_CART,
+  REMOVE_PRODUCT_FROM_CART,
+  LOAD_PRODUCT_CART,
+} = PRODUCT_TYPES;
 
 const getProductsListFromStore = ({ productsList }) => productsList;
 
@@ -16,7 +19,7 @@ const getProductsListFromStore = ({ productsList }) => productsList;
 
 const getCartStatefromStore = ({ productCart }) => productCart;
 
-function* handleProductAddCartWatcher() {
+function* handleProductAddCartWorker() {
   const { addedItem } = yield select(getCartStatefromStore);
   const { products } = yield select(getProductsListFromStore);
 
@@ -26,12 +29,22 @@ function* handleProductAddCartWatcher() {
   yield put(globalSuccesMessengerWithImg(message, productCoverImage));
 }
 
-function* handleProductRemoveCartWatcher() {
+function* handleProductRemoveCartWorker() {
   // const { cart } = yield select(getCartStatefromStore);
 }
 
-// Cart
+// Add and remove watcher
 export function* productCartWatcher() {
-  yield takeLatest(ADD_PRODUCT_TO_CART, handleProductAddCartWatcher);
-  yield takeLatest(REMOVE_PRODUCT_FROM_CART, handleProductRemoveCartWatcher);
+  yield takeLatest(ADD_PRODUCT_TO_CART, handleProductAddCartWorker);
+  yield takeLatest(REMOVE_PRODUCT_FROM_CART, handleProductRemoveCartWorker);
+}
+
+//
+//
+function* handleproductCartWorker() {
+  yield console.log("yes boss");
+}
+
+export function* productCartLoadWatcher() {
+  yield takeLatest(LOAD_PRODUCT_CART, handleproductCartWorker);
 }
