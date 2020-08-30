@@ -1,24 +1,44 @@
-// Fonts
-@import url("https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap");
 
-$main-headings-font: "Berkshire Swash";
-
-// Colours
-$header-colour: rgba(0, 0, 0, 0.938);
-$logo-colour: rgb(255, 255, 255);
-
-.top-header-bar {
-  background-color: $header-colour;
-  display: grid;
-  grid-template-columns: 1fr 3fr;
-  align-items: center;
-  border-radius: 5px;
-  padding: 3px;
+.top-header-menu {
+  margin: 4px !important;
+}
+.top-header {
+  display: grid !important;
+  grid-template-columns: repeat(5, 1fr) 2fr 1fr 1fr;
+  align-items: stretch;
+  justify-items: center;
 }
 
-.top-header__logo {
-  color: $logo-colour;
-  font-family: $main-headings-font;
-  font-size: 5vh;
-  padding: 5px;
+.nav-links {
+  width: 89%;
+  font-family: "Tangerine", cursive !important;
+}
+
+.top-header-mobile {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr);
+  justify-items: center;
+}
+
+.top-header-brand__name {
+  font-family: "Tangerine", cursive !important;
+  justify-self: center;
+  align-self: center;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+@media (max-width: 701px) {
+  .top-header-brand__name {
+    color: white;
+    text-align: center;
+  }
+}
+
+@media (max-width: 390px) {
+  i.user {
+    position: relative;
+    right: 7px;
+  }
 }

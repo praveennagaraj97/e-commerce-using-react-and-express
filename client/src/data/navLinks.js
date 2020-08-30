@@ -1,31 +1,23 @@
 // nav Items
 export const navItems = [
   {
-    name: "Home",
-    icon: "home",
-  },
-  {
     name: "Service",
     icon: "chat",
+    route: "/service",
   },
   {
     name: "Lexa Pay",
     icon: "payment",
+    route: "/lexapay",
   },
   {
     name: "Orders",
     icon: "unordered list",
+    route: "/orders",
   },
   {
     name: "Supreme",
     icon: "gem",
-  },
-  {
-    name: "Login",
-    icon: "user",
-  },
-  {
-    name: "Cart",
-    icon: "cart",
+    route: "/supreme",
   },
 ];
