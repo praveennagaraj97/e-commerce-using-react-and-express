@@ -7,7 +7,7 @@ $cart-btn-colour: rgba(238, 155, 117, 0.774);
   grid-gap: 20px;
 }
 
-@media (max-width: 1237px) {
+@media (max-width: 1329px) {
   .products-container {
     grid-template-columns: repeat(3, 1fr);
   }
