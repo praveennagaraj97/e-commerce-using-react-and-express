@@ -12,14 +12,14 @@ export const globalFailureMessenger = (error) => ({
   error,
 });
 
-export const globalSuccesMessenger = (error) => ({
+export const globalSuccesMessenger = (success) => ({
   type: GLOBAL_SUCCESS,
-  error,
+  success,
 });
 
-export const globalSuccesMessengerWithImg = (error, image) => ({
+export const globalSuccesMessengerWithImg = (success, image) => ({
   type: GLOBAL_SUCCESS_WITH_IMG,
-  errorData: { error, image },
+  successData: { success, image },
 });
 
 export {

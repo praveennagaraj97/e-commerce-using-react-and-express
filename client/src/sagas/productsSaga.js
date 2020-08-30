@@ -9,6 +9,9 @@ import {
   holdPreviousProductQuery,
   noMoreResultsFound,
   setPageNumber,
+
+  // Error Or Success Messager
+  globalSuccesMessengerWithImg,
 } from "../actions";
 
 const {
@@ -118,7 +121,10 @@ function* handleProductAddCartWatcher() {
   const { addedItem } = yield select(getCartStatefromStore);
   const { products } = yield select(getProductsListFromStore);
 
-  products.find((item) => item._id === addedItem);
+  const addedProduct = yield products.find((item) => item._id === addedItem);
+  const { productCoverImage, productName } = addedProduct;
+  const message = `${productName} added to cart😍`;
+  yield put(globalSuccesMessengerWithImg(message, productCoverImage));
 }
 
 function* handleProductRemoveCartWatcher() {

@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 import { reducer as formReducer } from "redux-form";
 
-import globalErrorStateReducer from "./globalErrorStateReducer";
+import globalMessageReducer from "./globalMessageReducer";
 import userAuthLoginReducer, { userAccredited } from "./userAuthReducer";
 import categoriesReducer, {
   getProductsReducer,
@@ -14,6 +14,6 @@ export default combineReducers({
   form: formReducer,
   productCategories: categoriesReducer,
   productsList: getProductsReducer,
-  globalErrorState: globalErrorStateReducer,
+  globalErrorOrSuccessMessage: globalMessageReducer,
   productCart: productCartReducer,
 });
