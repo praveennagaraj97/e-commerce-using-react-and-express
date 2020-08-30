@@ -26,7 +26,7 @@ const upload = multer();
 productRouter.route("/getProducts").get(getAllProducts);
 productRouter
   .route("/getProductsDetailsInCart")
-  .get(preFillCartIdasParams, getProductDetailsInCart);
+  .post(preFillCartIdasParams, getProductDetailsInCart);
 
 // Seller Route
 
