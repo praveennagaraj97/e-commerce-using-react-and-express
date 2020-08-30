@@ -27,12 +27,24 @@ const handleMongoError = (errName) => {
       errCode: 422,
     };
   }
+  if (errName === "CastError") {
+    return {
+      errCode: 422,
+      errMsg: "Server doesn't accept this type of data",
+    };
+  }
 };
 
 export const globalErrorHandler = (err, req, res, next) => {
   err.statusCode = err.statusCode || 500;
   err.message = err.message;
   err.stack = err.stack;
+
+  if (err.name === "CastError") {
+    const error = handleMongoError(err.name);
+    err.statusCode = error.errCode;
+    err.message = error.errMsg;
+  }
 
   if (err.name === "ValidationError") {
     const error = handleMongoError(err.name);
