@@ -1,11 +1,14 @@
-import { takeLatest, select, put } from "redux-saga/effects";
+import { takeLatest, select, put, call } from "redux-saga/effects";
 
 import { PRODUCT_TYPES } from "../../constants";
 
 import {
   // Error Or Success Messager
+  globalFailureMessenger,
   globalSuccesMessengerWithImg,
 } from "../../actions";
+
+import { getProductsDetailsInCartEndPoint } from "../../api";
 
 const {
   ADD_PRODUCT_TO_CART,
@@ -42,7 +45,16 @@ export function* productCartWatcher() {
 //
 //
 function* handleproductCartWorker() {
-  yield console.log("yes boss");
+  const { cart } = yield select(getCartStatefromStore);
+  if (cart.length < 1) return;
+  try {
+    const response = yield call(getProductsDetailsInCartEndPoint, {
+      cartItems: cart,
+    });
+    yield console.log(response);
+  } catch (err) {
+    yield put(globalFailureMessenger("Something went wrong try again later!"));
+  }
 }
 
 export function* productCartLoadWatcher() {

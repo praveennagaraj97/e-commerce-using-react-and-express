@@ -54,11 +54,6 @@ export const getProductsReducer = (
     case NO_MORE_RESULTS_FOUND:
       state.query["moreResultsAvailable"] = action.isAvailable;
       return { ...state };
-
-    case LOAD_PRODUCT_CART:
-      state.query["loadProductCart"] = true;
-      return { ...state };
-
     default:
       return state;
   }
@@ -75,6 +70,9 @@ export const productCartReducer = (state = { cart: [] }, action) => {
       state.cart = state.cart.filter((item) => item !== action.item);
       return { ...state };
 
+    case LOAD_PRODUCT_CART:
+      state["loadProductCart"] = true;
+      return { ...state };
     default:
       return state;
   }

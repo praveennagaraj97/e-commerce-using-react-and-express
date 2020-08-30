@@ -10,4 +10,5 @@ export {
 export {
   getAllCategoriesEndpoint,
   getProductsBasedOnQuery,
+  getProductsDetailsInCartEndPoint,
 } from "./productEndpoints";
