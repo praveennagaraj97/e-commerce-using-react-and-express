@@ -1,0 +1,20 @@
+.show-success-notify-with__img {
+  display: flex;
+  align-items: center;
+  background-color: grey;
+  border-radius: 7px;
+  float: right;
+  position: fixed;
+  right: 1vw;
+  bottom: 3vh;
+  margin: 0 15px;
+}
+
+.show-success-notify__image {
+  margin-right: 1vw;
+  border-radius: 10px;
+}
+
+.show-success__message {
+  padding: 2%;
+}

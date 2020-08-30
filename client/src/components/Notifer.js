@@ -5,9 +5,30 @@ import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import { makeStyles } from "@material-ui/core/styles";
 
-function Alert(props) {
+import "../styles/notifier.scss";
+
+const AlertWithImage = ({ showAlertWithImage }) => {
+  if (showAlertWithImage)
+    return (
+      <div style={{ color: "white" }} className='show-success-notify-with__img'>
+        <img
+          className='show-success-notify__image'
+          height='70px'
+          src='https://storage.googleapis.com/lexa-product-covers/oneplus8glacialgreen.jpg'
+          alt='tes'
+        />
+        <div className='show-success__message'>
+          {"OnePlus 8 (Glacial Green 6GB RAM+128GB Storage Added To Cart"}
+        </div>
+      </div>
+    );
+
+  return <></>;
+};
+
+const Alert = (props) => {
   return <MuiAlert elevation={6} variant='filled' {...props} />;
-}
+};
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -63,6 +84,7 @@ const Notifer = ({ error, success }) => {
           <></>
         )}
       </Snackbar>
+      <AlertWithImage showAlertWithImage={true} />
     </div>
   );
 };

@@ -1,10 +1,26 @@
-import { GLOBAL_ERROR, WEBSITE_LOAD } from "../constants";
+import {
+  GLOBAL_ERROR,
+  WEBSITE_LOAD,
+  GLOBAL_SUCCESS,
+  GLOBAL_SUCCESS_WITH_IMG,
+} from "../constants";
+
+export const websiteLoad = () => ({ type: WEBSITE_LOAD });
 
 export const globalFailureMessenger = (error) => ({
   type: GLOBAL_ERROR,
   error,
 });
-export const websiteLoad = () => ({ type: WEBSITE_LOAD });
+
+export const globalSuccesMessenger = (error) => ({
+  type: GLOBAL_SUCCESS,
+  error,
+});
+
+export const globalSuccesMessengerWithImg = (error, image) => ({
+  type: GLOBAL_SUCCESS_WITH_IMG,
+  errorData: { error, image },
+});
 
 export {
   // Global Auth Messenger

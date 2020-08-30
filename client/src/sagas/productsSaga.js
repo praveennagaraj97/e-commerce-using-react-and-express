@@ -18,11 +18,11 @@ const {
   REMOVE_PRODUCT_FROM_CART,
 } = PRODUCT_TYPES;
 
-const getQueryRequestedFromStore = ({ productsList }) => productsList;
+const getProductsListFromStore = ({ productsList }) => productsList;
 
 // This worker runs on first load only!!!
 function* handleLoadProductWorker() {
-  const { query } = yield select(getQueryRequestedFromStore);
+  const { query } = yield select(getProductsListFromStore);
 
   if (
     query.prev !==
@@ -71,7 +71,7 @@ export function* loadProductsWatcher() {
 
 // This workers runs on page Increment only excluding page number at 1!
 function* handleLoadMoreResultsWorker() {
-  const { query, products } = yield select(getQueryRequestedFromStore);
+  const { query, products } = yield select(getProductsListFromStore);
 
   if (query.pageNumber !== 1) {
     try {
@@ -115,14 +115,14 @@ export function* loadMoreResultsWatcher() {
 const getCartStatefromStore = ({ productCart }) => productCart;
 
 function* handleProductAddCartWatcher() {
-  const { addItem, cart } = yield select(getCartStatefromStore);
-  yield cart.push(addItem);
+  const { addedItem } = yield select(getCartStatefromStore);
+  const { products } = yield select(getProductsListFromStore);
+
+  products.find((item) => item._id === addedItem);
 }
 
 function* handleProductRemoveCartWatcher() {
-  const { cart } = yield select(getCartStatefromStore);
-
-  console.log(cart);
+  // const { cart } = yield select(getCartStatefromStore);
 }
 
 // Cart

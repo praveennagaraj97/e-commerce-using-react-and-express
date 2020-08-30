@@ -62,13 +62,12 @@ export const getProductsReducer = (
 export const productCartReducer = (state = { cart: [] }, action) => {
   switch (action.type) {
     case ADD_PRODUCT_TO_CART:
-      // return [...state, action.item];
-      state["addItem"] = action.item;
+      state["addedItem"] = action.item;
+      state.cart.push(action.item);
       return { ...state };
 
     case REMOVE_PRODUCT_FROM_CART:
-      // return [...state.filter((item) => item !== action.item)];
-      state["removeItem"] = action.item;
+      state.cart = state.cart.filter((item) => item !== action.item);
       return { ...state };
 
     default:

@@ -1,4 +1,7 @@
 export const GLOBAL_ERROR = "GLOBAL_ERROR";
+export const GLOBAL_SUCCESS = "GLOBAL_SUCCESS";
+export const GLOBAL_SUCCESS_WITH_IMG = "GLOBAL_SUCCESS_WITH_IMG";
+
 export const WEBSITE_LOAD = "WEBSITE_LOAD";
 
 export const USER_AUTH_TYPES = {
