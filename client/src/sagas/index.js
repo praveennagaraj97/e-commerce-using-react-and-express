@@ -13,7 +13,7 @@ import {
   loadProductsWatcher,
   loadMoreResultsWatcher,
   productCartWatcher,
-} from "./productsSaga";
+} from "./ProductsSagas";
 
 function* rootSaga() {
   yield all([

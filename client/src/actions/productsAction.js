@@ -10,6 +10,7 @@ const {
   NO_MORE_RESULTS_FOUND,
   ADD_PRODUCT_TO_CART,
   REMOVE_PRODUCT_FROM_CART,
+  LOAD_PRODUCT_CART,
 } = PRODUCT_TYPES;
 
 // Loads on website load.
@@ -60,3 +61,5 @@ export const removeItemFromCart = (item) => ({
   type: REMOVE_PRODUCT_FROM_CART,
   item,
 });
+
+export const loadProductCart = () => ({ type: LOAD_PRODUCT_CART });

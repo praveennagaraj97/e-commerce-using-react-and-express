@@ -26,7 +26,9 @@ const CartIcon = ({ productCart }) => {
   const classes = useStyles();
   return (
     <Link className='nav-links' to='/cart'>
-      <div className={classes.cartBottonContainer}>
+      <div
+        onClick={() => console.log("ok")}
+        className={classes.cartBottonContainer}>
         <IconButton className={classes.cartIcon} aria-label='cart'>
           <StyledBadge badgeContent={productCart.cart.length} color='secondary'>
             <ShoppingCartIcon />

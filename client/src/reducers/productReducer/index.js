@@ -10,6 +10,7 @@ const {
   NO_MORE_RESULTS_FOUND,
   ADD_PRODUCT_TO_CART,
   REMOVE_PRODUCT_FROM_CART,
+  LOAD_PRODUCT_CART,
 } = PRODUCT_TYPES;
 
 const categoriesReducer = (state = {}, action) => {
@@ -52,6 +53,10 @@ export const getProductsReducer = (
 
     case NO_MORE_RESULTS_FOUND:
       state.query["moreResultsAvailable"] = action.isAvailable;
+      return { ...state };
+
+    case LOAD_PRODUCT_CART:
+      state.query["loadProductCart"] = true;
       return { ...state };
 
     default:

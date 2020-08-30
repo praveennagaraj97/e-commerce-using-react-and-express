@@ -3,11 +3,10 @@ import { connect } from "react-redux";
 
 import "../../styles/productCart.scss";
 
-const ProductCart = ({ state }) => {
-  console.log(state);
-  return <div className='producr-cart'></div>;
+const ProductCart = ({ productCart }) => {
+  return <div className='product-cart'></div>;
 };
 
-const mapStateToProps = (state) => ({ state });
+const mapStateToProps = ({ productCart }) => ({ productCart });
 
 export default connect(mapStateToProps)(ProductCart);

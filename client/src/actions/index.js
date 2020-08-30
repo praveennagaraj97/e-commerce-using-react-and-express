@@ -52,4 +52,5 @@ export {
   // cart
   addItemToCart,
   removeItemFromCart,
+  loadProductCart,
 } from "./productsAction";
