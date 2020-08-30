@@ -68,10 +68,15 @@ export class ApiFeatures {
   listOfRecords() {
     if (this.query.listOfRecords) {
       let listOfIds;
-      try {
-        listOfIds = JSON.parse(this.query.listOfRecords);
-      } catch (err) {
-        throw new Error("Provide Only List Of Ids");
+
+      if (typeof this.query.listOfRecords === "string") {
+        try {
+          listOfIds = JSON.parse(this.query.listOfRecords);
+        } catch (err) {
+          throw new Error("Provide Only List Of Ids");
+        }
+      } else {
+        listOfIds = this.query.listOfRecords;
       }
 
       this.queryObj = this.queryObj.find({

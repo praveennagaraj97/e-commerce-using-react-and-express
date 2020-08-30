@@ -6,6 +6,8 @@ import {
   handleImageUpload,
 } from "../middleware/imageProcessMiddleware";
 
+export { preFillCartIdasParams } from "../middleware/preFillers";
+
 // Protect Middlewares
 export { protectForReact, protectRoutes } from "./userController";
 

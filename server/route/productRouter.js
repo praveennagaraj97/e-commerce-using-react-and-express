@@ -11,6 +11,9 @@ import {
   getAllProducts,
   getProductDetailsInCart,
 
+  // Middlewares
+  preFillCartIdasParams,
+
   // Protect
   protectForReact,
   protectRoutes,
@@ -21,7 +24,9 @@ const upload = multer();
 
 // Public Routes
 productRouter.route("/getProducts").get(getAllProducts);
-productRouter.route("/getProductsDetailsInCart").get(getProductDetailsInCart);
+productRouter
+  .route("/getProductsDetailsInCart")
+  .get(preFillCartIdasParams, getProductDetailsInCart);
 
 // Seller Route
 
