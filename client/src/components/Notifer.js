@@ -7,18 +7,18 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import "../styles/notifier.scss";
 
-const AlertWithImage = ({ showAlertWithImage }) => {
-  if (showAlertWithImage)
+const AlertWithImage = ({ showAlert, globalSuccessWithImg }) => {
+  if (showAlert && globalSuccessWithImg !== null)
     return (
       <div style={{ color: "white" }} className='show-success-notify-with__img'>
         <img
           className='show-success-notify__image'
           height='70px'
-          src='https://storage.googleapis.com/lexa-product-covers/oneplus8glacialgreen.jpg'
+          src={globalSuccessWithImg.image}
           alt='tes'
         />
         <div className='show-success__message'>
-          {"OnePlus 8 (Glacial Green 6GB RAM+128GB Storage Added To Cart"}
+          {globalSuccessWithImg.success}
         </div>
       </div>
     );
@@ -37,15 +37,24 @@ const useStyles = makeStyles((theme) => ({
       marginTop: theme.spacing(2),
     },
   },
+  snackBarAnime: {
+    animation: "fadeInLeft",
+    animationDuration: "0.7s",
+  },
 }));
 
-const Notifer = ({ error, success }) => {
+const Notifer = ({ error, success, globalSuccessWithImg }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
   const [theme, setTheme] = useState("info");
 
   useEffect(() => {
+    if (globalSuccessWithImg !== null) {
+      setTheme("success");
+      setOpen(true);
+    }
+
     if (error !== null) {
       setTheme("error");
       setOpen(true);
@@ -60,7 +69,7 @@ const Notifer = ({ error, success }) => {
     }, 3100);
 
     return () => clearTimeout(clearTimeOutID);
-  }, [error, success]);
+  }, [error, success, globalSuccessWithImg]);
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -71,26 +80,42 @@ const Notifer = ({ error, success }) => {
 
   return (
     <div className={classes.root}>
-      <Snackbar
-        open={open}
-        autoHideDuration={3100}
-        onClose={handleClose}
-        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}>
-        {error !== null || success !== null ? (
-          <Alert onClose={handleClose} severity={theme}>
-            {error || success}
-          </Alert>
-        ) : (
-          <></>
-        )}
-      </Snackbar>
-      <AlertWithImage showAlertWithImage={true} />
+      {globalSuccessWithImg === null ? (
+        <Snackbar
+          className={classes.snackBarAnime}
+          open={open}
+          autoHideDuration={3100}
+          onClose={handleClose}
+          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}>
+          {error !== null || success !== null ? (
+            <Alert onClose={handleClose} severity={theme}>
+              {error || success}
+            </Alert>
+          ) : (
+            <></>
+          )}
+        </Snackbar>
+      ) : (
+        <AlertWithImage
+          showAlert={open}
+          globalSuccessWithImg={globalSuccessWithImg}
+        />
+      )}
     </div>
   );
 };
 
 const mapStateToProps = ({
   userAuthorization: { authFailueMessage = null, authSuccessMessage = null },
-}) => ({ error: authFailueMessage, success: authSuccessMessage });
+  globalErrorOrSuccessMessage: {
+    globalError = null,
+    globalSuccess = null,
+    globalSuccessWithImg = null,
+  },
+}) => ({
+  error: authFailueMessage || globalError,
+  success: authSuccessMessage || globalSuccess,
+  globalSuccessWithImg,
+});
 
 export default connect(mapStateToProps, null)(Notifer);

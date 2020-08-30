@@ -4,14 +4,17 @@ import {
   GLOBAL_SUCCESS_WITH_IMG,
 } from "../../constants";
 
-const globalMessageReducer = (state = null, action) => {
+const globalMessageReducer = (state = {}, action) => {
   switch (action.type) {
     case GLOBAL_ERROR:
-      return action.error;
+      state["globalError"] = action.error;
+      return { ...state };
     case GLOBAL_SUCCESS:
-      return action.success;
+      state["globalSuccess"] = action.success;
+      return { ...state };
     case GLOBAL_SUCCESS_WITH_IMG:
-      return action.successData;
+      state["globalSuccessWithImg"] = action.successData;
+      return { ...state };
     default:
       return state;
   }

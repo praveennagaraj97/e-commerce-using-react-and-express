@@ -1,13 +1,16 @@
 .show-success-notify-with__img {
   display: flex;
   align-items: center;
-  background-color: grey;
-  border-radius: 7px;
+  background-color: rgba(161, 241, 12, 0.932);
+  border-radius: 12px;
   float: right;
   position: fixed;
   right: 1vw;
   bottom: 3vh;
   margin: 0 15px;
+  animation: fadeInLeft;
+  animation-duration: 0.7s;
+  padding: 7px;
 }
 
 .show-success-notify__image {
@@ -16,5 +19,6 @@
 }
 
 .show-success__message {
+  color: black;
   padding: 2%;
 }

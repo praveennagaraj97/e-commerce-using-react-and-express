@@ -10,13 +10,9 @@ function* handleWebsiteLoadWorker() {
     const { data } = yield call(getAllCategoriesEndpoint);
     yield put(getAllCategories(data.details));
   } catch (err) {
-    try {
-      yield put(globalFailureMessenger(err.response.data.message));
-    } catch (error) {
-      yield put(
-        globalFailureMessenger("Something went Wrong Please try Again Later")
-      );
-    }
+    yield put(
+      globalFailureMessenger("Something went Wrong Please try Again Later")
+    );
   }
 }
 
