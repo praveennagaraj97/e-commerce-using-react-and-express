@@ -21,3 +21,8 @@ export const addNewProduct = createNewDocumnet(Product, {
 export const getAllProducts = readAllDocument(Product, {
   message: "List Of Products",
 });
+
+// Cart
+export const getProductDetailsInCart = readAllDocument(Product, {
+  message: "Details Of Products in Cart",
+});

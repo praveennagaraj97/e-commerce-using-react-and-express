@@ -5,8 +5,11 @@ import {
   // Image Process
   getProductImageProcessed,
   productImageLink,
+
+  // Routes
   addNewProduct,
   getAllProducts,
+  getProductDetailsInCart,
 
   // Protect
   protectForReact,
@@ -18,6 +21,7 @@ const upload = multer();
 
 // Public Routes
 productRouter.route("/getProducts").get(getAllProducts);
+productRouter.route("/getProductsDetailsInCart").get(getProductDetailsInCart);
 
 // Seller Route
 

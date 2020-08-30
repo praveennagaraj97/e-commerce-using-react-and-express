@@ -20,7 +20,8 @@ export const readAllDocument = (ModelName, responseMessage) =>
       .limit()
       .pagination()
       .search()
-      .sort();
+      .sort()
+      .listOfRecords();
 
     const response = await featuredModel.queryObj;
 
