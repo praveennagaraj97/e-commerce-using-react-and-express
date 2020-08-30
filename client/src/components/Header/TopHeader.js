@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import SearchBar from "../SearchBar";
 import DropdownMenu from "../DropdownMenu";
-import Cart from "../Product/Cart";
+import CartIcon from "../Product/CartIcon";
 import UserMenu from "../User/UserMenu";
 
 import "../../styles/topHeader.scss";
@@ -41,7 +41,7 @@ export default class TopHeader extends Component {
             })}
 
             <SearchBar />
-            <Cart />
+            <CartIcon />
             <UserMenu />
           </Menu>
         </Segment>
@@ -54,7 +54,7 @@ export default class TopHeader extends Component {
           <Menu inverted secondary className='top-header-mobile'>
             <SearchBar />
             {this.renderMobileView()}
-            <Cart />
+            <CartIcon />
             <UserMenu />
           </Menu>
         </Segment>
