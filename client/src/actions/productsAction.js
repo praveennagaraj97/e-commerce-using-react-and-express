@@ -70,5 +70,3 @@ export const getProductsDetailsInCart = (details) => ({
   type: GET_PRODUCTS_IN_CART,
   details,
 });
-
-export const checkoutProducts = (data) => ({ type: CHECKOUT_DETAILS, data });
