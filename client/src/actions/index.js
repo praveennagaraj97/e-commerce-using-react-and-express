@@ -52,4 +52,6 @@ export {
   // cart
   addItemToCart,
   removeItemFromCart,
+  loadProductCart,
+  getProductsDetailsInCart,
 } from "./productsAction";

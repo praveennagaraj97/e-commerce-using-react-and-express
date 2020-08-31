@@ -1,7 +1,8 @@
 import React from "react";
+import ProductCart from "../Product/ProductCart";
 
 const Cart = () => {
-  return <h1 style={{ color: "white" }}>Cart</h1>;
+  return <ProductCart />;
 };
 
 export default Cart;

@@ -2,21 +2,13 @@ import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
 import _ from "lodash";
 
-import {
-  setPageNumber,
-  addItemToCart,
-  removeItemFromCart,
-} from "../../actions";
+import { setPageNumber, addItemToCart } from "../../actions";
 import "../../styles/productDisplay.scss";
 
 import { useInfiniteScrolling } from "../../utils/useInfiniteScrolling";
+import history from "../../history";
 
-const ProductDisplay = ({
-  productsList,
-  loadMoreResults,
-  addItemToCart,
-  removeItemFromCart,
-}) => {
+const ProductDisplay = ({ productsList, loadMoreResults, addItemToCart }) => {
   const { products, query } = productsList;
   const [element, setElement] = useState(null);
 
@@ -75,12 +67,22 @@ const ProductDisplay = ({
                     <p className='product-card__price'>₹{productPrice}</p>
                     <div className='product-card__view__cart_btn_option'>
                       <button
-                        onClick={() => addItemToCart(_id)}
+                        onClick={() => {
+                          addItemToCart(_id);
+                        }}
                         className='product-card__btn product__cart-btn'>
                         Add To Cart
                       </button>
                       <button
-                        onClick={() => removeItemFromCart(_id)}
+                        onClick={() =>
+                          history.push(
+                            `/category/${
+                              history.location.pathname.split("/")[
+                                history.location.pathname.split("/").length - 1
+                              ]
+                            }/${_id}`
+                          )
+                        }
                         className='product-card__btn product__view-btn'>
                         View Product
                       </button>
@@ -121,7 +123,6 @@ const mapStateToProps = ({ productsList }) => ({ productsList });
 const mapDispatchToProps = (dispatch) => ({
   loadMoreResults: (pageNumber) => dispatch(setPageNumber(pageNumber)),
   addItemToCart: (item) => dispatch(addItemToCart(item)),
-  removeItemFromCart: (item) => dispatch(removeItemFromCart(item)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductDisplay);

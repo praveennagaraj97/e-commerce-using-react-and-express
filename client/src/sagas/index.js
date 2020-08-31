@@ -13,7 +13,8 @@ import {
   loadProductsWatcher,
   loadMoreResultsWatcher,
   productCartWatcher,
-} from "./productsSaga";
+  productCartLoadWatcher,
+} from "./ProductsSagas";
 
 function* rootSaga() {
   yield all([
@@ -25,6 +26,7 @@ function* rootSaga() {
     yield fork(loadProductsWatcher),
     yield fork(loadMoreResultsWatcher),
     yield fork(productCartWatcher),
+    yield fork(productCartLoadWatcher),
   ]);
 }
 

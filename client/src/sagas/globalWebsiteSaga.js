@@ -1,4 +1,4 @@
-import { takeLatest, call, put } from "redux-saga/effects";
+import { takeLatest, call, put, delay } from "redux-saga/effects";
 
 import { WEBSITE_LOAD } from "../constants";
 import { getAllCategoriesEndpoint } from "../api";
@@ -11,8 +11,13 @@ function* handleWebsiteLoadWorker() {
     yield put(getAllCategories(data.details));
   } catch (err) {
     yield put(
-      globalFailureMessenger("Something went Wrong Please try Again Later")
+      globalFailureMessenger(
+        "Something went Wrong Server didn't respond!! Trying again"
+      )
     );
+    yield delay(5000);
+    yield put(globalFailureMessenger(null));
+    yield put({ type: WEBSITE_LOAD });
   }
 }
 

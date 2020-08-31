@@ -10,6 +10,8 @@ const {
   NO_MORE_RESULTS_FOUND,
   ADD_PRODUCT_TO_CART,
   REMOVE_PRODUCT_FROM_CART,
+  LOAD_PRODUCT_CART,
+  GET_PRODUCTS_IN_CART,
 } = PRODUCT_TYPES;
 
 const categoriesReducer = (state = {}, action) => {
@@ -53,7 +55,6 @@ export const getProductsReducer = (
     case NO_MORE_RESULTS_FOUND:
       state.query["moreResultsAvailable"] = action.isAvailable;
       return { ...state };
-
     default:
       return state;
   }
@@ -67,9 +68,19 @@ export const productCartReducer = (state = { cart: [] }, action) => {
       return { ...state };
 
     case REMOVE_PRODUCT_FROM_CART:
-      state.cart = state.cart.filter((item) => item !== action.item);
+      state.cart.splice(
+        state.cart.findIndex((item) => item === action.item),
+        1
+      );
+      if (state.cart.length === 0) delete state["productsInCart"];
       return { ...state };
 
+    case LOAD_PRODUCT_CART:
+      state["loadProductCart"] = true;
+      return { ...state };
+    case GET_PRODUCTS_IN_CART:
+      state["productsInCart"] = action.details;
+      return { ...state };
     default:
       return state;
   }
