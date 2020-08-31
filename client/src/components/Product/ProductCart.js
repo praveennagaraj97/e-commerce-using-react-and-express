@@ -9,10 +9,7 @@ import {
 } from "../../actions";
 
 const ProductCart = ({ productCart, addItem, removeItem, loadCart }) => {
-  if (
-    productCart.hasOwnProperty("productsInCart") &&
-    productCart.cart.length > 0
-  ) {
+  if (productCart.hasOwnProperty("productsInCart")) {
     return (
       <div className='product-cart'>
         <div className='product-card-header'>

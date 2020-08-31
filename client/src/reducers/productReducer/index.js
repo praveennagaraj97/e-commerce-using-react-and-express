@@ -72,8 +72,7 @@ export const productCartReducer = (state = { cart: [] }, action) => {
         state.cart.findIndex((item) => item === action.item),
         1
       );
-
-      console.log(state.cart);
+      if (state.cart.length === 0) delete state["productsInCart"];
       return { ...state };
 
     case LOAD_PRODUCT_CART:

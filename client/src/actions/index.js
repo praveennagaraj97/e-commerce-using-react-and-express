@@ -54,4 +54,5 @@ export {
   removeItemFromCart,
   loadProductCart,
   getProductsDetailsInCart,
+  checkoutProducts,
 } from "./productsAction";
