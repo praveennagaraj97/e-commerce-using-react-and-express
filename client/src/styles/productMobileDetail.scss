@@ -1,0 +1,43 @@
+.product-detailed-view__mobiles {
+}
+
+.product-detailed-img-detail-buy {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin: 5px;
+  grid-gap: 10px;
+}
+
+.product-detailed-img {
+  height: 20vh;
+  display: grid;
+  grid-template-columns: 0fr 1fr;
+  grid-gap: 3px;
+
+  .product-detailed-img__list-container {
+    width: 5vw;
+    border-radius: 5px;
+  }
+
+  .product-detailed-img-images {
+    width: 5vw;
+    border-radius: 7px;
+  }
+
+  .product-detailed-img-selected-image {
+    width: 32vw;
+    border-radius: 7px;
+  }
+}
+
+.product-detailed-detail {
+  background-color: white;
+  width: 30vw;
+  border-radius: 7px;
+  padding: 7px;
+}
+.product-detailed-buy {
+  height: 20vh;
+  width: 25vw;
+  background-color: white;
+}

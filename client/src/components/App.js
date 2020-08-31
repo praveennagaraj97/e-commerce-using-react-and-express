@@ -14,7 +14,15 @@ import ProductDisplay from "./Product/ProductDisplay";
 
 import history from "../history";
 
-const { Home, Supreme, LexaPay, Service, Orders, Cart } = Pages;
+const {
+  Home,
+  Supreme,
+  LexaPay,
+  Service,
+  Orders,
+  Cart,
+  ProductDetailView,
+} = Pages;
 
 const displayProductCategory = [...Object.keys(Pages)]
   .filter((each) => each !== "Cart")
@@ -64,6 +72,11 @@ const App = () => {
               exact
               path='/category/:categoryName'
               component={ProductDisplay}
+            />
+            <Route
+              exact
+              path='/category/:categoryName/:productId'
+              component={ProductDetailView}
             />
           </Switch>
           {windowWidth < 1025 ? (
