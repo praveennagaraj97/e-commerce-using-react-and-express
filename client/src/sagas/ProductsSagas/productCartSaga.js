@@ -6,6 +6,9 @@ import {
   // Error Or Success Messager
   globalFailureMessenger,
   globalSuccesMessengerWithImg,
+
+  // Products details by it's ID's
+  getProductsDetailsInCart,
 } from "../../actions";
 
 import { getProductsDetailsInCartEndPoint } from "../../api";
@@ -39,21 +42,40 @@ function* handleProductRemoveCartWorker() {
 }
 
 // Add and remove watcher
+
+const addQuantityPropToCart = (cartItems) => {
+  const result = {};
+  cartItems.forEach((item) => {
+    result[item] = (result[item] || 0) + 1;
+  });
+  return result;
+};
+
 export function* productCartWatcher() {
   yield takeLatest(ADD_PRODUCT_TO_CART, handleProductAddCartWorker);
   yield takeLatest(REMOVE_PRODUCT_FROM_CART, handleProductRemoveCartWorker);
 }
 
-//
-//
 function* handleproductCartWorker() {
   const { cart } = yield select(getCartStatefromStore);
   if (cart.length < 1) return;
+
+  const qunatityOfCartItems = addQuantityPropToCart(cart);
   try {
-    const response = yield call(getProductsDetailsInCartEndPoint, {
+    const { data } = yield call(getProductsDetailsInCartEndPoint, {
       cartItems: cart,
     });
-    yield console.log(response);
+
+    console.log(data.details);
+
+    const results = data.details.map((item) => {
+      item.quantity = qunatityOfCartItems[item._id];
+      return item;
+    });
+
+    console.log(results);
+
+    yield put(getProductsDetailsInCart(data.details));
   } catch (err) {
     yield put(globalFailureMessenger("Something went wrong try again later!"));
     yield delay(3200);

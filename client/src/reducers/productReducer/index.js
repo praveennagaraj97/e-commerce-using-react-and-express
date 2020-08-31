@@ -11,6 +11,7 @@ const {
   ADD_PRODUCT_TO_CART,
   REMOVE_PRODUCT_FROM_CART,
   LOAD_PRODUCT_CART,
+  GET_PRODUCTS_IN_CART,
 } = PRODUCT_TYPES;
 
 const categoriesReducer = (state = {}, action) => {
@@ -72,6 +73,9 @@ export const productCartReducer = (state = { cart: [] }, action) => {
 
     case LOAD_PRODUCT_CART:
       state["loadProductCart"] = true;
+      return { ...state };
+    case GET_PRODUCTS_IN_CART:
+      state["productsInCart"] = action.details;
       return { ...state };
     default:
       return state;
