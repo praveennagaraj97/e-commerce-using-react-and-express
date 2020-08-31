@@ -1,4 +1,4 @@
-import { takeLatest, select, put, call } from "redux-saga/effects";
+import { takeLatest, select, put, call, delay } from "redux-saga/effects";
 
 import { PRODUCT_TYPES } from "../../constants";
 
@@ -30,6 +30,8 @@ function* handleProductAddCartWorker() {
   const { productCoverImage, productName } = addedProduct;
   const message = `${productName} added to cart😍`;
   yield put(globalSuccesMessengerWithImg(message, productCoverImage));
+  yield delay(3200);
+  yield put(globalSuccesMessengerWithImg(null, null));
 }
 
 function* handleProductRemoveCartWorker() {
@@ -54,6 +56,8 @@ function* handleproductCartWorker() {
     yield console.log(response);
   } catch (err) {
     yield put(globalFailureMessenger("Something went wrong try again later!"));
+    yield delay(3200);
+    yield put(globalFailureMessenger(null));
   }
 }
 

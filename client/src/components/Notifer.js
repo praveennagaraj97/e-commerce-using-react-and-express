@@ -50,9 +50,14 @@ const Notifer = ({ error, success, globalSuccessWithImg }) => {
   const [theme, setTheme] = useState("info");
 
   useEffect(() => {
-    if (globalSuccessWithImg !== null) {
-      setTheme("success");
-      setOpen(true);
+    if (globalSuccessWithImg) {
+      if (
+        globalSuccessWithImg.hasOwnProperty("success") &&
+        globalSuccessWithImg.success !== null
+      ) {
+        setTheme("success");
+        setOpen(true);
+      }
     }
 
     if (error !== null) {
