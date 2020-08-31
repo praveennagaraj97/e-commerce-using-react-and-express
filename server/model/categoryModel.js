@@ -26,16 +26,16 @@ const categorySchema = new Schema(
 
 categorySchema.plugin(mongooseUniqueValidator);
 
-categorySchema.virtual("productsList", {
-  ref: `Product`,
-  localField: `_id`,
-  foreignField: `categoryId`,
-});
+// categorySchema.virtual("productsList", {
+//   ref: `Product`,
+//   localField: `_id`,
+//   foreignField: `categoryId`,
+// });
 
-categorySchema.pre(/^find/, function (next) {
-  this.populate("productsList");
-  next();
-});
+// // categorySchema.pre(/^findOne/, function (next) {
+// //   this.populate("productsList");
+// //   next();
+// // });
 
 const Category = model("Category", categorySchema);
 
