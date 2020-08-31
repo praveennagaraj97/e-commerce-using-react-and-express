@@ -58,22 +58,18 @@ export function* productCartWatcher() {
 
 function* handleproductCartWorker() {
   const { cart } = yield select(getCartStatefromStore);
-  if (cart.length < 1) return;
+  if (cart.length < 1) return put(getProductsDetailsInCart([]));
 
   const qunatityOfCartItems = addQuantityPropToCart(cart);
   try {
     const { data } = yield call(getProductsDetailsInCartEndPoint, {
       cartItems: cart,
     });
-
-    console.log(data.details);
-
-    const results = data.details.map((item) => {
+    data.details.map((item) => {
       item.quantity = qunatityOfCartItems[item._id];
+      item.price = item.productPrice * item.quantity;
       return item;
     });
-
-    console.log(results);
 
     yield put(getProductsDetailsInCart(data.details));
   } catch (err) {

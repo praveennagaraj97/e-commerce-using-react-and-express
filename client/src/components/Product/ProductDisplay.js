@@ -75,7 +75,9 @@ const ProductDisplay = ({
                     <p className='product-card__price'>₹{productPrice}</p>
                     <div className='product-card__view__cart_btn_option'>
                       <button
-                        onClick={() => addItemToCart(_id)}
+                        onClick={() => {
+                          addItemToCart(_id);
+                        }}
                         className='product-card__btn product__cart-btn'>
                         Add To Cart
                       </button>

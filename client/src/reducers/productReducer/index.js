@@ -68,7 +68,12 @@ export const productCartReducer = (state = { cart: [] }, action) => {
       return { ...state };
 
     case REMOVE_PRODUCT_FROM_CART:
-      state.cart = state.cart.filter((item) => item !== action.item);
+      state.cart.splice(
+        state.cart.findIndex((item) => item === action.item),
+        1
+      );
+
+      console.log(state.cart);
       return { ...state };
 
     case LOAD_PRODUCT_CART:

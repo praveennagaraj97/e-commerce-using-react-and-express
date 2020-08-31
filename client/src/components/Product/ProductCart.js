@@ -2,9 +2,17 @@ import React from "react";
 import { connect } from "react-redux";
 
 import "../../styles/productCart.scss";
+import {
+  addItemToCart,
+  removeItemFromCart,
+  loadProductCart,
+} from "../../actions";
 
-const ProductCart = ({ productCart }) => {
-  if (productCart.hasOwnProperty("productsInCart")) {
+const ProductCart = ({ productCart, addItem, removeItem, loadCart }) => {
+  if (
+    productCart.hasOwnProperty("productsInCart") &&
+    productCart.cart.length > 0
+  ) {
     return (
       <div className='product-cart'>
         <div className='product-card-header'>
@@ -14,10 +22,7 @@ const ProductCart = ({ productCart }) => {
 
         <hr />
         {productCart.productsInCart.map(
-          (
-            { _id, productName, productPrice, productCoverImage, quantity },
-            index
-          ) => {
+          ({ _id, productName, price, productCoverImage, quantity }, index) => {
             return (
               <div className='product-card__item-box' key={index}>
                 <div className='product-card__item-image__container'>
@@ -29,28 +34,48 @@ const ProductCart = ({ productCart }) => {
                 </div>
                 <div className='product-card__nameandquantity'>
                   <h3>{productName}</h3>
-                  <input
-                    onChange={() => {}}
-                    min={0}
-                    className='product-cart-quantity'
-                    type='number'
-                    max={10}
-                    value={quantity}
-                  />
+                  <h4>Qty : {quantity}</h4>
+                  <div>
+                    <button
+                      onClick={() => {
+                        addItem(_id);
+                        loadCart();
+                      }}>
+                      +
+                    </button>
+                    <button
+                      onClick={() => {
+                        removeItem(_id);
+                        loadCart();
+                      }}>
+                      -
+                    </button>
+                  </div>
                 </div>
                 <div className='product-card__price'>
-                  <h3 className='product-card__item-price'>₹{productPrice}</h3>
+                  <h3 className='product-card__item-price'>₹{price}</h3>
                 </div>
               </div>
             );
           }
         )}
+        <hr />
+        <div className='product-cart-checkout'>
+          <h2>Subtotal ({5} item):</h2>
+          <h4 className='product-cart-checkout-price'>₹{789655}.00</h4>
+        </div>
       </div>
     );
   }
-  return <></>;
+  return <h1 style={{ color: "white" }}>No Items In Cart</h1>;
 };
 
 const mapStateToProps = ({ productCart }) => ({ productCart });
 
-export default connect(mapStateToProps)(ProductCart);
+const mapDispatchToProps = (dispatch) => ({
+  addItem: (id) => dispatch(addItemToCart(id)),
+  removeItem: (id) => dispatch(removeItemFromCart(id)),
+  loadCart: () => dispatch(loadProductCart()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductCart);
