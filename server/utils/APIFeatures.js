@@ -14,6 +14,7 @@ export class ApiFeatures {
       "fields",
       "searchin",
       "searchTerm",
+      "listOfRecords",
     ];
     excludeFileds.forEach((fields) => {
       delete query[fields];
@@ -61,6 +62,28 @@ export class ApiFeatures {
       const regex = new RegExp(escapeRegex(searchTerm), "gi");
       this.queryObj = this.queryObj.find({ [searchin]: regex });
     }
+    return this;
+  }
+
+  listOfRecords() {
+    if (this.query.listOfRecords) {
+      let listOfIds;
+
+      if (typeof this.query.listOfRecords === "string") {
+        try {
+          listOfIds = JSON.parse(this.query.listOfRecords);
+        } catch (err) {
+          throw new Error("Provide Only List Of Ids");
+        }
+      } else {
+        listOfIds = this.query.listOfRecords;
+      }
+
+      this.queryObj = this.queryObj.find({
+        _id: { $in: listOfIds },
+      });
+    }
+
     return this;
   }
 }

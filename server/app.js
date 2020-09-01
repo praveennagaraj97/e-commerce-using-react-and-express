@@ -19,6 +19,7 @@ import {
 import { userRouter } from "./route/userRouter";
 import { categoryRouter } from "./route/categoryRouter";
 import { productRouter } from "./route/productRouter";
+import { productDetailRouter } from "./route/productDetailsRouter";
 
 dotenvConfig();
 process.on("uncaughtException", unCaughtExceptionErrorHandler);
@@ -70,6 +71,7 @@ app.get("/", (req, res, next) => {
 
 app.use("/api/v1/category", categoryRouter);
 app.use("/api/v1/product", productRouter);
+app.use("/api/v1/product_detail", productDetailRouter);
 
 app.use("/api/v1/user", limiter);
 app.use("/api/v1/user", userRouter);
