@@ -12,6 +12,7 @@ import {
   addNewProduct,
   getAllProducts,
   getProductDetailsInCart,
+  getProduct,
   addProductManufacturer,
   addProductDescriptionAndImages,
 
@@ -32,6 +33,8 @@ productRouter.route("/getProducts").get(getAllProducts);
 productRouter
   .route("/getProductsDetailsInCart")
   .post(preFillCartIdasParams, getProductDetailsInCart);
+
+productRouter.route("/getProduct/:id").get(getProduct);
 
 // Seller Route
 

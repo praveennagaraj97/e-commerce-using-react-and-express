@@ -35,6 +35,23 @@ export const readAllDocument = (ModelName, responseMessage) =>
     });
   });
 
+export const readDocumentById = (ModelName, responseMessage) =>
+  catchAsyncError(async (req, res, next) => {
+    if (!req.params.id)
+      return next(
+        new AppError("Provide Id of the Document You are Querying !!", 422)
+      );
+    const docs = await ModelName.findById(req.params.id);
+
+    if (!docs)
+      return next(new AppError("No Results found With The Given Id", 204));
+
+    res.status(200).json({
+      message: responseMessage.message,
+      detail: docs,
+    });
+  });
+
 export const updateDocumentByID = (ModelName, responseMessage) =>
   catchAsyncError(async (req, res, next) => {
     if (!Object.keys(req.body).length)

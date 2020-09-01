@@ -4,7 +4,11 @@ import {
   ProductDescriptionAndImages,
 } from "../model/productModel";
 
-import { createNewDocumnet, readAllDocument } from "../handlers/factoryHandler";
+import {
+  createNewDocumnet,
+  readAllDocument,
+  readDocumentById,
+} from "../handlers/factoryHandler";
 import {
   processSingleImage,
   handleImageUpload,
@@ -55,3 +59,7 @@ export const addProductDescriptionAndImages = createNewDocumnet(
     message: "Product Description and Images added",
   }
 );
+
+export const getProduct = readDocumentById(Product, {
+  message: "Requested Product",
+});
