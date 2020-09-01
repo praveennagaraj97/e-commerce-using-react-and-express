@@ -1,12 +1,20 @@
-import { Product } from "../model/productModel";
+import {
+  Product,
+  ProductManufacturer,
+  ProductDescriptionAndImages,
+} from "../model/productModel";
 
 import { createNewDocumnet, readAllDocument } from "../handlers/factoryHandler";
 import {
   processSingleImage,
   handleImageUpload,
+  processMultipleImages,
 } from "../middleware/imageProcessMiddleware";
 
-export { preFillCartIdasParams } from "../middleware/preFillers";
+export {
+  preFillCartIdasParams,
+  preFillProductDescAndImages,
+} from "../middleware/preFillers";
 
 // Protect Middlewares
 export { protectForReact, protectRoutes } from "./userController";
@@ -28,3 +36,22 @@ export const getAllProducts = readAllDocument(Product, {
 export const getProductDetailsInCart = readAllDocument(Product, {
   message: "Details Of Products in Cart",
 });
+
+// Manufacturer
+export const addProductManufacturer = createNewDocumnet(ProductManufacturer, {
+  message: "Manufactured Details Added",
+});
+
+// Product Description
+export const handleProductImages = handleImageUpload(
+  5,
+  "product-mobile-details-images"
+);
+export const processProductImages = processMultipleImages("productImages");
+
+export const addProductDescriptionAndImages = createNewDocumnet(
+  ProductDescriptionAndImages,
+  {
+    message: "Product Description and Images added",
+  }
+);
