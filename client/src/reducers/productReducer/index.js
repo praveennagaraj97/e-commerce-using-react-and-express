@@ -12,9 +12,10 @@ const {
   REMOVE_PRODUCT_FROM_CART,
   LOAD_PRODUCT_CART,
   GET_PRODUCTS_IN_CART,
+  LOAD_VIEW_PRODUCT_DETAIL,
 } = PRODUCT_TYPES;
 
-const categoriesReducer = (state = {}, action) => {
+export const categoriesReducer = (state = {}, action) => {
   switch (action.type) {
     case GET_ALL_CATEGORIES:
       return { ...state, categories: action.response };
@@ -86,4 +87,15 @@ export const productCartReducer = (state = { cart: [] }, action) => {
   }
 };
 
-export default categoriesReducer;
+export const viewProductReducer = (state = {}, action) => {
+  switch (action.type) {
+    case LOAD_VIEW_PRODUCT_DETAIL:
+      state["productType"] = {
+        productCategory: action.productDetail.category,
+        productId: action.productDetail.id,
+      };
+      return { ...state };
+    default:
+      return state;
+  }
+};

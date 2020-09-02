@@ -72,7 +72,7 @@ export const getProductsDetailsInCart = (details) => ({
   details,
 });
 
-export const loadViewProductDetail = (productType) => ({
+export const loadViewProductDetail = (productDetail) => ({
   type: LOAD_VIEW_PRODUCT_DETAIL,
-  productType,
+  productDetail,
 });

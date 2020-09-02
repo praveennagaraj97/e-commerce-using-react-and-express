@@ -26,6 +26,16 @@ $cart-btn-colour: rgba(238, 155, 117, 0.774);
   margin: 5px;
 }
 
+.product-card-contents_container {
+  display: grid;
+}
+
+.product-card__view__cart_btn_option {
+  margin-bottom: 2px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
 .product-card-image_container {
   width: 18.2vw;
 }
