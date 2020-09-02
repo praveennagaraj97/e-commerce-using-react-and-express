@@ -56,4 +56,5 @@ export {
   getProductsDetailsInCart,
   // View Products
   loadViewProductDetail,
+  getProductDetail,
 } from "./productsAction";

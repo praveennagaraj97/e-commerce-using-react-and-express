@@ -13,6 +13,7 @@ const {
   LOAD_PRODUCT_CART,
   GET_PRODUCTS_IN_CART,
   LOAD_VIEW_PRODUCT_DETAIL,
+  PRODUCT_DETAIL,
 } = PRODUCT_TYPES;
 
 export const categoriesReducer = (state = {}, action) => {
@@ -94,6 +95,11 @@ export const viewProductReducer = (state = {}, action) => {
         productCategory: action.productDetail.category,
         productId: action.productDetail.id,
       };
+      return { ...state };
+
+    case PRODUCT_DETAIL:
+      state["details"] = action.data;
+      console.log(action.data);
       return { ...state };
     default:
       return state;
