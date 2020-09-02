@@ -41,7 +41,7 @@ productSchema.virtual("productImagesAndDesc", {
   foreignField: "productId",
 });
 
-productSchema.virtual("MobileDetails", {
+productSchema.virtual("mobileDetails", {
   ref: "Mobile",
   localField: "_id",
   foreignField: "productId",
