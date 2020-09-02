@@ -18,7 +18,7 @@ export default class TopHeader extends Component {
   render() {
     const { navItems, windowWidth } = this.props;
 
-    if (windowWidth > 700)
+    if (windowWidth > 702)
       return (
         <Segment inverted className='top-header-menu'>
           <Menu inverted secondary className='top-header'>
@@ -52,8 +52,8 @@ export default class TopHeader extends Component {
         <div className='top-header-brand__name'>Lexa</div>
         <Segment inverted className='top-header-mobile-menu'>
           <Menu inverted secondary className='top-header-mobile'>
-            <SearchBar />
             {this.renderMobileView()}
+            <SearchBar />
             <CartIcon />
             <UserMenu />
           </Menu>

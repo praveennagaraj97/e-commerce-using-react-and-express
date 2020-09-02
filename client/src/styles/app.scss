@@ -28,7 +28,7 @@ body {
 
   .contents-section {
     position: relative;
-    top: 145px;
+    top: 120px;
   }
 }
 
@@ -49,12 +49,5 @@ body {
     bottom: 50%;
     left: 2%;
     height: 50px;
-  }
-}
-
-@media (min-height: 1300px) {
-  .contents-section {
-    position: relative;
-    top: 174px;
   }
 }
