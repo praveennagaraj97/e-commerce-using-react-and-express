@@ -34,7 +34,7 @@ productRouter
   .route("/getProductsDetailsInCart")
   .post(preFillCartIdasParams, getProductDetailsInCart);
 
-productRouter.route("/getProduct/:id").get(getProduct);
+productRouter.route("/getProduct").get(getProduct);
 
 // Seller Route
 

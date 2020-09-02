@@ -35,9 +35,9 @@ export const readAllDocument = (ModelName, responseMessage) =>
     });
   });
 
-export const readDocumentById = (ModelName, responseMessage) =>
+export const readDocumentByIdThroughQuery = (ModelName, responseMessage) =>
   catchAsyncError(async (req, res, next) => {
-    if (!req.params.id)
+    if (!req.query.id)
       return next(
         new AppError("Provide Id of the Document You are Querying !!", 422)
       );

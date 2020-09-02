@@ -7,7 +7,7 @@ import {
 import {
   createNewDocumnet,
   readAllDocument,
-  readDocumentById,
+  readDocumentByIdThroughQuery,
 } from "../handlers/factoryHandler";
 import {
   processSingleImage,
@@ -60,6 +60,6 @@ export const addProductDescriptionAndImages = createNewDocumnet(
   }
 );
 
-export const getProduct = readDocumentById(Product, {
+export const getProduct = readDocumentByIdThroughQuery(Product, {
   message: "Requested Product",
 });
