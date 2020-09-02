@@ -54,4 +54,6 @@ export {
   removeItemFromCart,
   loadProductCart,
   getProductsDetailsInCart,
+  // View Products
+  loadViewProductDetail,
 } from "./productsAction";

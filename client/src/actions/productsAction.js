@@ -12,6 +12,8 @@ const {
   REMOVE_PRODUCT_FROM_CART,
   LOAD_PRODUCT_CART,
   GET_PRODUCTS_IN_CART,
+
+  LOAD_VIEW_PRODUCT_DETAIL,
 } = PRODUCT_TYPES;
 
 // Loads on website load.
@@ -68,4 +70,9 @@ export const loadProductCart = () => ({ type: LOAD_PRODUCT_CART });
 export const getProductsDetailsInCart = (details) => ({
   type: GET_PRODUCTS_IN_CART,
   details,
+});
+
+export const loadViewProductDetail = (productType) => ({
+  type: LOAD_VIEW_PRODUCT_DETAIL,
+  productType,
 });
