@@ -41,7 +41,7 @@ export const readDocumentByIdThroughQuery = (ModelName, responseMessage) =>
       return next(
         new AppError("Provide Id of the Document You are Querying !!", 422)
       );
-    const docs = await ModelName.findById(req.params.id);
+    const docs = await ModelName.findById(req.query.id);
 
     if (!docs)
       return next(new AppError("No Results found With The Given Id", 204));
