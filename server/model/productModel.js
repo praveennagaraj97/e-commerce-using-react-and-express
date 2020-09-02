@@ -53,7 +53,7 @@ productSchema.pre(/^findOne/, function (next) {
     model: "Category",
   })
     .populate("productImagesAndDesc")
-    .populate("MobileDetails");
+    .populate("mobileDetails");
   next();
 });
 
