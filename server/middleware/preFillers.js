@@ -31,13 +31,3 @@ export const preFilldetailedMobileDescription = (req, res, next) => {
 
   next();
 };
-
-export const preFillProductDescAndImages = (req, res, next) => {
-  const productDescription = {
-    colour: req.body.colour,
-    sizeName: req.body.sizeName,
-    detailedDescription: req.body.detailedDescription,
-  };
-  req.body.productDescription = productDescription;
-  next();
-};

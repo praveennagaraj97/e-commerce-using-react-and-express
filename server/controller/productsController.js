@@ -15,10 +15,7 @@ import {
   processMultipleImages,
 } from "../middleware/imageProcessMiddleware";
 
-export {
-  preFillCartIdasParams,
-  preFillProductDescAndImages,
-} from "../middleware/preFillers";
+export { preFillCartIdasParams } from "../middleware/preFillers";
 
 // Protect Middlewares
 export { protectForReact, protectRoutes } from "./userController";

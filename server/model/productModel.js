@@ -90,18 +90,8 @@ const productDescriptionAndImagesSchema = new Schema(
     },
 
     productDescription: {
-      colour: {
-        type: String,
-        required: [true, "Provide the Mobile Colour"],
-      },
-      sizeName: {
-        type: String,
-        required: [true, "Provide RAM/Memory of the Mobile"],
-      },
-      detailedDescription: {
-        type: String,
-        required: [true, "Provide detailes Description of the Mobile"],
-      },
+      type: String,
+      required: [true, "Provide detailed description of Product"],
     },
   },
   {

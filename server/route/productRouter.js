@@ -18,8 +18,6 @@ import {
 
   // Middlewares
   preFillCartIdasParams,
-  preFillProductDescAndImages,
-
   // Protect
   protectForReact,
   protectRoutes,
@@ -56,7 +54,6 @@ productRouter
   .route("/dev/addProductDescAndImages")
   .post(
     upload.array("productImages"),
-    preFillProductDescAndImages,
     handleProductImages,
     processProductImages,
     addProductDescriptionAndImages
