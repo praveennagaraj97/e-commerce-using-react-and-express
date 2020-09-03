@@ -1,0 +1,161 @@
+{
+  "songs": [
+    {
+      "name": "Baby One More Time",
+      "artist": "Britney Spears",
+      "link": "https://res.cloudinary.com/praveennagaraj97/v'id'eo/upload/v1597232142/Britney-Spears-Baby-One-More-Time_u6hfvv.mp3"
+    },
+    {
+      "name": "EveryThing I Wanted",
+      "artist": "Billie Eilish",
+      "link": "https://res.cloudinary.com/praveennagaraj97/v'id'eo/upload/v1597154866/Billie_Eilish_-_everything_i_wanted_ycs9y7.mp3"
+    }
+  ],
+  "categories": [
+    {
+      "title": "Mobiles",
+      "icon": "https://img.icons8.com/dusk/64/000000/iphone-x.png"
+    },
+    {
+      "title": "Computers",
+      "icon": "https://img.icons8.com/dusk/64/000000/computer.png"
+    },
+    {
+      "title": "Electronics",
+      "icon": "https://img.icons8.com/dusk/64/000000/electronics.png"
+    },
+    {
+      "title": "Pantry",
+      "icon": "https://img.icons8.com/dusk/64/000000/organic-food.png"
+    },
+    {
+      "title": "Pet",
+      "icon": "https://img.icons8.com/color/48/000000/hachiko.png"
+    },
+    {
+      "title": "Fashion",
+      "icon": "https://img.icons8.com/dusk/64/000000/hanger.png"
+    },
+    {
+      "title": "Beauty",
+      "icon": "https://img.icons8.com/dusk/64/000000/spa-flower.png"
+    },
+    {
+      "title": "Kitchen",
+      "icon": "https://img.icons8.com/dusk/64/000000/kitchen.png"
+    }
+  ],
+
+  "advertisement": {
+    "wallImage": "https://images.squarespace-cdn.com/content/v1/56fe64a60442628d4ff707de/1529844466929-NXF7QK6COZHD2GPYSJKE/ke17ZwdGBToddI8pDm48kC2Ou1MO9kamcKms_rlnXOx7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z4YTzHvnKhyp6Da-NYroOW3ZGjoBKy3azqku80C789l0pTKqSDRwmMK43IUI3HojJWvxET3ZsoHLF25q9M0jMXigr6IB5A8OQ1JN_TuoaZPoQ/puppy+ads3.jpg?format=1500w",
+    "product-link": "https://images.squarespace-cdn.com/content/v1/56fe64a60442628d4ff707de/1529844466929-NXF7QK6COZHD2GPYSJKE/ke17ZwdGBToddI8pDm48kC2Ou1MO9kamcKms_rlnXOx7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z4YTzHvnKhyp6Da-NYroOW3ZGjoBKy3azqku80C789l0pTKqSDRwmMK43IUI3HojJWvxET3ZsoHLF25q9M0jMXigr6IB5A8OQ1JN_TuoaZPoQ/puppy+ads3.jpg?format=1500w"
+  },
+
+  "mobileDetail": {
+    "images": [
+      "https://images-na.ssl-images-amazon.com/images/I/51jWUJ2XFqL._SL1024_.jpg",
+      "https://images-na.ssl-images-amazon.com/images/I/51uj%2BUqWCTL._SL1024_.jpg",
+      "https://images-na.ssl-images-amazon.com/images/I/51r4Gp3xskL._SL1024_.jpg",
+      "https://images-na.ssl-images-amazon.com/images/I/71N%2BbxT7c-L._SL1500_.jpg",
+      "https://images-na.ssl-images-amazon.com/images/I/617LgamaaHL._SL1024_.jpg",
+      "https://images-na.ssl-images-amazon.com/images/I/51o5RmQtroL._SL1024_.jpg"
+    ],
+    "name": "Apple iPhone 11 (64GB) - White",
+    "avgRating": 4.5,
+    "ratedBy": 20,
+    "brand": "Apple",
+    "video": "https://d12xgfa7l6zj5h.cloudfront.net/4b8d0c37-113b-49c4-82bc-eefd04a9b34a/default.jobtemplate.mp4.480.mp4",
+    "mrp": 68300,
+    "leastPrice": 64500
+  },
+
+  "mobiles": [
+    {
+      "id": 1,
+      "productName": "iPhone XS",
+      "productPrice": "97000",
+      "review": 0,
+      "productImage": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-xs-silver?w'id'=2000&hei=2000&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1579299535944"
+    },
+    {
+      "id": 2,
+      "review": 4,
+      "productName": "iPhone SE",
+      "productPrice": "53000",
+      "productImage": "https://www.pngitem.com/pimgs/m/525-5259250_apple-ios-13-iphone-hd-png-download-apple.png"
+    },
+    {
+      "id": 3,
+      "review": 5,
+      "productName": "iPhone 11",
+      "productPrice": "97000",
+      "productImage": "https://images-na.ssl-images-amazon.com/images/I/51kGDXeFZKL._SL1024_.jpg"
+    },
+    {
+      "id": 4,
+      "review": 2,
+      "productName": "iPhone XS",
+      "productPrice": "97000",
+      "productImage": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-xs-silver?w'id'=2000&hei=2000&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1579299535944"
+    },
+    {
+      "id": 5,
+      "review": 1.5,
+      "productName": "iPhone XS",
+      "productPrice": "97000",
+      "productImage": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/refurb-iphone-xs-silver?w'id'=2000&hei=2000&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1579299535944"
+    },
+    {
+      "id": 6,
+      "review": 3.2,
+      "productName": "iPhone XS",
+      "productPrice": "97000",
+      "productImage": "https://www.pngitem.com/pimgs/m/525-5259250_apple-ios-13-iphone-hd-png-download-apple.png"
+    }
+  ],
+
+  "computers": [
+    {
+      "id": 1,
+      "productName": "Computer",
+      "productPrice": "97000",
+      "review": 0,
+      "productImage": "https://cdn.pixabay.com/photo/2015/01/21/14/14/apple-606761__340.jpg"
+    },
+    {
+      "id": 2,
+      "review": 4,
+      "productName": "Computer 2",
+      "productPrice": "53000",
+      "productImage": "https://cdn.pixabay.com/photo/2015/01/21/14/14/apple-606761__340.jpg"
+    },
+    {
+      "id": 3,
+      "review": 5,
+      "productName": "computer 3",
+      "productPrice": "97000",
+      "productImage": "https://cdn.pixabay.com/photo/2015/01/21/14/14/apple-606761__340.jpg"
+    },
+    {
+      "id": 4,
+      "review": 2,
+      "productName": "Computer 4",
+      "productPrice": "97000",
+      "productImage": "https://cdn.pixabay.com/photo/2015/01/21/14/14/apple-606761__340.jpg"
+    },
+    {
+      "id": 5,
+      "review": 1.5,
+      "productName": "Computer 5",
+      "productPrice": "97000",
+      "productImage": "https://cdn.pixabay.com/photo/2015/01/21/14/14/apple-606761__340.jpg"
+    },
+    {
+      "id": 6,
+      "review": 3.2,
+      "productName": "Computer 6",
+      "productPrice": "97000",
+      "productImage": "https://cdn.pixabay.com/photo/2015/01/21/14/14/apple-606761__340.jpg"
+    }
+  ]
+}

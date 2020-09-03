@@ -12,13 +12,12 @@ import {
   addNewProduct,
   getAllProducts,
   getProductDetailsInCart,
+  getProduct,
   addProductManufacturer,
   addProductDescriptionAndImages,
 
   // Middlewares
   preFillCartIdasParams,
-  preFillProductDescAndImages,
-
   // Protect
   protectForReact,
   protectRoutes,
@@ -32,6 +31,8 @@ productRouter.route("/getProducts").get(getAllProducts);
 productRouter
   .route("/getProductsDetailsInCart")
   .post(preFillCartIdasParams, getProductDetailsInCart);
+
+productRouter.route("/getProduct").get(getProduct);
 
 // Seller Route
 
@@ -53,7 +54,6 @@ productRouter
   .route("/dev/addProductDescAndImages")
   .post(
     upload.array("productImages"),
-    preFillProductDescAndImages,
     handleProductImages,
     processProductImages,
     addProductDescriptionAndImages

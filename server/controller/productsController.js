@@ -4,17 +4,18 @@ import {
   ProductDescriptionAndImages,
 } from "../model/productModel";
 
-import { createNewDocumnet, readAllDocument } from "../handlers/factoryHandler";
+import {
+  createNewDocumnet,
+  readAllDocument,
+  readDocumentByIdThroughQuery,
+} from "../handlers/factoryHandler";
 import {
   processSingleImage,
   handleImageUpload,
   processMultipleImages,
 } from "../middleware/imageProcessMiddleware";
 
-export {
-  preFillCartIdasParams,
-  preFillProductDescAndImages,
-} from "../middleware/preFillers";
+export { preFillCartIdasParams } from "../middleware/preFillers";
 
 // Protect Middlewares
 export { protectForReact, protectRoutes } from "./userController";
@@ -55,3 +56,7 @@ export const addProductDescriptionAndImages = createNewDocumnet(
     message: "Product Description and Images added",
   }
 );
+
+export const getProduct = readDocumentByIdThroughQuery(Product, {
+  message: "Requested Product",
+});
