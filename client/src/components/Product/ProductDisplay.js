@@ -10,6 +10,7 @@ import {
 import "../../styles/productDisplay.scss";
 
 import { useInfiniteScrolling } from "../../utils/useInfiniteScrolling";
+import { useWindowSize } from "../../utils/useWindowResizeHook";
 import history from "../../history";
 
 const ProductDisplay = ({
@@ -66,7 +67,7 @@ const ProductDisplay = ({
 
   return (
     <Fragment>
-      {window.innerWidth < 702 ? (
+      {useWindowSize().width < 702 ? (
         <div className='products-container-filter-mobile'>
           {/* Filter options */}
           <h3>Filter By Price</h3>
@@ -78,7 +79,7 @@ const ProductDisplay = ({
         ""
       )}
       <div className='products-container'>
-        {window.innerWidth > 700 ? (
+        {useWindowSize().width > 700 ? (
           <div className='products-container-filter-column'>
             {/* Filter options */}
             <h3>Filter By Price</h3>

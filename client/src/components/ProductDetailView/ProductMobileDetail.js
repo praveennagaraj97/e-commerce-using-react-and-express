@@ -8,7 +8,10 @@ const ProductMobileDetail = (props) => {
   if (props.images) {
     return (
       <Fragment>
-        <ProductImageAndBrief images={props.images} />
+        <ProductImageAndBrief
+          images={props.images}
+          productBriefInfo={props.productInfo}
+        />
         {/* <ProductAdvertiseBoard /> */}
       </Fragment>
     );
@@ -18,6 +21,7 @@ const ProductMobileDetail = (props) => {
 
 const mapStateToProps = ({ productDetail }) => ({
   images: productDetail.images,
+  productInfo: productDetail.productInfo,
 });
 
 export default connect(mapStateToProps)(ProductMobileDetail);

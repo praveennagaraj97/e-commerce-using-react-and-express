@@ -13,15 +13,15 @@ const getViewDetailsDataFromStore = ({ productDetail }) => productDetail;
 function* handleLoadProductViewWorker() {
   const { productType } = yield select(getViewDetailsDataFromStore);
 
-  yield history.push(
-    `/category/${productType.productCategory}/${productType.productId}`
-  );
   try {
     const { data } = yield call(
       getProductDetailEndPoint,
       productType.productId
     );
     yield put(getProductDetail(data.detail));
+    yield history.push(
+      `/category/${productType.productCategory}/${productType.productId}`
+    );
   } catch (err) {
     yield put(
       globalFailureMessenger("Server didn't respond please try again later!")

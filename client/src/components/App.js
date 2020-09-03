@@ -9,7 +9,7 @@ import { navItems } from "../data";
 import Pages from "./Pages";
 import SignUpAndLogin from "./User/SignUpAndLogin";
 import ProductCategories from "./Product/ProductCategories";
-
+import { useWindowSize } from "../utils/useWindowResizeHook";
 import ProductDisplay from "./Product/ProductDisplay";
 
 import history from "../history";
@@ -66,7 +66,7 @@ const App = () => {
               component={ProductDetailView}
             />
           </Switch>
-          {window.innerWidth < 1025 ? (
+          {useWindowSize().width < 1025 ? (
             <img
               onClick={handleScrollTotop}
               className='scroll-up-btn__mobile-screen_only'
