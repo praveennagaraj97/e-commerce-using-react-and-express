@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Router, Route, Switch } from "react-router-dom";
 import "animate.css";
 
@@ -9,7 +9,7 @@ import { navItems } from "../data";
 import Pages from "./Pages";
 import SignUpAndLogin from "./User/SignUpAndLogin";
 import ProductCategories from "./Product/ProductCategories";
-
+import { useWindowSize } from "../utils/useWindowResizeHook";
 import ProductDisplay from "./Product/ProductDisplay";
 
 import history from "../history";
@@ -29,19 +29,6 @@ const displayProductCategory = [...Object.keys(Pages)]
   .map((each) => each.toLowerCase());
 
 const App = () => {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
-  useEffect(() => {
-    window.addEventListener("resize", () => {
-      setWindowWidth(window.innerWidth);
-    });
-
-    return () =>
-      window.removeEventListener("resize", () => {
-        setWindowWidth(window.innerWidth);
-      });
-  });
-
   const handleScrollTotop = () => {
     document.documentElement.scrollTop = 0;
     document.body.scrollTop = 0;
@@ -51,7 +38,7 @@ const App = () => {
     <div>
       <Router history={history}>
         <div id='section-header' className='header-container'>
-          <TopHeader navItems={navItems} windowWidth={windowWidth} />
+          <TopHeader navItems={navItems} />
 
           <div className='product-categories'>
             <ProductCategories
@@ -79,7 +66,7 @@ const App = () => {
               component={ProductDetailView}
             />
           </Switch>
-          {windowWidth < 1025 ? (
+          {useWindowSize().width < 1025 ? (
             <img
               onClick={handleScrollTotop}
               className='scroll-up-btn__mobile-screen_only'

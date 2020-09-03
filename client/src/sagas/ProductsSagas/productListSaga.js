@@ -1,4 +1,4 @@
-import { takeLatest, select, call, put } from "redux-saga/effects";
+import { takeLatest, select, call, put, delay } from "redux-saga/effects";
 
 import { PRODUCT_TYPES } from "../../constants";
 import { getProductsBasedOnQuery } from "../../api";
@@ -55,6 +55,8 @@ function* handleLoadProductWorker() {
         yield put(
           globalFailureMessenger("Something went wrong Please try again later!")
         );
+        yield delay(3200);
+        yield put(globalFailureMessenger(null));
       }
     }
   }
@@ -96,6 +98,9 @@ function* handleLoadMoreResultsWorker() {
         yield put(
           globalFailureMessenger("Something went wrong Please try again later!")
         );
+
+        yield delay(3200);
+        yield put(globalFailureMessenger(null));
       }
     }
   }

@@ -3,9 +3,11 @@ import { reducer as formReducer } from "redux-form";
 
 import globalMessageReducer from "./globalMessageReducer";
 import userAuthLoginReducer, { userAccredited } from "./userAuthReducer";
-import categoriesReducer, {
+import {
+  categoriesReducer,
   getProductsReducer,
   productCartReducer,
+  viewProductReducer,
 } from "./productReducer";
 
 export default combineReducers({
@@ -16,4 +18,5 @@ export default combineReducers({
   productsList: getProductsReducer,
   globalErrorOrSuccessMessage: globalMessageReducer,
   productCart: productCartReducer,
+  productDetail: viewProductReducer,
 });

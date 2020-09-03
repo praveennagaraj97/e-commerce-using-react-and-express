@@ -12,9 +12,11 @@ const {
   REMOVE_PRODUCT_FROM_CART,
   LOAD_PRODUCT_CART,
   GET_PRODUCTS_IN_CART,
+  LOAD_VIEW_PRODUCT_DETAIL,
+  PRODUCT_DETAIL,
 } = PRODUCT_TYPES;
 
-const categoriesReducer = (state = {}, action) => {
+export const categoriesReducer = (state = {}, action) => {
   switch (action.type) {
     case GET_ALL_CATEGORIES:
       return { ...state, categories: action.response };
@@ -86,4 +88,41 @@ export const productCartReducer = (state = { cart: [] }, action) => {
   }
 };
 
-export default categoriesReducer;
+export const viewProductReducer = (state = {}, action) => {
+  switch (action.type) {
+    case LOAD_VIEW_PRODUCT_DETAIL:
+      state["productType"] = {
+        productCategory: action.productDetail.category,
+        productId: action.productDetail.id,
+      };
+      return { ...state };
+
+    case PRODUCT_DETAIL:
+      // What if no images were found ?
+      // Assign images when data contains object!!
+      // as it is virtual field data will be inside array so take the first item
+
+      //what if productImagesAndDesc has only description but no images?
+
+      // No worries server is designed to have set of 5 images description !!
+      // what type of description does send?
+      // server send different type of description for different category !
+
+      state["images"] =
+        action.data.productImagesAndDesc.length > 0
+          ? action.data.productImagesAndDesc[0].productImages
+          : [];
+      state["productInfo"] =
+        action.data.productDetails.length > 0
+          ? {
+              productName: action.data.productName,
+              productPrice: action.data.productPrice,
+              featuresList: action.data.productDetails[0].featuresList,
+              similarProducts: action.data.productDetails[0].productId,
+            }
+          : [];
+      return { ...state };
+    default:
+      return state;
+  }
+};

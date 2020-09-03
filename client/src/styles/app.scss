@@ -18,6 +18,10 @@ body {
   padding: 0 1vh;
 }
 
+.contents-section {
+  margin: 0 5px;
+}
+
 @media only screen and (min-width: 700px) {
   .header-container {
     position: fixed;
@@ -28,7 +32,7 @@ body {
 
   .contents-section {
     position: relative;
-    top: 145px;
+    top: 120px;
   }
 }
 
@@ -52,9 +56,6 @@ body {
   }
 }
 
-@media (min-height: 1300px) {
-  .contents-section {
-    position: relative;
-    top: 174px;
-  }
+* {
+  -webkit-overflow-scrolling: touch;
 }

@@ -2,6 +2,7 @@
 
 .top-header-menu {
   margin: 4px !important;
+  padding: 6px !important;
 }
 .top-header {
   display: grid !important;
@@ -30,6 +31,10 @@
 }
 
 @media (max-width: 701px) {
+  .top-header-mobile-menu {
+    margin: 2px !important;
+    padding: 6px !important;
+  }
   .top-header-brand__name {
     color: white;
     text-align: center;
