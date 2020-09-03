@@ -28,6 +28,10 @@ export class GCloudStorageServices {
     }
   }
 
+  async deleteFile(bucketName, fileName) {
+    await this.storage.bucket(bucketName).file(fileName).delete();
+  }
+
   async listBuckets() {
     const [buckets] = await this.storage.getBuckets();
     const bucketsList = [];
