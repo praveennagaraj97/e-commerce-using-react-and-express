@@ -4,22 +4,20 @@ import { connect } from "react-redux";
 // import ProductAdvertiseBoard from "./ProductAdvertiseBoard";
 import ProductImageAndBrief from "./ProductImageAndBrief";
 
-const ProductMobileDetail = ({ productDetails }) => {
-  if (productDetails) {
+const ProductMobileDetail = (props) => {
+  if (props.images) {
     return (
       <Fragment>
-        <ProductImageAndBrief
-          imagesAndDesc={productDetails.productImagesAndDesc}
-        />
+        <ProductImageAndBrief images={props.images} />
         {/* <ProductAdvertiseBoard /> */}
       </Fragment>
     );
   }
-  return <h1>Loading</h1>;
+  return <h1 style={{ color: "white" }}>No Images Found</h1>;
 };
 
 const mapStateToProps = ({ productDetail }) => ({
-  productDetails: productDetail.details || null,
+  images: productDetail.images,
 });
 
 export default connect(mapStateToProps)(ProductMobileDetail);

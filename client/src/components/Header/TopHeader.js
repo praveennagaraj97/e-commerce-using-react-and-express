@@ -16,9 +16,9 @@ export default class TopHeader extends Component {
   }
 
   render() {
-    const { navItems, windowWidth } = this.props;
+    const { navItems } = this.props;
 
-    if (windowWidth > 702)
+    if (window.innerWidth > 702)
       return (
         <Segment inverted className='top-header-menu'>
           <Menu inverted secondary className='top-header'>

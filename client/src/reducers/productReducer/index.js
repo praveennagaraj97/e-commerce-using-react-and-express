@@ -98,7 +98,20 @@ export const viewProductReducer = (state = {}, action) => {
       return { ...state };
 
     case PRODUCT_DETAIL:
-      state["details"] = action.data;
+      // What if no images were found ?
+      // Assign images when data contains object!!
+      // as it is virtual field data will be inside array so take the first item
+
+      //what if productImagesAndDesc has only description but no images?
+
+      // No worries server is designed to have set of 5 images description !!
+      // what type of description does send?
+      // server send different type of description for different category !
+
+      state["images"] =
+        action.data.productImagesAndDesc.length > 0
+          ? action.data.productImagesAndDesc[0].productImages
+          : [];
       return { ...state };
     default:
       return state;

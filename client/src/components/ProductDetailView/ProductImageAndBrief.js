@@ -1,28 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import "../../styles/productimageandbrief.scss";
 
-const ProductImageAndBrief = ({ imagesAndDesc }) => {
-  const [imageToView, setimageToView] = useState("");
-  const [productImages, setProductImages] = useState([]);
+const ProductImageAndBrief = ({ images }) => {
+  const [previewImage, setPreviewImage] = useState("");
 
   useEffect(() => {
-    if (imagesAndDesc.length > 0) {
-      setProductImages(imagesAndDesc[0].productImages);
-      console.log(imagesAndDesc[0]);
-      setimageToView(imagesAndDesc.productImages[0]);
-    }
-  }, [imagesAndDesc]);
+    if (images.length > 0) setPreviewImage(images[0]);
+  }, [images]);
 
-  if (imagesAndDesc.length > 0) {
+  if (images.length > 0) {
     return (
       <div className='product-detail-image-desc-container'>
         <div className='product-detail-imagelist-container'>
-          {productImages.map((imageProp, index) => {
+          {images.map((imageProp, index) => {
             return (
               <div
-                onMouseOver={() => setimageToView(imageProp)}
-                key={imageProp}
+                onMouseOver={() => setPreviewImage(imageProp)}
+                key={index}
                 className='product-detail-image-conatiner'>
                 <img
                   className='product-detail-image'
@@ -36,14 +31,19 @@ const ProductImageAndBrief = ({ imagesAndDesc }) => {
         <div className='product-detail-imagelist__viewer'>
           <img
             className='product-detail-image-view'
-            src={imageToView}
+            src={previewImage}
             alt='viewer'
           />
         </div>
       </div>
     );
   }
-  return <h1>hi</h1>;
+  return (
+    <h1 style={{ color: "white" }}>
+      Server Failed to respond this is not the page which you were suppose to
+      see!
+    </h1>
+  );
 };
 
 export default ProductImageAndBrief;

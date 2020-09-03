@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
 import _ from "lodash";
 
@@ -20,19 +20,6 @@ const ProductDisplay = ({
 }) => {
   const { products, query } = productsList;
   const [element, setElement] = useState(null);
-
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
-  useEffect(() => {
-    window.addEventListener("resize", () => {
-      setWindowWidth(window.innerWidth);
-    });
-
-    return () =>
-      window.removeEventListener("resize", () => {
-        setWindowWidth(window.innerWidth);
-      });
-  });
 
   const loadMoreResultsOnScroll = () => {
     loadMoreResults((query.pageNumber += 1));
@@ -79,7 +66,7 @@ const ProductDisplay = ({
 
   return (
     <Fragment>
-      {windowWidth < 702 ? (
+      {window.innerWidth < 702 ? (
         <div className='products-container-filter-mobile'>
           {/* Filter options */}
           <h3>Filter By Price</h3>
@@ -91,7 +78,7 @@ const ProductDisplay = ({
         ""
       )}
       <div className='products-container'>
-        {windowWidth > 700 ? (
+        {window.innerWidth > 700 ? (
           <div className='products-container-filter-column'>
             {/* Filter options */}
             <h3>Filter By Price</h3>
