@@ -3,6 +3,7 @@ import { takeLatest, select, call, put, delay } from "redux-saga/effects";
 import { PRODUCT_TYPES } from "../../constants";
 
 import { getProductDetailEndPoint } from "../../api";
+import history from "../../history";
 import { getProductDetail, globalFailureMessenger } from "../../actions";
 
 const { LOAD_VIEW_PRODUCT_DETAIL } = PRODUCT_TYPES;
@@ -12,6 +13,9 @@ const getViewDetailsDataFromStore = ({ productDetail }) => productDetail;
 function* handleLoadProductViewWorker() {
   const { productType } = yield select(getViewDetailsDataFromStore);
 
+  yield history.push(
+    `/category/${productType.productCategory}/${productType.productId}`
+  );
   try {
     const { data } = yield call(
       getProductDetailEndPoint,
@@ -22,6 +26,7 @@ function* handleLoadProductViewWorker() {
     yield put(
       globalFailureMessenger("Server didn't respond please try again later!")
     );
+    yield history.goBack();
     yield delay(3200);
     yield put(globalFailureMessenger(null));
   }

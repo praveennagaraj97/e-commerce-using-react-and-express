@@ -1,0 +1,25 @@
+.product-detail-image-conatiner {
+  width: 70px;
+  border-radius: 3px;
+}
+
+.product-detail-image {
+  width: 100%;
+  object-fit: contain;
+  border-radius: 3px;
+}
+.product-detail-image-desc-container {
+  display: flex;
+}
+
+.product-detail-imagelist__viewer {
+  width: 360px;
+  height: 365px;
+  background-color: white;
+  margin-left: 5px;
+  border-radius: 5px;
+}
+
+.product-detail-image-view {
+  width: 100%;
+}

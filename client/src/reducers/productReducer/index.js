@@ -99,7 +99,6 @@ export const viewProductReducer = (state = {}, action) => {
 
     case PRODUCT_DETAIL:
       state["details"] = action.data;
-      console.log(action.data);
       return { ...state };
     default:
       return state;
