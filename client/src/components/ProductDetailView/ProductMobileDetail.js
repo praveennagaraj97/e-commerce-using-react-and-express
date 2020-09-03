@@ -4,7 +4,10 @@ import { connect } from "react-redux";
 import ProductAdvertiseBoard from "./ProductAdvertiseBoard";
 import ProductImageAndBrief from "./ProductImageAndBrief";
 
+import { scrollToTop } from "../../utils/scrollTopOnRouteChange";
+
 const ProductMobileDetail = (props) => {
+  scrollToTop();
   if (props.images) {
     return (
       <Fragment>
