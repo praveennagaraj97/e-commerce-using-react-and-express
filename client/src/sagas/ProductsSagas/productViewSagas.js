@@ -1,8 +1,12 @@
 import { takeLatest, select, call, put, delay } from "redux-saga/effects";
+import randomstring from "randomstring";
 
 import { PRODUCT_TYPES } from "../../constants";
 
-import { getProductDetailEndPoint } from "../../api";
+import {
+  getProductDetailEndPoint,
+  getProductsDetailsInCartEndPoint as getProductDetailStoredinarray,
+} from "../../api";
 import history from "../../history";
 import { getProductDetail, globalFailureMessenger } from "../../actions";
 
@@ -18,9 +22,24 @@ function* handleLoadProductViewWorker() {
       getProductDetailEndPoint,
       productType.productId
     );
+
+    if (data.detail.productDetails.length > 0) {
+      const response = yield call(getProductDetailStoredinarray, {
+        cartItems: data.detail.productDetails[0].productId,
+      });
+
+      data.detail.productDetails[0].productId = response.data.details;
+    }
+
     yield put(getProductDetail(data.detail));
+
+    const urlCheatString = randomstring.generate({
+      length: 12,
+      charset: productType.productId,
+    });
+
     yield history.push(
-      `/category/${productType.productCategory}/${productType.productId}`
+      `/category/${productType.productCategory}/${urlCheatString}`
     );
   } catch (err) {
     yield put(

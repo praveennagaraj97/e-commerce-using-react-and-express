@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { connect } from "react-redux";
 
-// import ProductAdvertiseBoard from "./ProductAdvertiseBoard";
+import ProductAdvertiseBoard from "./ProductAdvertiseBoard";
 import ProductImageAndBrief from "./ProductImageAndBrief";
 
 const ProductMobileDetail = (props) => {
@@ -12,7 +12,7 @@ const ProductMobileDetail = (props) => {
           images={props.images}
           productBriefInfo={props.productInfo}
         />
-        {/* <ProductAdvertiseBoard /> */}
+        <ProductAdvertiseBoard />
       </Fragment>
     );
   }
