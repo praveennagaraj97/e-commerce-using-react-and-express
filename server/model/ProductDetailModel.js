@@ -22,7 +22,6 @@ const productDetailSchema = new Schema({
   },
   productVideo: {
     type: String,
-    required: [true, "Provide at lease 1 video detailing about the Mobile"],
   },
   productDetails: {
     type: Object,

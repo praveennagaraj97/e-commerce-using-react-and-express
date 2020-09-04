@@ -9,6 +9,17 @@ export const preFillCartIdasParams = (req, res, next) => {
 };
 
 export const preFillProductdetailedDescription = (req, res, next) => {
+  if (!req.body.featuresList)
+    return next(new AppError("Provide List Of Features as array!!!", 422));
+
+  if (!req.body.productId)
+    return next(
+      new AppError("Provide at least 1 or group of productIds!!!", 422)
+    );
+
+  if (!req.body.manufacturerId)
+    return next(new AppError("Provide a manufacturerId", 422));
+
   const inputValues = { ...req.body };
   const technicalDetails = inputValues;
 

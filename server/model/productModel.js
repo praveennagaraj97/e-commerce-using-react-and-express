@@ -42,7 +42,7 @@ productSchema.virtual("productImagesAndDesc", {
   foreignField: "productId",
 });
 
-productSchema.virtual("productDetails", {
+productSchema.virtual("productFullDetails", {
   ref: "ProductDetail",
   localField: "_id",
   foreignField: "productId",
@@ -54,7 +54,7 @@ productSchema.pre(/^findOne/, function (next) {
     model: "Category",
   })
     .populate("productImagesAndDesc")
-    .populate("productDetails");
+    .populate("productFullDetails");
 
   next();
 });

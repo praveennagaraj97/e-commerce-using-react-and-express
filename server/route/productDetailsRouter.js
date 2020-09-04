@@ -20,8 +20,8 @@ export const productDetailRouter = Router();
 const upload = multer();
 
 productDetailRouter
-  .use(upload.array("productVideos"))
-  .route("/addDetail/mobiles")
+  .use(upload.array("productVideo"))
+  .route("/addDetail/detail")
   .post(
     preFillProductdetailedDescription,
     handleMobileDetailVideo,
