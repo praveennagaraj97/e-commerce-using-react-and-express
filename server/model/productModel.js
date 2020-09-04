@@ -23,6 +23,7 @@ const productSchema = new Schema(
     },
   },
   {
+    timestamps: true,
     versionKey: false,
     toJSON: {
       virtuals: true,
@@ -42,7 +43,7 @@ productSchema.virtual("productImagesAndDesc", {
 });
 
 productSchema.virtual("productDetails", {
-  ref: "Mobile",
+  ref: "ProductDetail",
   localField: "_id",
   foreignField: "productId",
 });
@@ -54,6 +55,7 @@ productSchema.pre(/^findOne/, function (next) {
   })
     .populate("productImagesAndDesc")
     .populate("productDetails");
+
   next();
 });
 

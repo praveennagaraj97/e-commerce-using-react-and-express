@@ -1,4 +1,4 @@
-import { MobileDetailModel } from "../model/ProductDetailModel";
+import { ProductDetailModel } from "../model/ProductDetailModel";
 
 import { createNewDocumnet } from "../handlers/factoryHandler";
 import {
@@ -12,7 +12,7 @@ export const handleMobileDetailVideo = handleVideoUpload(
   "product-mobile-details-videos"
 );
 export const processMobileDetailVideo = processSingleVideo("productVideo");
-export { preFilldetailedMobileDescription } from "../middleware/preFillers";
-export const addDetailForMobile = createNewDocumnet(MobileDetailModel, {
-  message: "Mobile Detail Added",
+export { preFillProductdetailedDescription } from "../middleware/preFillers";
+export const addDetailForMobile = createNewDocumnet(ProductDetailModel, {
+  message: "Product Detail Added",
 });

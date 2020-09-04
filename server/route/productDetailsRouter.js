@@ -5,7 +5,7 @@ import {
   addDetailForMobile,
 
   // Middleware
-  preFilldetailedMobileDescription,
+  preFillProductdetailedDescription,
 
   // Image Processer
   // handleMobileDataImages,
@@ -23,7 +23,7 @@ productDetailRouter
   .use(upload.array("productVideos"))
   .route("/addDetail/mobiles")
   .post(
-    preFilldetailedMobileDescription,
+    preFillProductdetailedDescription,
     handleMobileDetailVideo,
     processMobileDetailVideo,
     addDetailForMobile
