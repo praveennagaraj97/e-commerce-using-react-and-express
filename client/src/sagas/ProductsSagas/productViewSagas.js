@@ -34,7 +34,7 @@ function* handleLoadProductViewWorker() {
     yield put(getProductDetail(data.detail));
 
     const urlCheatString = randomstring.generate({
-      length: 12,
+      length: 53,
       charset: productType.productId,
     });
 
