@@ -23,12 +23,12 @@ function* handleLoadProductViewWorker() {
       productType.productId
     );
 
-    if (data.detail.productDetails.length > 0) {
+    if (data.detail.productFullDetails.length > 0) {
       const response = yield call(getProductDetailStoredinarray, {
-        cartItems: data.detail.productDetails[0].productId,
+        cartItems: data.detail.productFullDetails[0].productId,
       });
 
-      data.detail.productDetails[0].productId = response.data.details;
+      data.detail.productFullDetails[0].productId = response.data.details;
     }
 
     yield put(getProductDetail(data.detail));

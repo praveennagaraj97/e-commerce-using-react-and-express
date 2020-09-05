@@ -113,18 +113,18 @@ export const viewProductReducer = (state = {}, action) => {
           ? action.data.productImagesAndDesc[0].productImages
           : [];
       state["productInfo"] =
-        action.data.productDetails.length > 0
+        action.data.productFullDetails.length > 0
           ? {
               productName: action.data.productName,
               productPrice: action.data.productPrice,
-              featuresList: action.data.productDetails[0].featuresList,
-              similarProducts: action.data.productDetails[0].productId,
+              featuresList: action.data.productFullDetails[0].featuresList,
+              similarProducts: action.data.productFullDetails[0].productId,
             }
           : [];
 
       state["productVideo"] =
-        action.data.productDetails.length > 0
-          ? action.data.productDetails[0].productVideo
+        action.data.productFullDetails.length > 0
+          ? action.data.productFullDetails[0].productVideo
           : null;
 
       return { ...state };
