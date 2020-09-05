@@ -24,24 +24,57 @@ const ProductMobileDetail = (props) => {
   if (props.images) {
     return (
       <Fragment>
+        {/* Product Images | Info-features | AddTocart - direct-buy */}
         <ProductImageAndBrief
           images={props.images}
           productBriefInfo={props.productInfo}
         />
-
-        <VideoPlayer src={props.video} />
-        {/* <ProductAdvertiseBoard /> */}
         <hr style={{ width: "65%" }} />
 
-        <ProductBrief productDescription={props.productDescription} />
+        {/* As Server doesn't provide video intro for all products this column will be null if no video */}
+        {props.video ? (
+          <Fragment>
+            <VideoPlayer src={props.video} />
+            {/* <ProductAdvertiseBoard /> */}
+            <hr style={{ width: "65%" }} />
+          </Fragment>
+        ) : (
+          ""
+        )}
 
-        <hr style={{ width: "65%" }} />
-        <div className={classes.mobileTechnicalDetails}>
-          <h2> Technical Details </h2>
-          <ProductDetailTable productDetails={props.productDetails} />
-        </div>
-        <hr style={{ width: "65%" }} />
-        <ProductManufacturer manufacturer={props.manufacturer} />
+        {/* Product Description by Manufacturer as a statement*/}
+        {props.productDescription ? (
+          <Fragment>
+            <ProductBrief productDescription={props.productDescription} />
+            <hr style={{ width: "65%" }} />
+          </Fragment>
+        ) : (
+          ""
+        )}
+
+        {/* Product Details in table */}
+
+        {props.productDetails ? (
+          <Fragment>
+            <div className={classes.mobileTechnicalDetails}>
+              <h2> Technical Details </h2>
+              <ProductDetailTable productDetails={props.productDetails} />
+            </div>
+            <hr style={{ width: "65%" }} />
+          </Fragment>
+        ) : (
+          ""
+        )}
+
+        {/* About manufacturer */}
+        {props.manufacturer ? (
+          <Fragment>
+            <ProductManufacturer manufacturer={props.manufacturer} />
+            <hr style={{ width: "65%" }} />
+          </Fragment>
+        ) : (
+          ""
+        )}
       </Fragment>
     );
   }

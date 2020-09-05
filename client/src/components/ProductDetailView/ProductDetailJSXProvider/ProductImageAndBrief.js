@@ -137,7 +137,6 @@ const ProductImageAndBrief = ({ images, productBriefInfo }) => {
         ) : (
           ""
         )}
-        <hr style={{ width: "65%" }} />
       </Fragment>
     );
   }

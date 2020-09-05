@@ -3,6 +3,8 @@ import React, { Fragment } from "react";
 import "../../../styles/productBrief.scss";
 
 const ProductBrief = ({ productDescription }) => {
+  if (!productDescription) return <></>;
+
   return (
     <Fragment>
       <h3 className='from-manufacturer-header'>From Manufacturer</h3>
