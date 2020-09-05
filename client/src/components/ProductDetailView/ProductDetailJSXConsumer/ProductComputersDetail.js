@@ -3,10 +3,12 @@ import { connect } from "react-redux";
 
 import { makeStyles } from "@material-ui/core";
 
+import { scrollToTop } from "../../../utils/scrollTopOnRouteChange";
 import ProductImageAndBrief from "../ProductDetailJSXProvider/ProductImageAndBrief";
 import ProductDetailTable from "../ProductDetailJSXProvider/ProductDetailTable";
 import VideoPlayer from "../../VideoPlayer";
-import { scrollToTop } from "../../../utils/scrollTopOnRouteChange";
+import ProductManufacturer from "../ProductDetailJSXProvider/ProductManufacturer";
+import ProductBrief from "../ProductDetailJSXProvider/ProductBrief";
 
 const useStyles = makeStyles((theme) => ({
   mobileTechnicalDetails: {
@@ -29,10 +31,16 @@ const ProductComputersDetail = (props) => {
         <VideoPlayer src={props.video} />
         {/* <ProductAdvertiseBoard /> */}
 
+        <ProductBrief productDescription={props.productDescription} />
+
+        <hr style={{ width: "65%" }} />
+
         <div className={classes.mobileTechnicalDetails}>
           <h2>Technical Details</h2>
           <ProductDetailTable productDetails={props.productDetails} />
         </div>
+        <hr style={{ width: "65%" }} />
+        <ProductManufacturer manufacturer={props.manufacturer} />
       </Fragment>
     );
   }
@@ -44,6 +52,8 @@ const mapStateToProps = ({ productDetail }) => ({
   productInfo: productDetail.productInfo,
   video: productDetail.productVideo,
   productDetails: productDetail.productDetails,
+  manufacturer: productDetail.manufacturer,
+  productDescription: productDetail.productBrief,
 });
 
 export default connect(mapStateToProps)(ProductComputersDetail);

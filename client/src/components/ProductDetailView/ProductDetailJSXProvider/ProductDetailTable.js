@@ -3,6 +3,8 @@ import React from "react";
 import "../../../styles/productDetailTable.scss";
 
 const ProductDetailTable = ({ productDetails }) => {
+  if (!productDetails) return <></>;
+
   return (
     <table className='product-detail-table'>
       <tbody>

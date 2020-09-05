@@ -3,7 +3,7 @@ import React from "react";
 import "../../../styles/productManufacturer.scss";
 
 const ProductManufacturer = ({ manufacturer }) => {
-  console.log(manufacturer);
+  if (!manufacturer) return <></>;
   return (
     <div className='product-manufacturer-container'>
       <h3>Manufacturer Details</h3>

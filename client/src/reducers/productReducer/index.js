@@ -112,6 +112,12 @@ export const viewProductReducer = (state = {}, action) => {
         action.data.productImagesAndDesc.length > 0
           ? action.data.productImagesAndDesc[0].productImages
           : [];
+
+      state["productBrief"] =
+        action.data.productImagesAndDesc.length > 0
+          ? action.data.productImagesAndDesc[0].productDescription
+          : null;
+
       state["productInfo"] =
         action.data.productFullDetails.length > 0
           ? {
@@ -136,6 +142,7 @@ export const viewProductReducer = (state = {}, action) => {
         action.data.productFullDetails.length > 0
           ? action.data.productFullDetails[0].manufacturerId
           : null;
+
       return { ...state };
     default:
       return state;
