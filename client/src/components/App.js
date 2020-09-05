@@ -62,7 +62,7 @@ const App = () => {
             />
             <Route
               exact
-              path='/category/:categoryName/:productId'
+              path='/:categoryName/detail'
               component={ProductDetailView}
             />
           </Switch>

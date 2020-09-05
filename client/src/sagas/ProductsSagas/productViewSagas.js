@@ -1,5 +1,4 @@
 import { takeLatest, select, call, put, delay } from "redux-saga/effects";
-import randomstring from "randomstring";
 
 import { PRODUCT_TYPES } from "../../constants";
 
@@ -33,14 +32,7 @@ function* handleLoadProductViewWorker() {
 
     yield put(getProductDetail(data.detail));
 
-    const urlCheatString = randomstring.generate({
-      length: 53,
-      charset: productType.productId,
-    });
-
-    yield history.push(
-      `/category/${productType.productCategory}/${urlCheatString}`
-    );
+    yield history.push(`/${productType.productCategory}/detail`);
   } catch (err) {
     yield put(
       globalFailureMessenger("Server didn't respond please try again later!")
