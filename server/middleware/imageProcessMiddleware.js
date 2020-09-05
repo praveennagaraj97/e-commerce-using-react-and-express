@@ -37,6 +37,10 @@ export const handleImageUpload = (imageCount, bucketName) =>
 
 export const handleVideoUpload = (videoCount, bucketName) =>
   catchAsyncError(async (req, res, next) => {
+    if (bucketName === "product-mobile-details-videos") {
+      if (req.files.length === 0) return next();
+    }
+
     if (req.files.length > videoCount)
       return next(
         new AppError(`This request takes maximum of ${videoCount} Videos!.`)
@@ -81,6 +85,10 @@ export const processSingleImage = (imageFieldName) =>
 
 export const processSingleVideo = (videoFieldName) =>
   catchAsyncError(async (req, res, next) => {
+    if (videoFieldName === "productVideo") {
+      if (req.videoUrls === undefined) return next();
+    }
+
     req.body[videoFieldName] = req.videoUrls[0];
     next();
   });

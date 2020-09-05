@@ -1,5 +1,4 @@
 import { AppError } from "../utils/AppError";
-import catchAsyncError from "../utils/catchAsyncError";
 
 export const preFillCartIdasParams = (req, res, next) => {
   if (!req.body.cartItems || req.body.cartItems.length === 0)
@@ -9,25 +8,28 @@ export const preFillCartIdasParams = (req, res, next) => {
   next();
 };
 
-export const preFilldetailedMobileDescription = (req, res, next) => {
-  const technicalDetails = {
-    display: req.body.display,
-    capacity: req.body.capacity,
-    resistant: req.body.resistant,
-    camAndVideo: req.body.camAndVideo,
-    frontCamera: req.body.frontCamera,
-    powerAndBattery: req.body.powerAndBattery,
-    intheBox: req.body.intheBox,
-    warranty: req.body.warranty,
-    height: req.body.height,
-    width: req.body.width,
-    depth: req.body.depth,
-    weight: req.body.weight,
-  };
-  req.body.productId = req.body.productId.split(",");
+export const preFillProductdetailedDescription = (req, res, next) => {
+  if (!req.body.featuresList)
+    return next(new AppError("Provide List Of Features as array!!!", 422));
 
-  req.body.featuresList = JSON.parse(req.body.featuresList);
-  req.body.technicalDetails = technicalDetails;
+  if (!req.body.productId)
+    return next(
+      new AppError("Provide at least 1 or group of productIds!!!", 422)
+    );
+
+  if (!req.body.manufacturerId)
+    return next(new AppError("Provide a manufacturerId", 422));
+
+  const inputValues = { ...req.body };
+  const technicalDetails = inputValues;
+
+  req.body.productId = technicalDetails.productId.split(",");
+  req.body.featuresList = JSON.parse(technicalDetails.featuresList);
+  req.body.manufacturerId = technicalDetails.manufacturerId;
+  delete technicalDetails.productId;
+  delete technicalDetails.featuresList;
+  delete technicalDetails.manufacturerId;
+  req.body.productDetails = technicalDetails;
 
   next();
 };
