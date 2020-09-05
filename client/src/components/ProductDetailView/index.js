@@ -1,4 +1,4 @@
-import ProductMobileDetail from "./ProductDetailConsumer/ProductMobileDetail";
-import ProductComputersDetail from "./ProductDetailConsumer/ProductComputersDetail";
+import ProductMobileDetail from "./ProductDetailJSXConsumer/ProductMobileDetail";
+import ProductComputersDetail from "./ProductDetailJSXConsumer/ProductComputersDetail";
 
 export { ProductMobileDetail, ProductComputersDetail };

@@ -2,12 +2,12 @@ import React, { Fragment } from "react";
 import { connect } from "react-redux";
 
 // import ProductAdvertiseBoard from "./ProductAdvertiseBoard";
-import ProductImageAndBrief from "../ProductDetailProvider/ProductImageAndBrief";
+import ProductImageAndBrief from "../ProductDetailJSXProvider/ProductImageAndBrief";
 import VideoPlayer from "../../VideoPlayer";
 
 import { scrollToTop } from "../../../utils/scrollTopOnRouteChange";
 
-const ProductMobileDetail = (props) => {
+const ProductComputersDetail = (props) => {
   scrollToTop();
   if (props.images) {
     return (
@@ -30,4 +30,4 @@ const mapStateToProps = ({ productDetail }) => ({
   video: productDetail.productVideo,
 });
 
-export default connect(mapStateToProps)(ProductMobileDetail);
+export default connect(mapStateToProps)(ProductComputersDetail);
