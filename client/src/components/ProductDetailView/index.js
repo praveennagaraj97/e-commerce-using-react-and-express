@@ -1,3 +1,4 @@
-const { default: ProductMobileDetail } = require("./ProductMobileDetail");
+import ProductMobileDetail from "./ProductDetailConsumer/ProductMobileDetail";
+import ProductComputersDetail from "./ProductDetailConsumer/ProductComputersDetail";
 
-export { ProductMobileDetail };
+export { ProductMobileDetail, ProductComputersDetail };

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, Fragment } from "react";
 
-import "../../styles/productimageandbrief.scss";
+import "../../../styles/productimageandbrief.scss";
 
 const ProductImageAndBrief = ({ images, productBriefInfo }) => {
   const [previewImage, setPreviewImage] = useState("");

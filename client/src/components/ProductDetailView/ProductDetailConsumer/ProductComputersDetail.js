@@ -2,10 +2,10 @@ import React, { Fragment } from "react";
 import { connect } from "react-redux";
 
 // import ProductAdvertiseBoard from "./ProductAdvertiseBoard";
-import ProductImageAndBrief from "./ProductImageAndBrief";
-import VideoPlayer from "../VideoPlayer";
+import ProductImageAndBrief from "../ProductDetailProvider/ProductImageAndBrief";
+import VideoPlayer from "../../VideoPlayer";
 
-import { scrollToTop } from "../../utils/scrollTopOnRouteChange";
+import { scrollToTop } from "../../../utils/scrollTopOnRouteChange";
 
 const ProductComputersDetail = (props) => {
   scrollToTop();

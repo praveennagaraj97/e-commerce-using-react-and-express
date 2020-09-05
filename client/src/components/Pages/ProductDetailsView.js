@@ -1,8 +1,10 @@
 import React from "react";
 
-import { ProductMobileDetail } from "../ProductDetailView";
+import {
+  ProductMobileDetail,
+  ProductComputersDetail,
+} from "../ProductDetailView";
 import history from "../../history";
-import ProductComputersDetail from "../ProductDetailView/ProductComputersDetail";
 
 const ProductDetailView = () => {
   const productCategory = history.location.pathname.split("/")[
