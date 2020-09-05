@@ -1,7 +1,24 @@
 import React from "react";
 
-const ProductDetailTable = () => {
-  return <h1>Product Details Table</h1>;
+import "../../../styles/productDetailTable.scss";
+
+const ProductDetailTable = ({ productDetails }) => {
+  return (
+    <table className='product-detail-table'>
+      <tbody>
+        {Object.keys(productDetails).map((each) => {
+          return (
+            <tr key={each}>
+              <td className='product-detail-table__data'>{each}</td>
+              <td className='product-detail-table__data'>
+                {productDetails[each]}
+              </td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  );
 };
 
 export default ProductDetailTable;

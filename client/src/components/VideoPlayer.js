@@ -11,13 +11,18 @@ const VideoPlayer = ({ src }) => {
       (entries) => {
         if (entries[0].isIntersecting) {
           const video = document.getElementById("videoPlayer");
-          video.play();
+          const playPromise = video.play();
+
+          // Sometimes elements load late to avoid that !!!
+          if (playPromise !== undefined) {
+            playPromise.then((_) => {}).catch((error) => {});
+          }
         } else {
           const video = document.getElementById("videoPlayer");
           video.pause();
         }
       },
-      { threshold: 0.6 }
+      { threshold: 0.8 }
     )
   );
 
@@ -50,6 +55,7 @@ const VideoPlayer = ({ src }) => {
         <video
           ref={setElement}
           onClick={() => setVolume(!volume)}
+          preload='none'
           id='videoPlayer'
           muted={volume}
           src={src}

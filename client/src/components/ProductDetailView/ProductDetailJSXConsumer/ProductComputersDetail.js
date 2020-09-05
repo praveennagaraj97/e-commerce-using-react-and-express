@@ -1,14 +1,24 @@
 import React, { Fragment } from "react";
 import { connect } from "react-redux";
 
-// import ProductAdvertiseBoard from "./ProductAdvertiseBoard";
-import ProductImageAndBrief from "../ProductDetailJSXProvider/ProductImageAndBrief";
-import VideoPlayer from "../../VideoPlayer";
+import { makeStyles } from "@material-ui/core";
 
+import ProductImageAndBrief from "../ProductDetailJSXProvider/ProductImageAndBrief";
+import ProductDetailTable from "../ProductDetailJSXProvider/ProductDetailTable";
+import VideoPlayer from "../../VideoPlayer";
 import { scrollToTop } from "../../../utils/scrollTopOnRouteChange";
+
+const useStyles = makeStyles((theme) => ({
+  mobileTechnicalDetails: {
+    color: "white",
+  },
+}));
 
 const ProductComputersDetail = (props) => {
   scrollToTop();
+
+  const classes = useStyles();
+
   if (props.images) {
     return (
       <Fragment>
@@ -18,6 +28,11 @@ const ProductComputersDetail = (props) => {
         />
         <VideoPlayer src={props.video} />
         {/* <ProductAdvertiseBoard /> */}
+
+        <div className={classes.mobileTechnicalDetails}>
+          <h2>Technical Details</h2>
+          <ProductDetailTable productDetails={props.productDetails} />
+        </div>
       </Fragment>
     );
   }
@@ -28,6 +43,7 @@ const mapStateToProps = ({ productDetail }) => ({
   images: productDetail.images,
   productInfo: productDetail.productInfo,
   video: productDetail.productVideo,
+  productDetails: productDetail.productDetails,
 });
 
 export default connect(mapStateToProps)(ProductComputersDetail);

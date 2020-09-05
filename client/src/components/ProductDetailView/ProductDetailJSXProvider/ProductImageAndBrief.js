@@ -42,20 +42,24 @@ const ProductImageAndBrief = ({ images, productBriefInfo }) => {
           <a href='/seller'> Seller Details : iAsta</a>
           <p>Rating 4.5/5 from 50 reviews</p>
         </div>
-        <div className='product-detail_similar_products'>
-          Similar Products
-          <div className='product-detail_similar_products__container'>
-            {productBriefInfo.similarProducts.map(({ _id, productName }) => {
-              return productName !== productBriefInfo.productName ? (
-                <button className='btn-block' key={_id}>
-                  {productName}
-                </button>
-              ) : (
-                ""
-              );
-            })}
+        {productBriefInfo.similarProducts.length > 1 ? (
+          <div className='product-detail_similar_products'>
+            Similar Products
+            <div className='product-detail_similar_products__container'>
+              {productBriefInfo.similarProducts.map(({ _id, productName }) => {
+                return productName !== productBriefInfo.productName ? (
+                  <button className='btn-block' key={_id}>
+                    {productName}
+                  </button>
+                ) : (
+                  ""
+                );
+              })}
+            </div>
           </div>
-        </div>
+        ) : (
+          ""
+        )}
         <div className='product-detail_features-list'>
           <ul>
             {productBriefInfo.featuresList.map((each) => {
@@ -117,8 +121,23 @@ const ProductImageAndBrief = ({ images, productBriefInfo }) => {
         </div>
 
         {/* // Mid-range screenbelow1090 width */}
-        {!screenAbove1032 ? productBriefDescriptionJSX(productBriefInfo) : ""}
-        {!screenAbove582 ? checkoutAndCartBoxJSX() : ""}
+
+        {!screenAbove1032 ? (
+          <Fragment>
+            <hr style={{ width: "65%" }} />{" "}
+            {productBriefDescriptionJSX(productBriefInfo)}
+          </Fragment>
+        ) : (
+          ""
+        )}
+        {!screenAbove582 ? (
+          <Fragment>
+            <hr style={{ width: "65%" }} /> {checkoutAndCartBoxJSX()}
+          </Fragment>
+        ) : (
+          ""
+        )}
+        <hr style={{ width: "65%" }} />
       </Fragment>
     );
   }

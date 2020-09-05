@@ -33,6 +33,7 @@
   width: 550px;
   height: 365px;
   margin-left: 5px;
+
   background-color: white;
   border-radius: 10px;
   display: grid;
@@ -163,6 +164,7 @@
   .product-detail-description-container {
     width: 855px;
     margin: auto;
+    margin-top: 7px;
 
     .product-detail_name_and_price,
     .product-detail_seller_and_ratings,

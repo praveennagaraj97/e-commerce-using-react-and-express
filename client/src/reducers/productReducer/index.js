@@ -127,6 +127,15 @@ export const viewProductReducer = (state = {}, action) => {
           ? action.data.productFullDetails[0].productVideo
           : null;
 
+      state["productDetails"] =
+        action.data.productFullDetails.length > 0
+          ? action.data.productFullDetails[0].productDetails
+          : null;
+
+      state["manufacturer"] =
+        action.data.productFullDetails.length > 0
+          ? action.data.productFullDetails[0].manufacturerId
+          : null;
       return { ...state };
     default:
       return state;
