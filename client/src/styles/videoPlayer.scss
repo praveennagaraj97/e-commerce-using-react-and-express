@@ -3,8 +3,13 @@
   margin: auto;
   margin-top: 5px;
   text-align: center;
-  background-color: rgba(255, 255, 255, 0.336);
-  opacity: 0.8;
+  background-image: linear-gradient(
+    to right,
+    #fbc2eb 0%,
+    #a6c1ee 41%,
+    #fbc2eb 100%
+  );
+  opacity: 0.9;
 }
 
 #videoPlayer {

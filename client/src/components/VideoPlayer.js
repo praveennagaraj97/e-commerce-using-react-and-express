@@ -45,6 +45,7 @@ const VideoPlayer = ({ src }) => {
               ? "https://img.icons8.com/clouds/50/000000/no-audio.png"
               : "https://img.icons8.com/bubbles/50/000000/high-volume.png"
           }
+          alt='tap for audio'
         />
         <video
           ref={setElement}

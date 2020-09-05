@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { connect } from "react-redux";
 
-import ProductAdvertiseBoard from "./ProductAdvertiseBoard";
+// import ProductAdvertiseBoard from "./ProductAdvertiseBoard";
 import ProductImageAndBrief from "./ProductImageAndBrief";
 import VideoPlayer from "../VideoPlayer";
 
@@ -17,7 +17,7 @@ const ProductMobileDetail = (props) => {
           productBriefInfo={props.productInfo}
         />
         <VideoPlayer src={props.video} />
-        <ProductAdvertiseBoard />
+        {/* <ProductAdvertiseBoard /> */}
       </Fragment>
     );
   }
