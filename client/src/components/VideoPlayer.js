@@ -4,6 +4,7 @@ import "../styles/videoPlayer.scss";
 
 const VideoPlayer = ({ src }) => {
   const [element, setElement] = useState(null);
+  const [volume, setVolume] = useState(true);
 
   const observer = useRef(
     new IntersectionObserver(
@@ -37,7 +38,21 @@ const VideoPlayer = ({ src }) => {
   if (src)
     return (
       <div className='video-player-container'>
-        <video ref={setElement} id='videoPlayer' src={src} />
+        <img
+          className='tap-for-volume-notifier'
+          src={
+            volume
+              ? "https://img.icons8.com/clouds/50/000000/no-audio.png"
+              : "https://img.icons8.com/bubbles/50/000000/high-volume.png"
+          }
+        />
+        <video
+          ref={setElement}
+          onClick={() => setVolume(!volume)}
+          id='videoPlayer'
+          muted={volume}
+          src={src}
+        />
       </div>
     );
   return <></>;

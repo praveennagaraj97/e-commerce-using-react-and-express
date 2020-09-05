@@ -3,7 +3,8 @@
   margin: auto;
   margin-top: 5px;
   text-align: center;
-  background-color: rgba(255, 255, 255, 0.705);
+  background-color: rgba(255, 255, 255, 0.336);
+  opacity: 0.8;
 }
 
 #videoPlayer {
@@ -11,4 +12,16 @@
   padding: 5px;
   width: 65%;
   height: 50%;
+  cursor: pointer;
+}
+
+.tap-for-volume-notifier {
+  color: white;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5px;
+  left: 0;
+  right: 0;
+  text-align: center;
 }
