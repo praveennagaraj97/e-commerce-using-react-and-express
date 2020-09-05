@@ -9,7 +9,6 @@ const HomePage = () => {
         <span>Everything you love,</span>
         <span>is online.</span>
       </h1>
-
       <ProductAdvertisementBoard />
     </Fragment>
   );
