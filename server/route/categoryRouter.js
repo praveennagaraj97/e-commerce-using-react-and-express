@@ -11,6 +11,7 @@ import {
   // Fetch all categories
   getAllCategories,
   updateCategory,
+  deleteCategory,
 } from "../controller/categoriesController";
 
 export const categoryRouter = Router();
@@ -32,3 +33,5 @@ categoryRouter
   );
 
 categoryRouter.route("/dev/:id/updateCategory").patch(updateCategory);
+
+categoryRouter.route("/dev/:id/deleteCategory").delete(deleteCategory);

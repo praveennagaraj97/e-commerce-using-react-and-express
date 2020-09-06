@@ -74,3 +74,20 @@ export const updateDocumentByID = (ModelName, responseMessage) =>
     responseMessage.updatedValue = req.body;
     res.status(202).json(responseMessage);
   });
+
+export const deleteDocumentById = (ModelName, responseMessage) =>
+  catchAsyncError(async (req, res, next) => {
+    if (!req.params.id)
+      return next(new AppError("Enter Id as params !!!", 406));
+
+    const docx = await ModelName.findByIdAndDelete(req.params.id);
+
+    if (!docx)
+      return next(
+        new AppError("Request failed as nothing was found with given ID", 406)
+      );
+
+    responseMessage.deltedDocument = docx;
+
+    res.status(200).json(responseMessage);
+  });

@@ -3,6 +3,7 @@ import {
   createNewDocumnet,
   readAllDocument,
   updateDocumentByID,
+  deleteDocumentById,
 } from "../handlers/factoryHandler";
 import {
   handleImageUpload,
@@ -25,4 +26,8 @@ export const getAllCategories = readAllDocument(Category, {
 
 export const updateCategory = updateDocumentByID(Category, {
   message: "Category Update Successfully",
+});
+
+export const deleteCategory = deleteDocumentById(Category, {
+  message: "Category Deleted",
 });
