@@ -9,6 +9,7 @@ import xss from "xss-clean";
 import rateLimit from "express-rate-limit";
 import morgon from "morgan";
 import cookieParser from "cookie-parser";
+import compression from "compression";
 
 import {
   pageNotFoundError,
@@ -28,6 +29,10 @@ const app = express();
 
 // Logger
 app.use(morgon("dev"));
+
+// Compression -GZip
+// Gzip compressing can greatly decrease the size of the response body and hence increase the speed of a web app.
+app.use(compression());
 
 // Secured Http Headers
 app.use(helmet());
