@@ -70,3 +70,6 @@ gcloud.yaml
 
 # GAPI config
 lexa-api.json
+
+# Assets
+assets

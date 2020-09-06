@@ -75,6 +75,38 @@ export const updateDocumentByID = (ModelName, responseMessage) =>
     res.status(202).json(responseMessage);
   });
 
+// Field is passes via query!!
+export const updateDocumentByField = (ModelName, responseMessage) =>
+  catchAsyncError(async (req, res, next) => {
+    if (!Object.keys(req.body).length)
+      return next(new AppError("Document Not Changed As No Values Given", 304));
+
+    if (!req.query)
+      return next(
+        new AppError(
+          "Specify the Field with value Which has to updated in req query!!!",
+          422
+        )
+      );
+
+    const docx = await ModelName.findOneAndUpdate(req.query, req.body, {
+      upsert: true,
+      runValidators: true,
+      setDefaultsOnInsert: true,
+      context: "query",
+      new: true,
+    });
+
+    if (!docx)
+      return next(
+        new AppError(`Document with ${req.params.id} is not Found`, 500)
+      );
+
+    responseMessage.document = docx;
+    responseMessage.updatedValue = req.body;
+    res.status(202).json(responseMessage);
+  });
+
 export const deleteDocumentById = (ModelName, responseMessage) =>
   catchAsyncError(async (req, res, next) => {
     if (!req.params.id)

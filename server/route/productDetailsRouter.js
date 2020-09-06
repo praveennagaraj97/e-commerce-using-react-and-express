@@ -2,18 +2,21 @@ import { Router } from "express";
 import multer from "multer";
 
 import {
-  addDetailForMobile,
+  addDetailForProduct,
+  updateProductDetailVideo,
 
   // Middleware
   preFillProductdetailedDescription,
+  preCheckifProductUpdateDetailVideoHasFileAttached,
+  checkIfVideoExistsAndDeleteBeforeUpdatingNewVideo,
 
   // Image Processer
   // handleMobileDataImages,
   // processMobileDetailsImages,
 
   // Video Process,
-  handleMobileDetailVideo,
-  processMobileDetailVideo,
+  handleProductDetailVideo,
+  processProductDetailVideo,
 } from "../controller/productDetailController";
 
 export const productDetailRouter = Router();
@@ -24,7 +27,17 @@ productDetailRouter
   .route("/addDetail/detail")
   .post(
     preFillProductdetailedDescription,
-    handleMobileDetailVideo,
-    processMobileDetailVideo,
-    addDetailForMobile
+    handleProductDetailVideo,
+    processProductDetailVideo,
+    addDetailForProduct
+  );
+
+productDetailRouter
+  .route("/updateProductDetailVideo")
+  .patch(
+    preCheckifProductUpdateDetailVideoHasFileAttached,
+    checkIfVideoExistsAndDeleteBeforeUpdatingNewVideo,
+    handleProductDetailVideo,
+    processProductDetailVideo,
+    updateProductDetailVideo
   );

@@ -12,6 +12,7 @@ export class GCloudStorageServices {
     this.listBuckets = this.listBuckets.bind(this);
     this.uploadImage = this.uploadImage.bind(this);
     this.storageBucketAssigner = this.storageBucketAssigner.bind(this);
+    this.deleteFile = this.deleteFile.bind(this);
   }
 
   // Storage service
@@ -29,7 +30,7 @@ export class GCloudStorageServices {
   }
 
   async deleteFile(bucketName, fileName) {
-    await this.storage.bucket(bucketName).file(fileName).delete();
+    return await this.storage.bucket(bucketName).file(fileName).delete();
   }
 
   async listBuckets() {
@@ -61,7 +62,7 @@ export class GCloudStorageServices {
       const { originalname, buffer } = file;
 
       // converting the file into blob/binary large object.
-      const blob = storageBucket.file(originalname);
+      const blob = storageBucket.file(originalname.split(" ").join(""));
       const blobStream = blob.createWriteStream({
         resumable: false,
       });
@@ -85,7 +86,10 @@ const {
   uploadImage,
   listBuckets,
   storageBucketAssigner,
+  deleteFile,
 } = new GCloudStorageServices();
+
+export { deleteFile };
 
 export const uploadImageToGoogle = async (file, bucketName) => {
   const bucketsList = await listBuckets();

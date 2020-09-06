@@ -37,7 +37,7 @@ export const handleImageUpload = (imageCount, bucketName) =>
 
 export const handleVideoUpload = (videoCount, bucketName) =>
   catchAsyncError(async (req, res, next) => {
-    if (bucketName === "product-mobile-details-videos") {
+    if (bucketName === "product-details-videos") {
       if (req.files.length === 0) return next();
     }
 

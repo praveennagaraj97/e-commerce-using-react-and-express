@@ -46,7 +46,7 @@ export const addProductManufacturer = createNewDocumnet(ProductManufacturer, {
 // Product Description
 export const handleProductImages = handleImageUpload(
   5,
-  "product-mobile-details-images"
+  "product-details-images"
 );
 export const processProductImages = processMultipleImages("productImages");
 
