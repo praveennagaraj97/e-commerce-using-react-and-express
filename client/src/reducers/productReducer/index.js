@@ -143,6 +143,11 @@ export const viewProductReducer = (state = {}, action) => {
           ? action.data.productFullDetails[0].manufacturerId
           : null;
 
+      state["productBoards"] =
+        action.data.productBoards.length > 0
+          ? action.data.productBoards[0].boardImages
+          : null;
+
       return { ...state };
     default:
       return state;
