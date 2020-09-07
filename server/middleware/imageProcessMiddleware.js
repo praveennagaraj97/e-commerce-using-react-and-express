@@ -98,3 +98,30 @@ export const processMultipleImages = (imagesFieldName) =>
     req.body[imagesFieldName] = req.imageUrls;
     next();
   });
+
+export const handleImageUploadWithNoImageLimit = (bucketName) =>
+  catchAsyncError(async (req, res, next) => {
+    if (req.files.length === 0)
+      return next(new AppError(`This request takes maximum of 1 Videos!.`));
+
+    const imageUrls = [];
+    const files = [];
+    for (let i = 0; i < req.files.length; i++) {
+      const validImage = /\.(gif|jpe?g|png)$/i.test(req.files[i].originalname);
+
+      if (!validImage) {
+        return next(
+          new AppError("Cannot Process File of non Image Format", 422)
+        );
+      }
+      files.push(req.files[i]);
+    }
+
+    for (let i = 0; i < req.files.length; i++) {
+      const url = await uploadImageToGoogle(files[i], bucketName);
+      imageUrls.push(url);
+    }
+
+    req.imageUrls = imageUrls;
+    next();
+  });

@@ -2,6 +2,7 @@ import {
   Product,
   ProductManufacturer,
   ProductDescriptionAndImages,
+  ProductBoards,
 } from "../model/productModel";
 
 import {
@@ -13,9 +14,13 @@ import {
   processSingleImage,
   handleImageUpload,
   processMultipleImages,
+  handleImageUploadWithNoImageLimit,
 } from "../middleware/imageProcessMiddleware";
 
-export { preFillCartIdasParams } from "../middleware/preFillers";
+export {
+  preFillCartIdasParams,
+  preFillProductBoards,
+} from "../middleware/preFillers";
 
 // Protect Middlewares
 export { protectForReact, protectRoutes } from "./userController";
@@ -59,4 +64,14 @@ export const addProductDescriptionAndImages = createNewDocumnet(
 
 export const getProduct = readDocumentByIdThroughQuery(Product, {
   message: "Requested Product",
+});
+
+// Product Boards
+export const handleProductBoardImages = handleImageUploadWithNoImageLimit(
+  "product-boards"
+);
+
+export const processProductBoards = processMultipleImages("boardImages");
+export const addProductBoards = createNewDocumnet(ProductBoards, {
+  message: "Product Boards Added",
 });

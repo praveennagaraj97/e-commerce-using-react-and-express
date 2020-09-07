@@ -7,6 +7,8 @@ import {
   productImageLink,
   handleProductImages,
   processProductImages,
+  handleProductBoardImages,
+  processProductBoards,
 
   // Routes
   addNewProduct,
@@ -15,9 +17,11 @@ import {
   getProduct,
   addProductManufacturer,
   addProductDescriptionAndImages,
+  addProductBoards,
 
   // Middlewares
   preFillCartIdasParams,
+  preFillProductBoards,
   // Protect
   protectForReact,
   protectRoutes,
@@ -57,4 +61,14 @@ productRouter
     handleProductImages,
     processProductImages,
     addProductDescriptionAndImages
+  );
+
+productRouter
+  .route("/dev/addProductBoards")
+  .post(
+    upload.array("productBoards"),
+    preFillProductBoards,
+    handleProductBoardImages,
+    processProductBoards,
+    addProductBoards
   );

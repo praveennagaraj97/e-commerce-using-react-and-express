@@ -33,3 +33,8 @@ export const preFillProductdetailedDescription = (req, res, next) => {
 
   next();
 };
+
+export const preFillProductBoards = (req, res, next) => {
+  req.body.productId = req.body.productId.split(",");
+  next();
+};

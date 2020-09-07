@@ -48,28 +48,23 @@ productSchema.virtual("productFullDetails", {
   foreignField: "productId",
 });
 
+productSchema.virtual("productBoards", {
+  ref: "ProductBoard",
+  localField: "_id",
+  foreignField: "productId",
+});
+
 productSchema.pre(/^findOne/, function (next) {
   this.populate({
     path: "categoryId",
     model: "Category",
   })
     .populate("productImagesAndDesc")
-    .populate("productFullDetails");
+    .populate("productFullDetails")
+    .populate("productBoards");
 
   next();
 });
-
-if (process.env.NODE_ENV === "development") {
-  productSchema.pre("find", function () {
-    this._startTime = Date.now();
-  });
-
-  productSchema.post("find", function () {
-    if (this._startTime != null) {
-      console.log("Query Took : ", Date.now() - this._startTime);
-    }
-  });
-}
 
 export const Product = model("Product", productSchema);
 
@@ -141,3 +136,20 @@ export const ProductManufacturer = model(
   "ProductManufacturer",
   productManufacturerSchema
 );
+
+const productBoards = new Schema({
+  productId: {
+    type: [Schema.Types.ObjectId],
+    required: [
+      true,
+      "Provide List Of Product Ids To which this Boards Resembeles..",
+    ],
+    unique: true,
+  },
+  boardImages: {
+    type: [String],
+    required: [true, "Provide ProductBoards In Order"],
+  },
+});
+
+export const ProductBoards = model("ProductBoard", productBoards);
