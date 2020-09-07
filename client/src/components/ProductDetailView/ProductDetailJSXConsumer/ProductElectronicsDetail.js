@@ -45,7 +45,10 @@ const ProductElectronicsDetail = (props) => {
         {/* Product Description by Manufacturer as a statement*/}
         {props.productDescription ? (
           <Fragment>
-            <ProductBrief productDescription={props.productDescription} />
+            <ProductBrief
+              productDescription={props.productDescription}
+              productBoards={props.productBoards}
+            />
             <hr style={{ width: "65%" }} />
           </Fragment>
         ) : (
@@ -78,7 +81,7 @@ const ProductElectronicsDetail = (props) => {
       </Fragment>
     );
   }
-  return <h1 style={{ color: "white" }}>No Images Found</h1>;
+  return <h1 style={{ color: "white" }}>Server failed to respond</h1>;
 };
 
 const mapStateToProps = ({ productDetail }) => ({
@@ -88,6 +91,7 @@ const mapStateToProps = ({ productDetail }) => ({
   productDetails: productDetail.productDetails,
   manufacturer: productDetail.manufacturer,
   productDescription: productDetail.productBrief,
+  productBoards: productDetail.productBoards,
 });
 
 export default connect(mapStateToProps)(ProductElectronicsDetail);
