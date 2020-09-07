@@ -60,7 +60,7 @@ const ProductBeautyDetail = (props) => {
         {props.productDetails ? (
           <Fragment>
             <div className={classes.mobileTechnicalDetails}>
-              <h2> Technical Details </h2>
+              <h2>Product details</h2>
               <ProductDetailTable productDetails={props.productDetails} />
             </div>
             <hr style={{ width: "65%" }} />
