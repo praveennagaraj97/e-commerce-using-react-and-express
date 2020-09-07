@@ -18,7 +18,7 @@ const ProductBrief = ({ productDescription, productBoards }) => {
           {productBoards.map((board) => {
             return (
               <img
-                style={{ marginTop: "-4px" }}
+                style={{ marginTop: "-4px", borderRadius: "5px" }}
                 key={board}
                 width='100%'
                 src={board}
