@@ -42,6 +42,7 @@ const ProductImageAndBrief = ({ images, productBriefInfo }) => {
           <a href='/seller'> Seller Details : iAsta</a>
           <p>Rating 4.5/5 from 50 reviews</p>
         </div>
+
         {productBriefInfo.similarProducts.length > 1 ? (
           <div className='product-detail_similar_products'>
             Similar Products
@@ -84,7 +85,7 @@ const ProductImageAndBrief = ({ images, productBriefInfo }) => {
     );
   };
 
-  if (images.length > 0) {
+  if (images.length > 0 && productBriefInfo) {
     return (
       <Fragment>
         <div className='product-detail-image-desc-container'>

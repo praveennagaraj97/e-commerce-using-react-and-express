@@ -126,7 +126,7 @@ export const viewProductReducer = (state = {}, action) => {
               featuresList: action.data.productFullDetails[0].featuresList,
               similarProducts: action.data.productFullDetails[0].productId,
             }
-          : [];
+          : null;
 
       state["productVideo"] =
         action.data.productFullDetails.length > 0
