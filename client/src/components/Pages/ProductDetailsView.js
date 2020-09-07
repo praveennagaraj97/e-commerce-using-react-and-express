@@ -3,6 +3,7 @@ import React from "react";
 import {
   ProductMobileDetail,
   ProductComputersDetail,
+  ProductElectronicsDetail,
 } from "../ProductDetailView";
 import history from "../../history";
 
@@ -12,7 +13,8 @@ const ProductDetailView = () => {
   ];
   if (productCategory === "mobiles") return <ProductMobileDetail />;
   if (productCategory === "computers") return <ProductComputersDetail />;
-  return <h1>Hello</h1>;
+  if (productCategory === "electronics") return <ProductElectronicsDetail />;
+  return <h1 style={{ color: "white" }}>Sorry Something went Wrong</h1>;
 };
 
 export default ProductDetailView;
