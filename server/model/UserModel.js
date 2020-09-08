@@ -59,6 +59,10 @@ const userSchema = new Schema(
       type: Boolean,
       default: true,
     },
+
+    passwordModified: {
+      type: Date,
+    },
   },
   {
     toJSON: { virtuals: true },
