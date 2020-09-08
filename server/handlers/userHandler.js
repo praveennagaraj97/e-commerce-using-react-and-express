@@ -1,7 +1,7 @@
 import catchAsyncError from "../utils/catchAsyncError";
 import { AppError } from "../utils/AppError";
 import { generateJWToken, verifyJWToken } from "../utils/jsonWebToken";
-import { Mailer } from "../utils/mailer";
+import { Email } from "../utils/mailer";
 
 export const signUpHandler = (ModelName, responseMessage) =>
   catchAsyncError(async (req, res, next) => {
@@ -21,12 +21,15 @@ export const signInHandler = (ModelName, responseMessage) =>
     const user = await ModelName.findOne({ email }).select("+password");
 
     const mailOptions = {
-      to: "praveen@mailsac.com",
-      subject: `Signed Up Successfully`,
-      html: "<h1>Test Mail</h1>",
+      email: "praveen@mailsac.com",
+      username: user.name,
     };
 
-    await new Mailer(mailOptions).sendEmail();
+    const url = `${req.protocol}://${req.get("host")}/v1/lexa/activate/${
+      user._id
+    }`;
+
+    await new Email(mailOptions, url).sendWelcome();
 
     // Check If User Exists
     if (!user) return next(new AppError(`No user Found With ${email}`, 401));

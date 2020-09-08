@@ -1,40 +1,62 @@
 import { createTransport } from "nodemailer";
+import { renderFile } from "pug";
+import { fromString } from "html-to-text";
 import dotenvConfig from "../config/dotenvConfig";
 
 dotenvConfig();
 
-export class Mailer {
-  constructor(reciever) {
+export class Email {
+  constructor(user, url) {
+    this.to = user.email;
+    this.name = user.username;
+    this.url = url;
     this.from = `${process.env.SENDER_NAME} <${process.env.SENDER_EMAIL}>`;
-    this.to = reciever.to;
-    this.subject = reciever.subject;
-    this.html = reciever.html;
   }
-
-  createTransporter() {
-    // return createTransport({
-    //   host: "smtp.mailtrap.io",
-    //   port: 2525,
-    //   auth: {
-    //     user: "8475dbc7d86be1",
-    //     pass: "d30f321ba3d753",
-    //   },
-    // });
+  createTransport() {
+    if (process.env.NODE_ENV === "production") {
+      // sendGrid
+      return createTransport({
+        service: "SendGrid",
+        auth: {
+          user: process.env.SEND_GRID_USER,
+          pass: process.env.SEND_GRID_PASSWORD,
+        },
+      });
+    }
     return createTransport({
-      service: "SendGrid",
+      host: process.env.MAIL_TRAP_HOST,
+      port: process.env.MAIL_TRAP_PORT,
       auth: {
-        user: process.env.SEND_GRID_USER,
-        pass: process.env.SEND_GRID_PASSWORD,
+        user: process.env.MAIL_TRAP_USER,
+        pass: process.env.MAIL_TRAP_PASSWORD,
       },
     });
   }
+  async send(template, subject) {
+    // Render HTML Based On PUG.
+    const html = renderFile(
+      `${__dirname}/../views/mail service/${template}.pug`,
+      {
+        name: this.name,
+        url: this.url,
+        subject,
+      }
+    );
 
-  async sendEmail() {
-    return this.createTransporter().sendMail({
-      from: this.from, // sender address
-      to: this.to, // list of receivers
-      subject: this.subject, // Subject line
-      html: this.html, // html body
-    });
+    console.log(html);
+    // Mail Options
+
+    const mailOptions = {
+      from: this.from,
+      to: this.to,
+      subject,
+      html,
+      text: fromString(html),
+    };
+    // Transporter to send Email
+    await this.createTransport().sendMail(mailOptions);
+  }
+  async sendWelcome() {
+    await this.send("welcome", "Thank you for Joining !keep Shopping");
   }
 }
