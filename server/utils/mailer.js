@@ -34,14 +34,11 @@ export class Email {
   }
   async send(template, subject) {
     // Render HTML Based On PUG.
-    const html = renderFile(
-      `${__dirname}/../views/mail service/${template}.pug`,
-      {
-        name: this.name,
-        url: this.url,
-        subject,
-      }
-    );
+    const html = renderFile(`${__dirname}/../views/mail/${template}.pug`, {
+      name: this.name,
+      url: this.url,
+      subject,
+    });
 
     // Mail Options
 
@@ -57,5 +54,9 @@ export class Email {
   }
   async sendWelcome() {
     await this.send("welcome", "Thank you for Joining !keep Shopping");
+  }
+
+  async sendResetPassword() {
+    await this.send("forgotPassword", "Password reset Valid for 5 minutes");
   }
 }

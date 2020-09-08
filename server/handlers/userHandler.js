@@ -136,13 +136,67 @@ export const updateUserDetails = (ModelName, responseMessage) =>
     });
   });
 
-export const forgotPassword = (ModelName, responseMessage) =>
+export const forgotPasswordHandler = (ModelName, responseMessage) =>
   catchAsyncError(async (req, res, next) => {
     const user = await ModelName.findOne({ email: req.body.email });
     if (!user)
       return next(new AppError(`No User Found with ${req.body.email}`));
+
+    const resetToken = await user.createUserResetPasswordToken(user._id);
+
+    let url;
+    process.env.NODE_ENV === "production"
+      ? (url = `${process.env.DEPLOY_PASSWORD_RESET_LINK}/${resetToken}`)
+      : (url = `${process.env.LOCAL_DEPLOY_PASSWORD_RESET_LINK}/${resetToken}`);
+
+    const mailOptions = {
+      email: user.email,
+      username: user.name,
+    };
+
+    await new Email(mailOptions, url).sendResetPassword();
+
+    if (process.env.NODE_ENV === "development") {
+      responseMessage.resetToken = `${req.protocol}://${req.get(
+        "host"
+      )}/api/v1/user/resetPassword/${resetToken}`;
+    }
+
+    res.send(responseMessage);
   });
 
+export const resetPasswordHandler = (ModelName, responseMessage) =>
+  catchAsyncError(async (req, res, next) => {
+    if (!req.body.password || !req.body.confirmPassword)
+      return next(new AppError("Provide Password and Confirm Password!!", 422));
+
+    if (req.body.password !== req.body.confirmPassword)
+      return next(new AppError("Password didn't match !!", 422));
+    const user = await ModelName.findOne({
+      "resetToken.token": req.params.token,
+    }).select("+password +resetToken");
+
+    if (!user) return next(new AppError("User Token Invalid", 403));
+
+    if (user.resetToken.timeStamp < Date.now())
+      return next(new AppError("Reset Token Expired"));
+
+    if (await user.comparePassword(req.body.password, user.password))
+      return next(
+        new AppError("password is same as Previous password!!!", 418)
+      );
+
+    user.password = req.body.password;
+    user.resetToken = undefined;
+
+    await user.save({ validateBeforeSave: true });
+    const token = await generateJWToken({ id: user._id }, req.body.expiresIn);
+
+    responseMessage.token = token;
+    res.status(202).json(responseMessage);
+  });
+
+// Seller
 export const createSellerAccount = (ModelName, responseMessage) =>
   catchAsyncError(async (req, res, next) => {
     req.body.warehouseLocation = req.body.warehouseLocation

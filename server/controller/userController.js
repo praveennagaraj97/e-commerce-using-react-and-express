@@ -4,6 +4,7 @@ import {
   signUpHandler,
   signInHandler,
   updateUserDetails,
+  forgotPasswordHandler,
 
   // Seller
   createSellerAccount,
@@ -11,6 +12,7 @@ import {
   // middleware
   protectRoute,
   protectForReact as protect,
+  resetPasswordHandler,
 } from "../handlers/userHandler";
 
 export { accreditReact } from "../middleware/accreditReact";
@@ -30,7 +32,10 @@ export const updateMe = updateUserDetails(User, {
   message: "User Updated Successfully",
 });
 
-// Seller
-export const becomeSeller = createSellerAccount(SellerModel, {
-  message: "Seller account created Successfully",
+export const forgotPassword = forgotPasswordHandler(User, {
+  message: "Reset Token Sent to registred mail address.",
+});
+
+export const resetPassword = resetPasswordHandler(User, {
+  message: "Password changed Successfully",
 });

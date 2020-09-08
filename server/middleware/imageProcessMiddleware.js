@@ -20,7 +20,7 @@ export const handleImageUpload = (imageCount, bucketName) =>
 
       if (!validImage) {
         return next(
-          new AppError("Cannot Process File of non Image Format", 422)
+          new AppError("Cannot Process File of non Image Format", 415)
         );
       }
       files.push(req.files[i]);
@@ -61,7 +61,7 @@ export const handleVideoUpload = (videoCount, bucketName) =>
         return next(
           new AppError(
             "Cannot Process File of non Video Format- Available Formats : mp4|mkv|wmv|mov ",
-            422
+            415
           )
         );
       }
@@ -111,7 +111,7 @@ export const handleImageUploadWithNoImageLimit = (bucketName) =>
 
       if (!validImage) {
         return next(
-          new AppError("Cannot Process File of non Image Format", 422)
+          new AppError("Cannot Process File of non Image Format", 415)
         );
       }
       files.push(req.files[i]);

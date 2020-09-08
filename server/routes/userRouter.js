@@ -10,9 +10,8 @@ import {
   signUp,
   signIn,
   updateMe,
-
-  // Seller Account
-  becomeSeller,
+  forgotPassword,
+  resetPassword,
 } from "../controller/userController";
 
 export const userRouter = Router();
@@ -23,10 +22,9 @@ userRouter.route("/signin").post(signIn);
 
 userRouter.route("/updateme").patch(protectForReact, protectRoutes, updateMe);
 
-// Seller
-userRouter
-  .route("/signup/seller")
-  .post(protectForReact, protectRoutes, becomeSeller);
+userRouter.route("/forgotPassword").post(forgotPassword);
+
+userRouter.route("/resetPassword/:token").post(resetPassword);
 
 // Don't Modify This Route
 // Modifing will cause react app to shut Down.

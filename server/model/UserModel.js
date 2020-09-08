@@ -63,6 +63,11 @@ const userSchema = new Schema(
     passwordModified: {
       type: Date,
     },
+
+    resetToken: {
+      type: Object,
+      select: false,
+    },
   },
   {
     toJSON: { virtuals: true },
@@ -88,8 +93,21 @@ userSchema.methods.comparePassword = async function (
   return await compare(inputPassword, dbStoredPassword);
 };
 
-userSchema.methods.createUserResetPasswordToken = async function () {
+userSchema.methods.createUserResetPasswordToken = async function (userId) {
   // Create a new Token from crypto as this is for 5 min only
+  // Delete the token once the password is changed
+  const resetToken = [...Array(70)]
+    .map((i) => (~~(Math.random() * 36)).toString(36))
+    .join("");
+
+  await User.findByIdAndUpdate(userId, {
+    resetToken: {
+      token: resetToken,
+      timeStamp: Number(Date.now()) + Number(process.env.PASSWORD_RESET_TIME),
+    },
+  });
+
+  return resetToken;
 };
 
 export const User = model("User", userSchema);
