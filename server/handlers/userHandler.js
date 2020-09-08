@@ -136,6 +136,13 @@ export const updateUserDetails = (ModelName, responseMessage) =>
     });
   });
 
+export const forgotPassword = (ModelName, responseMessage) =>
+  catchAsyncError(async (req, res, next) => {
+    const user = await ModelName.findOne({ email: req.body.email });
+    if (!user)
+      return next(new AppError(`No User Found with ${req.body.email}`));
+  });
+
 export const createSellerAccount = (ModelName, responseMessage) =>
   catchAsyncError(async (req, res, next) => {
     req.body.warehouseLocation = req.body.warehouseLocation
