@@ -80,11 +80,6 @@ userSchema.pre("save", async function () {
   this.confirmPassword = undefined;
 });
 
-userSchema.pre("find", function (next) {
-  this.find({ accountActive: { $ne: false } });
-  next();
-});
-
 // Decrypt Password
 userSchema.methods.comparePassword = async function (
   inputPassword,
@@ -93,49 +88,53 @@ userSchema.methods.comparePassword = async function (
   return await compare(inputPassword, dbStoredPassword);
 };
 
+userSchema.methods.createUserResetPasswordToken = async function () {
+  // Create a new Token from crypto as this is for 5 min only
+};
+
 export const User = model("User", userSchema);
 
-// Seller Schema
-const sellerSchema = new Schema({
-  userId: {
-    type: Schema.Types.ObjectId,
-    required: [true, "Please Provide User ID"],
-    unique: true,
-  },
-  warehouseLocation: {
-    type: {
-      type: String,
-      enum: ["Point"],
-      default: "Point",
-    },
-    coordinates: {
-      type: [Number],
-      required: true,
-    },
-  },
-});
+// // Seller Schema
+// const sellerSchema = new Schema({
+//   userId: {
+//     type: Schema.Types.ObjectId,
+//     required: [true, "Please Provide User ID"],
+//     unique: true,
+//   },
+//   warehouseLocation: {
+//     type: {
+//       type: String,
+//       enum: ["Point"],
+//       default: "Point",
+//     },
+//     coordinates: {
+//       type: [Number],
+//       required: true,
+//     },
+//   },
+// });
 
-sellerSchema.index({ warehouseLocation: "2dsphere" });
+// sellerSchema.index({ warehouseLocation: "2dsphere" });
 
-sellerSchema.pre(/^find/, function (next) {
-  this.populate({
-    path: "userId",
-    model: "User",
-  });
-});
+// sellerSchema.pre(/^find/, function (next) {
+//   this.populate({
+//     path: "userId",
+//     model: "User",
+//   });
+// });
 
-sellerSchema.post("save", async function () {
-  const user = await User.findByIdAndUpdate(
-    this.userId,
-    { userRole: "seller" },
-    {
-      upsert: true,
-      runValidators: true,
-      setDefaultsOnInsert: true,
-      context: "query",
-      new: true,
-    }
-  );
-});
+// sellerSchema.post("save", async function () {
+//   const user = await User.findByIdAndUpdate(
+//     this.userId,
+//     { userRole: "seller" },
+//     {
+//       upsert: true,
+//       runValidators: true,
+//       setDefaultsOnInsert: true,
+//       context: "query",
+//       new: true,
+//     }
+//   );
+// });
 
-export const SellerModel = model("Seller", sellerSchema);
+// export const SellerModel = model("Seller", sellerSchema);

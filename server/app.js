@@ -17,10 +17,10 @@ import {
   globalErrorHandler,
 } from "./handlers/errorHandler";
 
-import { userRouter } from "./route/userRouter";
-import { categoryRouter } from "./route/categoryRouter";
-import { productRouter } from "./route/productRouter";
-import { productDetailRouter } from "./route/productDetailsRouter";
+import { userRouter } from "./routes/userRouter";
+import { categoryRouter } from "./routes/categoryRouter";
+import { productRouter } from "./routes/productRouter";
+import { productDetailRouter } from "./routes/productDetailsRouter";
 
 dotenvConfig();
 process.on("uncaughtException", unCaughtExceptionErrorHandler);
