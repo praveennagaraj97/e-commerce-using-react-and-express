@@ -1,10 +1,7 @@
 import { verify, sign } from "jsonwebtoken";
-import { config } from "dotenv";
-import { join } from "path";
+import dotenvConfig from "../config/dotenvConfig";
 
-config({
-  path: join(__dirname, "..", "config", "config.env"),
-});
+dotenvConfig();
 
 export const generateJWToken = (payload, expiresIn = "24h") => {
   return new Promise((resolve, reject) => {

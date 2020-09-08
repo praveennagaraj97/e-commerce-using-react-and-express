@@ -1,6 +1,7 @@
 import catchAsyncError from "../utils/catchAsyncError";
 import { AppError } from "../utils/AppError";
 import { generateJWToken, verifyJWToken } from "../utils/jsonWebToken";
+import { mailer } from "../utils/mailer";
 
 export const signUpHandler = (ModelName, responseMessage) =>
   catchAsyncError(async (req, res, next) => {
@@ -18,6 +19,15 @@ export const signInHandler = (ModelName, responseMessage) =>
   catchAsyncError(async (req, res, next) => {
     const { email, password } = req.body;
     const user = await ModelName.findOne({ email }).select("+password");
+
+    const mailOptions = {
+      reciever: user.email,
+      subject: `Signed Up Successfully`,
+      textBody: "test",
+      htmlBody: "<h1>Test Mail</h1>",
+    };
+
+    await mailer(mailOptions);
 
     // Check If User Exists
     if (!user) return next(new AppError(`No user Found With ${email}`, 401));

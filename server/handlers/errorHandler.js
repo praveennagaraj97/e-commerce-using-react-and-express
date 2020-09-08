@@ -1,6 +1,7 @@
 import { resolve } from "path";
-import { config } from "dotenv";
-config({ path: resolve("config", "config.env") });
+import dotenvConfig from "../config/dotenvConfig";
+
+dotenvConfig();
 
 export const pageNotFoundError = (req, res, next) => {
   res.status(404).json({
