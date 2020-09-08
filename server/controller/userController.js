@@ -6,9 +6,6 @@ import {
   updateUserDetails,
   forgotPasswordHandler,
 
-  // Seller
-  createSellerAccount,
-
   // middleware
   protectRoute,
   protectForReact as protect,

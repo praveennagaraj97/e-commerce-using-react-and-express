@@ -1,4 +1,6 @@
 import Category from "../model/categoryModel";
+import { GCS_BUCKET_NAME } from "../constants";
+
 import {
   createNewDocumnet,
   readAllDocument,
@@ -10,10 +12,12 @@ import {
   processSingleImage,
 } from "../middleware/imageProcessMiddleware";
 
+const { LEXA_PRODUCT_CATEGORIES } = GCS_BUCKET_NAME;
+
 export { preCheckCategoryInputs } from "../middleware/preChecks";
 export const getCatgoryImageProcessed = handleImageUpload(
   1,
-  "lexa-product-categories"
+  LEXA_PRODUCT_CATEGORIES
 );
 export const categoryImageLink = processSingleImage("categoryIcon");
 export const createNewCategory = createNewDocumnet(Category, {

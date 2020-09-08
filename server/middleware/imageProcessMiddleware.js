@@ -1,6 +1,10 @@
 import catchAsyncError from "../utils/catchAsyncError";
 import { AppError } from "../utils/AppError";
+
+import { GCS_BUCKET_NAME } from "../constants";
 import { uploadImageToGoogle } from "../utils/GCloudStorageService";
+
+const { PRODUCT_DETAILS_VIDEOS } = GCS_BUCKET_NAME;
 
 export const handleImageUpload = (imageCount, bucketName) =>
   catchAsyncError(async (req, res, next) => {
@@ -37,7 +41,7 @@ export const handleImageUpload = (imageCount, bucketName) =>
 
 export const handleVideoUpload = (videoCount, bucketName) =>
   catchAsyncError(async (req, res, next) => {
-    if (bucketName === "product-details-videos") {
+    if (bucketName === PRODUCT_DETAILS_VIDEOS) {
       if (req.files.length === 0) return next();
     }
 

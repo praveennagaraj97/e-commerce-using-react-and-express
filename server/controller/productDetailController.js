@@ -1,8 +1,8 @@
 import { ProductDetailModel } from "../model/ProductDetailModel";
+import { GCS_BUCKET_NAME } from "../constants";
 
 import {
   createNewDocumnet,
-  updateDocumentByID,
   updateDocumentByField,
 } from "../handlers/factoryHandler";
 import {
@@ -15,10 +15,11 @@ import { preCheckIfPreviousVideoExistsAndDelete } from "../middleware/preChecks"
 
 // This Controller doesn't have ay get Endpoints
 // as this gets called along with get Products endpoint as a virtual Prop
+const { PRODUCT_DETAILS_VIDEOS } = GCS_BUCKET_NAME;
 
 export const handleProductDetailVideo = handleVideoUpload(
   1,
-  "product-details-videos"
+  PRODUCT_DETAILS_VIDEOS
 );
 export const processProductDetailVideo = processSingleVideo("productVideo");
 export { preFillProductdetailedDescription } from "../middleware/preFillers";
@@ -30,7 +31,7 @@ export const addDetailForProduct = createNewDocumnet(ProductDetailModel, {
 export { preCheckifProductUpdateDetailVideoHasFileAttached } from "../middleware/preChecks";
 export const checkIfVideoExistsAndDeleteBeforeUpdatingNewVideo = preCheckIfPreviousVideoExistsAndDelete(
   ProductDetailModel,
-  "product-details-videos",
+  PRODUCT_DETAILS_VIDEOS,
   "productVideo"
 );
 export const updateProductDetailVideo = updateDocumentByField(

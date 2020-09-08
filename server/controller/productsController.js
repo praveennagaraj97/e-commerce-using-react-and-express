@@ -1,3 +1,5 @@
+import { GCS_BUCKET_NAME } from "../constants";
+
 import {
   Product,
   ProductManufacturer,
@@ -22,12 +24,18 @@ export {
   preFillProductBoards,
 } from "../middleware/preFillers";
 
+const {
+  LEXA_PRODUCT_COVERS,
+  PRODUCT_DETAILS_IMAGES,
+  PRODUCT_BOARDS,
+} = GCS_BUCKET_NAME;
+
 // Protect Middlewares
 export { protectForReact, protectRoutes } from "./userController";
 
 export const getProductImageProcessed = handleImageUpload(
   1,
-  "lexa-product-covers"
+  LEXA_PRODUCT_COVERS
 );
 export const productImageLink = processSingleImage("productCoverImage");
 export const addNewProduct = createNewDocumnet(Product, {
@@ -49,10 +57,7 @@ export const addProductManufacturer = createNewDocumnet(ProductManufacturer, {
 });
 
 // Product Description
-export const handleProductImages = handleImageUpload(
-  5,
-  "product-details-images"
-);
+export const handleProductImages = handleImageUpload(5, PRODUCT_DETAILS_IMAGES);
 export const processProductImages = processMultipleImages("productImages");
 
 export const addProductDescriptionAndImages = createNewDocumnet(
@@ -68,7 +73,7 @@ export const getProduct = readDocumentByIdThroughQuery(Product, {
 
 // Product Boards
 export const handleProductBoardImages = handleImageUploadWithNoImageLimit(
-  "product-boards"
+  PRODUCT_BOARDS
 );
 
 export const processProductBoards = processMultipleImages("boardImages");
