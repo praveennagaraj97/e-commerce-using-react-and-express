@@ -65,13 +65,14 @@ const limiter = rateLimit({
 app.use(express.static(resolve(__dirname, "public")));
 app.use(express.json({ limit: "20kb" }));
 app.use(express.urlencoded({ extended: true }));
+app.set("view engine", "pug");
+app.set("views", resolve(__dirname, "views"));
 
 // Cookie Parser
 app.use(cookieParser());
 
 app.get("/", (req, res, next) => {
-  res.send(`<h1>Lexa Ecommerce Api Build By</h1>
-  <h3>Praveen Nagaraj</h3>`);
+  res.render("apiIntro");
 });
 
 app.use("/api/v1/category", categoryRouter);
