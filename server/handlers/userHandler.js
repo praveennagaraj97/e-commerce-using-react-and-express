@@ -8,6 +8,19 @@ export const signUpHandler = (ModelName, responseMessage) =>
     const user = await ModelName.create(req.body);
 
     const token = await generateJWToken({ id: user._id }, req.body.expiresIn);
+
+    const mailOptions = {
+      email: user.email,
+      username: user.name,
+    };
+
+    let url;
+    process.env.NODE_ENV === "production"
+      ? (url = `${process.env.DEPLOY_LINK}`)
+      : (url = `${process.env.LOCAL_DEPLOY_LINK}`);
+
+    await new Email(mailOptions, url).sendWelcome();
+
     const { message } = responseMessage;
     res.status(201).json({
       message,
@@ -19,17 +32,6 @@ export const signInHandler = (ModelName, responseMessage) =>
   catchAsyncError(async (req, res, next) => {
     const { email, password } = req.body;
     const user = await ModelName.findOne({ email }).select("+password");
-
-    const mailOptions = {
-      email: "praveen@mailsac.com",
-      username: user.name,
-    };
-
-    const url = `${req.protocol}://${req.get("host")}/v1/lexa/activate/${
-      user._id
-    }`;
-
-    await new Email(mailOptions, url).sendWelcome();
 
     // Check If User Exists
     if (!user) return next(new AppError(`No user Found With ${email}`, 401));

@@ -43,7 +43,6 @@ export class Email {
       }
     );
 
-    console.log(html);
     // Mail Options
 
     const mailOptions = {

@@ -53,6 +53,8 @@ const userSchema = new Schema(
       enum: ["user", "seller"],
       default: "user",
     },
+
+    // if user found misleading account will be set to inactive instaed of deleting
     accountActive: {
       type: Boolean,
       default: true,
