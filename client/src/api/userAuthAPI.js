@@ -56,7 +56,12 @@ export const authAccreditationEndPoint = async (auth_token) => {
         : API_BASE_URL_LOCAL
     }/api/v1/user/accredit`,
     {
-      auth_token,
+      //no_data
+    },
+    {
+      headers: {
+        authorization: `Bearer ${auth_token}`,
+      },
     }
   );
 

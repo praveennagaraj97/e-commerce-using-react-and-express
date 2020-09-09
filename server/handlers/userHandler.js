@@ -51,53 +51,8 @@ export const signInHandler = (ModelName, responseMessage) =>
     });
   });
 
-// This is Actually an Middleware
-// Make sure pass auth_token with req body wherever protected routes are called
-export const protectForReact = (ModelName) =>
-  catchAsyncError(async (req, res, next) => {
-    // If Request is from Express/Postman API
-    if (req.headers.authorization) {
-      if (req.headers.authorization.startsWith("Bearer")) return next();
-    }
-
-    const { auth_token } = req.body;
-    if (!auth_token) {
-      return res.status(200).json({
-        message: "Auth Token Not Found|Bearer Token Not Found",
-      });
-    }
-    // As it is a Promise if token is expired server will respond with error
-    // and our async error catcher will catch that.
-    let verified = true;
-    let tokenDetails;
-    if (auth_token) {
-      tokenDetails = await verifyJWToken(auth_token);
-    } else {
-      verified = false;
-    }
-
-    const user = await ModelName.findById(tokenDetails.id);
-    // if user account is deleted
-    if (!user) return next(new AppError("Token Not Valid", 401));
-
-    // This is to Tell Our API protect Routes That Token Exists
-    // So we can Skip Writing one more middleware.
-    // req.bearerfromReact
-    req.fromReact = true;
-    req.user = user;
-    req.bearerfromReact = auth_token;
-    req.tokenDetails = tokenDetails;
-    req.verified = verified;
-    next();
-  });
-
 export const protectRoute = (ModelName) =>
   catchAsyncError(async (req, res, next) => {
-    // If the token is from react app authenticate the use as token is already verified
-    if (req.fromReact) {
-      return next();
-    }
-
     if (!req.headers.authorization)
       return next(new AppError("Please Login First", 401));
     if (req.headers.authorization) {
@@ -105,6 +60,7 @@ export const protectRoute = (ModelName) =>
         return next(new AppError("You are not logged In", 401));
       }
     }
+    console.log(req.headers.authorization);
 
     const auth_token = req.headers.authorization.split("Bearer ")[1];
 
