@@ -4,6 +4,5 @@
 export const accreditReact = (req, res, next) => {
   res.status(200).json({
     message: true,
-    user: req.user,
   });
 };
