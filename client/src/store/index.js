@@ -1,14 +1,13 @@
 import { compose, createStore, applyMiddleware } from "redux";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import createEncryptor from "redux-persist-transform-encrypt";
 
 import createReduxSagaMiddleware from "redux-saga";
 
 import reducers from "../reducers";
 import rootSaga from "../sagas";
 import { USER_AUTH_TYPES, WEBSITE_LOAD } from "../constants";
-
-import createEncryptor from "redux-persist-transform-encrypt";
 
 const {
   USER_STATUS: { LOAD_ACCREDITATION },
