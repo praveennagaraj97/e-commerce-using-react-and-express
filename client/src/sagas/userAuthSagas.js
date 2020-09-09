@@ -18,9 +18,10 @@ import {
 } from "../actions";
 import { UserLogger, UserSigner, AuthAccreditation } from "../api";
 import { useCookies } from "../utils/useCookies";
+import { useSessionStorage } from "../utils/useSessionStorage";
 
-const { setCookie, getCookie, removeCookie } = useCookies;
-
+const { setAuthCookie, getCookie, removeCookie } = useCookies;
+const { setSessionItem, getSessionItem, removeSessionItem } = useSessionStorage;
 const {
   LOGIN: { LOAD_LOGIN },
   SIGNUP: { LOAD_SIGNUP },
@@ -79,11 +80,14 @@ function* handleUserLoginWorker() {
     // If keep-logged in checked store as cookie else in session-storage
     if (values.signedIn) {
       yield call(
-        setCookie,
+        setAuthCookie,
         AUTH_TOKEN,
         data.token,
         values.signedIn ? "infinite" : "24"
       );
+    } else {
+      // set auth_token under session storage.
+      yield call(setSessionItem, AUTH_TOKEN, data.token);
     }
 
     yield history.goBack();
@@ -177,7 +181,7 @@ function* handleUserSignUpWorker() {
 
     yield put(signUpUser(data));
     yield put(authSuccessMessage("Thank You ,keep shopping!🐱‍🏍"));
-    yield call(setCookie, AUTH_TOKEN, data.token);
+    yield call(setSessionItem, AUTH_TOKEN, data.token);
     yield history.goBack();
     yield call(handleUserAccreditationWorker);
     yield delay(3200);
@@ -201,17 +205,17 @@ export function* userSignUpWatcher() {
 }
 
 function* handleUserAccreditationWorker() {
-  const cookie = yield call(getCookie, AUTH_TOKEN);
+  const authCookie = yield call(getCookie, AUTH_TOKEN);
+  const sessionCookie = yield call(getSessionItem, AUTH_TOKEN);
 
-  if (!cookie) return yield put(userAccredited(false));
+  if (!authCookie && !sessionCookie) return yield put(userAccredited(false));
 
   try {
-    const { data } = yield call(AuthAccreditation, cookie);
+    const { data } = yield call(AuthAccreditation, authCookie || sessionCookie);
     yield put(userAccredited(data.message));
   } catch (err) {
     yield put(userAccredited(false));
     yield removeCookie(AUTH_TOKEN);
-    // Email
   }
 }
 
@@ -221,6 +225,7 @@ export function* userAccreditationWatcher() {
 
 function* handleUserLogoutWorker() {
   yield call(removeCookie, AUTH_TOKEN);
+  yield call(removeSessionItem, AUTH_TOKEN);
   yield put(authSuccessMessage("Logged Out Successfully, come back soon!🐱‍"));
   yield call(handleUserAccreditationWorker);
   yield delay(3200);
