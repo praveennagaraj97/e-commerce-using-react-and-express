@@ -1,2 +1,6 @@
 export { navItems } from "./navLinks";
-export { loginFormFields, signUpFormFields } from "./userAuthForm";
+export {
+  loginFormFields,
+  signUpFormFields,
+  forgotPasswordFields,
+} from "./userAuthForm";
