@@ -15,10 +15,8 @@ const {
 } = USER_AUTH_TYPES;
 
 const encryptor = createEncryptor({
-  secretKey: "my-super-secret-key",
-  onError: function (error) {
-    // Handle the error.
-  },
+  secretKey: "react-and-redux-is-fun",
+  onError: function (error) {},
 });
 
 const persistConfig = {
