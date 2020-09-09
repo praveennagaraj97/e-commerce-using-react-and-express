@@ -23,8 +23,7 @@ import {
   preFillCartIdasParams,
   preFillProductBoards,
   // Protect
-  protectForReact,
-  protectRoutes,
+  protectRoute,
 } from "../controller/productsController";
 
 export const productRouter = Router();
@@ -41,16 +40,14 @@ productRouter.route("/getProduct").get(getProduct);
 // Seller Route
 
 // DevRoute
-productRouter
-  .route("/dev/addNewProduct")
-  .post(
-    upload.array("productCoverImage"),
-    protectForReact,
-    protectRoutes,
-    getProductImageProcessed,
-    productImageLink,
-    addNewProduct
-  );
+productRouter.route("/dev/addNewProduct").post(
+  upload.array("productCoverImage"),
+
+  protectRoute,
+  getProductImageProcessed,
+  productImageLink,
+  addNewProduct
+);
 
 productRouter.route("/dev/addManufacturer").post(addProductManufacturer);
 

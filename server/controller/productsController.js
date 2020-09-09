@@ -31,7 +31,7 @@ const {
 } = GCS_BUCKET_NAME;
 
 // Protect Middlewares
-export { protectForReact, protectRoutes } from "./userController";
+export { protectRoute } from "./userController";
 
 export const getProductImageProcessed = handleImageUpload(
   1,

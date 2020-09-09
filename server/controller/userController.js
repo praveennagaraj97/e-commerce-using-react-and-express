@@ -7,15 +7,13 @@ import {
   forgotPasswordHandler,
 
   // middleware
-  protectRoute,
-  protectForReact as protect,
+  protectRoute as protectRouteHandler,
   resetPasswordHandler,
 } from "../handlers/userHandler";
 
 export { accreditReact } from "../middleware/accreditReact";
 
-export const protectRoutes = protectRoute(User);
-export const protectForReact = protect(User);
+export const protectRoute = protectRouteHandler(User);
 
 export const signUp = signUpHandler(User, {
   message: "Signed Up Successfully",
