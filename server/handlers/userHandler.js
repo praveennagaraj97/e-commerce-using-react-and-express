@@ -96,7 +96,7 @@ export const forgotPasswordHandler = (ModelName, responseMessage) =>
   catchAsyncError(async (req, res, next) => {
     const user = await ModelName.findOne({ email: req.body.email });
     if (!user)
-      return next(new AppError(`No User Found with ${req.body.email}`));
+      return next(new AppError(`No User Found with ${req.body.email}`, 404));
 
     const resetToken = await user.createUserResetPasswordToken(user._id);
 
