@@ -53,7 +53,7 @@ export const globalErrorHandler = (err, req, res, next) => {
   }
 
   if (err.name === "JsonWebTokenError") {
-    err.statusCode = 203;
+    err.statusCode = 401;
     err.message = "nothing to show";
   }
 
