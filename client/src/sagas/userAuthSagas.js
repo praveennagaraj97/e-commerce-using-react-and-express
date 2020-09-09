@@ -205,6 +205,7 @@ function* handleUserAccreditationWorker() {
     const { data } = yield call(AuthAccreditation, cookie);
     yield put(userAccredited(data.message === "User is Authorized"));
   } catch (err) {
+    yield put(userAccredited(false));
     // Email
   }
 }
