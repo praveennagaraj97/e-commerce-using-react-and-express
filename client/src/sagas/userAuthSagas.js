@@ -27,6 +27,7 @@ const {
   SIGNUP: { LOAD_SIGNUP },
   USER_STATUS: { LOAD_ACCREDITATION },
   USER_LOGOUT: { LOAD_LOGOUT },
+  USER_PASSWORD: { LOAD_FORGOT_PASSWORD },
 } = USER_AUTH_TYPES;
 
 const { AUTH_TOKEN } = COOKIE_NAMES;
@@ -234,4 +235,26 @@ function* handleUserLogoutWorker() {
 
 export function* userLogoutWatcher() {
   yield takeEvery(LOAD_LOGOUT, handleUserLogoutWorker);
+}
+
+// Forgot Password
+function* handleUserForgorPasswordWorker() {
+  const {
+    SignUpOrLogin: { values },
+  } = yield select(getFormValues);
+
+  if (values) {
+    try {
+    } catch (error) {}
+  } else {
+    yield put(authFailueMessage("Enter Email to get reset link!! 😇"));
+    yield delay(3200);
+    yield put(authFailueMessage(null));
+  }
+
+  yield console.log(values);
+}
+
+export function* userForgotPasswordWatcher() {
+  yield takeEvery(LOAD_FORGOT_PASSWORD, handleUserForgorPasswordWorker);
 }

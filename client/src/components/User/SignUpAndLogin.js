@@ -13,7 +13,7 @@ import {
   forgotPasswordFields,
 } from "../../data";
 
-import { loadLogin, loadSignUp } from "../../actions";
+import { loadLogin, loadSignUp, loadForgotPassword } from "../../actions";
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -41,11 +41,7 @@ const useStyles = makeStyles((theme) => ({
 const SignUpAndLogin = (props) => {
   const classes = useStyles();
   const [showForm, setShowForm] = useState("login");
-  const { handleSubmit, loadLogin, loadSignUp } = props;
-
-  const onSubmitForm = () => {
-    showForm === "login" ? loadLogin() : loadSignUp();
-  };
+  const { handleSubmit, loadLogin, loadSignUp, loadForgotPassword } = props;
 
   const keepMeSignedIn = () => {
     return (
@@ -63,15 +59,11 @@ const SignUpAndLogin = (props) => {
     );
   };
 
-  const handleForgotPassword = () => {
-    setShowForm("forgotPassword");
-  };
-
   const forgotPasswordLink = () => {
     return (
       <React.Fragment>
         <p
-          onClick={handleForgotPassword}
+          onClick={() => setShowForm("forgotPassword")}
           className={classes.forgotPassword}
           href='/forgot'>
           Forgot Password ?
@@ -79,6 +71,18 @@ const SignUpAndLogin = (props) => {
         <br />
       </React.Fragment>
     );
+  };
+
+  const onSubmitForm = () => {
+    if (showForm === "login") {
+      loadLogin();
+    }
+    if (showForm === "forgotPassword") {
+      loadForgotPassword();
+    }
+    if (showForm === "signup") {
+      loadSignUp();
+    }
   };
 
   const handleFormSelection = () => {
@@ -139,6 +143,7 @@ const reduxFormWrapper = reduxForm({
 const mapDispatchToProps = (dispatch) => ({
   loadLogin: () => dispatch(loadLogin()),
   loadSignUp: () => dispatch(loadSignUp()),
+  loadForgotPassword: () => dispatch(loadForgotPassword()),
 });
 
 export default connect(null, mapDispatchToProps)(reduxFormWrapper);

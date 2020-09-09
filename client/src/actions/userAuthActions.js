@@ -6,6 +6,7 @@ const {
   SIGNUP: { LOAD_SIGNUP, LOAD_SIGNED_UP_USER },
   USER_STATUS: { IS_LOGGED_IN, LOAD_ACCREDITATION },
   USER_LOGOUT: { LOAD_LOGOUT },
+  USER_PASSWORD: { LOAD_FORGOT_PASSWORD },
 } = USER_AUTH_TYPES;
 
 export const loadLogin = () => ({
@@ -46,3 +47,6 @@ export const userAccredited = (isSigned) => ({
 
 // Logout will clear cookie
 export const loadLogout = () => ({ type: LOAD_LOGOUT });
+
+// Forgot Password
+export const loadForgotPassword = () => ({ type: LOAD_FORGOT_PASSWORD });

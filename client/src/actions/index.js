@@ -37,6 +37,8 @@ export {
   userAccredited,
   // LogoutUser
   loadLogout,
+  // forgot password
+  loadForgotPassword,
 } from "./userAuthActions";
 
 export {
