@@ -49,15 +49,12 @@ export const signUpEndPoint = async (
 };
 
 export const authAccreditationEndPoint = async (auth_token) => {
-  const response = await Axios.post(
+  const response = await Axios.get(
     `${
       process.env.NODE_ENV === "production"
         ? API_BASE_URL_LIVE
         : API_BASE_URL_LOCAL
     }/api/v1/user/accredit`,
-    {
-      //no_data
-    },
     {
       headers: {
         authorization: `Bearer ${auth_token}`,

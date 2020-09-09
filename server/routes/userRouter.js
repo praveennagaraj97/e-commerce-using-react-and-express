@@ -27,5 +27,5 @@ userRouter.route("/forgotPassword").post(forgotPassword);
 userRouter.route("/resetPassword/:token").post(resetPassword);
 
 // Don't Modify This Route
-// Modifing will cause react app to shut Down.
-userRouter.route("/accredit").post(protectRoute, accreditReact);
+// Exclusive for FrontEnd Auth.
+userRouter.route("/accredit").get(protectRoute, accreditReact);
