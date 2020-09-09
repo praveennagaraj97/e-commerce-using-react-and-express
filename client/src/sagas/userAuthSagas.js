@@ -206,6 +206,7 @@ function* handleUserAccreditationWorker() {
     yield put(userAccredited(data.message === "User is Authorized"));
   } catch (err) {
     yield put(userAccredited(false));
+    yield removeCookie(AUTH_TOKEN);
     // Email
   }
 }
