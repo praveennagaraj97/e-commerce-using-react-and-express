@@ -7,7 +7,11 @@ import Container from "@material-ui/core/Container";
 import { makeStyles, Button } from "@material-ui/core";
 
 import Form from "../Form";
-import { loginFormFields, signUpFormFields } from "../../data";
+import {
+  loginFormFields,
+  signUpFormFields,
+  forgotPasswordFields,
+} from "../../data";
 
 import { loadLogin, loadSignUp } from "../../actions";
 
@@ -25,6 +29,12 @@ const useStyles = makeStyles((theme) => ({
   },
   labelSignedIn: {
     padding: "0 8px",
+  },
+  forgotPassword: {
+    color: "blue",
+    textDecoration: "underline",
+    cursor: "pointer",
+    display: "inline-block",
   },
 }));
 
@@ -53,6 +63,48 @@ const SignUpAndLogin = (props) => {
     );
   };
 
+  const handleForgotPassword = () => {
+    setShowForm("forgotPassword");
+  };
+
+  const forgotPasswordLink = () => {
+    return (
+      <React.Fragment>
+        <p
+          onClick={handleForgotPassword}
+          className={classes.forgotPassword}
+          href='/forgot'>
+          Forgot Password ?
+        </p>
+        <br />
+      </React.Fragment>
+    );
+  };
+
+  const handleFormSelection = () => {
+    if (showForm === "login") {
+      return loginFormFields;
+    }
+    if (showForm === "forgotPassword") {
+      return forgotPasswordFields;
+    }
+    if (showForm === "signup") {
+      return signUpFormFields;
+    }
+  };
+
+  const handleButtonShow = () => {
+    if (showForm === "login") {
+      return "Login";
+    }
+    if (showForm === "forgotPassword") {
+      return "Continue";
+    }
+    if (showForm === "signup") {
+      return "Sign Up";
+    }
+  };
+
   return (
     <React.Fragment>
       <CssBaseline />
@@ -71,9 +123,10 @@ const SignUpAndLogin = (props) => {
       <Form
         handleSubmit={handleSubmit}
         onSubmitFormValues={onSubmitForm}
-        formSelected={showForm === "login" ? loginFormFields : signUpFormFields}
-        buttonToShow={showForm === "login" ? "Login" : "SignUp"}
+        formSelected={handleFormSelection()}
+        buttonToShow={handleButtonShow()}
         signedInOption={showForm === "login" ? keepMeSignedIn() : ""}
+        forgotPasswordLink={showForm === "login" ? forgotPasswordLink() : ""}
       />
     </React.Fragment>
   );

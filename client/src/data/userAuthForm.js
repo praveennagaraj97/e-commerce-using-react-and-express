@@ -39,3 +39,11 @@ export const signUpFormFields = [
     type: "password",
   },
 ];
+
+export const forgotPasswordFields = [
+  {
+    htmlFor: "forgotemail",
+    label: "Email",
+    type: "email",
+  },
+];

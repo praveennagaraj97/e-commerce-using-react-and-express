@@ -25,6 +25,10 @@ export const USER_AUTH_TYPES = {
   USER_LOGOUT: {
     LOAD_LOGOUT: "LOAD_LOGOUT",
   },
+
+  USER_PASSWORD: {
+    LOAD_FORGOT_PASSWORD: "LOAD_FORGOT_PASSWORD",
+  },
 };
 
 export const COOKIE_NAMES = {

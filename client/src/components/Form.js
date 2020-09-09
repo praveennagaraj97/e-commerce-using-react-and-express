@@ -11,6 +11,7 @@ const Form = (props) => {
     formSelected,
     buttonToShow,
     signedInOption,
+    forgotPasswordLink,
   } = props;
 
   return (
@@ -36,6 +37,7 @@ const Form = (props) => {
           );
         })}
         {signedInOption}
+        {forgotPasswordLink}
 
         <Button style={{ backgroundColor: "white" }} type='submit'>
           {buttonToShow}
