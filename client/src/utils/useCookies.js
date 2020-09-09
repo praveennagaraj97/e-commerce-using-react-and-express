@@ -1,6 +1,10 @@
 export class useCookies {
   // expires Takes 1d 24h and infinite or in seconds;
-  static setCookie(name, value, expiresIn) {
+  static setCookie(name, value) {
+    document.cookie = `${name}=${value}`;
+  }
+
+  static setAuthCookie(name, value, expiresIn) {
     if (expiresIn === "24h") expiresIn = 86400;
     else if (expiresIn === "infinite") expiresIn = 84600 * 365 * 5;
     else expiresIn = 86400;
