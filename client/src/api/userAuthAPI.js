@@ -61,6 +61,5 @@ export const authAccreditationEndPoint = async (auth_token) => {
       },
     }
   );
-
   return response;
 };

@@ -203,7 +203,7 @@ function* handleUserAccreditationWorker() {
 
   try {
     const { data } = yield call(AuthAccreditation, cookie);
-    yield put(userAccredited(data.message === "User is Authorized"));
+    yield put(userAccredited(data.message));
   } catch (err) {
     yield put(userAccredited(false));
     yield removeCookie(AUTH_TOKEN);
