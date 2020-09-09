@@ -75,12 +75,16 @@ function* handleUserLoginWorker() {
 
     yield put(loginUser(data));
     yield put(authSuccessMessage("Logged In Successfully🐱‍🏍"));
-    yield call(
-      setCookie,
-      AUTH_TOKEN,
-      data.token,
-      values.signedIn ? "infinite" : "24"
-    );
+
+    // If keep-logged in checked store as cookie else in session-storage
+    if (values.signedIn) {
+      yield call(
+        setCookie,
+        AUTH_TOKEN,
+        data.token,
+        values.signedIn ? "infinite" : "24"
+      );
+    }
 
     yield history.goBack();
     yield call(handleUserAccreditationWorker);
