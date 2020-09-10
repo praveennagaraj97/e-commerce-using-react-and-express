@@ -39,6 +39,7 @@ export {
   loadLogout,
   // forgot password
   loadForgotPassword,
+  loadResetPassword,
 } from "./userAuthActions";
 
 export {

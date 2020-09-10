@@ -1,13 +1,15 @@
 import React from "react";
 import { reduxForm } from "redux-form";
+import { connect } from "react-redux";
 
 import Form from "../Form";
 import { resetFormFields } from "../../data";
+import { loadResetPassword } from "../../actions";
 
 const ResetPassword = (props) => {
-  const { handleSubmit } = props;
+  const { handleSubmit, loadResetPassword } = props;
 
-  const onSubmitFormValues = () => {};
+  const onSubmitFormValues = () => loadResetPassword();
 
   return (
     <Form
@@ -23,4 +25,8 @@ const formWrapped = reduxForm({
   form: "resetForm",
 })(ResetPassword);
 
-export default formWrapped;
+const mapDispatchToProps = (dispatch) => ({
+  loadResetPassword: () => dispatch(loadResetPassword()),
+});
+
+export default connect(null, mapDispatchToProps)(formWrapped);

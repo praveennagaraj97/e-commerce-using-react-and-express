@@ -21,6 +21,7 @@ import {
   UserSigner,
   AuthAccreditation,
   forgotPassword,
+  resetPassword,
 } from "../api";
 import { useCookies } from "../utils/useCookies";
 import { useSessionStorage } from "../utils/useSessionStorage";
@@ -32,7 +33,7 @@ const {
   SIGNUP: { LOAD_SIGNUP },
   USER_STATUS: { LOAD_ACCREDITATION },
   USER_LOGOUT: { LOAD_LOGOUT },
-  USER_PASSWORD: { LOAD_FORGOT_PASSWORD },
+  USER_PASSWORD: { LOAD_FORGOT_PASSWORD, LOAD_RESET_PASSWORD },
 } = USER_AUTH_TYPES;
 
 const { AUTH_TOKEN } = COOKIE_NAMES;
@@ -273,4 +274,76 @@ function* handleUserForgorPasswordWorker() {
 
 export function* userForgotPasswordWatcher() {
   yield takeEvery(LOAD_FORGOT_PASSWORD, handleUserForgorPasswordWorker);
+}
+
+// Password reset
+
+function* handleUserPasswordResetWorker() {
+  const {
+    resetForm: { values },
+  } = yield select(getFormValues);
+  const resetToken = yield history.location.pathname.split("user_auth/")[1];
+  if (values) {
+    if (!values.password) {
+      yield put(authFailueMessage("Enter Password"));
+      yield delay(3200);
+      yield put(authFailueMessage(null));
+      return;
+    }
+
+    if (!values.confirmPassword) {
+      yield put(authFailueMessage("Confirm Your Password"));
+      yield delay(3200);
+      yield put(authFailueMessage(null));
+      return;
+    }
+
+    if (values.password !== values.confirmPassword) {
+      yield put(authFailueMessage("Password didn't match 😬"));
+      yield delay(3200);
+      yield put(authFailueMessage(null));
+      return;
+    }
+    try {
+      const { data } = yield call(
+        resetPassword,
+        resetToken,
+        values.password,
+        values.confirmPassword
+      );
+
+      yield put(authSuccessMessage(data.message));
+      yield call(setSessionItem, AUTH_TOKEN, data.token);
+      yield history.push("/");
+      yield call(handleUserAccreditationWorker);
+      yield delay(3200);
+      yield put(authSuccessMessage(null));
+
+      console.log(data);
+    } catch (err) {
+      try {
+        if (err.response.data.message) {
+          yield put(authFailueMessage(err.response.data.message));
+          yield delay(3200);
+          yield put(authFailueMessage(null));
+        }
+      } catch (e) {
+        yield put(
+          authFailueMessage(
+            "Reset Token Expired 😒, Please request for new reset link!!!"
+          )
+        );
+        yield delay(3200);
+        yield put(authFailueMessage(null));
+      }
+    }
+  } else {
+    yield put(authFailueMessage("Enter Password and Confirm Password"));
+    yield delay(3200);
+    yield put(authFailueMessage(null));
+  }
+}
+
+export function* userResetPasswordWatcher() {
+  yield takeLatest(LOAD_RESET_PASSWORD, handleUserPasswordResetWorker);
 }
