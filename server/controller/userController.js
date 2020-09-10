@@ -1,4 +1,4 @@
-import { User, SellerModel } from "../model/UserModel";
+import { User } from "../model/UserModel";
 import {
   // User
   signUpHandler,
@@ -34,3 +34,10 @@ export const forgotPassword = forgotPasswordHandler(User, {
 export const resetPassword = resetPasswordHandler(User, {
   message: "Password changed Successfully",
 });
+
+export const getMe = (req, res, next) => {
+  res.status(200).json({
+    message: "requested user",
+    user: req.user,
+  });
+};

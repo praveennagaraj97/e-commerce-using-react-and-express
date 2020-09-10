@@ -13,6 +13,7 @@ export {
   authAccreditationEndPoint as AuthAccreditation,
   forgotPasswordEndpoint as forgotPassword,
   resetPasswordEndpoint as resetPassword,
+  getUserEndpoint as getUser,
 } from "./userAuthAPI";
 
 export {

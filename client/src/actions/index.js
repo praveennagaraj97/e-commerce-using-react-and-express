@@ -40,6 +40,9 @@ export {
   // forgot password
   loadForgotPassword,
   loadResetPassword,
+  // User settings
+  loadUser,
+  getUser,
 } from "./userAuthActions";
 
 export {

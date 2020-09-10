@@ -1,4 +1,11 @@
 import { apiBaseEndpoint } from "./index";
+import { useCookies } from "../utils/useCookies";
+import { useSessionStorage } from "../utils/useSessionStorage";
+import { COOKIE_NAMES } from "../constants";
+
+const { getCookie } = useCookies;
+const { getSessionItem } = useSessionStorage;
+const { AUTH_TOKEN } = COOKIE_NAMES;
 
 export const loginEndPoint = async (email, password, expiresIn) => {
   const response = await apiBaseEndpoint.post("/user/signin", {
@@ -60,6 +67,19 @@ export const resetPasswordEndpoint = async (
       confirmPassword,
     }
   );
+
+  return response;
+};
+
+const authTokenFromCookie = getCookie(AUTH_TOKEN);
+const authTokenFromSession = getSessionItem(AUTH_TOKEN);
+
+export const getUserEndpoint = async () => {
+  const response = await apiBaseEndpoint.get("/user/getMe", {
+    headers: {
+      authorization: `Bearer ${authTokenFromCookie || authTokenFromSession}`,
+    },
+  });
 
   return response;
 };

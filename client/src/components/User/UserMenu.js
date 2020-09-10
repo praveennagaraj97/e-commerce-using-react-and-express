@@ -28,6 +28,11 @@ const UserMenu = ({ userAccredited, loadLogout }) => {
     loadLogout();
   };
 
+  const handleSettings = () => {
+    handleClose();
+    history.push("/settings");
+  };
+
   useEffect(() => {
     if (userAccredited) {
       if (history.location.pathname === "/user_auth") history.goBack();
@@ -52,7 +57,7 @@ const UserMenu = ({ userAccredited, loadLogout }) => {
       <Menu
         id='simple-menu'
         anchorEl={anchorEl}
-        keepMounted
+        keepMounted={true}
         open={Boolean(anchorEl)}
         onClose={handleClose}>
         {!userAccredited ? (
@@ -62,9 +67,9 @@ const UserMenu = ({ userAccredited, loadLogout }) => {
             <MenuItem onClick={handleClose}>Profile</MenuItem>
             <MenuItem onClick={handleClose}>Saved Address</MenuItem>
             <MenuItem onClick={handleClose}>Whishlist</MenuItem>
+            <MenuItem onClick={handleSettings}>Settings</MenuItem>
           </div>
         )}
-        <MenuItem onClick={handleClose}>Settings</MenuItem>
 
         {userAccredited ? (
           <MenuItem onClick={onClickLogout}>LogOut</MenuItem>

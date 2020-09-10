@@ -12,6 +12,7 @@ import {
   updateMe,
   forgotPassword,
   resetPassword,
+  getMe,
 } from "../controller/userController";
 
 export const userRouter = Router();
@@ -25,6 +26,8 @@ userRouter.route("/updateme").patch(protectRoute, updateMe);
 userRouter.route("/forgotPassword").post(forgotPassword);
 
 userRouter.route("/resetPassword/:token").post(resetPassword);
+
+userRouter.route("/getMe").get(protectRoute, getMe);
 
 // Don't Modify This Route
 // Exclusive for FrontEnd Auth.

@@ -23,6 +23,7 @@ const {
   Orders,
   Cart,
   ProductDetailView,
+  Settings,
 } = Pages;
 
 const displayProductCategory = [...Object.keys(Pages)]
@@ -57,6 +58,7 @@ const App = () => {
             <Route exact path='/cart' component={Cart} />
             <Route exact path='/user_auth' component={SignUpAndLogin} />
             <Route exact path='/user_auth/:token' component={ResetPassword} />
+            <Route exact path='/settings' component={Settings} />
             <Route
               exact
               path='/category/:categoryName'
