@@ -5,6 +5,7 @@ import LexaPay from "./LexaPay";
 import Orders from "./Orders";
 import Cart from "./Cart";
 import ProductDetailView from "./ProductDetailsView";
+import Settings from "./Settings";
 
 export default {
   Home,
@@ -14,4 +15,5 @@ export default {
   Orders,
   Cart,
   ProductDetailView,
+  Settings,
 };
