@@ -8,6 +8,7 @@ import "../styles/app.scss";
 import { navItems } from "../data";
 import Pages from "./Pages";
 import SignUpAndLogin from "./User/SignUpAndLogin";
+import ResetPassword from "./User/ResetPassword";
 import ProductCategories from "./Product/ProductCategories";
 import { useWindowSize } from "../utils/useWindowResizeHook";
 import ProductDisplay from "./Product/ProductDisplay";
@@ -55,6 +56,7 @@ const App = () => {
             <Route exact path='/supreme' component={Supreme} />
             <Route exact path='/cart' component={Cart} />
             <Route exact path='/user_auth' component={SignUpAndLogin} />
+            <Route exact path='/user_auth/:token' component={ResetPassword} />
             <Route
               exact
               path='/category/:categoryName'

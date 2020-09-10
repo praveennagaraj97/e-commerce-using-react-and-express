@@ -47,3 +47,16 @@ export const forgotPasswordFields = [
     type: "email",
   },
 ];
+
+export const resetFormFields = [
+  {
+    htmlFor: "password",
+    label: "Password",
+    type: "password",
+  },
+  {
+    htmlFor: "confirmPassword",
+    label: "Confirm Password",
+    type: "password",
+  },
+];

@@ -131,6 +131,7 @@ const SignUpAndLogin = (props) => {
         buttonToShow={handleButtonShow()}
         signedInOption={showForm === "login" ? keepMeSignedIn() : ""}
         forgotPasswordLink={showForm === "login" ? forgotPasswordLink() : ""}
+        authForm={true}
       />
     </React.Fragment>
   );

@@ -3,4 +3,5 @@ export {
   loginFormFields,
   signUpFormFields,
   forgotPasswordFields,
+  resetFormFields,
 } from "./userAuthForm";
