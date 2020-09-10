@@ -52,4 +52,19 @@ export const resetPasswordEndpoint = async (
   resetToken,
   password,
   confirmPassword
-) => {};
+) => {
+  const response = await apiBaseEndpoint.post(
+    "/user/resetPassword",
+    {
+      password,
+      confirmPassword,
+    },
+    {
+      params: {
+        token: resetToken,
+      },
+    }
+  );
+
+  return response;
+};

@@ -1,6 +1,4 @@
 import Axios from "axios";
-export const API_BASE_URL_LOCAL = "http://localhost:8080";
-export const API_BASE_URL_LIVE = "https://lexa-api.uc.r.appspot.com";
 
 export const apiBaseEndpoint = Axios.create({
   baseURL:
@@ -14,6 +12,7 @@ export {
   signUpEndPoint as UserSigner,
   authAccreditationEndPoint as AuthAccreditation,
   forgotPasswordEndpoint as forgotPassword,
+  resetPasswordEndpoint as resetPassword,
 } from "./userAuthAPI";
 
 export {
