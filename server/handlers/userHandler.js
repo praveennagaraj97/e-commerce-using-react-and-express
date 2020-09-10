@@ -135,7 +135,7 @@ export const resetPasswordHandler = (ModelName, responseMessage) =>
     if (!user) return next(new AppError("User Token Invalid", 403));
 
     if (user.resetToken.timeStamp < Date.now())
-      return next(new AppError("Reset Token Expired"));
+      return next(new AppError("Reset Token Expired", 401));
 
     if (await user.comparePassword(req.body.password, user.password))
       return next(
