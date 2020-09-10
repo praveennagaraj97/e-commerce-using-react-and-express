@@ -1,7 +1,5 @@
 import React, { Fragment } from "react";
 
-import ProductAdvertisementBoard from "../Product/ProductAdvertisementBoard";
-
 const HomePage = () => {
   return (
     <Fragment>
@@ -9,7 +7,6 @@ const HomePage = () => {
         <span>Everything you love,</span>
         <span>is online.</span>
       </h1>
-      <ProductAdvertisementBoard />
     </Fragment>
   );
 };

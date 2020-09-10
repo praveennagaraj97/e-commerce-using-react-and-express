@@ -16,7 +16,12 @@ import {
   signUpUser,
   userAccredited,
 } from "../actions";
-import { UserLogger, UserSigner, AuthAccreditation } from "../api";
+import {
+  UserLogger,
+  UserSigner,
+  AuthAccreditation,
+  forgotPassword,
+} from "../api";
 import { useCookies } from "../utils/useCookies";
 import { useSessionStorage } from "../utils/useSessionStorage";
 
@@ -245,14 +250,25 @@ function* handleUserForgorPasswordWorker() {
 
   if (values) {
     try {
-    } catch (error) {}
+      const { data } = yield call(forgotPassword, values.forgotemail);
+
+      if (data) {
+        yield put(
+          authSuccessMessage(`Reset link sent to ${values.forgotemail}`)
+        );
+        yield delay(3200);
+        yield put(authSuccessMessage(null));
+      }
+    } catch (error) {
+      yield put(authFailueMessage(`Something went wrong try again later!!!`));
+      yield delay(3200);
+      yield put(authFailueMessage(null));
+    }
   } else {
     yield put(authFailueMessage("Enter Email to get reset link!! 😇"));
     yield delay(3200);
     yield put(authFailueMessage(null));
   }
-
-  yield console.log(values);
 }
 
 export function* userForgotPasswordWatcher() {
