@@ -23,6 +23,10 @@ const UserDetail = ({ userDetail, userPasswordUpdate }) => {
     };
 
     userPasswordUpdate(data);
+    setShowPasswordFields(false);
+    setPassword("");
+    setCurrentPassword("");
+    setConfirmPassword("");
   };
 
   if (userDetail)
@@ -72,12 +76,18 @@ const UserDetail = ({ userDetail, userPasswordUpdate }) => {
                   }
                   disabled={!showPasswordFields}
                 />
-                <img
-                  onClick={handlePasswordChange}
-                  className='settings-user-detail-table__edit'
-                  src={"https://img.icons8.com/plasticine/50/000000/pencil.png"}
-                  alt='edit'
-                />
+                {!showPasswordFields ? (
+                  <img
+                    onClick={handlePasswordChange}
+                    className='settings-user-detail-table__edit'
+                    src={
+                      "https://img.icons8.com/plasticine/50/000000/pencil.png"
+                    }
+                    alt='edit'
+                  />
+                ) : (
+                  ""
+                )}
               </td>
             </tr>
 
