@@ -1,8 +1,30 @@
-import React from "react";
+import React, { useState, Fragment } from "react";
+import { connect } from "react-redux";
+
+import { userPasswordUpdate } from "../../actions";
 
 import "../../styles/settings.scss";
 
-const UserDetail = ({ userDetail }) => {
+const UserDetail = ({ userDetail, userPasswordUpdate }) => {
+  const [showPasswordFields, setShowPasswordFields] = useState(false);
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const handlePasswordChange = () => {
+    setShowPasswordFields(true);
+  };
+
+  const handlePasswordSubmit = () => {
+    const data = {
+      currentPassword,
+      password,
+      confirmPassword,
+    };
+
+    userPasswordUpdate(data);
+  };
+
   if (userDetail)
     return (
       <div className='settings-user-details'>
@@ -21,11 +43,6 @@ const UserDetail = ({ userDetail }) => {
                   value={userDetail.email}
                   disabled
                 />
-                <img
-                  className='settings-user-detail-table__edit'
-                  src='https://img.icons8.com/plasticine/50/000000/pencil.png'
-                  alt='edit'
-                />
               </td>
             </tr>
             <tr>
@@ -33,14 +50,9 @@ const UserDetail = ({ userDetail }) => {
               <td>
                 <input
                   className='table-input'
-                  type='text'
+                  type='email'
                   value={userDetail.phoneNumber}
                   disabled
-                />
-                <img
-                  className='settings-user-detail-table__edit'
-                  src='https://img.icons8.com/plasticine/50/000000/pencil.png'
-                  alt='edit'
                 />
               </td>
             </tr>
@@ -48,18 +60,84 @@ const UserDetail = ({ userDetail }) => {
               <td>Password</td>
               <td>
                 <input
+                  style={{
+                    border: showPasswordFields ? "solid 1px" : "none",
+                    borderRadius: "5px",
+                  }}
+                  onChange={(ev) => setCurrentPassword(ev.target.value)}
                   className='table-input'
                   type='password'
-                  value='**************'
-                  disabled
+                  value={
+                    !showPasswordFields ? "**************" : currentPassword
+                  }
+                  disabled={!showPasswordFields}
                 />
                 <img
+                  onClick={handlePasswordChange}
                   className='settings-user-detail-table__edit'
-                  src='https://img.icons8.com/plasticine/50/000000/pencil.png'
+                  src={"https://img.icons8.com/plasticine/50/000000/pencil.png"}
                   alt='edit'
                 />
               </td>
             </tr>
+
+            {/* Show on password change button */}
+            {showPasswordFields ? (
+              <Fragment>
+                <tr>
+                  <td>New Password</td>
+                  <td>
+                    <input
+                      onChange={(ev) => setPassword(ev.target.value)}
+                      style={{
+                        border: showPasswordFields ? "solid 1px" : "none",
+                        borderRadius: "5px",
+                      }}
+                      value={password}
+                      className='table-input'
+                      type='password'
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Confirm Password</td>
+                  <td>
+                    <input
+                      value={confirmPassword}
+                      onChange={(ev) => setConfirmPassword(ev.target.value)}
+                      style={{
+                        border: showPasswordFields ? "solid 1px" : "none",
+                        borderRadius: "5px",
+                      }}
+                      className='table-input'
+                      type='password'
+                    />
+                    <img
+                      onClick={handlePasswordSubmit}
+                      className='settings-user-detail-table__edit'
+                      src={
+                        "https://img.icons8.com/color/48/000000/approve-and-update.png"
+                      }
+                      alt='edit'
+                    />
+                  </td>
+                  <td>
+                    <img
+                      onClick={() => setShowPasswordFields(false)}
+                      style={{
+                        position: "relative",
+                        bottom: "-6px",
+                        width: "25px",
+                      }}
+                      src='https://img.icons8.com/office/80/000000/cancel.png'
+                      alt='cancel'
+                    />
+                  </td>
+                </tr>
+              </Fragment>
+            ) : (
+              <tr></tr>
+            )}
           </tbody>
         </table>
       </div>
@@ -68,4 +146,8 @@ const UserDetail = ({ userDetail }) => {
   return <></>;
 };
 
-export default UserDetail;
+const mapDispatchToProps = (dispatch) => ({
+  userPasswordUpdate: (data) => dispatch(userPasswordUpdate(data)),
+});
+
+export default connect(null, mapDispatchToProps)(UserDetail);

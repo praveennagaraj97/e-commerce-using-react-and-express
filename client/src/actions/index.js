@@ -43,6 +43,7 @@ export {
   // User settings
   loadUser,
   getUser,
+  userPasswordUpdate,
 } from "./userAuthActions";
 
 export {

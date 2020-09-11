@@ -36,6 +36,7 @@ const {
   USER_STATUS: { LOAD_ACCREDITATION, LOAD_USER },
   USER_LOGOUT: { LOAD_LOGOUT },
   USER_PASSWORD: { LOAD_FORGOT_PASSWORD, LOAD_RESET_PASSWORD },
+  USER_UPDATE: { USER_PASSWORD_CHANGE },
 } = USER_AUTH_TYPES;
 
 const { AUTH_TOKEN } = COOKIE_NAMES;
@@ -373,4 +374,27 @@ function* handleUserManageDataWorker() {
 
 export function* userManagaDataWatcher() {
   yield takeLatest(LOAD_USER, handleUserManageDataWorker);
+}
+
+// User Update
+
+const getUserUpdateValueFromStore = ({ updateUserDetail }) => updateUserDetail;
+
+function* handleUserPhoneUpdateWorker() {
+  const values = yield select(getUserUpdateValueFromStore);
+  if (values.phoneNumber) {
+    if (values.phoneNumber.length !== 10 || values.phoneNumber.charAt(0) < 6) {
+      yield put(authFailueMessage("Enter Valid Phone Number🤯!!!"));
+      yield delay(3200);
+      yield put(authFailueMessage(null));
+    }
+  } else {
+    yield put(authFailueMessage("Enter Phone Number🤯!!!"));
+    yield delay(3200);
+    yield put(authFailueMessage(null));
+  }
+}
+
+export function* userUpdateWatcher() {
+  yield takeLatest(USER_PASSWORD_CHANGE, handleUserPhoneUpdateWorker);
 }

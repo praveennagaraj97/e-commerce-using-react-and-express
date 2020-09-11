@@ -5,6 +5,7 @@ const {
   MESSAGE: { LOAD_AUTH_SUCCESS_MESSAGE, LOAD_AUTH_FAILURE_MESSAGE },
   SIGNUP: { LOAD_SIGNUP, LOAD_SIGNED_UP_USER },
   USER_STATUS: { IS_LOGGED_IN, GET_USER },
+  USER_UPDATE: { USER_PASSWORD_CHANGE },
 } = USER_AUTH_TYPES;
 
 const userAuthLoginReducer = (state = {}, action) => {
@@ -50,6 +51,15 @@ export const userDetailsReducer = (state = {}, action) => {
   switch (action.type) {
     case GET_USER:
       return { ...state, user: action.user };
+    default:
+      return state;
+  }
+};
+
+export const userDetailsUpdateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case USER_PASSWORD_CHANGE:
+      return { ...state, fields: action.data };
     default:
       return state;
   }

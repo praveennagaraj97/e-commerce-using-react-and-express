@@ -5,6 +5,7 @@ import globalMessageReducer from "./globalMessageReducer";
 import userAuthLoginReducer, {
   userAccredited,
   userDetailsReducer,
+  userDetailsUpdateReducer,
 } from "./userAuthReducer";
 import {
   categoriesReducer,
@@ -17,6 +18,7 @@ export default combineReducers({
   userAccredited,
   userAuthorization: userAuthLoginReducer,
   userDetails: userDetailsReducer,
+  updateUserDetail: userDetailsUpdateReducer,
   form: formReducer,
   productCategories: categoriesReducer,
   productsList: getProductsReducer,

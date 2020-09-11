@@ -83,3 +83,13 @@ export const getUserEndpoint = async () => {
 
   return response;
 };
+
+export const updateUserDetailEndpoint = async (data) => {
+  const response = await apiBaseEndpoint.patch("/user/updateme", data, {
+    headers: {
+      authorization: `Bearer ${authTokenFromCookie || authTokenFromSession}`,
+    },
+  });
+
+  return response;
+};
