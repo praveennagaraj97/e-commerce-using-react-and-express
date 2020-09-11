@@ -2,7 +2,10 @@ import { combineReducers } from "redux";
 import { reducer as formReducer } from "redux-form";
 
 import globalMessageReducer from "./globalMessageReducer";
-import userAuthLoginReducer, { userAccredited } from "./userAuthReducer";
+import userAuthLoginReducer, {
+  userAccredited,
+  userDetailsReducer,
+} from "./userAuthReducer";
 import {
   categoriesReducer,
   getProductsReducer,
@@ -13,6 +16,7 @@ import {
 export default combineReducers({
   userAccredited,
   userAuthorization: userAuthLoginReducer,
+  userDetails: userDetailsReducer,
   form: formReducer,
   productCategories: categoriesReducer,
   productsList: getProductsReducer,

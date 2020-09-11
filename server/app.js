@@ -79,7 +79,10 @@ app.use("/api/v1/category", categoryRouter);
 app.use("/api/v1/product", productRouter);
 app.use("/api/v1/product_detail", productDetailRouter);
 
-app.use("/api/v1/user", limiter);
+if (process.env.NODE_ENV === "production") {
+  app.use("/api/v1/user", limiter);
+}
+
 app.use("/api/v1/user", userRouter);
 
 app.use("*", pageNotFoundError);

@@ -15,6 +15,7 @@ import {
   authFailueMessage,
   signUpUser,
   userAccredited,
+  getUser,
 } from "../actions";
 import {
   UserLogger,
@@ -22,6 +23,7 @@ import {
   AuthAccreditation,
   forgotPassword,
   resetPassword,
+  getUser as getUserApi,
 } from "../api";
 import { useCookies } from "../utils/useCookies";
 import { useSessionStorage } from "../utils/useSessionStorage";
@@ -31,7 +33,7 @@ const { setSessionItem, getSessionItem, removeSessionItem } = useSessionStorage;
 const {
   LOGIN: { LOAD_LOGIN },
   SIGNUP: { LOAD_SIGNUP },
-  USER_STATUS: { LOAD_ACCREDITATION },
+  USER_STATUS: { LOAD_ACCREDITATION, LOAD_USER },
   USER_LOGOUT: { LOAD_LOGOUT },
   USER_PASSWORD: { LOAD_FORGOT_PASSWORD, LOAD_RESET_PASSWORD },
 } = USER_AUTH_TYPES;
@@ -346,4 +348,29 @@ function* handleUserPasswordResetWorker() {
 
 export function* userResetPasswordWatcher() {
   yield takeLatest(LOAD_RESET_PASSWORD, handleUserPasswordResetWorker);
+}
+
+// Manage User data
+
+const getUserDataFromStore = ({ userDetails }) => userDetails;
+
+function* handleUserManageDataWorker() {
+  const userData = yield select(getUserDataFromStore);
+  if (userData.hasOwnProperty("user")) {
+    return;
+  }
+
+  try {
+    // If user details already in store don't call the api!!
+    const { data } = yield call(getUserApi);
+    yield put(getUser(data.user));
+  } catch (err) {
+    yield put(authFailueMessage("Something went wrong🤯!!!"));
+    yield delay(3200);
+    yield put(authFailueMessage(null));
+  }
+}
+
+export function* userManagaDataWatcher() {
+  yield takeLatest(LOAD_USER, handleUserManageDataWorker);
 }

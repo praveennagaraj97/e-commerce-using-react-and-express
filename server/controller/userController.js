@@ -1,14 +1,15 @@
 import { User } from "../model/UserModel";
 import {
+  // middleware
+  protectRoute as protectRouteHandler,
+
   // User
   signUpHandler,
   signInHandler,
-  updateUserDetails,
   forgotPasswordHandler,
-
-  // middleware
-  protectRoute as protectRouteHandler,
   resetPasswordHandler,
+  changeUserPasswordHandler,
+  updateUserDetails,
 } from "../handlers/userHandler";
 
 export { accreditReact } from "../middleware/accreditReact";
@@ -23,16 +24,12 @@ export const signIn = signInHandler(User, {
   message: "Signed In Successfully",
 });
 
-export const updateMe = updateUserDetails(User, {
-  message: "User Updated Successfully",
-});
-
 export const forgotPassword = forgotPasswordHandler(User, {
   message: "Reset Token Sent to registred mail address.",
 });
 
 export const resetPassword = resetPasswordHandler(User, {
-  message: "Password changed Successfully",
+  message: "Password reset Successfully",
 });
 
 export const getMe = (req, res, next) => {
@@ -41,3 +38,11 @@ export const getMe = (req, res, next) => {
     user: req.user,
   });
 };
+
+export const changeUserPassword = changeUserPasswordHandler(User, {
+  message: "Password Changed Successfully",
+});
+
+export const updateMe = updateUserDetails(User, {
+  message: "User Details Updated",
+});

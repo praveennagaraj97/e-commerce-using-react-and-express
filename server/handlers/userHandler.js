@@ -60,7 +60,6 @@ export const protectRoute = (ModelName) =>
         return next(new AppError("You are not logged In", 401));
       }
     }
-    console.log(req.headers.authorization);
 
     const auth_token = req.headers.authorization.split("Bearer ")[1];
 
@@ -76,6 +75,9 @@ export const protectRoute = (ModelName) =>
 
 export const updateUserDetails = (ModelName, responseMessage) =>
   catchAsyncError(async (req, res, next) => {
+    if (req.body.hasOwnProperty("password"))
+      return next(new AppError("Not Allowed to change Password", 403));
+
     const user = await ModelName.findByIdAndUpdate(req.user._id, req.body, {
       upsert: true,
       runValidators: true,
@@ -171,4 +173,34 @@ export const createSellerAccount = (ModelName, responseMessage) =>
 
     const seller = await ModelName.create(sellerData);
     res.send(seller);
+  });
+
+// User has to be logged in
+export const changeUserPasswordHandler = (ModelName, responseMessage) =>
+  catchAsyncError(async (req, res, next) => {
+    if (!req.body.currentPassword)
+      return next(new AppError("Enter Current Password", 403));
+
+    if (!req.body.password || !req.body.confirmPassword)
+      return next(new AppError("Provide Password and Confirm Password!!", 422));
+
+    if (req.body.password !== req.body.confirmPassword)
+      return next(new AppError("Password didn't match !!", 422));
+
+    if (req.body.currentPassword === req.body.password)
+      return next(
+        new AppError(
+          "Password can't be changed as current password is same as the password you are requesting to change",
+          403
+        )
+      );
+
+    const user = await ModelName.findById(req.user._id).select("+password");
+
+    if (!(await user.comparePassword(req.body.currentPassword, user.password)))
+      return next(new AppError("Entered Password is Wrong", 403));
+
+    user.password = req.body.password;
+    await user.save();
+    res.status(200).json(responseMessage);
   });

@@ -7,6 +7,7 @@ import {
   userLogoutWatcher,
   userForgotPasswordWatcher,
   userResetPasswordWatcher,
+  userManagaDataWatcher,
 } from "./userAuthSagas";
 
 import { websiteLoadWatcher } from "./globalWebsiteSaga";
@@ -31,6 +32,7 @@ function* rootSaga() {
     yield fork(userLogoutWatcher),
     yield fork(userForgotPasswordWatcher),
     yield fork(userResetPasswordWatcher),
+    yield fork(userManagaDataWatcher),
 
     // Product watch
     yield fork(loadProductsWatcher),

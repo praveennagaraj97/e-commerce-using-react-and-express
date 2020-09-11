@@ -9,10 +9,11 @@ import {
   // User
   signUp,
   signIn,
-  updateMe,
   forgotPassword,
   resetPassword,
   getMe,
+  changeUserPassword,
+  updateMe,
 } from "../controller/userController";
 
 export const userRouter = Router();
@@ -28,6 +29,8 @@ userRouter.route("/forgotPassword").post(forgotPassword);
 userRouter.route("/resetPassword/:token").post(resetPassword);
 
 userRouter.route("/getMe").get(protectRoute, getMe);
+
+userRouter.route("/changePassword").post(protectRoute, changeUserPassword);
 
 // Don't Modify This Route
 // Exclusive for FrontEnd Auth.

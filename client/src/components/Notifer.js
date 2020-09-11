@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 
-import Snackbar from "@material-ui/core/Snackbar";
-import MuiAlert from "@material-ui/lab/Alert";
-import { makeStyles } from "@material-ui/core/styles";
-
 import "../styles/notifier.scss";
 
 const AlertWithImage = ({ showAlert, globalSuccessWithImg }) => {
@@ -26,26 +22,11 @@ const AlertWithImage = ({ showAlert, globalSuccessWithImg }) => {
   return <></>;
 };
 
-const Alert = (props) => {
-  return <MuiAlert elevation={6} variant='filled' {...props} />;
-};
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: "100%",
-    "& > * + *": {
-      marginTop: theme.spacing(2),
-    },
-  },
-  snackBarAnime: {
-    animation: "fadeInLeft",
-    animationDuration: "0.7s",
-  },
-}));
-
 const Notifer = ({ error, success, globalSuccessWithImg }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+
+  console.error(error, success, globalSuccessWithImg);
 
   const [theme, setTheme] = useState("info");
 
@@ -76,30 +57,10 @@ const Notifer = ({ error, success, globalSuccessWithImg }) => {
     return () => clearTimeout(clearTimeOutID);
   }, [error, success, globalSuccessWithImg]);
 
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpen(false);
-  };
-
   return (
     <div className={classes.root}>
-      {globalSuccessWithImg === null ? (
-        <Snackbar
-          className={classes.snackBarAnime}
-          open={open}
-          autoHideDuration={3100}
-          onClose={handleClose}
-          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}>
-          {error !== null || success !== null ? (
-            <Alert onClose={handleClose} severity={theme}>
-              {error || success}
-            </Alert>
-          ) : (
-            <></>
-          )}
-        </Snackbar>
+      {globalSuccessWithImg === null || globalSuccessWithImg.image === null ? (
+        <div></div>
       ) : (
         <AlertWithImage
           showAlert={open}
