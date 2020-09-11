@@ -17,9 +17,9 @@ const UserDetail = ({ userDetail, userPasswordUpdate }) => {
 
   const handlePasswordSubmit = () => {
     const data = {
-      currentPassword,
-      password,
-      confirmPassword,
+      currentPassword: currentPassword || null,
+      password: password || null,
+      confirmPassword: confirmPassword || null,
     };
 
     userPasswordUpdate(data);

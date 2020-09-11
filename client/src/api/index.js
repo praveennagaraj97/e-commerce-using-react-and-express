@@ -14,7 +14,7 @@ export {
   forgotPasswordEndpoint as forgotPassword,
   resetPasswordEndpoint as resetPassword,
   getUserEndpoint as getUser,
-  updateUserDetailEndpoint as updateUserDetails,
+  updateUserPasswordEndpoint as updateUserPassword,
 } from "./userAuthAPI";
 
 export {

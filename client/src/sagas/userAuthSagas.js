@@ -24,6 +24,7 @@ import {
   forgotPassword,
   resetPassword,
   getUser as getUserApi,
+  updateUserPassword,
 } from "../api";
 import { useCookies } from "../utils/useCookies";
 import { useSessionStorage } from "../utils/useSessionStorage";
@@ -381,17 +382,61 @@ export function* userManagaDataWatcher() {
 const getUserUpdateValueFromStore = ({ updateUserDetail }) => updateUserDetail;
 
 function* handleUserPhoneUpdateWorker() {
-  const values = yield select(getUserUpdateValueFromStore);
-  if (values.phoneNumber) {
-    if (values.phoneNumber.length !== 10 || values.phoneNumber.charAt(0) < 6) {
-      yield put(authFailueMessage("Enter Valid Phone Number🤯!!!"));
+  const { fields } = yield select(getUserUpdateValueFromStore);
+  if (fields) {
+    if (!fields.currentPassword) {
+      yield put(authFailueMessage("Enter Current Password🤯!!!"));
+      yield delay(3200);
+      yield put(authFailueMessage(null));
+      return;
+    }
+    if (!fields.password) {
+      yield put(authFailueMessage("Enter New Password🤯!!!"));
       yield delay(3200);
       yield put(authFailueMessage(null));
     }
-  } else {
-    yield put(authFailueMessage("Enter Phone Number🤯!!!"));
-    yield delay(3200);
-    yield put(authFailueMessage(null));
+    if (!fields.confirmPassword) {
+      yield put(authFailueMessage("Enter Confirm password🤯!!!"));
+      yield delay(3200);
+      yield put(authFailueMessage(null));
+      return;
+    }
+    if (fields.currentPassword === fields.password) {
+      yield put(
+        authFailueMessage(
+          "Current Password and New Password Cannot be Same🤯!!!"
+        )
+      );
+      yield delay(3200);
+      yield put(authFailueMessage(null));
+      return;
+    }
+
+    // Call API
+    try {
+      const { data } = yield call(
+        updateUserPassword,
+        fields.currentPassword,
+        fields.password,
+        fields.confirmPassword
+      );
+
+      yield put(authSuccessMessage(data.message));
+      yield delay(3200);
+      yield put(authSuccessMessage(null));
+    } catch (err) {
+      try {
+        if (err.response) {
+          yield put(authFailueMessage(err.response.data.message));
+          yield delay(3200);
+          yield put(authFailueMessage(null));
+        }
+      } catch (error) {
+        yield put(authFailueMessage("Something went wrong🤯"));
+        yield delay(3200);
+        yield put(authFailueMessage(null));
+      }
+    }
   }
 }
 
