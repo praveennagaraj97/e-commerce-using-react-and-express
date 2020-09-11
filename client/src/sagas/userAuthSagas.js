@@ -235,8 +235,8 @@ export function* userAccreditationWatcher() {
 function* handleUserLogoutWorker() {
   yield call(removeCookie, AUTH_TOKEN);
   yield call(removeSessionItem, AUTH_TOKEN);
-  yield put(authSuccessMessage("Logged Out Successfully, come back soon!🐱‍"));
   yield call(handleUserAccreditationWorker);
+  yield put(authSuccessMessage("Logged Out Successfully, come back soon!🐱‍"));
   yield delay(3200);
   yield put(authSuccessMessage(null));
 }

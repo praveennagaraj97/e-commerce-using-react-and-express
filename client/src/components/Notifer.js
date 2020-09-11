@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, Fragment, useEffect } from "react";
 import { connect } from "react-redux";
 
 import "../styles/notifier.scss";
@@ -23,51 +23,58 @@ const AlertWithImage = ({ showAlert, globalSuccessWithImg }) => {
 };
 
 const Notifer = ({ error, success, globalSuccessWithImg }) => {
-  const classes = useStyles();
   const [open, setOpen] = useState(false);
-
-  console.error(error, success, globalSuccessWithImg);
-
-  const [theme, setTheme] = useState("info");
+  const [theme, setTheme] = useState("grey");
 
   useEffect(() => {
-    if (globalSuccessWithImg) {
-      if (
-        globalSuccessWithImg.hasOwnProperty("success") &&
-        globalSuccessWithImg.success !== null
-      ) {
-        setTheme("success");
-        setOpen(true);
-      }
+    const colourCode = {
+      SUCCESS: "rgba(95, 236, 52, 0.932)",
+      FAILURE: "rgba(238, 91, 91, 0.932)",
+    };
+
+    if (success !== null) {
+      setOpen(true);
+      setTheme(colourCode.SUCCESS);
     }
 
     if (error !== null) {
-      setTheme("error");
       setOpen(true);
-    }
-    if (success !== null) {
-      setTheme("success");
-      setOpen(true);
+      setTheme(colourCode.FAILURE);
     }
 
-    const clearTimeOutID = setTimeout(() => {
+    if (globalSuccessWithImg !== null && globalSuccessWithImg.image !== null) {
+      setOpen(true);
+      setTheme(colourCode.SUCCESS);
+    }
+
+    const timeOutId = setTimeout(() => {
       setOpen(false);
+      setTheme("grey");
     }, 3100);
 
-    return () => clearTimeout(clearTimeOutID);
-  }, [error, success, globalSuccessWithImg]);
+    return () => {
+      clearTimeout(timeOutId);
+    };
+  }, [success, error, globalSuccessWithImg]);
 
+  if (globalSuccessWithImg !== null && globalSuccessWithImg.image !== null) {
+    return (
+      <AlertWithImage
+        globalSuccessWithImg={globalSuccessWithImg}
+        showAlert={open}
+      />
+    );
+  }
   return (
-    <div className={classes.root}>
-      {globalSuccessWithImg === null || globalSuccessWithImg.image === null ? (
-        <div></div>
+    <Fragment>
+      {open && (success || error) ? (
+        <div style={{ backgroundColor: theme }} className='notifier-container'>
+          <div className='notifier__message'>{success || error}</div>
+        </div>
       ) : (
-        <AlertWithImage
-          showAlert={open}
-          globalSuccessWithImg={globalSuccessWithImg}
-        />
+        ""
       )}
-    </div>
+    </Fragment>
   );
 };
 
