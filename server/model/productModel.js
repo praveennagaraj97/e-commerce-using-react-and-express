@@ -54,7 +54,7 @@ productSchema.virtual("productBoards", {
   foreignField: "productId",
 });
 
-productSchema.pre(/^findOne/, function (next) {
+productSchema.pre(/^find/, function (next) {
   this.populate({
     path: "categoryId",
     model: "Category",
