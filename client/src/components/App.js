@@ -83,6 +83,12 @@ const App = () => {
         </div>
       </Router>
       <Notifer />
+      {/* <footer
+        style={{
+          height: "20vh",
+          backgroundColor: "white",
+          margin: "0 5px",
+        }}></footer> */}
     </div>
   );
 };

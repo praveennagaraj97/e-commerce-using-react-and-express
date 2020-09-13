@@ -7,11 +7,13 @@ import {
   addItemToCart,
   loadViewProductDetail,
 } from "../../actions";
-import "../../styles/productDisplay.scss";
+import ProductFeatures from "../Product/ProductFeatures";
 
 import { useInfiniteScrolling } from "../../utils/useInfiniteScrolling";
 import { useWindowSize } from "../../utils/useWindowResizeHook";
+
 import history from "../../history";
+import "../../styles/productDisplay.scss";
 
 const ProductDisplay = ({
   productsList,
@@ -70,10 +72,6 @@ const ProductDisplay = ({
       {useWindowSize().width < 702 ? (
         <div className='products-container-filter-mobile'>
           {/* Filter options */}
-          <h3>Filter By Price</h3>
-          <h3>SortBy</h3>
-          <h3>Availability</h3>
-          <h3>Name</h3>
         </div>
       ) : (
         ""
@@ -82,9 +80,7 @@ const ProductDisplay = ({
         {useWindowSize().width > 700 ? (
           <div className='products-container-filter-column'>
             {/* Filter options */}
-            <h3>Filter By Price</h3>
-            <h3>SortBy</h3>
-            <h3>Availability</h3>
+            <ProductFeatures />
           </div>
         ) : (
           <></>
