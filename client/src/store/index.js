@@ -26,6 +26,7 @@ const persistConfig = {
     "userAccredited",
     "form",
     "userDetails",
+    "productCategories",
     "updateUserDetail",
   ],
 

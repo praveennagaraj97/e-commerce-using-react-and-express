@@ -45,10 +45,8 @@ const ProductSearchBar = ({ viewProduct, getProductsFromSearchTerm }) => {
     };
   }, [searchTerm]);
 
-  console.log(showHandle);
-
   useHandleClose(ref, () => {
-    setShowHandle(!showHandle);
+    setShowHandle(false);
   });
 
   const handleProductView = (id, categoryName) => {
