@@ -1,9 +1,9 @@
 import Axios from "axios";
-
+// lexa-api.uc.r.appspot.com/api/v1
 export const apiBaseEndpoint = Axios.create({
   baseURL:
     process.env.NODE_ENV === "production"
-      ? "https://lexa-api.uc.r.appspot.com/api/v1"
+      ? "http://localhost:8080/api/v1"
       : `http://localhost:8080/api/v1`,
 });
 

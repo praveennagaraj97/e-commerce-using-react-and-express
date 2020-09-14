@@ -16,7 +16,7 @@
 
 .searched-product__details {
   width: 34vw;
-  margin-left: 5px;
+  margin-left: 7px;
   position: absolute;
   color: black;
   background-color: rgb(255, 255, 255);
@@ -32,6 +32,9 @@
 
     h5 {
       font-size: 10px;
+    }
+    p {
+      font-size: 8px;
     }
   }
 }

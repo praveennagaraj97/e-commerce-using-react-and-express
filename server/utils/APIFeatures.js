@@ -59,8 +59,10 @@ export class ApiFeatures {
   search() {
     if (this.query.searchin) {
       const { searchin, searchTerm } = this.query;
-      const regex = new RegExp(escapeRegex(searchTerm), "gi");
-      this.queryObj = this.queryObj.find({ [searchin]: regex });
+
+      this.queryObj = this.queryObj.find({
+        [searchin]: { $regex: searchTerm, $options: "gi" },
+      });
     }
     return this;
   }
@@ -87,7 +89,3 @@ export class ApiFeatures {
     return this;
   }
 }
-
-const escapeRegex = (text) => {
-  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
-};

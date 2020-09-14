@@ -58,6 +58,14 @@ productSchema.pre(/^find/, function (next) {
   this.populate({
     path: "categoryId",
     model: "Category",
+  });
+  next();
+});
+
+productSchema.pre(/^findOne/, function (next) {
+  this.populate({
+    path: "categoryId",
+    model: "Category",
   })
     .populate("productImagesAndDesc")
     .populate("productFullDetails")
