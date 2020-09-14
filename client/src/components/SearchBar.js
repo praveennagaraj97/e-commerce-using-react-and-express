@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 
 import "../styles/searchBar.scss";
+import useHandleClose from "../utils/useHandleClose";
 
 import { apiBaseEndpoint } from "../api";
 
@@ -12,8 +13,9 @@ const getSearchResults = async (searchTerm) => {
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState("");
-
   const [products, setProducts] = useState([]);
+  const [showHandle, setShowHandle] = useState(false);
+  const ref = useRef();
 
   useEffect(() => {
     const timeId = setTimeout(() => {
@@ -38,32 +40,41 @@ const SearchBar = () => {
     };
   }, [searchTerm]);
 
+  useHandleClose(ref, () => {
+    setShowHandle(false);
+  });
+
   return (
-    <div className='products-search__bar'>
-      <input
-        onChange={(ev) => setSearchTerm(ev.target.value)}
-        className='input-bar'
-        placeholder='Find your favorite products'
-      />
-      {products.length > 0 ? (
-        <div className='searched-product__details'>
-          {products.map(
-            ({ _id, productName, categoryId: { categoryName } }) => {
-              return (
-                <div key={_id} className='search-products-results'>
-                  <h5>{productName}</h5>
-                  <p>in {categoryName}</p>
-                </div>
-              );
-            }
-          )}
-        </div>
-      ) : searchTerm && products.length === 0 ? (
-        <div className='searched-product__details'>No Products Found</div>
-      ) : (
-        ""
-      )}
-    </div>
+    <Fragment>
+      <div
+        ref={ref}
+        onClick={() => setShowHandle(true)}
+        className='products-search__bar'>
+        <input
+          onChange={(ev) => setSearchTerm(ev.target.value)}
+          className='input-bar'
+          placeholder='Find your favorite products'
+        />
+        {products.length > 0 && showHandle ? (
+          <div className='searched-product__details'>
+            {products.map(
+              ({ _id, productName, categoryId: { categoryName } }) => {
+                return (
+                  <div key={_id} className='search-products-results'>
+                    <h5>{productName}</h5>
+                    <p>in {categoryName}</p>
+                  </div>
+                );
+              }
+            )}
+          </div>
+        ) : showHandle && products.length === 0 ? (
+          <div className='searched-product__details'>No Products Found</div>
+        ) : (
+          ""
+        )}
+      </div>
+    </Fragment>
   );
 };
 
