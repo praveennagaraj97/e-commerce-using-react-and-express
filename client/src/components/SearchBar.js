@@ -45,11 +45,14 @@ const SearchBar = ({ viewProduct, getProductsFromSearchTerm }) => {
     };
   }, [searchTerm]);
 
+  console.log(showHandle);
+
   useHandleClose(ref, () => {
-    setShowHandle(false);
+    setShowHandle(!showHandle);
   });
 
   const handleProductView = (id, categoryName) => {
+    setShowHandle(false);
     viewProduct({
       category: categoryName.toLowerCase(),
       id,
@@ -57,6 +60,8 @@ const SearchBar = ({ viewProduct, getProductsFromSearchTerm }) => {
   };
 
   const handleSearchList = (categoryId) => {
+    setShowHandle(false);
+
     getProductsFromSearchTerm(
       `?searchin=productName&searchTerm=${searchTerm}&categoryId=${categoryId._id}&page=1&limit=6`
     );
@@ -65,15 +70,15 @@ const SearchBar = ({ viewProduct, getProductsFromSearchTerm }) => {
   };
 
   return (
-    <div
-      ref={ref}
-      onClick={() => setShowHandle(true)}
-      className='products-search__bar'>
+    <div ref={ref} className='products-search__bar'>
       <input
-        onChange={(ev) => setSearchTerm(ev.target.value)}
+        onChange={(ev) => {
+          setSearchTerm(ev.target.value);
+          setShowHandle(true);
+        }}
         className='input-bar'
         spellCheck={false}
-        placeholder='Find your favorite products'
+        placeholder='🔎'
       />
 
       {products.length > 0 && showHandle ? (
