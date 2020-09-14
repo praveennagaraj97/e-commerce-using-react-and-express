@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { Menu, Segment, Icon, Button } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
-import SearchBar from "../SearchBar";
+import ProductSearchBar from "../Product/ProductSearchBar";
 import DropdownMenu from "../DropdownMenu";
 import CartIcon from "../Product/CartIcon";
 import UserMenu from "../User/UserMenu";
@@ -38,7 +38,7 @@ export default (props) => {
             );
           })}
 
-          <SearchBar />
+          <ProductSearchBar />
           <CartIcon />
           <UserMenu />
         </Menu>
@@ -51,7 +51,7 @@ export default (props) => {
       <Segment inverted className='top-header-mobile-menu'>
         <Menu inverted secondary className='top-header-mobile'>
           {renderMobileView()}
-          <SearchBar />
+          <ProductSearchBar />
           <CartIcon />
           <UserMenu />
         </Menu>

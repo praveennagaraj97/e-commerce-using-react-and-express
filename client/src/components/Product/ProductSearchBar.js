@@ -1,14 +1,14 @@
 import React, { Fragment, useEffect, useRef, useState } from "react";
 
-import "../styles/searchBar.scss";
-import useHandleClose from "../utils/useHandleClose";
+import "../../styles/searchBar.scss";
+import useHandleClose from "../../utils/useHandleClose";
 
-import { loadViewProductDetail, loadGetProductsOnQuery } from "../actions";
+import { loadViewProductDetail, loadGetProductsOnQuery } from "../../actions";
 
-import { apiBaseEndpoint } from "../api";
+import { apiBaseEndpoint } from "../../api";
 import { connect } from "react-redux";
 
-import history from "../history";
+import history from "../../history";
 
 const getSearchResults = async (searchTerm) => {
   return await apiBaseEndpoint.get(
@@ -16,7 +16,7 @@ const getSearchResults = async (searchTerm) => {
   );
 };
 
-const SearchBar = ({ viewProduct, getProductsFromSearchTerm }) => {
+const ProductSearchBar = ({ viewProduct, getProductsFromSearchTerm }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [products, setProducts] = useState([]);
   const [showHandle, setShowHandle] = useState(false);
@@ -124,4 +124,4 @@ const mapDispatchToProps = (dispatch) => ({
   getProductsFromSearchTerm: (query) => dispatch(loadGetProductsOnQuery(query)),
 });
 
-export default connect(null, mapDispatchToProps)(SearchBar);
+export default connect(null, mapDispatchToProps)(ProductSearchBar);
