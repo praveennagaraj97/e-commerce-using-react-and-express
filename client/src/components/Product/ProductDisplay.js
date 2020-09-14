@@ -37,6 +37,7 @@ const ProductDisplay = ({
       ],
       id,
     };
+
     loadViewDetail(productType);
   };
 
