@@ -36,12 +36,7 @@ const persistedReducer = persistReducer(persistConfig, reducers);
 
 const sagaMiddleware = createReduxSagaMiddleware();
 
-let composeEnhancer;
-if (process.env.NODE_ENV === "development") {
-  composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-} else {
-  composeEnhancer = compose;
-}
+const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const middlewares = [sagaMiddleware];
 
