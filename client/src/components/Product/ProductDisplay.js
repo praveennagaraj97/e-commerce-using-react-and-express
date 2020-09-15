@@ -74,7 +74,7 @@ const ProductDisplay = ({
       {isLoading ? (
         <div className='loading-container'>
           <img
-            src='https://media1.giphy.com/media/326iF1qWfsTgKA4c78/source.gif'
+            src='https://storage.googleapis.com/lexa-component-styles/loading.gif'
             alt='loading'
           />
         </div>
