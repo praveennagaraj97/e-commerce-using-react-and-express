@@ -4,7 +4,7 @@
  * @description - This saga will fetch product details along with similar products from api only once!
  *                If the user/client requests for same product detail, the detail will not be fetched from API.
  *                Instead the details will be fetched from store !!!
- *                To avoid performance-lag once the store requests reaches 100 requests the last item will and re-pushed!!!
+ *                To avoid performance-lag once the store requests reaches 30 requests the last item will and re-pushed!!!
  */
 
 import { takeLatest, select, call, put, delay } from "redux-saga/effects";

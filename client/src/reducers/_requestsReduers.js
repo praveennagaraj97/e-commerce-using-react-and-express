@@ -6,6 +6,11 @@ const requestReducer = (state = {}, action) => {
   switch (action.type) {
     case RE_OCCURING_PRODUCT_DETAIL:
       if (state.productDetailRequests) {
+        const objectKeys = Object.keys(state.productDetailRequests);
+        if (objectKeys.length === 30) {
+          delete state.productDetailRequests[objectKeys[0]];
+        }
+
         Object.assign(state.productDetailRequests, {
           [action.request.id]: action.request.data,
         });
