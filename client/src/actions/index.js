@@ -68,5 +68,5 @@ export {
   loadViewProductDetail,
   getProductDetail,
   // Re Occuring request to avoid api over fetch!
-  reOccuringRequests,
+  reOccuringProductDetailRequests,
 } from "./productsAction";

@@ -15,6 +15,7 @@ import {
 } from "./productReducer";
 
 import appStateReducer from "./appStateReducer";
+import requestReducer from "./_requestsReduers";
 
 export default combineReducers({
   userAccredited,
@@ -28,4 +29,5 @@ export default combineReducers({
   globalErrorOrSuccessMessage: globalMessageReducer,
   productCart: productCartReducer,
   productDetail: viewProductReducer,
+  requests: requestReducer,
 });

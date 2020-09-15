@@ -28,6 +28,7 @@ const persistConfig = {
     "userDetails",
     "productCategories",
     "updateUserDetail",
+    "requests",
   ],
 
   transforms: [encryptor],
@@ -52,5 +53,9 @@ sagaMiddleware.run(rootSaga);
 
 store.dispatch({ type: LOAD_ACCREDITATION });
 store.dispatch({ type: WEBSITE_LOAD });
+
+if (process.env.NODE_ENV === "development") {
+  window.store = store;
+}
 
 export default store;

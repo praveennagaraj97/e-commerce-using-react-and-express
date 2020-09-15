@@ -17,8 +17,10 @@ const {
   PRODUCT_DETAIL,
 } = PRODUCT_TYPES;
 
-export const reOccuringRequests = (request) => ({
-  type: RE_OCCURING_REQUESTS,
+const { RE_OCCURING_PRODUCT_DETAIL } = RE_OCCURING_REQUESTS;
+
+export const reOccuringProductDetailRequests = (request) => ({
+  type: RE_OCCURING_PRODUCT_DETAIL,
   request,
 });
 
