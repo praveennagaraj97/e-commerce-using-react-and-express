@@ -3,9 +3,12 @@ import {
   WEBSITE_LOAD,
   GLOBAL_SUCCESS,
   GLOBAL_SUCCESS_WITH_IMG,
+  IS_LOADING,
 } from "../constants";
 
 export const websiteLoad = () => ({ type: WEBSITE_LOAD });
+
+export const isLoading = (boolean) => ({ type: IS_LOADING, boolean });
 
 export const globalFailureMessenger = (error) => ({
   type: GLOBAL_ERROR,

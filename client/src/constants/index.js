@@ -4,6 +4,8 @@ export const GLOBAL_SUCCESS_WITH_IMG = "GLOBAL_SUCCESS_WITH_IMG";
 
 export const WEBSITE_LOAD = "WEBSITE_LOAD";
 
+export const IS_LOADING = "IS_LOADING";
+
 export const USER_AUTH_TYPES = {
   LOGIN: {
     LOAD_LOGIN: "LOAD_LOGIN",

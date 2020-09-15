@@ -20,6 +20,7 @@ const ProductDisplay = ({
   loadMoreResults,
   addItemToCart,
   loadViewDetail,
+  isLoading,
 }) => {
   const { products, query } = productsList;
   const [element, setElement] = useState(null);
@@ -70,6 +71,17 @@ const ProductDisplay = ({
 
   return (
     <Fragment>
+      {isLoading ? (
+        <div className='loading-container'>
+          <img
+            src='https://media1.giphy.com/media/326iF1qWfsTgKA4c78/source.gif'
+            alt='loading'
+          />
+        </div>
+      ) : (
+        ""
+      )}
+
       {useWindowSize().width < 702 ? (
         <div className='products-container-filter-mobile'>
           {/* Filter options */}
@@ -150,15 +162,24 @@ const ProductDisplay = ({
           End Of Results
         </h1>
       ) : (
-        <h1 style={{ color: "white", textAlign: "center" }}>
-          No Results Found
-        </h1>
+        <Fragment>
+          {!isLoading ? (
+            <h1 style={{ color: "white", textAlign: "center" }}>
+              No Results Found
+            </h1>
+          ) : (
+            ""
+          )}
+        </Fragment>
       )}
     </Fragment>
   );
 };
 
-const mapStateToProps = ({ productsList }) => ({ productsList });
+const mapStateToProps = ({ productsList, appState: { isLoading } }) => ({
+  productsList,
+  isLoading,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   loadMoreResults: (pageNumber) => dispatch(setPageNumber(pageNumber)),
