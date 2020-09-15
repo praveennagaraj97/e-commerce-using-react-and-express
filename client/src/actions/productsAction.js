@@ -1,4 +1,4 @@
-import { PRODUCT_TYPES } from "../constants";
+import { PRODUCT_TYPES, RE_OCCURING_REQUESTS } from "../constants";
 
 const {
   GET_ALL_CATEGORIES,
@@ -16,6 +16,11 @@ const {
   LOAD_VIEW_PRODUCT_DETAIL,
   PRODUCT_DETAIL,
 } = PRODUCT_TYPES;
+
+export const reOccuringRequests = (request) => ({
+  type: RE_OCCURING_REQUESTS,
+  request,
+});
 
 // Loads on website load.
 export const getAllCategories = (response) => ({
