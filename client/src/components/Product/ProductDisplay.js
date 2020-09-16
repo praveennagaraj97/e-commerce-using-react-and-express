@@ -20,7 +20,7 @@ const ProductDisplay = ({
   loadMoreResults,
   addItemToCart,
   loadViewDetail,
-  isLoading,
+  productsLoading,
 }) => {
   const { products, query } = productsList;
   const [element, setElement] = useState(null);
@@ -71,7 +71,7 @@ const ProductDisplay = ({
 
   return (
     <Fragment>
-      {isLoading ? (
+      {productsLoading ? (
         <div className='loading-container'>
           <img
             src='https://storage.googleapis.com/lexa-component-styles/loading.gif'
@@ -163,7 +163,7 @@ const ProductDisplay = ({
         </h1>
       ) : (
         <Fragment>
-          {!isLoading ? (
+          {!productsLoading ? (
             <h1 style={{ color: "white", textAlign: "center" }}>
               No Results Found
             </h1>
@@ -176,9 +176,9 @@ const ProductDisplay = ({
   );
 };
 
-const mapStateToProps = ({ productsList, appState: { isLoading } }) => ({
+const mapStateToProps = ({ productsList }) => ({
   productsList,
-  isLoading,
+  productsLoading: productsList.productsLoading,
 });
 
 const mapDispatchToProps = (dispatch) => ({

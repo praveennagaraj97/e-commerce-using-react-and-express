@@ -1,4 +1,4 @@
-import { PRODUCT_TYPES } from "../../constants";
+import { PRODUCT_TYPES, LOADERS } from "../../constants";
 
 export { productReviewReducer } from "./productReviewReducer";
 export { categoriesReducer } from "./productCategoriesReducer";
@@ -18,6 +18,8 @@ const {
   PRODUCT_DETAIL,
 } = PRODUCT_TYPES;
 
+const { PRODUCTS_LISTS_LOADING } = LOADERS;
+
 const getProductsrelatedToQuery = {
   products: [],
   query: { pageNumber: 1, limit: 8 },
@@ -35,6 +37,9 @@ export const getProductsReducer = (
     case HOLD_PREVIOUS_REQUESTED_QUERY:
       state.query["prev"] = action.prevQuery;
       return { ...state };
+
+    case PRODUCTS_LISTS_LOADING:
+      return { ...state, productsLoading: action.boolean };
 
     case GET_PRODUCTS_BASED_ON_QUERY:
       return { ...state, products: action.response };

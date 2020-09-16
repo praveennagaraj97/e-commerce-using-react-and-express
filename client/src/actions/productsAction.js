@@ -20,7 +20,7 @@ const {
   GET_PRODUCT_REVIEWS,
 } = PRODUCT_TYPES;
 
-const { CATEGORY_LOADING } = LOADERS;
+const { CATEGORY_LOADING, PRODUCTS_LISTS_LOADING } = LOADERS;
 
 const { RE_OCCURING_PRODUCT_DETAIL } = RE_OCCURING_REQUESTS;
 
@@ -40,6 +40,7 @@ export const getAllCategories = (response) => ({
 });
 
 // loads when a query is requested to server for products
+
 export const loadGetProductsOnQuery = (query) => ({
   type: LOAD_GET_PRODUCTS_BASED_ON_QUERY,
   query,
@@ -49,7 +50,12 @@ export const holdPreviousProductQuery = (prevQuery) => ({
   type: HOLD_PREVIOUS_REQUESTED_QUERY,
   prevQuery,
 });
+
 // takes products as array and stores them in redux-store
+export const productsLoading = (boolean) => ({
+  type: PRODUCTS_LISTS_LOADING,
+  boolean,
+});
 export const getProductsOnQuery = (response) => ({
   type: GET_PRODUCTS_BASED_ON_QUERY,
   response,

@@ -56,6 +56,7 @@ export {
   // Load products related to categories clicked
   loadGetProductsOnQuery,
   holdPreviousProductQuery,
+  productsLoading,
   getProductsOnQuery,
   setLimitsPerPage,
   setPageNumber,

@@ -9,7 +9,7 @@ import {
   holdPreviousProductQuery,
   noMoreResultsFound,
   setPageNumber,
-  isLoading,
+  productsLoading,
 } from "../../actions";
 
 const { LOAD_GET_PRODUCTS_BASED_ON_QUERY, SET_PAGE_NUMBER } = PRODUCT_TYPES;
@@ -25,7 +25,7 @@ function* handleLoadProductWorker() {
     query.current + `&page=${query.pageNumber}&limit=${query.limit}`
   ) {
     try {
-      yield put(isLoading(true));
+      yield put(productsLoading(true));
       yield put(setPageNumber(1));
       yield put(getProductsOnQuery([]));
 
@@ -41,7 +41,7 @@ function* handleLoadProductWorker() {
       );
 
       if (data.message === "No Document Found") {
-        yield put(isLoading(false));
+        yield put(productsLoading(false));
         yield put(getProductsOnQuery([]));
         yield put(noMoreResultsFound(false));
         return;
@@ -50,10 +50,10 @@ function* handleLoadProductWorker() {
       data.details.length === query.limit
         ? yield put(noMoreResultsFound(true))
         : yield put(noMoreResultsFound(false));
-      yield put(isLoading(false));
+      yield put(productsLoading(false));
       yield put(getProductsOnQuery(data.details));
     } catch (err) {
-      yield put(isLoading(false));
+      yield put(productsLoading(false));
       try {
         yield put(globalFailureMessenger(err.response.data.message));
       } catch (err) {

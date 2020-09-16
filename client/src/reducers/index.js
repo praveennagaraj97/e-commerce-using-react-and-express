@@ -15,7 +15,6 @@ import {
   productReviewReducer,
 } from "./productReducer";
 
-import appStateReducer from "./appStateReducer";
 import requestReducer from "./_requestsReduers";
 
 export default combineReducers({
@@ -23,7 +22,6 @@ export default combineReducers({
   userAuthorization: userAuthLoginReducer,
   userDetails: userDetailsReducer,
   updateUserDetail: userDetailsUpdateReducer,
-  appState: appStateReducer,
   form: formReducer,
   productCategories: categoriesReducer,
   productsList: getProductsReducer,
