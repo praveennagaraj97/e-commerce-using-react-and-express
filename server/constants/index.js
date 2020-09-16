@@ -4,4 +4,5 @@ export const GCS_BUCKET_NAME = {
   PRODUCT_DETAILS_VIDEOS: "product-details-videos",
   PRODUCT_DETAILS_IMAGES: "product-details-images",
   PRODUCT_BOARDS: "product-boards",
+  LEXA_PRODUCT_REVIEWS: "lexa-product-reviews",
 };

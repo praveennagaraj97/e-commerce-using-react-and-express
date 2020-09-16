@@ -38,3 +38,8 @@ export const preFillProductBoards = (req, res, next) => {
   req.body.productId = req.body.productId.split(",");
   next();
 };
+
+export const preFillUserId = (req, res, next) => {
+  req.body.userId = req.user._id;
+  next();
+};

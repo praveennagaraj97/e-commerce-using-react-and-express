@@ -129,3 +129,6 @@ export const handleImageUploadWithNoImageLimit = (bucketName) =>
     req.imageUrls = imageUrls;
     next();
   });
+
+export const deleteSingleImage = (ModelName, responseMessage) =>
+  catchAsyncError(async (req, res, next) => {});
