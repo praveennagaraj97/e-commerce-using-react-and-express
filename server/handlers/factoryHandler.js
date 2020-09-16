@@ -52,6 +52,20 @@ export const readDocumentByIdThroughQuery = (ModelName, responseMessage) =>
     });
   });
 
+// export const readDocumentByFields = (ModelName, responseMessage) =>
+//   catchAsyncError(async (req, res, next) => {
+//     if (!req.query) return new AppError("Provide Find Fields in query");
+
+//     const docs = await ModelName.findOne(req.query);
+//     if (!docs)
+//       return next(new AppError("No Results found With The Given Id", 204));
+
+//     res.status(200).json({
+//       message: responseMessage.message,
+//       detail: docs,
+//     });
+//   });
+
 export const updateDocumentByID = (ModelName, responseMessage) =>
   catchAsyncError(async (req, res, next) => {
     if (!Object.keys(req.body).length)

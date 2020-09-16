@@ -1,5 +1,5 @@
 import { MobileReviewModel } from "../model/productReviewModel";
-import { createNewDocumnet } from "../handlers/factoryHandler";
+import { createNewDocumnet, readAllDocument } from "../handlers/factoryHandler";
 import { GCS_BUCKET_NAME } from "../constants";
 
 import {
@@ -27,5 +27,11 @@ export const addProductMobileReview = createNewDocumnet(MobileReviewModel, {
   message: "Thank You for reviewing",
 });
 
+export const getProductReviewBasedOnProductId = readAllDocument(
+  MobileReviewModel,
+  {
+    message: "List Of reviews for this Product",
+  }
+);
 // If the user removes image before sumbitting image has to be deleted
 // export const deleteProductReviewImge = deleteFile(LEXA_PRODUCT_REVIEWS);

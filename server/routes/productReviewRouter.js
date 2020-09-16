@@ -3,6 +3,9 @@ import multer from "multer";
 
 import {
   addProductMobileReview,
+  getProductReviewBasedOnProductId,
+
+  // Middlewares
   protectRoute,
   preFillUserId,
 
@@ -27,3 +30,5 @@ productReviewRouter
 productReviewRouter
   .route("/addMobileReview")
   .post(protectRoute, preFillUserId, addProductMobileReview);
+
+productReviewRouter.route("/getReviews").get(getProductReviewBasedOnProductId);
