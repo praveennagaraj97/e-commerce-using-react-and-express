@@ -9,6 +9,7 @@ import ProductDetailTable from "../ProductDetailJSXProvider/ProductDetailTable";
 import VideoPlayer from "../../VideoPlayer";
 import ProductManufacturer from "../ProductDetailJSXProvider/ProductManufacturer";
 import ProductBrief from "../ProductDetailJSXProvider/ProductBrief";
+import ProductReview from "../ProductDetailJSXProvider/ProductReview";
 
 const useStyles = makeStyles((theme) => ({
   mobileTechnicalDetails: {
@@ -78,6 +79,9 @@ const ProductMobileDetail = (props) => {
         ) : (
           ""
         )}
+
+        {/* Product Review Loads on scroll to bottom */}
+        <ProductReview />
       </Fragment>
     );
   }
