@@ -22,4 +22,5 @@ export {
   getProductsBasedOnQuery,
   getProductsDetailsInCartEndPoint,
   getProductDetailEndPoint,
+  getListOfProductReviewsEndPoint,
 } from "./productEndpoints";

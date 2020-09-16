@@ -17,3 +17,9 @@ export const getProductDetailEndPoint = async (id) => {
     params: { id },
   });
 };
+
+export const getListOfProductReviewsEndPoint = async (id) => {
+  return await apiBaseEndpoint.get(
+    `/product_review/getReviews?productId=${id}`
+  );
+};

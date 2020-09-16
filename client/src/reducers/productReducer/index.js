@@ -1,5 +1,7 @@
 import { PRODUCT_TYPES } from "../../constants";
 
+export { productReviewReducer } from "./productReviewReducer";
+
 const {
   GET_ALL_CATEGORIES,
   LOAD_GET_PRODUCTS_BASED_ON_QUERY,

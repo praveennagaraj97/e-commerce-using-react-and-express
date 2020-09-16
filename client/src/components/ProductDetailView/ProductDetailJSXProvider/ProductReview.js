@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 
+import { loadProductReview } from "../../../actions";
 import { useInfiniteScrolling } from "../../../utils/useInfiniteScrolling";
+import "../../../styles/productReviewList.scss";
+import { connect } from "react-redux";
 
-const ProductReview = () => {
+const ProductReview = ({ loadProductReview, productReviewsList }) => {
   const [reviewVisible, setReviewVisible] = useState(null);
 
   useInfiniteScrolling(
     reviewVisible,
     () => {
-      console.log("i am visible call the review api");
+      loadProductReview();
     },
     1
   );
@@ -16,8 +19,17 @@ const ProductReview = () => {
   return (
     <div className='product-review-container' ref={setReviewVisible}>
       ProductReview
+      <pre>{JSON.stringify(productReviewsList, undefined, 2)}</pre>
     </div>
   );
 };
 
-export default ProductReview;
+const mapDispatchToProps = (dispatch) => ({
+  loadProductReview: () => dispatch(loadProductReview()),
+});
+
+const mapStateToProps = ({ productReview: { productReviewsList } }) => ({
+  productReviewsList,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductReview);

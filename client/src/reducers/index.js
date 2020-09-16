@@ -12,6 +12,7 @@ import {
   getProductsReducer,
   productCartReducer,
   viewProductReducer,
+  productReviewReducer,
 } from "./productReducer";
 
 import appStateReducer from "./appStateReducer";
@@ -29,5 +30,6 @@ export default combineReducers({
   globalErrorOrSuccessMessage: globalMessageReducer,
   productCart: productCartReducer,
   productDetail: viewProductReducer,
+  productReview: productReviewReducer,
   requests: requestReducer,
 });

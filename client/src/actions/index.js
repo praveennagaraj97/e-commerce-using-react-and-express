@@ -69,4 +69,7 @@ export {
   getProductDetail,
   // Re Occuring request to avoid api over fetch!
   reOccuringProductDetailRequests,
+  // Reviews
+  loadProductReview,
+  getProductReviews,
 } from "./productsAction";
