@@ -7,6 +7,7 @@ import { loadGetProductsOnQuery } from "../../actions";
 import "../../styles/productCategories.scss";
 
 export const ProductCategories = ({
+  categoryLoading,
   categories,
   loadProductsRelatedToCategoryClicked,
 }) => {
@@ -20,6 +21,16 @@ export const ProductCategories = ({
 
   return (
     <Fragment>
+      {categoryLoading ? (
+        <div className='category-loader'>
+          <img
+            src='https://storage.googleapis.com/lexa-component-styles/loading.gif'
+            alt='loader'
+          />
+        </div>
+      ) : (
+        ""
+      )}
       {categories
         ? categories.map(({ categoryName, _id, categoryIcon }) => {
             return (
@@ -46,8 +57,11 @@ export const ProductCategories = ({
   );
 };
 
-const mapStateToProps = ({ productCategories: { categories } }) => ({
+const mapStateToProps = ({
+  productCategories: { categories, categoryLoading },
+}) => ({
   categories,
+  categoryLoading,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -11,7 +11,7 @@ import {
   userUpdateWatcher,
 } from "./userAuthSagas";
 
-import { websiteLoadWatcher } from "./globalWebsiteSaga";
+import { websiteLoadWatcher } from "./websiteLoadSaga";
 
 import {
   loadProductsWatcher,

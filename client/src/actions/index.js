@@ -51,6 +51,7 @@ export {
 
 export {
   // Get all categories on website load
+  productCategoryLoading,
   getAllCategories,
   // Load products related to categories clicked
   loadGetProductsOnQuery,

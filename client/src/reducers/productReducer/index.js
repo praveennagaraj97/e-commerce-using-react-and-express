@@ -1,9 +1,9 @@
 import { PRODUCT_TYPES } from "../../constants";
 
 export { productReviewReducer } from "./productReviewReducer";
+export { categoriesReducer } from "./productCategoriesReducer";
 
 const {
-  GET_ALL_CATEGORIES,
   LOAD_GET_PRODUCTS_BASED_ON_QUERY,
   GET_PRODUCTS_BASED_ON_QUERY,
   HOLD_PREVIOUS_REQUESTED_QUERY,
@@ -17,15 +17,6 @@ const {
   LOAD_VIEW_PRODUCT_DETAIL,
   PRODUCT_DETAIL,
 } = PRODUCT_TYPES;
-
-export const categoriesReducer = (state = {}, action) => {
-  switch (action.type) {
-    case GET_ALL_CATEGORIES:
-      return { ...state, categories: action.response };
-    default:
-      return state;
-  }
-};
 
 const getProductsrelatedToQuery = {
   products: [],

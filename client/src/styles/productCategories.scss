@@ -27,3 +27,11 @@ $product-category-item-title-color: white;
   animation: flash;
   animation-duration: 0.5s;
 }
+
+.category-loader {
+  margin: auto;
+  height: 50px;
+  img {
+    height: 100%;
+  }
+}

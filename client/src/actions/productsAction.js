@@ -1,4 +1,4 @@
-import { PRODUCT_TYPES, RE_OCCURING_REQUESTS } from "../constants";
+import { PRODUCT_TYPES, RE_OCCURING_REQUESTS, LOADERS } from "../constants";
 
 const {
   GET_ALL_CATEGORIES,
@@ -20,6 +20,8 @@ const {
   GET_PRODUCT_REVIEWS,
 } = PRODUCT_TYPES;
 
+const { CATEGORY_LOADING } = LOADERS;
+
 const { RE_OCCURING_PRODUCT_DETAIL } = RE_OCCURING_REQUESTS;
 
 export const reOccuringProductDetailRequests = (request) => ({
@@ -28,6 +30,10 @@ export const reOccuringProductDetailRequests = (request) => ({
 });
 
 // Loads on website load.
+export const productCategoryLoading = (boolean) => ({
+  type: CATEGORY_LOADING,
+  boolean,
+});
 export const getAllCategories = (response) => ({
   type: GET_ALL_CATEGORIES,
   response,
