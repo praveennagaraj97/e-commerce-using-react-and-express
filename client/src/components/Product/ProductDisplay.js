@@ -1,6 +1,5 @@
 import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
-import _ from "lodash";
 
 import {
   setPageNumber,
@@ -136,9 +135,7 @@ const ProductDisplay = ({
           />
         </div>
       ) : products.length > 0 ? (
-        <h1 style={{ color: "white", textAlign: "center", marginLeft: "20vw" }}>
-          End Of Results
-        </h1>
+        <h1 style={{ color: "white", textAlign: "center" }}>End Of Results</h1>
       ) : (
         <Fragment>
           {!productsLoading ? (
