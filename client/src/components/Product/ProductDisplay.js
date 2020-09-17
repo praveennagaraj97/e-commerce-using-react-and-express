@@ -8,6 +8,7 @@ import {
   loadViewProductDetail,
 } from "../../actions";
 import ProductFeatures from "../Product/ProductFeatures";
+import { ShowRating } from "../Rating";
 
 import { useInfiniteScrolling } from "../../utils/useInfiniteScrolling";
 import { useWindowSize } from "../../utils/useWindowResizeHook";
@@ -42,31 +43,8 @@ const ProductDisplay = ({
     loadViewDetail(productType);
   };
 
-  const reviewStarRender = (reviewNumber) => {
-    let stars = [];
-    if (reviewNumber) {
-      _.times(parseInt(reviewNumber, 10), (i) =>
-        stars.push(
-          <img
-            key={i}
-            className='product-card__reviewstar'
-            src='https://img.icons8.com/bubbles/50/000000/star.png'
-            alt='review Star'
-          />
-        )
-      );
-    } else {
-      stars.push(
-        <img
-          key={Math.random()}
-          className='product-card__reviewstar'
-          src='https:cdn.shopify.com/s/files/1/2344/9163/files/Not-Rated-Logo_7868b6f7-3a0a-4524-99ce-84a4de15f072_600x.png?v=1504987256'
-          alt='review Star'
-        />
-      );
-    }
-
-    return stars;
+  const reviewStarRender = (review) => {
+    return <ShowRating value={review} />;
   };
 
   return (
@@ -117,7 +95,7 @@ const ProductDisplay = ({
                         <div className='product-card-contents_container'>
                           <h1 className='product-card__title'>{productName}</h1>
                           <div className='product-review-container'>
-                            {reviewStarRender(4).map((star) => star)}
+                            {reviewStarRender(4)}
                           </div>
                           <p className='product-card__price'>₹{productPrice}</p>
                           <div className='product-card__view__cart_btn_option'>
