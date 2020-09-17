@@ -25,13 +25,13 @@ const baseProductReviewSchema = new Schema(
         message: "You can only review once",
       },
     },
-    headLine: {
+    title: {
       type: String,
       validate: {
         validator: function (val) {
           return String(val).length > 3;
         },
-        message: "Enter Valid Headline",
+        message: "Enter Valid Title",
       },
     },
     description: {
@@ -49,6 +49,7 @@ const baseProductReviewSchema = new Schema(
     },
   },
   {
+    timestamps: true,
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
   }

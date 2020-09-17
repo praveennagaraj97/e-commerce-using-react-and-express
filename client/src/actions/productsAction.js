@@ -20,7 +20,7 @@ const {
   GET_PRODUCT_REVIEWS,
 } = PRODUCT_TYPES;
 
-const { CATEGORY_LOADING, PRODUCTS_LISTS_LOADING } = LOADERS;
+const { CATEGORY_LOADING, PRODUCTS_LISTS_LOADING, REVIEW_LOADING } = LOADERS;
 
 const { RE_OCCURING_PRODUCT_DETAIL } = RE_OCCURING_REQUESTS;
 
@@ -103,6 +103,11 @@ export const loadViewProductDetail = (productDetail) => ({
 export const getProductDetail = (data) => ({ type: PRODUCT_DETAIL, data });
 
 // Product Review
+export const productReviewLoading = (boolean) => ({
+  type: REVIEW_LOADING,
+  boolean,
+});
+
 export const loadProductReview = () => ({ type: LOAD_PRODUCT_REVIEWS });
 
 export const getProductReviews = (data) => ({

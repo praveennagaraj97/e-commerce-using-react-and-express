@@ -20,6 +20,6 @@ export const getProductDetailEndPoint = async (id) => {
 
 export const getListOfProductReviewsEndPoint = async (id) => {
   return await apiBaseEndpoint.get(
-    `/product_review/getReviews?productId=${id}`
+    `/product_review/getReviews?productId=${id}&sort=-createdAt&page=1&limit=4`
   );
 };

@@ -1,6 +1,6 @@
 import { call, put, select, takeLatest } from "redux-saga/effects";
 
-import { getProductReviews } from "../../actions";
+import { getProductReviews, productReviewLoading } from "../../actions";
 import { PRODUCT_TYPES } from "../../constants";
 
 import { getListOfProductReviewsEndPoint } from "../../api";
@@ -21,10 +21,13 @@ function* handleGetProductReviewWorker() {
     if (productReviewsList.reviewForProduct === productId) return;
   }
   try {
+    yield put(productReviewLoading(true));
     const { data } = yield call(getListOfProductReviewsEndPoint, productId);
     data.reviewForProduct = productId;
-    yield put(getProductReviews(data));
+    yield put(productReviewLoading(false));
+    yield put(getProductReviews(data.details));
   } catch (err) {
+    yield put(productReviewLoading(false));
     yield put(getProductReviews(null));
   }
 }
