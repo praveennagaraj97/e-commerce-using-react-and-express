@@ -56,6 +56,16 @@ const baseProductReviewSchema = new Schema(
 
 baseProductReviewSchema.plugin(mongooseUniqueValidator);
 
+baseProductReviewSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: "userId",
+    model: "User",
+    select: ["name"],
+  });
+
+  next();
+});
+
 export const BaseProductReviewModel = model(
   "ProductReview",
   baseProductReviewSchema
