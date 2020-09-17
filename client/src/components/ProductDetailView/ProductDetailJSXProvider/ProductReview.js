@@ -18,7 +18,7 @@ const ProductReview = ({ loadProductReview, productReviewsList }) => {
 
   return (
     <div className='product-review-container' ref={setReviewVisible}>
-      ProductReview
+      <h3>Product Review</h3>
       <pre>{JSON.stringify(productReviewsList, undefined, 2)}</pre>
     </div>
   );

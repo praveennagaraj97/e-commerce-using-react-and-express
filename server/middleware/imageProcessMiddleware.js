@@ -6,20 +6,29 @@ import { uploadImageToGoogle } from "../utils/GCloudStorageService";
 
 const { PRODUCT_DETAILS_VIDEOS } = GCS_BUCKET_NAME;
 
-export const handleImageUpload = (imageCount, bucketName) =>
+export const handleImageUpload = (imageCount, bucketName, inbetween = false) =>
   catchAsyncError(async (req, res, next) => {
     if (req.files.length > imageCount)
       return next(
         new AppError(`This request takes maximum of ${imageCount} images!.`)
       );
-    if (req.files.length < imageCount)
-      return next(
-        new AppError(`This request takes minimum of ${imageCount} images!.`)
-      );
+
+    if (inbetween) {
+      if (req.files.length < 1)
+        return next(
+          new AppError(`This request takes minimum of ${1} images!.`)
+        );
+    }
+    if (!inbetween) {
+      if (req.files.length < imageCount)
+        return next(
+          new AppError(`This request takes minimum of ${imageCount} images!.`)
+        );
+    }
 
     const imageUrls = [];
     const files = [];
-    for (let i = 0; i < imageCount; i++) {
+    for (let i = 0; i < req.files.length; i++) {
       const validImage = /\.(gif|jpe?g|png)$/i.test(req.files[i].originalname);
 
       if (!validImage) {
@@ -30,7 +39,7 @@ export const handleImageUpload = (imageCount, bucketName) =>
       files.push(req.files[i]);
     }
 
-    for (let i = 0; i < imageCount; i++) {
+    for (let i = 0; i < req.files.length; i++) {
       const url = await uploadImageToGoogle(files[i], bucketName);
       imageUrls.push(url);
     }

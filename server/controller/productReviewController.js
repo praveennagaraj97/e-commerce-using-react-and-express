@@ -4,10 +4,8 @@ import { GCS_BUCKET_NAME } from "../constants";
 
 import {
   handleImageUpload,
-  processSingleImage,
+  processMultipleImages,
 } from "../middleware/imageProcessMiddleware";
-
-import { deleteFile } from "../utils/GCloudStorageService";
 
 export { protectRoute } from "./userController";
 export { preFillUserId } from "../middleware/preFillers";
@@ -16,10 +14,11 @@ export { preFillUserId } from "../middleware/preFillers";
 const { LEXA_PRODUCT_REVIEWS } = GCS_BUCKET_NAME;
 
 export const handleProductReviewImage = handleImageUpload(
-  1,
-  LEXA_PRODUCT_REVIEWS
+  5,
+  LEXA_PRODUCT_REVIEWS,
+  true
 );
-export const processProductReviewImage = processSingleImage(
+export const processProductReviewImage = processMultipleImages(
   "productReviewImages"
 );
 

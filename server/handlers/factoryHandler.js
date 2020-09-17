@@ -26,7 +26,7 @@ export const readAllDocument = (ModelName, responseMessage) =>
     const response = await featuredModel.queryObj;
 
     if (!response || response.length === 0)
-      return next(new AppError("No Document Found", 304));
+      return next(new AppError("No Document Found", 404));
 
     res.status(200).json({
       foundResults: response.length,
