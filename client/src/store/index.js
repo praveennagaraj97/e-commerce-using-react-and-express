@@ -51,8 +51,8 @@ export const persistor = persistStore(store);
 
 sagaMiddleware.run(rootSaga);
 
-store.dispatch({ type: LOAD_ACCREDITATION });
 store.dispatch({ type: WEBSITE_LOAD });
+store.dispatch({ type: LOAD_ACCREDITATION });
 
 if (process.env.NODE_ENV === "development") {
   window.store = store;
