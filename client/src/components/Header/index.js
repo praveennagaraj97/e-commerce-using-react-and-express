@@ -11,7 +11,7 @@ import "../../styles/topHeader.scss";
 import { useWindowSize } from "../../utils/useWindowResizeHook";
 import history from "../../history";
 
-export default (props) => {
+const Header = (props) => {
   const renderMobileView = () => {
     return <DropdownMenu navItems={props.navItems} />;
   };
@@ -59,3 +59,5 @@ export default (props) => {
     </Fragment>
   );
 };
+
+export default Header;

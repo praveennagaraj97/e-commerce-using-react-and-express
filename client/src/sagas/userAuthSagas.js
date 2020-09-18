@@ -362,8 +362,18 @@ function* handleUserManageDataWorker() {
     return;
   }
 
+  const auth_cookie = getCookie(AUTH_TOKEN);
+  const auth_session = getSessionItem(AUTH_TOKEN);
+
+  if (!auth_cookie && !auth_session) {
+    history.goBack();
+    return;
+  }
+
   try {
     // If user details already in store don't call the api!!
+    // If No auth-token don't call api
+
     const { data } = yield call(getUserApi);
     yield put(getUser(data.user));
   } catch (err) {
@@ -381,7 +391,7 @@ export function* userManagaDataWatcher() {
 
 const getUserUpdateValueFromStore = ({ updateUserDetail }) => updateUserDetail;
 
-function* handleUserPhoneUpdateWorker() {
+function* handleUserPasswordUpdateWorker() {
   const { fields } = yield select(getUserUpdateValueFromStore);
   if (fields) {
     if (!fields.currentPassword) {
@@ -441,5 +451,5 @@ function* handleUserPhoneUpdateWorker() {
 }
 
 export function* userUpdateWatcher() {
-  yield takeLatest(USER_PASSWORD_CHANGE, handleUserPhoneUpdateWorker);
+  yield takeLatest(USER_PASSWORD_CHANGE, handleUserPasswordUpdateWorker);
 }

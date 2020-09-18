@@ -2,7 +2,7 @@ import React from "react";
 import { Router, Route, Switch } from "react-router-dom";
 import "animate.css";
 
-import TopHeader from "./Header/TopHeader";
+import Header from "./Header";
 import Notifer from "./Notifer";
 import "../styles/app.scss";
 import { navItems } from "../data";
@@ -40,7 +40,7 @@ const App = () => {
     <div>
       <Router history={history}>
         <div id='section-header' className='header-container'>
-          <TopHeader navItems={navItems} />
+          <Header navItems={navItems} />
 
           <div className='product-categories'>
             <ProductCategories
