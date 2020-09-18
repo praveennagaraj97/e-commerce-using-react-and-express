@@ -1,4 +1,6 @@
+import { averageReviewOfProducts } from "../../controller/productReviewController";
 import { AppError } from "../../utils/AppError";
+import catchAsyncError from "../../utils/catchAsyncError";
 
 export const preFillCartIdasParams = (req, res, next) => {
   if (!req.body.cartItems || req.body.cartItems.length === 0)
@@ -38,3 +40,24 @@ export const preFillProductBoards = (req, res, next) => {
   req.body.productId = req.body.productId.split(",");
   next();
 };
+
+export const getAllProductsWithAverageReviewAttached = catchAsyncError(
+  async (req, res, next) => {
+    /**
+     * @desc - as limit of each request is set to max-10 items
+     *         performace doesn't get affected as aggregation pipeline is used!
+     */
+    const ids = [];
+    for (let i = 0; i < req.details.length; i++) {
+      ids.push(req.details[i]._id);
+    }
+    const averageReview = await averageReviewOfProducts(ids);
+
+    res.status(200).json({
+      foundResults: req.details.length,
+      message: req.message,
+      details: req.details,
+      averageReview,
+    });
+  }
+);

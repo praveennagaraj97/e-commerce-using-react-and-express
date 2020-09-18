@@ -1,3 +1,5 @@
+import Mongoose from "mongoose";
+
 import {
   BaseProductReviewModel,
   MobileReviewModel,
@@ -5,13 +7,14 @@ import {
 } from "../model/productReviewModel";
 import { createNewDocumnet, readAllDocument } from "../handlers/factoryHandler";
 import { GCS_BUCKET_NAME } from "../constants";
+import { aggregationPipeline } from "../utils/Aggregation";
 
 import {
   handleImageUpload,
   processMultipleImages,
 } from "../middleware/imageProcessMiddleware";
+
 import { preFillReviewFoundHelpFul } from "../middleware/reviewPreFillers";
-import Mongoose from "mongoose";
 
 export { protectRoute } from "./userController";
 export { preFillUserId } from "../middleware/preFillers";
@@ -39,11 +42,13 @@ export const getProductReviewBasedOnProductId = readAllDocument(
   }
 );
 
-export const averageReviewOfProducts = async (productId) => {
+export const averageReviewOfProducts = async (productIds = []) => {
   const pipeline = [
     {
       $match: {
-        productId: new Mongoose.Types.ObjectId(productId),
+        productId: {
+          $in: productIds.map((each) => new Mongoose.Types.ObjectId(each)),
+        },
       },
     },
     {
@@ -51,11 +56,12 @@ export const averageReviewOfProducts = async (productId) => {
     },
   ];
 
-  const averageReviewOfEachProduct = await BaseProductReviewModel.aggregate(
+  const averageReviewOfProducts = await aggregationPipeline(
+    BaseProductReviewModel,
     pipeline
   );
 
-  return averageReviewOfEachProduct;
+  return averageReviewOfProducts;
 };
 
 // If the user removes image before sumbitting image has to be deleted

@@ -19,11 +19,10 @@ import {
   handleImageUploadWithNoImageLimit,
 } from "../middleware/imageProcessMiddleware";
 
-export { getAllProductsWithAverageReviewAttached } from "../middleware/preFillers";
-
 export {
   preFillCartIdasParams,
   preFillProductBoards,
+  getAllProductsWithAverageReviewAttached,
 } from "../middleware/productPreFillers";
 
 const {
