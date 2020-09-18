@@ -5,11 +5,12 @@ export const ShowRating = ({ value }) => {
   return (
     <Rating
       name='simple-controlled'
-      value={parseInt(value, 10)}
+      precision={0.5}
+      readOnly={true}
+      value={value}
       //   onChange={(event, newValue) => {
       //     setValue(newValue);
       //   }}
-      disabled
     />
   );
 };
