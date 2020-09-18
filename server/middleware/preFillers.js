@@ -1,4 +1,5 @@
 import { AppError } from "../utils/AppError";
+import catchAsyncError from "../utils/catchAsyncError";
 
 export const preFillCartIdasParams = (req, res, next) => {
   if (!req.body.cartItems || req.body.cartItems.length === 0)
@@ -43,3 +44,17 @@ export const preFillUserId = (req, res, next) => {
   req.body.userId = req.user._id;
   next();
 };
+
+export const preFillReviewFoundHelpFul = (ModelName, responseMessage) =>
+  catchAsyncError(async (req, res, next) => {
+    if (req.params.bool === "true") {
+      req.body.helpul = req.params.bool;
+      next();
+    } else {
+      // find the doc and remove it!
+      await ModelName.findOneAndDelete({ userId: req.user._id });
+      res.status(200).json({
+        message: responseMessage.message,
+      });
+    }
+  });

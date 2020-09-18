@@ -1,4 +1,4 @@
-import { MobileReviewModel } from "../model/productReviewModel";
+import { MobileReviewModel, ReviewHelpful } from "../model/productReviewModel";
 import { createNewDocumnet, readAllDocument } from "../handlers/factoryHandler";
 import { GCS_BUCKET_NAME } from "../constants";
 
@@ -6,6 +6,7 @@ import {
   handleImageUpload,
   processMultipleImages,
 } from "../middleware/imageProcessMiddleware";
+import { preFillReviewFoundHelpFul } from "../middleware/preFillers";
 
 export { protectRoute } from "./userController";
 export { preFillUserId } from "../middleware/preFillers";
@@ -34,3 +35,15 @@ export const getProductReviewBasedOnProductId = readAllDocument(
 );
 // If the user removes image before sumbitting image has to be deleted
 // export const deleteProductReviewImge = deleteFile(LEXA_PRODUCT_REVIEWS);
+
+// Review Helpful Like/Undo
+
+export const preFillReviewHelpulForLikeOrUndo = preFillReviewFoundHelpFul(
+  ReviewHelpful,
+  {
+    message: "Successfully undo",
+  }
+);
+export const reviewHelpfulPost = createNewDocumnet(ReviewHelpful, {
+  message: "Success",
+});

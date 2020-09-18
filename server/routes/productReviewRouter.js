@@ -4,10 +4,11 @@ import multer from "multer";
 import {
   addProductMobileReview,
   getProductReviewBasedOnProductId,
-
+  reviewHelpfulPost,
   // Middlewares
   protectRoute,
   preFillUserId,
+  preFillReviewHelpulForLikeOrUndo,
 
   //   Image Process
   handleProductReviewImage,
@@ -32,3 +33,12 @@ productReviewRouter
   .post(protectRoute, preFillUserId, addProductMobileReview);
 
 productReviewRouter.route("/getReviews").get(getProductReviewBasedOnProductId);
+
+productReviewRouter
+  .route("/foundHelpful/:bool")
+  .post(
+    protectRoute,
+    preFillUserId,
+    preFillReviewHelpulForLikeOrUndo,
+    reviewHelpfulPost
+  );

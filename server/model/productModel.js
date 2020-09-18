@@ -54,11 +54,18 @@ productSchema.virtual("productBoards", {
   foreignField: "productId",
 });
 
-productSchema.pre(/^find/, function (next) {
+productSchema.virtual("averageReview", {
+  ref: "ProductReview",
+  localField: "_id",
+  foreignField: "productId",
+});
+
+productSchema.pre(/find/, function (next) {
   this.populate({
     path: "categoryId",
     model: "Category",
-  });
+  }).populate("averageReview", { averageReview: 1 });
+
   next();
 });
 
