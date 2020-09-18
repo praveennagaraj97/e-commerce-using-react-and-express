@@ -1,6 +1,8 @@
 import { model, Schema } from "mongoose";
 import mongooseUniqueValidator from "mongoose-unique-validator";
 
+import { averageReviewOfProducts } from "../controller/productReviewController";
+
 const productSchema = new Schema(
   {
     productName: {
@@ -60,11 +62,11 @@ productSchema.virtual("averageReview", {
   foreignField: "productId",
 });
 
-productSchema.pre(/find/, function (next) {
+productSchema.pre(/^find/, function (next) {
   this.populate({
     path: "categoryId",
     model: "Category",
-  }).populate("averageReview", { averageReview: 1 });
+  });
 
   next();
 });

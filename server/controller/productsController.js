@@ -19,10 +19,12 @@ import {
   handleImageUploadWithNoImageLimit,
 } from "../middleware/imageProcessMiddleware";
 
+export { getAllProductsWithAverageReviewAttached } from "../middleware/preFillers";
+
 export {
   preFillCartIdasParams,
   preFillProductBoards,
-} from "../middleware/preFillers";
+} from "../middleware/productPreFillers";
 
 const {
   LEXA_PRODUCT_COVERS,
@@ -44,6 +46,7 @@ export const addNewProduct = createNewDocumnet(Product, {
 
 export const getAllProducts = readAllDocument(Product, {
   message: "List Of Products",
+  next: true,
 });
 
 // Cart

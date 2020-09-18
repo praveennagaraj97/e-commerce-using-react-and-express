@@ -28,6 +28,12 @@ export const readAllDocument = (ModelName, responseMessage) =>
     if (!response || response.length === 0)
       return next(new AppError("No Document Found", 404));
 
+    if (responseMessage.hasOwnProperty("next")) {
+      req.details = response;
+      req.message = responseMessage.message;
+      return next();
+    }
+
     res.status(200).json({
       foundResults: response.length,
       message: responseMessage.message,

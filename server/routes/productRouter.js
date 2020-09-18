@@ -9,6 +9,7 @@ import {
   processProductImages,
   handleProductBoardImages,
   processProductBoards,
+  getAllProductsWithAverageReviewAttached,
 
   // Routes
   addNewProduct,
@@ -30,7 +31,11 @@ export const productRouter = Router();
 const upload = multer();
 
 // Public Routes
-productRouter.route("/getProducts").get(getAllProducts);
+
+productRouter
+  .route("/getProducts")
+  .get(getAllProducts, getAllProductsWithAverageReviewAttached);
+
 productRouter
   .route("/getProductsDetailsInCart")
   .post(preFillCartIdasParams, getProductDetailsInCart);
@@ -40,14 +45,15 @@ productRouter.route("/getProduct").get(getProduct);
 // Seller Route
 
 // DevRoute
-productRouter.route("/dev/addNewProduct").post(
-  upload.array("productCoverImage"),
-
-  protectRoute,
-  getProductImageProcessed,
-  productImageLink,
-  addNewProduct
-);
+productRouter
+  .route("/dev/addNewProduct")
+  .post(
+    upload.array("productCoverImage"),
+    protectRoute,
+    getProductImageProcessed,
+    productImageLink,
+    addNewProduct
+  );
 
 productRouter.route("/dev/addManufacturer").post(addProductManufacturer);
 

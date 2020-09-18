@@ -22,7 +22,7 @@ export const handleProductDetailVideo = handleVideoUpload(
   PRODUCT_DETAILS_VIDEOS
 );
 export const processProductDetailVideo = processSingleVideo("productVideo");
-export { preFillProductdetailedDescription } from "../middleware/preFillers";
+export { preFillProductdetailedDescription } from "../middleware/productPreFillers";
 export const addDetailForProduct = createNewDocumnet(ProductDetailModel, {
   message: "Product Detail Added",
 });

@@ -5,6 +5,8 @@ import {
   addProductMobileReview,
   getProductReviewBasedOnProductId,
   reviewHelpfulPost,
+  averageReviewOfProducts,
+
   // Middlewares
   protectRoute,
   preFillUserId,
@@ -42,3 +44,5 @@ productReviewRouter
     preFillReviewHelpulForLikeOrUndo,
     reviewHelpfulPost
   );
+
+productReviewRouter.route("/test").get(averageReviewOfProducts);
