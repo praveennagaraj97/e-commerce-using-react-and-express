@@ -52,7 +52,11 @@ export const averageReviewOfProducts = async (productIds = []) => {
       },
     },
     {
-      $group: { _id: "$productId", averageReview: { $avg: "$averageReview" } },
+      $group: {
+        _id: "$productId",
+        averageReview: { $avg: "$averageReview" },
+        reviewersCount: { $sum: 1 },
+      },
     },
   ];
 
