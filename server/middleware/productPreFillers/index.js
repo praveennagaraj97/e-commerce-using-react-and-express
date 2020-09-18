@@ -46,6 +46,7 @@ export const getAllProductsWithAverageReviewAttached = catchAsyncError(
     /**
      * @desc - as limit of each request is set to max-10 items
      *         performace doesn't get affected as aggregation pipeline is used!
+     * @requires - this middleware needs to be changes on model fields chanege or virtual fields added
      */
     const ids = [];
     for (let i = 0; i < req.details.length; i++) {
@@ -53,11 +54,34 @@ export const getAllProductsWithAverageReviewAttached = catchAsyncError(
     }
     const averageReview = await averageReviewOfProducts(ids);
 
+    const details = [];
+
+    for (let j = 0; j < req.details.length; j++) {
+      const response = req.details[j];
+      details.push({
+        _id: response._id,
+        productName: response.productName,
+        categoryId: {
+          _id: response.categoryId._id,
+          categoryName: response.categoryId.categoryName,
+          categoryIcon: response.categoryId.categoryIcon,
+          id: response.categoryId.id,
+        },
+        productPrice: response.productPrice,
+        productCoverImage: response.productCoverImage,
+        createdAt: response.createdAt,
+        updatedAt: response.updatedAt,
+        id: response.id,
+        averageReview: averageReview.filter(
+          (each) => String(each._id) === String(response._id)
+        ),
+      });
+    }
+
     res.status(200).json({
       foundResults: req.details.length,
       message: req.message,
-      details: req.details,
-      averageReview,
+      details,
     });
   }
 );
