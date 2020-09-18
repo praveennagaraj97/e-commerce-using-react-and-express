@@ -43,11 +43,7 @@ const ProductDisplay = ({
   };
 
   const reviewStarRender = (review) => {
-    if (review.length === 0) {
-      return <ShowRating value={0} />;
-    }
-
-    return <ShowRating value={5} />;
+    return <ShowRating value={review} />;
   };
 
   return (
@@ -84,7 +80,13 @@ const ProductDisplay = ({
             {products.length > 0 ? (
               <Fragment>
                 {products.map(
-                  ({ _id, productCoverImage, productName, productPrice }) => {
+                  ({
+                    _id,
+                    productCoverImage,
+                    productName,
+                    productPrice,
+                    averageReview,
+                  }) => {
                     return (
                       <div key={_id} className='product-card'>
                         <div className='product-card-image_container'>
@@ -98,7 +100,11 @@ const ProductDisplay = ({
                         <div className='product-card-contents_container'>
                           <h1 className='product-card__title'>{productName}</h1>
                           <div className='product-review-container'>
-                            {reviewStarRender(5)}
+                            {reviewStarRender(
+                              averageReview.length === 0
+                                ? 0
+                                : averageReview[0].averageReview
+                            )}
                           </div>
                           <p className='product-card__price'>₹{productPrice}</p>
                           <div className='product-card__view__cart_btn_option'>
