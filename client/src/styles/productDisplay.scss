@@ -162,3 +162,18 @@ $cart-btn-colour: rgba(238, 155, 117, 0.774);
     height: 400px;
   }
 }
+
+.product-display-list-rating {
+  display: flex;
+  color: black;
+  justify-content: center;
+  p {
+    color: blue;
+    margin-left: 5px;
+    cursor: grabbing;
+  }
+  img {
+    height: 19px;
+    margin-left: 5px;
+  }
+}

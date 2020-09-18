@@ -42,8 +42,23 @@ const ProductDisplay = ({
     loadViewDetail(productType);
   };
 
-  const reviewStarRender = (review) => {
-    return <ShowRating value={review} />;
+  const reviewStarRender = (review, reviewerCount) => {
+    return (
+      <div className='product-display-list-rating'>
+        <ShowRating value={review} />
+        {reviewerCount > 0 ? (
+          <Fragment>
+            <p>{reviewerCount}</p>
+            <img
+              src='https://img.icons8.com/material-sharp/24/000000/reviewer-female.png'
+              alt='reviewers'
+            />
+          </Fragment>
+        ) : (
+          ""
+        )}
+      </div>
+    );
   };
 
   return (
@@ -103,7 +118,10 @@ const ProductDisplay = ({
                             {reviewStarRender(
                               averageReview.length === 0
                                 ? 0
-                                : averageReview[0].averageReview
+                                : averageReview[0].averageReview,
+                              averageReview.length === 0
+                                ? 0
+                                : averageReview[0].reviewersCount
                             )}
                           </div>
                           <p className='product-card__price'>₹{productPrice}</p>
