@@ -17,6 +17,7 @@ export function* handleProductsCategoryWorker() {
     yield put(getAllCategories(data.details));
   } catch (err) {
     yield put(productCategoryLoading(false));
+    yield console.clear();
     yield put(
       globalFailureMessenger(
         "Something went Wrong Server didn't respond!! Trying again"

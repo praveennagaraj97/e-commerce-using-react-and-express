@@ -46,6 +46,7 @@ function* handleLoadProductWorker() {
       yield put(productsLoading(false));
       yield put(getProductsOnQuery(data.details));
     } catch (err) {
+      yield console.clear();
       if (err.response.data.message === "No Document Found") {
         yield put(productsLoading(false));
         yield put(getProductsOnQuery([]));
@@ -93,6 +94,7 @@ function* handleLoadMoreResultsWorker() {
 
       yield put(getProductsOnQuery([...products, ...data.details]));
     } catch (err) {
+      yield console.clear();
       try {
         yield put(globalFailureMessenger(err.response.data.message));
       } catch (err) {

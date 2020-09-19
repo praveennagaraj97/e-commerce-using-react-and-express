@@ -106,6 +106,7 @@ function* handleUserLoginWorker() {
     yield delay(3200);
     yield put(authSuccessMessage(null));
   } catch (err) {
+    yield console.clear();
     try {
       yield put(authFailueMessage(err.response.data.message + "🙃"));
       yield delay(3200);
@@ -198,6 +199,7 @@ function* handleUserSignUpWorker() {
     yield delay(3200);
     yield put(authSuccessMessage(null));
   } catch (err) {
+    yield console.clear();
     try {
       yield put(authFailueMessage(err.response.data.message + "🙃"));
       yield delay(3200);
@@ -225,6 +227,7 @@ function* handleUserAccreditationWorker() {
     const { data } = yield call(AuthAccreditation, authCookie || sessionCookie);
     yield put(userAccredited(data.message));
   } catch (err) {
+    yield console.clear();
     yield put(userAccredited(false));
     yield removeCookie(AUTH_TOKEN);
   }
@@ -265,6 +268,7 @@ function* handleUserForgorPasswordWorker() {
         yield put(authSuccessMessage(null));
       }
     } catch (error) {
+      yield console.clear();
       yield put(authFailueMessage(`Something went wrong try again later!!!`));
       yield delay(3200);
       yield put(authFailueMessage(null));
@@ -322,9 +326,8 @@ function* handleUserPasswordResetWorker() {
       yield call(handleUserAccreditationWorker);
       yield delay(3200);
       yield put(authSuccessMessage(null));
-
-      console.log(data);
     } catch (err) {
+      yield console.clear();
       try {
         if (err.response.data.message) {
           yield put(authFailueMessage(err.response.data.message));
@@ -377,6 +380,7 @@ function* handleUserManageDataWorker() {
     const { data } = yield call(getUserApi);
     yield put(getUser(data.user));
   } catch (err) {
+    yield console.clear();
     yield put(authFailueMessage("Something went wrong🤯!!!"));
     yield delay(3200);
     yield put(authFailueMessage(null));
@@ -435,6 +439,7 @@ function* handleUserPasswordUpdateWorker() {
       yield delay(3200);
       yield put(authSuccessMessage(null));
     } catch (err) {
+      yield console.clear();
       try {
         if (err.response) {
           yield put(authFailueMessage(err.response.data.message));

@@ -29,6 +29,7 @@ function* handleGetProductReviewWorker() {
     yield put(productReviewLoading(false));
     yield put(getProductReviews(data));
   } catch (err) {
+    yield console.clear();
     let data = {};
     yield put(productReviewLoading(false));
     data.reviewForProduct = productId;

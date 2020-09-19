@@ -73,6 +73,7 @@ function* handleproductCartWorker() {
 
     yield put(getProductsDetailsInCart(data.details));
   } catch (err) {
+    yield console.clear();
     yield put(globalFailureMessenger("Something went wrong try again later!"));
     yield delay(3200);
     yield put(globalFailureMessenger(null));
