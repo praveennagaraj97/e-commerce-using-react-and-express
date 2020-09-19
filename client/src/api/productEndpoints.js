@@ -25,3 +25,15 @@ export const getListOfProductReviewsEndPoint = async (id) => {
     `/product_review/getReviews?productId=${id}&sort=-createdAt&page=1&limit=4`
   );
 };
+
+export const postFoundReviewHelpful = async (bool = true, authToken) => {
+  return await apiBaseEndpoint.post(
+    `/product_review/foundHelpful/${bool}`,
+    null,
+    {
+      headers: {
+        authorization: `Bearer ${authToken}`,
+      },
+    }
+  );
+};
