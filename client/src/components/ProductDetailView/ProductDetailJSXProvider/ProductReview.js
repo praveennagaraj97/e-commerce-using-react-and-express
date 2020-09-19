@@ -16,7 +16,6 @@ const ProductReview = ({
   useInfiniteScrolling(
     reviewVisible,
     () => {
-      console.log("visible");
       loadProductReview();
     },
     1

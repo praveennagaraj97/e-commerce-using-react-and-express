@@ -40,29 +40,25 @@ function* handleLoadProductWorker() {
         query.current + `&page=${query.pageNumber}&limit=${query.limit}`
       );
 
-      if (data.message === "No Document Found") {
-        yield put(productsLoading(false));
-        yield put(getProductsOnQuery([]));
-        yield put(noMoreResultsFound(false));
-        return;
-      }
-
       data.details.length === query.limit
         ? yield put(noMoreResultsFound(true))
         : yield put(noMoreResultsFound(false));
       yield put(productsLoading(false));
       yield put(getProductsOnQuery(data.details));
     } catch (err) {
-      yield put(productsLoading(false));
-      try {
-        yield put(globalFailureMessenger(err.response.data.message));
-      } catch (err) {
-        yield put(
-          globalFailureMessenger("Something went wrong Please try again later!")
-        );
-        yield delay(3200);
-        yield put(globalFailureMessenger(null));
+      if (err.response.data.message === "No Document Found") {
+        yield put(productsLoading(false));
+        yield put(getProductsOnQuery([]));
+        yield put(noMoreResultsFound(false));
+        return;
       }
+
+      yield put(productsLoading(false));
+      yield put(
+        globalFailureMessenger("Something went wrong Please try again later!")
+      );
+      yield delay(3200);
+      yield put(globalFailureMessenger(null));
     }
   }
 }
