@@ -28,6 +28,7 @@ const ProductElectronicsDetail = (props) => {
         <ProductImageAndBrief
           images={props.images}
           productBriefInfo={props.productInfo}
+          currentProductId={props.id}
         />
         <hr style={{ width: "65%" }} />
 
@@ -92,6 +93,7 @@ const mapStateToProps = ({ productDetail }) => ({
   manufacturer: productDetail.manufacturer,
   productDescription: productDetail.productBrief,
   productBoards: productDetail.productBoards,
+  id: productDetail.productType,
 });
 
 export default connect(mapStateToProps)(ProductElectronicsDetail);

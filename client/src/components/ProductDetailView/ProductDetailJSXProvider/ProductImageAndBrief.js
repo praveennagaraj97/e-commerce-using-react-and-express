@@ -2,8 +2,17 @@ import { Button } from "@material-ui/core";
 import React, { useEffect, useState, Fragment } from "react";
 
 import "../../../styles/productimageandbrief.scss";
+import { loadViewProductDetail, addItemToCart } from "../../../actions";
+import { connect } from "react-redux";
+import history from "../../../history";
 
-const ProductImageAndBrief = ({ images, productBriefInfo }) => {
+const ProductImageAndBrief = ({
+  images,
+  productBriefInfo,
+  loadViewProductDetail,
+  addItemToCart,
+  currentProductId,
+}) => {
   const [previewImage, setPreviewImage] = useState("");
   const [screenAbove1032, setScreenAbove1032] = useState(true);
   const [screenAbove582, setScreenAbove582] = useState(true);
@@ -31,6 +40,17 @@ const ProductImageAndBrief = ({ images, productBriefInfo }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const handleViewSimilarProduct = (id) => {
+    const productType = {
+      category: history.location.pathname.split("/")[
+        history.location.pathname.split("/").length - 2
+      ],
+      id,
+    };
+
+    loadViewProductDetail(productType);
+  };
+
   const productBriefDescriptionJSX = (productBriefInfo) => {
     return (
       <div className='product-detail-description-container'>
@@ -39,10 +59,6 @@ const ProductImageAndBrief = ({ images, productBriefInfo }) => {
           <p>{productBriefInfo.productPrice}</p>
         </div>
         <hr />
-        <div className='product-detail_seller_and_ratings'>
-          <a href='/seller'> Seller Details : iAsta</a>
-          <p>Rating 4.5/5 from 50 reviews</p>
-        </div>
 
         {productBriefInfo.similarProducts.length > 1 ? (
           <div className='product-detail_similar_products'>
@@ -50,7 +66,10 @@ const ProductImageAndBrief = ({ images, productBriefInfo }) => {
             <div className='product-detail_similar_products__container'>
               {productBriefInfo.similarProducts.map(({ _id, productName }) => {
                 return productName !== productBriefInfo.productName ? (
-                  <Button className='btn-block' key={_id}>
+                  <Button
+                    onClick={() => handleViewSimilarProduct(_id)}
+                    className='btn-block'
+                    key={_id}>
                     {productName}
                   </Button>
                 ) : (
@@ -77,7 +96,9 @@ const ProductImageAndBrief = ({ images, productBriefInfo }) => {
     return (
       <div className='product-detail-description-payment__checkout'>
         <div className='product-detail-description-payment__cart-btn'>
-          <button>Add To Cart</button>
+          <button onClick={() => addItemToCart(currentProductId.productId)}>
+            Add To Cart
+          </button>
         </div>
         <div className='product-detail-description-payment__buy-btn'>
           <button>Buy Now</button>
@@ -86,6 +107,7 @@ const ProductImageAndBrief = ({ images, productBriefInfo }) => {
     );
   };
 
+  // Display JSX
   if (images.length > 0 && productBriefInfo) {
     return (
       <Fragment>
@@ -150,4 +172,9 @@ const ProductImageAndBrief = ({ images, productBriefInfo }) => {
   );
 };
 
-export default ProductImageAndBrief;
+const mapDispatchToProps = (dispatch) => ({
+  loadViewProductDetail: (id) => dispatch(loadViewProductDetail(id)),
+  addItemToCart: (id) => dispatch(addItemToCart(id)),
+});
+
+export default connect(null, mapDispatchToProps)(ProductImageAndBrief);
