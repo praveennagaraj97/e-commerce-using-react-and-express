@@ -15,20 +15,24 @@ function* handleGetProductReviewWorker() {
     productType: { productId },
   } = yield select(getProductIdFromStore);
 
-  //   Check if the product review already exist for current product!!
-  const { productReviewsList } = yield select(getCurrentReviewFromStore);
-  if (productReviewsList) {
-    if (productReviewsList.reviewForProduct === productId) return;
+  // Check if the product review already exist for current product!!
+  const { reviewForProduct } = yield select(getCurrentReviewFromStore);
+
+  if (reviewForProduct) {
+    if (reviewForProduct === productId) return;
   }
+
   try {
     yield put(productReviewLoading(true));
     const { data } = yield call(getListOfProductReviewsEndPoint, productId);
     data.reviewForProduct = productId;
     yield put(productReviewLoading(false));
-    yield put(getProductReviews(data.details));
+    yield put(getProductReviews(data));
   } catch (err) {
+    let data = {};
     yield put(productReviewLoading(false));
-    yield put(getProductReviews(null));
+    data.reviewForProduct = productId;
+    yield put(getProductReviews(data));
   }
 }
 

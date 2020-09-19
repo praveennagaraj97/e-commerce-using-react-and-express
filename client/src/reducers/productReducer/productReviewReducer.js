@@ -8,7 +8,11 @@ export const productReviewReducer = (state = {}, action) => {
     case REVIEW_LOADING:
       return { ...state, reviewLoading: action.boolean };
     case GET_PRODUCT_REVIEWS:
-      return { ...state, productReviewsList: action.data };
+      return {
+        ...state,
+        productReviewsList: action.data ? action.data.details : null,
+        reviewForProduct: action.data.reviewForProduct,
+      };
 
     default:
       return { ...state };
