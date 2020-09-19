@@ -20,7 +20,7 @@ export {
 export {
   getAllCategoriesEndpoint,
   getProductsBasedOnQuery,
-  getProductsDetailsInCartEndPoint,
+  getProductsDetailsForGrpIdsEndPoint,
   getProductDetailEndPoint,
   getListOfProductReviewsEndPoint,
 } from "./productEndpoints";

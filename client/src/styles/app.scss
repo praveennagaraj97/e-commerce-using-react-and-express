@@ -36,8 +36,13 @@ body {
   }
 }
 
+.scroll-up-btn__mobile-screen_only {
+  display: none;
+}
+
 @media (max-width: 820px) {
   .scroll-up-btn__mobile-screen_only {
+    display: block;
     float: left;
     position: fixed;
     bottom: 5%;

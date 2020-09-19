@@ -33,6 +33,8 @@ function* handleGetProductReviewWorker() {
     yield put(productReviewLoading(false));
     data.reviewForProduct = productId;
     yield put(getProductReviews(data));
+    // Clear API FETCH LOG
+    yield console.clear();
   }
 }
 

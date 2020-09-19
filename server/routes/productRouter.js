@@ -14,7 +14,7 @@ import {
   // Routes
   addNewProduct,
   getAllProducts,
-  getProductDetailsInCart,
+  getProductDetailsWithProductIds,
   getProduct,
   addProductManufacturer,
   addProductDescriptionAndImages,
@@ -37,8 +37,8 @@ productRouter
   .get(getAllProducts, getAllProductsWithAverageReviewAttached);
 
 productRouter
-  .route("/getProductsDetailsInCart")
-  .post(preFillCartIdasParams, getProductDetailsInCart);
+  .route("/getProductDetailsWithProductIds")
+  .post(preFillCartIdasParams, getProductDetailsWithProductIds);
 
 productRouter.route("/getProduct").get(getProduct);
 

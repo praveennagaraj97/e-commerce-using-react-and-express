@@ -17,7 +17,7 @@ import history from "../../history";
 // API Endpoints!
 import {
   getProductDetailEndPoint,
-  getProductsDetailsInCartEndPoint as getProductDetailStoredinarray,
+  getProductsDetailsForGrpIdsEndPoint,
 } from "../../api";
 
 // Actions are dispatched using saga put!
@@ -61,7 +61,7 @@ function* handleLoadProductViewWorker() {
 
     // Similar Items
     if (data.detail.productFullDetails.length > 0) {
-      const response = yield call(getProductDetailStoredinarray, {
+      const response = yield call(getProductsDetailsForGrpIdsEndPoint, {
         cartItems: data.detail.productFullDetails[0].productId,
       });
 

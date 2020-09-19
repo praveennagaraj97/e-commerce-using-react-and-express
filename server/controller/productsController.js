@@ -49,7 +49,7 @@ export const getAllProducts = readAllDocument(Product, {
 });
 
 // Cart
-export const getProductDetailsInCart = readAllDocument(Product, {
+export const getProductDetailsWithProductIds = readAllDocument(Product, {
   message: "Details Of Products in Cart",
 });
 

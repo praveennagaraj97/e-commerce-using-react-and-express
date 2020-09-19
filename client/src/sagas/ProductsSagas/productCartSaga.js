@@ -11,7 +11,7 @@ import {
   getProductsDetailsInCart,
 } from "../../actions";
 
-import { getProductsDetailsInCartEndPoint } from "../../api";
+import { getProductsDetailsForGrpIdsEndPoint } from "../../api";
 
 const {
   ADD_PRODUCT_TO_CART,
@@ -62,7 +62,7 @@ function* handleproductCartWorker() {
 
   const qunatityOfCartItems = addQuantityPropToCart(cart);
   try {
-    const { data } = yield call(getProductsDetailsInCartEndPoint, {
+    const { data } = yield call(getProductsDetailsForGrpIdsEndPoint, {
       cartItems: cart,
     });
     data.details.map((item) => {

@@ -10,8 +10,11 @@ export const getProductsBasedOnQuery = async (query) => {
   );
 };
 
-export const getProductsDetailsInCartEndPoint = async (data) => {
-  return await apiBaseEndpoint.post(`/product/getProductsDetailsInCart`, data);
+export const getProductsDetailsForGrpIdsEndPoint = async (data) => {
+  return await apiBaseEndpoint.post(
+    `/product/getProductDetailsWithProductIds`,
+    data
+  );
 };
 
 export const getProductDetailEndPoint = async (id) => {
