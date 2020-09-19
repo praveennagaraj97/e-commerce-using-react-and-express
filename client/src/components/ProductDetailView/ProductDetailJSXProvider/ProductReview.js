@@ -21,10 +21,6 @@ const ProductReview = ({
     1
   );
 
-  /**  @desc Two types of review -
-   *  One with images and one without images
-   */
-
   return (
     <Fragment>
       <h3 className='product-review-header' ref={setReviewVisible}>
