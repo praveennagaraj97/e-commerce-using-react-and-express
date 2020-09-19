@@ -1,8 +1,6 @@
 import { model, Schema } from "mongoose";
 import mongooseUniqueValidator from "mongoose-unique-validator";
 
-import { averageReviewOfProducts } from "../controller/productReviewController";
-
 const productSchema = new Schema(
   {
     productName: {
