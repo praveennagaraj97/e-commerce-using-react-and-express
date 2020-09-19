@@ -29,7 +29,9 @@ process.on("uncaughtException", unCaughtExceptionErrorHandler);
 const app = express();
 
 // Logger
-app.use(morgon("dev"));
+if (process.env.NODE_ENV === "development") {
+  app.use(morgon("dev"));
+}
 
 // Compression -GZip
 // Gzip compressing can greatly decrease the size of the response body and hence increase the speed of a web app.

@@ -1,3 +1,4 @@
+import { Button } from "@material-ui/core";
 import React, { useEffect, useState, Fragment } from "react";
 
 import "../../../styles/productimageandbrief.scss";
@@ -49,9 +50,9 @@ const ProductImageAndBrief = ({ images, productBriefInfo }) => {
             <div className='product-detail_similar_products__container'>
               {productBriefInfo.similarProducts.map(({ _id, productName }) => {
                 return productName !== productBriefInfo.productName ? (
-                  <button className='btn-block' key={_id}>
+                  <Button className='btn-block' key={_id}>
                     {productName}
-                  </button>
+                  </Button>
                 ) : (
                   ""
                 );
