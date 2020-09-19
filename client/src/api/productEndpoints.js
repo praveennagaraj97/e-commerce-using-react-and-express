@@ -5,7 +5,9 @@ export const getAllCategoriesEndpoint = async () => {
 };
 
 export const getProductsBasedOnQuery = async (query) => {
-  return await apiBaseEndpoint.get(`/product/getProducts${query}`);
+  return await apiBaseEndpoint.get(
+    `/product/getProducts${query}&sort=-createdAt`
+  );
 };
 
 export const getProductsDetailsInCartEndPoint = async (data) => {
