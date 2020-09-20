@@ -68,9 +68,7 @@ baseProductReviewSchema.pre(/^find/, function (next) {
     path: "userId",
     model: "User",
     select: ["name"],
-  }).populate("foundHelpful", {
-    select: "_id",
-  });
+  }).populate("foundHelpful", ["-helpul"]);
 
   next();
 });
