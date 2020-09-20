@@ -32,16 +32,19 @@ const userAuthLoginReducer = (state = {}, action) => {
         ...state,
         userDetails: action.response,
       };
-
     default:
       return state;
   }
 };
 
-export const userAccredited = (state = false, action) => {
+export const userAccredited = (state = {}, action) => {
   switch (action.type) {
     case IS_LOGGED_IN:
-      return action.isSigned;
+      return {
+        ...state,
+        isSigned: action.isSigned.message,
+        user: action.isSigned.userId,
+      };
     default:
       return state;
   }

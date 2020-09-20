@@ -20,6 +20,7 @@ import {
   productCartLoadWatcher,
   loadProductViewWatcher,
   loadProductReviewWatcher,
+  reviewFoundHelfulWatcher,
 } from "./ProductsSagas";
 
 function* rootSaga() {
@@ -44,6 +45,7 @@ function* rootSaga() {
     yield fork(productCartLoadWatcher),
     yield fork(loadProductViewWatcher),
     yield fork(loadProductReviewWatcher),
+    yield fork(reviewFoundHelfulWatcher),
   ]);
 }
 

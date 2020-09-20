@@ -1,11 +1,24 @@
 import { call, put, select, takeLatest } from "redux-saga/effects";
 
-import { getProductReviews, productReviewLoading } from "../../actions";
-import { PRODUCT_TYPES } from "../../constants";
+import {
+  getProductReviews,
+  productReviewLoading,
+  globalFailureMessenger,
+} from "../../actions";
+import { PRODUCT_TYPES, COOKIE_NAMES } from "../../constants";
 
-import { getListOfProductReviewsEndPoint } from "../../api";
+import {
+  getListOfProductReviewsEndPoint,
+  reviewFoundHelpfulEndpoint,
+} from "../../api";
+import { useSessionStorage } from "../../utils/useSessionStorage";
+import { useCookies } from "../../utils/useCookies";
 
-const { LOAD_PRODUCT_REVIEWS } = PRODUCT_TYPES;
+const { LOAD_PRODUCT_REVIEWS, REVIEW_FOUND_HELPFUL } = PRODUCT_TYPES;
+const { AUTH_TOKEN } = COOKIE_NAMES;
+
+const { getSessionItem } = useSessionStorage;
+const { getCookie } = useCookies;
 
 const getProductIdFromStore = ({ productDetail }) => productDetail;
 const getCurrentReviewFromStore = ({ productReview }) => productReview;
@@ -41,4 +54,46 @@ function* handleGetProductReviewWorker() {
 
 export function* loadProductReviewWatcher() {
   yield takeLatest(LOAD_PRODUCT_REVIEWS, handleGetProductReviewWorker);
+}
+
+function* handleReviewFoundHelpfulWorker() {
+  const authTokenCookie = yield call(getCookie, AUTH_TOKEN);
+  const authTokenSession = yield call(getSessionItem, AUTH_TOKEN);
+  const {
+    reviewHelpfulId,
+    productReviewsList,
+    reviewForProduct,
+  } = yield select(getCurrentReviewFromStore);
+  try {
+    const { data } = yield call(
+      reviewFoundHelpfulEndpoint,
+      authTokenCookie || authTokenSession,
+      reviewHelpfulId
+    );
+
+    // if success find the document from store and update it instead of calling api again for count refresh
+
+    const newUnstructuredReview = [...productReviewsList].map((each) => {
+      if (each._id === reviewHelpfulId) {
+        each.foundHelpful.push(data.details);
+        return each;
+      }
+      return each;
+    });
+
+    // Struct new data with current data;
+    const newStructuredReview = {
+      details: newUnstructuredReview,
+      reviewForProduct,
+    };
+    yield put(getProductReviews(newStructuredReview));
+  } catch (err) {
+    yield put(
+      globalFailureMessenger("Something went wrong 🤯 Please try again later")
+    );
+  }
+}
+
+export function* reviewFoundHelfulWatcher() {
+  yield takeLatest(REVIEW_FOUND_HELPFUL, handleReviewFoundHelpfulWorker);
 }

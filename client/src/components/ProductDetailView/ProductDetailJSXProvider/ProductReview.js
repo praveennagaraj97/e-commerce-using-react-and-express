@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 
 import { ShowRating } from "../../Rating";
-import { loadProductReview } from "../../../actions";
+import { loadProductReview, reviewFoundHelpful } from "../../../actions";
 import { useInfiniteScrolling } from "../../../utils/useInfiniteScrolling";
 import "../../../styles/productReviewList.scss";
 import { connect } from "react-redux";
@@ -10,6 +10,8 @@ const ProductReview = ({
   loadProductReview,
   productReviewsList,
   reviewLoading,
+  userId,
+  reviewFoundHelpful,
 }) => {
   const [reviewVisible, setReviewVisible] = useState(null);
 
@@ -21,10 +23,26 @@ const ProductReview = ({
     1
   );
 
-  const handleReviewHelpful = () => {
-    console.log("send Request");
+  const reviewFoundHelpfulJSX = (reviewHelpful, reviewId) => {
+    /**
+     * @ignore - Not-Helpful endpoint to avoid user switching between helpful v/s not helpful
+     */
+    if (!userId) return <></>;
+    if (userId && reviewHelpful.some((each) => each.userId === userId)) {
+      return <p>Thanks for feedback</p>;
+    } else {
+      return (
+        <button onClick={() => handleReviewHelpful(reviewId)}>
+          Found Helpful
+        </button>
+      );
+    }
   };
 
+  const handleReviewHelpful = (reviewId) => {
+    console.log(reviewId);
+    reviewFoundHelpful(reviewId);
+  };
   return (
     <Fragment>
       <h3 className='product-review-header' ref={setReviewVisible}>
@@ -54,6 +72,7 @@ const ProductReview = ({
               title,
               description,
               createdAt,
+              foundHelpful,
             }) => {
               return (
                 <div key={_id} className='product-review'>
@@ -72,9 +91,21 @@ const ProductReview = ({
                   <hr />
                   <div className='review'>{description}</div>
 
+                  {productReviewImages.length > 0 ? (
+                    <div className='product-review-images-container'>
+                      {productReviewImages.map((each, index) => {
+                        return (
+                          <img key={index} src={each} alt='review-imagessrc' />
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    ""
+                  )}
+
                   <div className='review-helpful-or-not'>
-                    <p>77 People Found Helpful</p>
-                    <button onClick={handleReviewHelpful}>Found Helpful</button>
+                    <p>{foundHelpful.length} People Found Helpful</p>
+                    {reviewFoundHelpfulJSX(foundHelpful, _id)}
                   </div>
                 </div>
               );
@@ -88,13 +119,16 @@ const ProductReview = ({
 
 const mapDispatchToProps = (dispatch) => ({
   loadProductReview: () => dispatch(loadProductReview()),
+  reviewFoundHelpful: (reviewId) => dispatch(reviewFoundHelpful(reviewId)),
 });
 
 const mapStateToProps = ({
   productReview: { productReviewsList, reviewLoading },
+  userAccredited: { user = null },
 }) => ({
   productReviewsList,
   reviewLoading,
+  userId: user,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductReview);

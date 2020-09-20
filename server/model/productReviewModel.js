@@ -87,6 +87,16 @@ const reviewHelpfulSchema = new Schema(
     userId: {
       type: Schema.Types.ObjectId,
       required: [true, "Provide User ID"],
+      validate: {
+        validator: async function (val) {
+          const docx = await ReviewHelpful.findOne({
+            userId: val,
+            reviewId: this.reviewId,
+          });
+          return docx ? false : true;
+        },
+        message: "You are allowed to like only once",
+      },
     },
     helpul: {
       type: Boolean,
@@ -98,6 +108,7 @@ const reviewHelpfulSchema = new Schema(
     toObject: { virtuals: true },
   }
 );
+reviewHelpfulSchema.plugin(mongooseUniqueValidator);
 
 export const ReviewHelpful = model("ReviewHelpful", reviewHelpfulSchema);
 

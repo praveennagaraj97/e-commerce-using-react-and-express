@@ -80,8 +80,8 @@ const UserMenu = ({ userAccredited, loadLogout }) => {
   );
 };
 
-const mapStateToProps = ({ userAccredited }) => ({
-  userAccredited,
+const mapStateToProps = ({ userAccredited: { isSigned = false } }) => ({
+  userAccredited: isSigned,
 });
 
 const mapDispatchToProps = (dispatch) => ({

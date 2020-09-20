@@ -29,10 +29,10 @@ export const getListOfProductReviewsEndPoint = async (id) => {
   );
 };
 
-export const postFoundReviewHelpful = async (bool = true, authToken) => {
+export const reviewFoundHelpfulEndpoint = async (authToken, reviewId) => {
   return await apiBaseEndpoint.post(
-    `/product_review/foundHelpful/${bool}`,
-    null,
+    `/product_review/foundHelpful/true`,
+    { reviewId },
     {
       headers: {
         authorization: `Bearer ${authToken}`,

@@ -4,4 +4,7 @@ export { loadProductsWatcher, loadMoreResultsWatcher } from "./productListSaga";
 
 export { loadProductViewWatcher } from "./productViewSagas";
 
-export { loadProductReviewWatcher } from "./productReviewSaga";
+export {
+  loadProductReviewWatcher,
+  reviewFoundHelfulWatcher,
+} from "./productReviewSaga";

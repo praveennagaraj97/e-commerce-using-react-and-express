@@ -23,4 +23,5 @@ export {
   getProductsDetailsForGrpIdsEndPoint,
   getProductDetailEndPoint,
   getListOfProductReviewsEndPoint,
+  reviewFoundHelpfulEndpoint,
 } from "./productEndpoints";

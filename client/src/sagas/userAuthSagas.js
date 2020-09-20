@@ -221,14 +221,15 @@ function* handleUserAccreditationWorker() {
   const authCookie = yield call(getCookie, AUTH_TOKEN);
   const sessionCookie = yield call(getSessionItem, AUTH_TOKEN);
 
-  if (!authCookie && !sessionCookie) return yield put(userAccredited(false));
+  if (!authCookie && !sessionCookie) return yield put(userAccredited({}));
 
   try {
     const { data } = yield call(AuthAccreditation, authCookie || sessionCookie);
-    yield put(userAccredited(data.message));
+
+    yield put(userAccredited(data));
   } catch (err) {
     yield console.clear();
-    yield put(userAccredited(false));
+    yield put(userAccredited({}));
     yield removeCookie(AUTH_TOKEN);
   }
 }

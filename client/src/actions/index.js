@@ -75,4 +75,5 @@ export {
   productReviewLoading,
   loadProductReview,
   getProductReviews,
+  reviewFoundHelpful,
 } from "./productsAction";
