@@ -12,7 +12,7 @@ const Settings = ({ loadUser, userDetail }) => {
   const handleManageData = () => {
     loadUser();
 
-    setShowUserData(true);
+    setShowUserData(!showUserData);
   };
 
   return (

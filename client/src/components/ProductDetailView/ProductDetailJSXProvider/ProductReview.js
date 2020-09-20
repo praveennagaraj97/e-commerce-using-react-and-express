@@ -21,6 +21,10 @@ const ProductReview = ({
     1
   );
 
+  const handleReviewHelpful = () => {
+    console.log("send Request");
+  };
+
   return (
     <Fragment>
       <h3 className='product-review-header' ref={setReviewVisible}>
@@ -70,7 +74,7 @@ const ProductReview = ({
 
                   <div className='review-helpful-or-not'>
                     <p>77 People Found Helpful</p>
-                    <button>Found Helpful</button>
+                    <button onClick={handleReviewHelpful}>Found Helpful</button>
                   </div>
                 </div>
               );
