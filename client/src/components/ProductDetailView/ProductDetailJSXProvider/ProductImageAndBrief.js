@@ -4,7 +4,6 @@ import React, { useEffect, useState, Fragment } from "react";
 import "../../../styles/productimageandbrief.scss";
 import { loadViewProductDetail, addItemToCart } from "../../../actions";
 import { connect } from "react-redux";
-import history from "../../../history";
 
 const ProductImageAndBrief = ({
   images,
@@ -42,9 +41,7 @@ const ProductImageAndBrief = ({
 
   const handleViewSimilarProduct = (id) => {
     const productType = {
-      category: history.location.pathname.split("/")[
-        history.location.pathname.split("/").length - 2
-      ],
+      category: currentProductId.productCategory,
       id,
     };
 
@@ -56,9 +53,8 @@ const ProductImageAndBrief = ({
       <div className='product-detail-description-container'>
         <div className='product-detail_name_and_price'>
           <h3>{productBriefInfo.productName}</h3>
-          <p>{productBriefInfo.productPrice}</p>
+          <p>M.R.P {productBriefInfo.productPrice} </p>
         </div>
-        <hr />
 
         {productBriefInfo.similarProducts.length > 1 ? (
           <div className='product-detail_similar_products'>

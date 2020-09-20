@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Router, Route, Switch } from "react-router-dom";
 import "animate.css";
 
@@ -37,7 +37,7 @@ const App = () => {
   };
 
   return (
-    <div>
+    <Fragment>
       <Router history={history}>
         <div id='section-header' className='header-container'>
           <Header navItems={navItems} />
@@ -85,11 +85,15 @@ const App = () => {
       <Notifer />
       {/* <footer
         style={{
-          height: "20vh",
+          height: "5vh",
           backgroundColor: "white",
-          margin: "0 5px",
-        }}></footer> */}
-    </div>
+          margin: "0px 5px",
+          position: "relative",
+          bottom: "0",
+        }}>
+        @Lexa
+      </footer> */}
+    </Fragment>
   );
 };
 

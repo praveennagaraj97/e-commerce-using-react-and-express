@@ -71,13 +71,15 @@ export const resetPasswordEndpoint = async (
   return response;
 };
 
-const authTokenFromCookie = getCookie(AUTH_TOKEN);
-const authTokenFromSession = getSessionItem(AUTH_TOKEN);
+const authTokenFromCookie = () => getCookie(AUTH_TOKEN);
+const authTokenFromSession = () => getSessionItem(AUTH_TOKEN);
 
 export const getUserEndpoint = async () => {
   const response = await apiBaseEndpoint.get("/user/getMe", {
     headers: {
-      authorization: `Bearer ${authTokenFromCookie || authTokenFromSession}`,
+      authorization: `Bearer ${
+        authTokenFromCookie() || authTokenFromSession()
+      }`,
     },
   });
 

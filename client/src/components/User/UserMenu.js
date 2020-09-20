@@ -64,7 +64,6 @@ const UserMenu = ({ userAccredited, loadLogout }) => {
           <MenuItem onClick={redirectToAuth}>Login/Create New Account</MenuItem>
         ) : (
           <div>
-            <MenuItem onClick={handleClose}>Profile</MenuItem>
             <MenuItem onClick={handleClose}>Saved Address</MenuItem>
             <MenuItem onClick={handleClose}>Whishlist</MenuItem>
             <MenuItem onClick={handleSettings}>Settings</MenuItem>
