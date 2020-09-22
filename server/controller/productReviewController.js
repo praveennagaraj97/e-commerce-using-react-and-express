@@ -25,6 +25,7 @@ const { LEXA_PRODUCT_REVIEWS } = GCS_BUCKET_NAME;
 export const handleProductReviewImage = handleImageUpload(
   5,
   LEXA_PRODUCT_REVIEWS,
+  true,
   true
 );
 export const processProductReviewImage = processMultipleImages(

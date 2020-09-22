@@ -21,7 +21,7 @@ export const productReviewRouter = Router();
 
 productReviewRouter
   .use(multer().array("productReviewImage"))
-  .route("/addMobileReview/image")
+  .route("/addMobileReview")
   .post(
     protectRoute,
     preFillUserId,
@@ -29,10 +29,6 @@ productReviewRouter
     processProductReviewImage,
     addProductMobileReview
   );
-
-productReviewRouter
-  .route("/addMobileReview")
-  .post(protectRoute, preFillUserId, addProductMobileReview);
 
 productReviewRouter.route("/getReviews").get(getProductReviewBasedOnProductId);
 

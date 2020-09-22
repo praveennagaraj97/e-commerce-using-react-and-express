@@ -1,13 +1,19 @@
 import catchAsyncError from "../utils/catchAsyncError";
 import { AppError } from "../utils/AppError";
 
-import { GCS_BUCKET_NAME } from "../constants";
 import { uploadImageToGoogle } from "../utils/GCloudStorageService";
 
-const { PRODUCT_DETAILS_VIDEOS } = GCS_BUCKET_NAME;
-
-export const handleImageUpload = (imageCount, bucketName, inbetween = false) =>
+export const handleImageUpload = (
+  imageCount,
+  bucketName,
+  inbetween = false,
+  optional = false
+) =>
   catchAsyncError(async (req, res, next) => {
+    if (optional && req.files.length === 0) {
+      return next();
+    }
+
     if (req.files.length > imageCount)
       return next(
         new AppError(`This request takes maximum of ${imageCount} images!.`)
@@ -48,24 +54,37 @@ export const handleImageUpload = (imageCount, bucketName, inbetween = false) =>
     next();
   });
 
-export const handleVideoUpload = (videoCount, bucketName) =>
+export const handleVideoUpload = (
+  videoCount,
+  bucketName,
+  inbetween = false,
+  optional = false
+) =>
   catchAsyncError(async (req, res, next) => {
-    if (bucketName === PRODUCT_DETAILS_VIDEOS) {
-      if (req.files.length === 0) return next();
+    if (optional && !req.files.length) {
+      return next();
     }
 
     if (req.files.length > videoCount)
       return next(
         new AppError(`This request takes maximum of ${videoCount} Videos!.`)
       );
-    if (req.files.length < videoCount)
-      return next(
-        new AppError(`This request takes minimum of ${videoCount} Videos!.`)
-      );
+
+    if (inbetween) {
+      if (req.files.length < req.files.length)
+        return next(
+          new AppError(`This request takes minimum of ${videoCount} Videos!.`)
+        );
+    } else {
+      if (req.files.length < videoCount)
+        return next(
+          new AppError(`This request takes minimum of ${videoCount} Videos!.`)
+        );
+    }
 
     const videoUrls = [];
     const files = [];
-    for (let i = 0; i < videoCount; i++) {
+    for (let i = 0; i < req.files.length; i++) {
       const validImage = /\.(mp4|mkv|wmv|mov)$/i.test(
         req.files[i].originalname
       );
@@ -81,7 +100,7 @@ export const handleVideoUpload = (videoCount, bucketName) =>
       files.push(req.files[i]);
     }
 
-    for (let i = 0; i < videoCount; i++) {
+    for (let i = 0; i < req.files.length; i++) {
       const url = await uploadImageToGoogle(files[i], bucketName);
       videoUrls.push(url);
     }
@@ -90,24 +109,28 @@ export const handleVideoUpload = (videoCount, bucketName) =>
     next();
   });
 
-export const processSingleImage = (imageFieldName) =>
+export const processSingleImage = (imageFieldName, optional = false) =>
   catchAsyncError(async (req, res, next) => {
+    if (optional && !req.imageUrls) return next();
+
     req.body[imageFieldName] = req.imageUrls[0];
     next();
   });
 
-export const processSingleVideo = (videoFieldName) =>
+export const processSingleVideo = (videoFieldName, optional = false) =>
   catchAsyncError(async (req, res, next) => {
-    if (videoFieldName === "productVideo") {
-      if (req.videoUrls === undefined) return next();
+    if (optional && !req.videoUrls) {
+      return next();
     }
 
     req.body[videoFieldName] = req.videoUrls[0];
     next();
   });
 
-export const processMultipleImages = (imagesFieldName) =>
+export const processMultipleImages = (imagesFieldName, optional) =>
   catchAsyncError(async (req, res, next) => {
+    if (optional && req.imageUrls.length === 0) return next();
+
     req.body[imagesFieldName] = req.imageUrls;
     next();
   });

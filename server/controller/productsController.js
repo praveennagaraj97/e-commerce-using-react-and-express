@@ -36,9 +36,11 @@ export { protectRoute } from "./userController";
 
 export const getProductImageProcessed = handleImageUpload(
   1,
-  LEXA_PRODUCT_COVERS
+  LEXA_PRODUCT_COVERS,
+  false,
+  false
 );
-export const productImageLink = processSingleImage("productCoverImage");
+export const productImageLink = processSingleImage("productCoverImage", false);
 export const addNewProduct = createNewDocumnet(Product, {
   message: "New Product Added Successfully",
 });
@@ -59,7 +61,12 @@ export const addProductManufacturer = createNewDocumnet(ProductManufacturer, {
 });
 
 // Product Description
-export const handleProductImages = handleImageUpload(5, PRODUCT_DETAILS_IMAGES);
+export const handleProductImages = handleImageUpload(
+  5,
+  PRODUCT_DETAILS_IMAGES,
+  false,
+  false
+);
 export const processProductImages = processMultipleImages("productImages");
 
 export const addProductDescriptionAndImages = createNewDocumnet(

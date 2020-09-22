@@ -73,6 +73,13 @@ baseProductReviewSchema.pre(/^find/, function (next) {
   next();
 });
 
+baseProductReviewSchema.pre("save", function (next) {
+  if (this.productReviewImages.length === 0) {
+    this.productReviewImages = undefined;
+  }
+  next();
+});
+
 export const BaseProductReviewModel = model(
   "ProductReview",
   baseProductReviewSchema

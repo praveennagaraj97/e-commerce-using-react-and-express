@@ -19,9 +19,14 @@ const { PRODUCT_DETAILS_VIDEOS } = GCS_BUCKET_NAME;
 
 export const handleProductDetailVideo = handleVideoUpload(
   1,
-  PRODUCT_DETAILS_VIDEOS
+  PRODUCT_DETAILS_VIDEOS,
+  false,
+  true
 );
-export const processProductDetailVideo = processSingleVideo("productVideo");
+export const processProductDetailVideo = processSingleVideo(
+  "productVideo",
+  true
+);
 export { preFillProductdetailedDescription } from "../middleware/productPreFillers";
 export const addDetailForProduct = createNewDocumnet(ProductDetailModel, {
   message: "Product Detail Added",
