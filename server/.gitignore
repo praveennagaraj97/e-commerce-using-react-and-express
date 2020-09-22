@@ -75,3 +75,5 @@ lexa-api.json
 assets
 
 .vscode
+
+config.env
