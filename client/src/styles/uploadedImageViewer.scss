@@ -1,0 +1,11 @@
+.uploaded-image-viewer {
+  display: flex;
+  overflow-y: hidden;
+  height: 75px;
+  margin-bottom: 10px;
+  img {
+    height: 100%;
+    margin-right: 5px;
+    border-radius: 9px;
+  }
+}

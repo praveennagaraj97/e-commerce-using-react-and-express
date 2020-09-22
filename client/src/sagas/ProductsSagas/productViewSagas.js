@@ -76,7 +76,7 @@ function* handleLoadProductViewWorker() {
     yield put(getProductDetail(data.detail));
     yield history.push(`/${productType.productCategory}/detail`);
   } catch (err) {
-    yield console.clear();
+    // yield console.clear();
     yield put(
       globalFailureMessenger("Server didn't respond please try again later!")
     );

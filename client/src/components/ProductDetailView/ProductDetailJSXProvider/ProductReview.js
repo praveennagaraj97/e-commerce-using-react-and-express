@@ -1,10 +1,11 @@
 import React, { Fragment, useState } from "react";
+import { connect } from "react-redux";
 
+import "../../../styles/productReviewList.scss";
+import { useInfiniteScrolling } from "../../../utils/useInfiniteScrolling";
 import { ShowRating } from "../../Rating";
 import { loadProductReview, reviewFoundHelpful } from "../../../actions";
-import { useInfiniteScrolling } from "../../../utils/useInfiniteScrolling";
-import "../../../styles/productReviewList.scss";
-import { connect } from "react-redux";
+import ProductReviewCreate from "./ProductReviewCreate";
 
 const ProductReview = ({
   loadProductReview,
@@ -48,6 +49,9 @@ const ProductReview = ({
       <h3 className='product-review-header' ref={setReviewVisible}>
         Product Reviews
       </h3>
+
+      {userId ? <ProductReviewCreate /> : ""}
+
       {!productReviewsList ? (
         <div className='product-review-container'>
           {reviewLoading ? (
