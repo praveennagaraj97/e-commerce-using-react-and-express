@@ -26,6 +26,7 @@
   overflow-y: auto;
   animation-name: backInDown;
   animation-duration: 0.1s;
+  z-index: 60;
 
   .search-products-results {
     background-color: white;
