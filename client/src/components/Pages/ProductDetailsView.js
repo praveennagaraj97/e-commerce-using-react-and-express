@@ -5,6 +5,7 @@ import {
   ProductComputersDetail,
   ProductElectronicsDetail,
   ProductBeautyDetail,
+  ProductPetDetail,
 } from "../ProductDetailView";
 import history from "../../history";
 
@@ -16,6 +17,7 @@ const ProductDetailView = () => {
   if (productCategory === "computers") return <ProductComputersDetail />;
   if (productCategory === "electronics") return <ProductElectronicsDetail />;
   if (productCategory === "beauty") return <ProductBeautyDetail />;
+  if (productCategory === "pet") return <ProductPetDetail />;
   return <h1 style={{ color: "white" }}>Sorry Something went Wrong</h1>;
 };
 

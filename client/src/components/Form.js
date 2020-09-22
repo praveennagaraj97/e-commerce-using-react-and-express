@@ -1,8 +1,9 @@
-import React, { Fragment } from "react";
-import { Field } from "redux-form";
+import React, { useEffect } from "react";
 
 import "../styles/user.scss";
-import { Button } from "@material-ui/core";
+import { scrollToTop } from "../utils/scrollTopOnRouteChange";
+
+import { SignUpAndLoginForm, ResetPasswordForm } from "./Forms";
 
 const Form = (props) => {
   const {
@@ -21,80 +22,29 @@ const Form = (props) => {
     resetFormFields,
   } = props;
 
-  const signUpAndLoginForm = () => {
-    return (
-      <div className='form-container'>
-        <form
-          style={{ padding: "8% 0%" }}
-          autoComplete={process.env.NODE_ENV === "development" ? "on" : "off"}
-          onSubmit={handleSubmit(onSubmitFormValues)}
-          noValidate>
-          <Fragment>
-            {formSelected.map(({ htmlFor, label, type }, index) => {
-              return (
-                <div className='form-input' key={index}>
-                  <label className='form-input__label' htmlFor={htmlFor}>
-                    {label}
-                  </label>
-                  <Field
-                    className='form-input__field'
-                    name={htmlFor}
-                    component='input'
-                    type={type}
-                  />
-                </div>
-              );
-            })}
-            {signedInOption}
-            {forgotPasswordLink}
-
-            <Button style={{ backgroundColor: "white" }} type='submit'>
-              {buttonToShow}
-            </Button>
-          </Fragment>
-        </form>
-      </div>
-    );
-  };
-
-  const resetPasswordForm = () => {
-    return (
-      <div className='form-container'>
-        <form
-          style={{ padding: "8% 0%" }}
-          autoComplete={process.env.NODE_ENV === "development" ? "on" : "off"}
-          onSubmit={handleSubmit(onSubmitFormValues)}
-          noValidate>
-          <Fragment>
-            {resetFormFields.map(({ htmlFor, label, type }, index) => {
-              return (
-                <div className='form-input' key={index}>
-                  <label className='form-input__label' htmlFor={htmlFor}>
-                    {label}
-                  </label>
-                  <Field
-                    className='form-input__field'
-                    name={htmlFor}
-                    component='input'
-                    type={type}
-                  />
-                </div>
-              );
-            })}
-
-            <Button style={{ backgroundColor: "white" }} type='submit'>
-              Reset Password
-            </Button>
-          </Fragment>
-        </form>
-      </div>
-    );
-  };
+  useEffect(() => {
+    scrollToTop();
+  });
 
   if (authForm) {
-    return signUpAndLoginForm();
+    return (
+      <SignUpAndLoginForm
+        signedInOption={signedInOption}
+        handleSubmit={handleSubmit}
+        onSubmitFormValues={onSubmitFormValues}
+        formSelected={formSelected}
+        buttonToShow={buttonToShow}
+        forgotPasswordLink={forgotPasswordLink}
+      />
+    );
   } else if (resetForm) {
-    return resetPasswordForm();
+    return (
+      <ResetPasswordForm
+        handleSubmit={handleSubmit}
+        onSubmitFormValues={onSubmitFormValues}
+        resetFormFields={resetFormFields}
+      />
+    );
   } else {
     return (
       <h1 style={{ color: "white", textAlign: "center" }}>

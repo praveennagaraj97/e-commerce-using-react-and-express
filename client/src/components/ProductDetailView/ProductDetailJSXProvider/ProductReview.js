@@ -40,7 +40,7 @@ const ProductReview = ({
   };
 
   const handleReviewHelpful = (reviewId) => {
-    console.log(reviewId);
+    // console.log(reviewId);
     reviewFoundHelpful(reviewId);
   };
   return (
