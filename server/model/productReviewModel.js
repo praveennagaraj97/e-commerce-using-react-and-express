@@ -12,18 +12,18 @@ const baseProductReviewSchema = new Schema(
     userId: {
       type: Schema.Types.ObjectId,
       required: [true, "Provide User Id"],
-      validate: {
-        validator: async function (val) {
-          const review = await BaseProductReviewModel.findOne({
-            userId: val,
-            productId: this.productId,
-          });
-          if (review) {
-            return String(review.productId) !== String(this.productId);
-          } else return true;
-        },
-        message: "You can only review once",
-      },
+      // validate: {
+      //   validator: async function (val) {
+      //     const review = await BaseProductReviewModel.findOne({
+      //       userId: val,
+      //       productId: this.productId,
+      //     });
+      //     if (review) {
+      //       return String(review.productId) !== String(this.productId);
+      //     } else return true;
+      //   },
+      //   message: "You can only review once",
+      // },
     },
     title: {
       type: String,
