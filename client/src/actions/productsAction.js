@@ -19,6 +19,8 @@ const {
   LOAD_PRODUCT_REVIEWS,
   GET_PRODUCT_REVIEWS,
   REVIEW_FOUND_HELPFUL,
+
+  LOAD_NEW_PRODUCT_REVIEW,
 } = PRODUCT_TYPES;
 
 const { CATEGORY_LOADING, PRODUCTS_LISTS_LOADING, REVIEW_LOADING } = LOADERS;
@@ -119,4 +121,8 @@ export const getProductReviews = (data) => ({
 export const reviewFoundHelpful = (reviewId) => ({
   type: REVIEW_FOUND_HELPFUL,
   reviewId,
+});
+
+export const writeProductReview = () => ({
+  type: LOAD_NEW_PRODUCT_REVIEW,
 });

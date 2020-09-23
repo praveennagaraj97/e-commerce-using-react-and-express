@@ -69,6 +69,14 @@ const App = () => {
               path='/:categoryName/detail'
               component={ProductDetailView}
             />
+            <Route
+              path='*'
+              component={() => (
+                <h1 style={{ color: "white", textAlign: "center" }}>
+                  Page Not Found
+                </h1>
+              )}
+            />
           </Switch>
           {useWindowSize().width < 1025 ? (
             <img

@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { Field } from "redux-form";
+import { change, Field } from "redux-form";
 
 import "../../styles/productReviewForm.scss";
 import { ProductMobileReviewFields } from "./helpers";
 import UploadedImageViewer from "../UploadedImageViewer";
+import { useDispatch } from "react-redux";
+import { apiBaseEndpoint } from "../../api";
 
 export const ProductReviewForm = ({ setValue }) => {
   const [reviewImages, setReviewImages] = useState([]);
   const [processedImages, setProcessedImages] = useState([]);
   const [reviewImageLimitBreach, setImageLimitBreach] = useState(false);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const images = [];
@@ -32,6 +36,26 @@ export const ProductReviewForm = ({ setValue }) => {
     const indexOfDeselectImage = images.indexOf(image);
     images.splice(indexOfDeselectImage, 1);
     setProcessedImages(images);
+  };
+
+  const sendUploadedImageToForm = (images) => {
+    if (images.length > 5) return;
+    const imageFormData = new FormData();
+
+    for (let i = 0; i < images.length; i++) {
+      imageFormData.append(`productReviewImage`, images[i]);
+    }
+
+    apiBaseEndpoint
+      .post("/product_review/addMobileReview", imageFormData)
+      .then((resp) => {
+        console.log(resp.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    dispatch(change("productReviewForm", "productReviewImage", imageFormData));
   };
 
   return (
@@ -64,7 +88,10 @@ export const ProductReviewForm = ({ setValue }) => {
             type='file'
             multiple
             accept='.png, .jpg, .jpeg'
-            onChange={(ev) => setReviewImages(ev.target.files)}
+            onChange={(ev) => {
+              setReviewImages(ev.target.files);
+              sendUploadedImageToForm(ev.target.files);
+            }}
           />
         </div>
 
@@ -73,6 +100,10 @@ export const ProductReviewForm = ({ setValue }) => {
         ) : (
           ""
         )}
+
+        <button type='submit' onClick={sendUploadedImageToForm}>
+          Submit
+        </button>
       </div>
     </div>
   );

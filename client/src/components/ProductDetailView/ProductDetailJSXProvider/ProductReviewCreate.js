@@ -8,10 +8,6 @@ import { ProductReviewForm } from "../../Forms";
 const ProductReviewCreate = () => {
   const [showReviewForm, setShowReviewForm] = useState(false);
 
-  const setValue = (values) => {
-    // console.log(values);
-  };
-
   return (
     <div className='product-review-create-container'>
       <button onClick={() => setShowReviewForm(!showReviewForm)}>
@@ -19,7 +15,7 @@ const ProductReviewCreate = () => {
       </button>
       {showReviewForm ? (
         <div className='review-form'>
-          <ProductReviewForm setValue={setValue} />
+          <ProductReviewForm />
         </div>
       ) : (
         ""

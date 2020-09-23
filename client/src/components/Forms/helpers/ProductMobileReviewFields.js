@@ -1,8 +1,10 @@
 import React, { Fragment, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { change } from "redux-form";
 
 import { ShowRating } from "../../Rating";
 
-export const ProductMobileReviewFields = ({ setValue }) => {
+export const ProductMobileReviewFields = () => {
   const [faceRecognition, setFaceRecognition] = useState(5);
   const [cameraQuality, setCameraQuality] = useState(5);
   const [pictureQuality, setPictureQuality] = useState(5);
@@ -11,73 +13,57 @@ export const ProductMobileReviewFields = ({ setValue }) => {
   const [batteryLife, setBatteryLife] = useState(5);
   const [valueForMoney, setValueForMoney] = useState(5);
 
-  useEffect(() => {
-    const mobileReviewValues = {
-      faceRecognition,
-      cameraQuality,
-      pictureQuality,
-      screenQuality,
-      soundQuality,
-      batteryLife,
-      valueForMoney,
-    };
-
-    setValue(mobileReviewValues);
-  }, [
-    faceRecognition,
-    cameraQuality,
-    pictureQuality,
-    screenQuality,
-    soundQuality,
-    batteryLife,
-    valueForMoney,
-    setValue,
-  ]);
+  const dispatch = useDispatch();
 
   const mobileReviewFields = [
     {
       title: "Face Recognition",
       value: faceRecognition,
       setter: setFaceRecognition,
-      eleName: "face-recognition",
+      eleName: "faceRecognition",
     },
     {
       title: "Camera Quality",
       value: cameraQuality,
       setter: setCameraQuality,
-      eleName: "cam-quality",
+      eleName: "cameraQuality",
     },
     {
       title: "Picture Quality",
       value: pictureQuality,
       setter: setPictureQuality,
-      eleName: "pic-quality",
+      eleName: "pictureQuality",
     },
     {
       title: "Screen Quality",
       value: screenQuality,
       setter: setScreenQuality,
-      eleName: "scr-quality",
+      eleName: "screenQuality",
     },
     {
       title: "Sound Quality",
       value: soundQuality,
       setter: setSoundQuality,
-      eleName: "sound-quality",
+      eleName: "soundQuality",
     },
     {
       title: "Battery Life ",
       value: batteryLife,
       setter: setBatteryLife,
-      eleName: "btr-life",
+      eleName: "batteryLife",
     },
     {
       title: "Value For Money",
       value: valueForMoney,
       setter: setValueForMoney,
-      eleName: "val-for-money",
+      eleName: "valueForMoney",
     },
   ];
+  useEffect(() => {
+    mobileReviewFields.forEach(({ eleName, value }) => {
+      dispatch(change("productMobileReview", eleName, value));
+    });
+  }, [dispatch, mobileReviewFields]);
 
   return (
     <Fragment>

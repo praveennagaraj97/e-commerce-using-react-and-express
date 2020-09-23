@@ -40,3 +40,5 @@ export const reviewFoundHelpfulEndpoint = async (authToken, reviewId) => {
     }
   );
 };
+
+// export const writeProductMobilesReviewEndpoint = async(authToken, productId);
