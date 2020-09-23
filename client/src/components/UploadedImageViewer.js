@@ -13,7 +13,7 @@ const UploadedImageViewer = ({ images, imageRemover }) => {
         return (
           <img
             key={each.name}
-            src={URL.createObjectURL(each)}
+            src={(window.URL || window.webkitURL).createObjectURL(each)}
             alt='review-images'
             onClick={() => imageRemover(each)}
           />

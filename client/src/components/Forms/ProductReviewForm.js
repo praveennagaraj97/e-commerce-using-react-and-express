@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { change, Field } from "redux-form";
-import { useDispatch } from "react-redux";
+import React from "react";
 
 import "../../styles/productReviewForm.scss";
 import { ProductMobileReviewFields } from "./helpers";
-import UploadedImageViewer from "../UploadedImageViewer";
 
 /**
  * @file - productReviewImages.
@@ -12,113 +9,12 @@ import UploadedImageViewer from "../UploadedImageViewer";
  * @access - Protected Route User has to be Logged In to access this component
  */
 
-export const ProductReviewForm = ({
-  setValue,
-  postReviewAction,
-  productReviewFor,
-}) => {
-  const [reviewImages, setReviewImages] = useState([]);
-  const [processedImages, setProcessedImages] = useState([]);
-  const [reviewImageLimitBreach, setImageLimitBreach] = useState(false);
+export const ProductReviewForm = ({ productReviewDetail }) => {
+  if (productReviewDetail.category === "mobiles") {
+    return (
+      <ProductMobileReviewFields productReviewDetail={productReviewDetail} />
+    );
+  }
 
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    const images = [];
-
-    for (let image of reviewImages) {
-      images.push(image);
-    }
-
-    if (images.length > 5) {
-      setImageLimitBreach(true);
-      return;
-    } else {
-      setImageLimitBreach(false);
-    }
-
-    setProcessedImages(images);
-  }, [reviewImages]);
-
-  const imageDeselecterHandle = (image) => {
-    const images = [...processedImages];
-    const indexOfDeselectImage = images.indexOf(image);
-    images.splice(indexOfDeselectImage, 1);
-    setProcessedImages(images);
-  };
-
-  useEffect(() => {
-    if (processedImages.length > 5) return;
-
-    const imageFormData = new FormData();
-
-    for (let i = 0; i < processedImages.length; i++) {
-      imageFormData.append(`productReviewImage`, processedImages[i]);
-    }
-
-    if (processedImages.length > 0 && processedImages.length < 5) {
-      dispatch(
-        change("productReviewForm", "productReviewImage", imageFormData)
-      );
-    }
-  }, [processedImages, dispatch]);
-
-  return (
-    <div className='product-review-container__input'>
-      <div className='product-review__input'>
-        <label htmlFor='reviewTitle'>
-          Title <span className='optional-review-tab'>(optional)</span>
-        </label>
-        <Field component='input' name='reviewTitle' />
-      </div>
-      <div className='product-review__input'>
-        <label htmlFor='reviewDescription'>
-          Description <span className='optional-review-tab'>(optional)</span>
-        </label>
-        <Field component='textarea' name='reviewDescription' />
-      </div>
-
-      {/* Changes Based on Product category */}
-      <ProductMobileReviewFields setValue={setValue} />
-
-      <div className='product-review__imageUploader'>
-        <h3>
-          Add Images <span className='optional-review-tab'>(optional)</span>
-        </h3>
-        <p>Shoppers find images more helpful than text alone.</p>
-        {processedImages.length > 0 ? (
-          <UploadedImageViewer
-            images={processedImages}
-            imageRemover={imageDeselecterHandle}
-          />
-        ) : (
-          ""
-        )}
-
-        <div className='review-image-selector'>
-          <p>Select Images</p>
-          <input
-            name='review-image'
-            type='file'
-            multiple
-            accept='.png, .jpg, .jpeg'
-            onChange={(ev) => setReviewImages(ev.target.files)}
-          />
-        </div>
-
-        {reviewImageLimitBreach ? (
-          <p className='images-warning'>Upto 5 Images are only allowed</p>
-        ) : (
-          ""
-        )}
-
-        <button
-          type='submit'
-          onClick={() => postReviewAction(productReviewFor)}>
-          Submit
-        </button>
-      </div>
-      <hr style={{ width: "65%" }} />
-    </div>
-  );
+  return <h1>Oh</h1>;
 };

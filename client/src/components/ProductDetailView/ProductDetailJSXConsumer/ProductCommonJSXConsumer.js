@@ -83,7 +83,7 @@ const ProductMobileDetail = (props) => {
 
         {/* Product Review Loads on scroll to bottom */}
         <ProductReview
-          productReviewFor={{
+          productReviewDetail={{
             category: props.productReviewFor,
             productId: props.id.productId,
           }}

@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { reduxForm } from "redux-form";
 
 import "../../../styles/productReviewCreate.scss";
 import { ProductReviewForm } from "../../Forms";
 import { loadNewProductReview } from "../../../actions";
 
-const ProductReviewCreate = ({ loadPostProductReview, productReviewFor }) => {
+const ProductReviewCreate = ({
+  loadPostProductReview,
+  productReviewDetail,
+}) => {
   const [showReviewForm, setShowReviewForm] = useState(false);
 
   return (
@@ -17,7 +19,7 @@ const ProductReviewCreate = ({ loadPostProductReview, productReviewFor }) => {
       {showReviewForm ? (
         <div className='review-form'>
           <ProductReviewForm
-            productReviewFor={productReviewFor}
+            productReviewDetail={productReviewDetail}
             postReviewAction={loadPostProductReview}
           />
         </div>
@@ -28,13 +30,9 @@ const ProductReviewCreate = ({ loadPostProductReview, productReviewFor }) => {
   );
 };
 
-const reduxFormWrapped = reduxForm({
-  form: "productReviewForm",
-})(ProductReviewCreate);
-
 const mapDispatchToProps = (dispatch) => ({
   loadPostProductReview: (productType) =>
     dispatch(loadNewProductReview(productType)),
 });
 
-export default connect(null, mapDispatchToProps)(reduxFormWrapped);
+export default connect(null, mapDispatchToProps)(ProductReviewCreate);

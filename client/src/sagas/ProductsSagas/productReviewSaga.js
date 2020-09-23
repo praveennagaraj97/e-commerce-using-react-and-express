@@ -130,7 +130,11 @@ function* addNewProductReviewWorker() {
         productMobileReview.values
       );
     } else {
-      console.log("Containes Review Body");
+      yield call(
+        productReviewForMobilesWorker,
+        productId,
+        values.productReviewImage
+      );
     }
   }
 }

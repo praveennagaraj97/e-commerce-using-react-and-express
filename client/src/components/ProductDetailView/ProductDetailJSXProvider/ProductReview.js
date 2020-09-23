@@ -13,7 +13,7 @@ const ProductReview = ({
   reviewLoading,
   userId,
   reviewFoundHelpful,
-  productReviewFor,
+  productReviewDetail,
 }) => {
   const [reviewVisible, setReviewVisible] = useState(null);
 
@@ -52,7 +52,7 @@ const ProductReview = ({
       </h3>
 
       {userId ? (
-        <ProductReviewCreate productReviewFor={productReviewFor} />
+        <ProductReviewCreate productReviewDetail={productReviewDetail} />
       ) : (
         ""
       )}

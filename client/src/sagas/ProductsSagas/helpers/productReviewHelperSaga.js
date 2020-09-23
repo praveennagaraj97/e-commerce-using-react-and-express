@@ -6,7 +6,7 @@ import { addMobileReview } from "../../../api";
 export function* productReviewForMobilesWorker(productId, details) {
   try {
     const { data } = yield call(addMobileReview, { ...details, productId });
-    console.log(data);
+    console.log("helper" + data);
     yield put(globalSuccesMessenger("Thanks for feedback."));
     yield delay(3200);
     yield put(globalSuccesMessenger(null));
