@@ -13,6 +13,7 @@ const ProductReview = ({
   reviewLoading,
   userId,
   reviewFoundHelpful,
+  productReviewFor,
 }) => {
   const [reviewVisible, setReviewVisible] = useState(null);
 
@@ -50,7 +51,11 @@ const ProductReview = ({
         Product Reviews
       </h3>
 
-      {userId ? <ProductReviewCreate /> : ""}
+      {userId ? (
+        <ProductReviewCreate productReviewFor={productReviewFor} />
+      ) : (
+        ""
+      )}
 
       {!productReviewsList ? (
         <div className='product-review-container'>

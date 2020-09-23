@@ -82,7 +82,12 @@ const ProductMobileDetail = (props) => {
         )}
 
         {/* Product Review Loads on scroll to bottom */}
-        <ProductReview />
+        <ProductReview
+          productReviewFor={{
+            category: props.productReviewFor,
+            productId: props.id.productId,
+          }}
+        />
       </Fragment>
     );
   }

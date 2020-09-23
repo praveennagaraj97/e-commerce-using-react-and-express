@@ -12,7 +12,11 @@ import UploadedImageViewer from "../UploadedImageViewer";
  * @access - Protected Route User has to be Logged In to access this component
  */
 
-export const ProductReviewForm = ({ setValue, postReviewAction }) => {
+export const ProductReviewForm = ({
+  setValue,
+  postReviewAction,
+  productReviewFor,
+}) => {
   const [reviewImages, setReviewImages] = useState([]);
   const [processedImages, setProcessedImages] = useState([]);
   const [reviewImageLimitBreach, setImageLimitBreach] = useState(false);
@@ -100,7 +104,9 @@ export const ProductReviewForm = ({ setValue, postReviewAction }) => {
           ""
         )}
 
-        <button type='submit' onClick={() => postReviewAction("mobiles")}>
+        <button
+          type='submit'
+          onClick={() => postReviewAction(productReviewFor)}>
           Submit
         </button>
       </div>

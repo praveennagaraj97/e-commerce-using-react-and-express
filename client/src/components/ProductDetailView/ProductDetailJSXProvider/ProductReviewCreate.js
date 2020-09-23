@@ -6,7 +6,7 @@ import "../../../styles/productReviewCreate.scss";
 import { ProductReviewForm } from "../../Forms";
 import { loadNewProductReview } from "../../../actions";
 
-const ProductReviewCreate = ({ loadPostProductReview }) => {
+const ProductReviewCreate = ({ loadPostProductReview, productReviewFor }) => {
   const [showReviewForm, setShowReviewForm] = useState(false);
 
   return (
@@ -16,7 +16,10 @@ const ProductReviewCreate = ({ loadPostProductReview }) => {
       </button>
       {showReviewForm ? (
         <div className='review-form'>
-          <ProductReviewForm postReviewAction={loadPostProductReview} />
+          <ProductReviewForm
+            productReviewFor={productReviewFor}
+            postReviewAction={loadPostProductReview}
+          />
         </div>
       ) : (
         ""
