@@ -23,10 +23,10 @@ productReviewRouter
   .use(multer().array("productReviewImage"))
   .route("/addMobileReview")
   .post(
-    (req, res, next) => {
-      console.log(req.files);
-      res.send(req.files);
-    },
+    // (req, res, next) => {
+    //   console.log(req.files);
+    //   res.send(req.files);
+    // },
     protectRoute,
     preFillUserId,
     handleProductReviewImage,
