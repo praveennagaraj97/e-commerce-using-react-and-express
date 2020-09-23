@@ -12,18 +12,18 @@ const baseProductReviewSchema = new Schema(
     userId: {
       type: Schema.Types.ObjectId,
       required: [true, "Provide User Id"],
-      // validate: {
-      //   validator: async function (val) {
-      //     const review = await BaseProductReviewModel.findOne({
-      //       userId: val,
-      //       productId: this.productId,
-      //     });
-      //     if (review) {
-      //       return String(review.productId) !== String(this.productId);
-      //     } else return true;
-      //   },
-      //   message: "You can only review once",
-      // },
+      validate: {
+        validator: async function (val) {
+          const review = await BaseProductReviewModel.findOne({
+            userId: val,
+            productId: this.productId,
+          });
+          if (review) {
+            return String(review.productId) !== String(this.productId);
+          } else return true;
+        },
+        message: "You can only review once",
+      },
     },
     title: {
       type: String,
@@ -141,49 +141,49 @@ const mobileReviewSchema = new Schema(
     faceRecognition: {
       type: Number,
       max: 5,
-      min: 1,
+      min: 0.1,
       required: [true, "Mobile Must contain Face Recognition review"],
       select: false,
     },
     cameraQuality: {
       type: Number,
       max: 5,
-      min: 1,
+      min: 0.1,
       select: false,
       required: [true, "Mobile Must contain Camera Quality review"],
     },
     pictureQuality: {
       type: Number,
       max: 5,
-      min: 1,
+      min: 0.1,
       select: false,
       required: [true, "Mobile Must contain Picture Quality review"],
     },
     screenQuality: {
       type: Number,
       max: 5,
-      min: 1,
+      min: 0.1,
       select: false,
       required: [true, "Mobile Must contain Screen Quality review"],
     },
     soundQuality: {
       type: Number,
       max: 5,
-      min: 1,
+      min: 0.1,
       select: false,
       required: [true, "Mobile Must contain Sound Quality review"],
     },
     batteryLife: {
       type: Number,
       max: 5,
-      min: 1,
+      min: 0.1,
       select: false,
       required: [true, "Mobile Must contain Battery Life  review"],
     },
     valueForMoney: {
       type: Number,
       max: 5,
-      min: 1,
+      min: 0.1,
       select: false,
       required: [true, "Mobile Must contain Value For Money review"],
     },

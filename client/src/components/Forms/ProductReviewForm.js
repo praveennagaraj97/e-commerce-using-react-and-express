@@ -57,18 +57,24 @@ export const ProductReviewForm = ({
     }
 
     if (processedImages.length > 0 && processedImages.length < 5) {
-      dispatch(change("productReviewForm", "productReviewImage", ""));
+      dispatch(
+        change("productReviewForm", "productReviewImage", imageFormData)
+      );
     }
   }, [processedImages, dispatch]);
 
   return (
     <div className='product-review-container__input'>
       <div className='product-review__input'>
-        <label htmlFor='reviewTitle'>Title</label>
+        <label htmlFor='reviewTitle'>
+          Title <span className='optional-review-tab'>(optional)</span>
+        </label>
         <Field component='input' name='reviewTitle' />
       </div>
       <div className='product-review__input'>
-        <label htmlFor='reviewDescription'>Description</label>
+        <label htmlFor='reviewDescription'>
+          Description <span className='optional-review-tab'>(optional)</span>
+        </label>
         <Field component='textarea' name='reviewDescription' />
       </div>
 
@@ -76,7 +82,9 @@ export const ProductReviewForm = ({
       <ProductMobileReviewFields setValue={setValue} />
 
       <div className='product-review__imageUploader'>
-        <h3>Add Images</h3>
+        <h3>
+          Add Images <span className='optional-review-tab'>(optional)</span>
+        </h3>
         <p>Shoppers find images more helpful than text alone.</p>
         {processedImages.length > 0 ? (
           <UploadedImageViewer

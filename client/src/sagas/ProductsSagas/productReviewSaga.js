@@ -8,12 +8,12 @@ import {
 import { PRODUCT_TYPES, COOKIE_NAMES } from "../../constants";
 
 import {
-  addMobileReview,
   getListOfProductReviewsEndPoint,
   reviewFoundHelpfulEndpoint,
 } from "../../api";
 import { useSessionStorage } from "../../utils/useSessionStorage";
 import { useCookies } from "../../utils/useCookies";
+import { productReviewForMobilesWorker } from "./helpers";
 
 const {
   LOAD_PRODUCT_REVIEWS,
@@ -107,37 +107,32 @@ const getReviewForFromStore = ({ addNewProduct }) => addNewProduct;
 const getReviewValuesFromStore = ({ form }) => form;
 
 function* addNewProductReviewWorker() {
-  const { reviewingFor } = yield select(getReviewForFromStore);
+  const {
+    reviewingFor: { category, productId },
+  } = yield select(getReviewForFromStore);
 
-  if (!reviewingFor) {
+  if (!category) {
     yield put(globalFailureMessenger("Sorry Something went Wrong!!"));
     yield delay(3200);
     yield put(globalFailureMessenger(null));
     return;
   }
-
-  const authTokenCookie = yield call(getCookie, AUTH_TOKEN);
-  const authTokenSession = yield call(getSessionItem, AUTH_TOKEN);
-
   const {
     productReviewForm: { values },
   } = yield select(getReviewValuesFromStore);
+  const { productMobileReview } = yield select(getReviewValuesFromStore);
 
-  // No Title, Description and images
-  if (values) {
-    if (reviewingFor === "mobiles") {
-      try {
-        const { data } = yield call(
-          addMobileReview,
-          authTokenCookie || authTokenSession
-        );
-      } catch (error) {}
+  if (category === "mobiles") {
+    if (!values && productMobileReview.values) {
+      yield call(
+        productReviewForMobilesWorker,
+        productId,
+        productMobileReview.values
+      );
+    } else {
+      console.log("Containes Review Body");
     }
-
-    return;
   }
-
-  // If Title ,Description and Images !
 }
 
 export function* addNewProductReviewWatcher() {
