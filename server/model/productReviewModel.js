@@ -70,6 +70,8 @@ baseProductReviewSchema.pre(/^find/, function (next) {
     select: ["name"],
   }).populate("foundHelpful", ["-helpul"]);
 
+  this.find({ title: { $exists: true } });
+
   next();
 });
 
@@ -77,6 +79,21 @@ baseProductReviewSchema.pre("save", function (next) {
   if (this.productReviewImages.length === 0) {
     this.productReviewImages = undefined;
   }
+
+  if (this.title && !this.description) {
+    throw new Error("Please Provide Description");
+  }
+
+  if (!this.title && this.description) {
+    // delete uploaded images
+    throw new Error("Please Provide title");
+  }
+
+  if (!this.title && !this.description && this.productReviewImages) {
+    // delete uploaded images
+    throw new Error("Please Provide title and Description");
+  }
+
   next();
 });
 

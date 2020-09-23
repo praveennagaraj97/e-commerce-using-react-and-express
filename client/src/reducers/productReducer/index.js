@@ -1,6 +1,9 @@
 import { PRODUCT_TYPES, LOADERS } from "../../constants";
 
-export { productReviewReducer } from "./productReviewReducer";
+export {
+  productReviewReducer,
+  addNewProductReviewReducer,
+} from "./productReviewReducer";
 export { categoriesReducer } from "./productCategoriesReducer";
 
 const {

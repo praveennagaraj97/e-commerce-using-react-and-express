@@ -1,6 +1,10 @@
 import { PRODUCT_TYPES, LOADERS } from "../../constants";
 
-const { GET_PRODUCT_REVIEWS, REVIEW_FOUND_HELPFUL } = PRODUCT_TYPES;
+const {
+  GET_PRODUCT_REVIEWS,
+  REVIEW_FOUND_HELPFUL,
+  LOAD_NEW_PRODUCT_REVIEW,
+} = PRODUCT_TYPES;
 const { REVIEW_LOADING } = LOADERS;
 
 export const productReviewReducer = (state = {}, action) => {
@@ -17,6 +21,15 @@ export const productReviewReducer = (state = {}, action) => {
       return { ...state, reviewHelpfulId: action.reviewId };
 
     default:
-      return { ...state };
+      return state;
+  }
+};
+
+export const addNewProductReviewReducer = (state = {}, action) => {
+  switch (action.type) {
+    case LOAD_NEW_PRODUCT_REVIEW:
+      return { ...state, reviewingFor: action.reviewForProducttype };
+    default:
+      return state;
   }
 };

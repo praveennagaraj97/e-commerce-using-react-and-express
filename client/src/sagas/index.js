@@ -21,6 +21,7 @@ import {
   loadProductViewWatcher,
   loadProductReviewWatcher,
   reviewFoundHelfulWatcher,
+  addNewProductReviewWatcher,
 } from "./ProductsSagas";
 
 function* rootSaga() {
@@ -46,6 +47,7 @@ function* rootSaga() {
     yield fork(loadProductViewWatcher),
     yield fork(loadProductReviewWatcher),
     yield fork(reviewFoundHelfulWatcher),
+    yield fork(addNewProductReviewWatcher),
   ]);
 }
 

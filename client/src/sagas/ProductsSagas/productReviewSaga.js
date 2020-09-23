@@ -1,4 +1,4 @@
-import { call, put, select, takeLatest } from "redux-saga/effects";
+import { call, put, select, takeLatest, delay } from "redux-saga/effects";
 
 import {
   getProductReviews,
@@ -8,13 +8,18 @@ import {
 import { PRODUCT_TYPES, COOKIE_NAMES } from "../../constants";
 
 import {
+  addMobileReview,
   getListOfProductReviewsEndPoint,
   reviewFoundHelpfulEndpoint,
 } from "../../api";
 import { useSessionStorage } from "../../utils/useSessionStorage";
 import { useCookies } from "../../utils/useCookies";
 
-const { LOAD_PRODUCT_REVIEWS, REVIEW_FOUND_HELPFUL } = PRODUCT_TYPES;
+const {
+  LOAD_PRODUCT_REVIEWS,
+  REVIEW_FOUND_HELPFUL,
+  LOAD_NEW_PRODUCT_REVIEW,
+} = PRODUCT_TYPES;
 const { AUTH_TOKEN } = COOKIE_NAMES;
 
 const { getSessionItem } = useSessionStorage;
@@ -96,4 +101,45 @@ function* handleReviewFoundHelpfulWorker() {
 
 export function* reviewFoundHelfulWatcher() {
   yield takeLatest(REVIEW_FOUND_HELPFUL, handleReviewFoundHelpfulWorker);
+}
+
+const getReviewForFromStore = ({ addNewProduct }) => addNewProduct;
+const getReviewValuesFromStore = ({ form }) => form;
+
+function* addNewProductReviewWorker() {
+  const { reviewingFor } = yield select(getReviewForFromStore);
+
+  if (!reviewingFor) {
+    yield put(globalFailureMessenger("Sorry Something went Wrong!!"));
+    yield delay(3200);
+    yield put(globalFailureMessenger(null));
+    return;
+  }
+
+  const authTokenCookie = yield call(getCookie, AUTH_TOKEN);
+  const authTokenSession = yield call(getSessionItem, AUTH_TOKEN);
+
+  const {
+    productReviewForm: { values },
+  } = yield select(getReviewValuesFromStore);
+
+  // No Title, Description and images
+  if (values) {
+    if (reviewingFor === "mobiles") {
+      try {
+        const { data } = yield call(
+          addMobileReview,
+          authTokenCookie || authTokenSession
+        );
+      } catch (error) {}
+    }
+
+    return;
+  }
+
+  // If Title ,Description and Images !
+}
+
+export function* addNewProductReviewWatcher() {
+  yield takeLatest(LOAD_NEW_PRODUCT_REVIEW, addNewProductReviewWorker);
 }

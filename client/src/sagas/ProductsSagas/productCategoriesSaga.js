@@ -23,7 +23,7 @@ export function* handleProductsCategoryWorker() {
         "Something went Wrong Server didn't respond!! Trying again"
       )
     );
-    yield delay(5000);
+    yield delay(3200);
     yield put(globalFailureMessenger(null));
     yield put({ type: WEBSITE_LOAD });
   }

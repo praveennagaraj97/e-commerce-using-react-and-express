@@ -76,4 +76,6 @@ export {
   loadProductReview,
   getProductReviews,
   reviewFoundHelpful,
+  // Post reviews
+  loadNewProductReview,
 } from "./productsAction";

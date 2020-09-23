@@ -29,3 +29,5 @@ export {
   getListOfProductReviewsEndPoint,
   reviewFoundHelpfulEndpoint,
 } from "./productEndpoints";
+
+export { addMobileReview } from "./addon";

@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { change, Field } from "redux-form";
+import { useDispatch } from "react-redux";
 
 import "../../styles/productReviewForm.scss";
 import { ProductMobileReviewFields } from "./helpers";
 import UploadedImageViewer from "../UploadedImageViewer";
-import { useDispatch } from "react-redux";
-import { apiBaseEndpoint } from "../../api";
 
-export const ProductReviewForm = ({ setValue }) => {
+/**
+ * @file - productReviewImages.
+ * @description - takes default title,description and images for all types.
+ * @access - Protected Route User has to be Logged In to access this component
+ */
+
+export const ProductReviewForm = ({ setValue, postReviewAction }) => {
   const [reviewImages, setReviewImages] = useState([]);
   const [processedImages, setProcessedImages] = useState([]);
   const [reviewImageLimitBreach, setImageLimitBreach] = useState(false);
@@ -38,37 +43,34 @@ export const ProductReviewForm = ({ setValue }) => {
     setProcessedImages(images);
   };
 
-  const sendUploadedImageToForm = (images) => {
-    if (images.length > 5) return;
+  useEffect(() => {
+    if (processedImages.length > 5) return;
+
     const imageFormData = new FormData();
 
-    for (let i = 0; i < images.length; i++) {
-      imageFormData.append(`productReviewImage`, images[i]);
+    for (let i = 0; i < processedImages.length; i++) {
+      imageFormData.append(`productReviewImage`, processedImages[i]);
     }
 
-    apiBaseEndpoint
-      .post("/product_review/addMobileReview", imageFormData)
-      .then((resp) => {
-        console.log(resp.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    dispatch(change("productReviewForm", "productReviewImage", imageFormData));
-  };
+    if (processedImages.length > 0 && processedImages.length < 5) {
+      dispatch(change("productReviewForm", "productReviewImage", ""));
+    }
+  }, [processedImages, dispatch]);
 
   return (
     <div className='product-review-container__input'>
       <div className='product-review__input'>
-        <label htmlFor='review-title'>Title</label>
-        <Field component='input' name='review-title' />
+        <label htmlFor='reviewTitle'>Title</label>
+        <Field component='input' name='reviewTitle' />
       </div>
       <div className='product-review__input'>
-        <label htmlFor='review-title'>Description</label>
-        <Field component='textarea' name='review-description' />
+        <label htmlFor='reviewDescription'>Description</label>
+        <Field component='textarea' name='reviewDescription' />
       </div>
+
+      {/* Changes Based on Product category */}
       <ProductMobileReviewFields setValue={setValue} />
+
       <div className='product-review__imageUploader'>
         <h3>Add Images</h3>
         <p>Shoppers find images more helpful than text alone.</p>
@@ -88,10 +90,7 @@ export const ProductReviewForm = ({ setValue }) => {
             type='file'
             multiple
             accept='.png, .jpg, .jpeg'
-            onChange={(ev) => {
-              setReviewImages(ev.target.files);
-              sendUploadedImageToForm(ev.target.files);
-            }}
+            onChange={(ev) => setReviewImages(ev.target.files)}
           />
         </div>
 
@@ -101,10 +100,11 @@ export const ProductReviewForm = ({ setValue }) => {
           ""
         )}
 
-        <button type='submit' onClick={sendUploadedImageToForm}>
+        <button type='submit' onClick={() => postReviewAction("mobiles")}>
           Submit
         </button>
       </div>
+      <hr style={{ width: "65%" }} />
     </div>
   );
 };

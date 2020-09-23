@@ -7,4 +7,5 @@ export { loadProductViewWatcher } from "./productViewSagas";
 export {
   loadProductReviewWatcher,
   reviewFoundHelfulWatcher,
+  addNewProductReviewWatcher,
 } from "./productReviewSaga";

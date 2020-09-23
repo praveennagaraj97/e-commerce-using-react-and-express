@@ -13,6 +13,7 @@ import {
   productCartReducer,
   viewProductReducer,
   productReviewReducer,
+  addNewProductReviewReducer,
 } from "./productReducer";
 
 import requestReducer from "./_requestsReduers";
@@ -29,5 +30,6 @@ export default combineReducers({
   productCart: productCartReducer,
   productDetail: viewProductReducer,
   productReview: productReviewReducer,
+  addNewProduct: addNewProductReviewReducer,
   requests: requestReducer,
 });
