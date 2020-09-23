@@ -1,15 +1,13 @@
-import { takeLatest, select, put, call, delay } from "redux-saga/effects";
+import { takeLatest, select, put, call } from "redux-saga/effects";
 
 import { PRODUCT_TYPES } from "../../constants";
 
-import {
-  // Error Or Success Messager
-  globalFailureMessenger,
-  globalSuccesMessengerWithImg,
+import { getProductsDetailsInCart } from "../../actions";
 
-  // Products details by it's ID's
-  getProductsDetailsInCart,
-} from "../../actions";
+import {
+  globalErrorMessageHandler,
+  globalSuccessMessageWithImageHandler,
+} from "../HandleAlertSagas";
 
 import { getProductsDetailsForGrpIdsEndPoint } from "../../api";
 
@@ -32,9 +30,7 @@ function* handleProductAddCartWorker() {
   const addedProduct = yield products.find((item) => item._id === addedItem);
   const { productCoverImage, productName } = addedProduct;
   const message = `${productName} added to cart😍`;
-  yield put(globalSuccesMessengerWithImg(message, productCoverImage));
-  yield delay(3200);
-  yield put(globalSuccesMessengerWithImg(null, null));
+  yield call(globalSuccessMessageWithImageHandler, message, productCoverImage);
 }
 
 function* handleProductRemoveCartWorker() {
@@ -74,9 +70,10 @@ function* handleproductCartWorker() {
     yield put(getProductsDetailsInCart(data.details));
   } catch (err) {
     // yield console.clear();
-    yield put(globalFailureMessenger("Something went wrong try again later!"));
-    yield delay(3200);
-    yield put(globalFailureMessenger(null));
+    yield call(
+      globalErrorMessageHandler,
+      "Something went wrong try again later!"
+    );
   }
 }
 

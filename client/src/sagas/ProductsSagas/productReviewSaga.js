@@ -1,19 +1,17 @@
-import { call, put, select, takeLatest, delay } from "redux-saga/effects";
+import { call, put, select, takeLatest } from "redux-saga/effects";
 
-import {
-  getProductReviews,
-  productReviewLoading,
-  globalFailureMessenger,
-} from "../../actions";
+import { getProductReviews, productReviewLoading } from "../../actions";
 import { PRODUCT_TYPES, COOKIE_NAMES } from "../../constants";
 
 import {
   getListOfProductReviewsEndPoint,
   reviewFoundHelpfulEndpoint,
 } from "../../api";
+
+import { globalErrorMessageHandler } from "../HandleAlertSagas";
+
 import { useSessionStorage } from "../../utils/useSessionStorage";
 import { useCookies } from "../../utils/useCookies";
-import { productReviewForMobilesWorker } from "./helpers";
 
 const {
   LOAD_PRODUCT_REVIEWS,
@@ -93,8 +91,9 @@ function* handleReviewFoundHelpfulWorker() {
     };
     yield put(getProductReviews(newStructuredReview));
   } catch (err) {
-    yield put(
-      globalFailureMessenger("Something went wrong 🤯 Please try again later")
+    yield call(
+      globalErrorMessageHandler,
+      "Something went wrong 🤯 Please try again later"
     );
   }
 }
@@ -103,40 +102,8 @@ export function* reviewFoundHelfulWatcher() {
   yield takeLatest(REVIEW_FOUND_HELPFUL, handleReviewFoundHelpfulWorker);
 }
 
-const getReviewForFromStore = ({ addNewProduct }) => addNewProduct;
-const getReviewValuesFromStore = ({ form }) => form;
-
 function* addNewProductReviewWorker() {
-  const {
-    reviewingFor: { category, productId },
-  } = yield select(getReviewForFromStore);
-
-  if (!category) {
-    yield put(globalFailureMessenger("Sorry Something went Wrong!!"));
-    yield delay(3200);
-    yield put(globalFailureMessenger(null));
-    return;
-  }
-  const {
-    productReviewForm: { values },
-  } = yield select(getReviewValuesFromStore);
-  const { productMobileReview } = yield select(getReviewValuesFromStore);
-
-  if (category === "mobiles") {
-    if (!values && productMobileReview.values) {
-      yield call(
-        productReviewForMobilesWorker,
-        productId,
-        productMobileReview.values
-      );
-    } else {
-      yield call(
-        productReviewForMobilesWorker,
-        productId,
-        values.productReviewImage
-      );
-    }
-  }
+  yield console.log("ok");
 }
 
 export function* addNewProductReviewWatcher() {

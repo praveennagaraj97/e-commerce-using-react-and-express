@@ -1,16 +1,17 @@
-import { takeLatest, select, call, put, delay } from "redux-saga/effects";
+import { takeLatest, select, call, put } from "redux-saga/effects";
 
 import { PRODUCT_TYPES } from "../../constants";
 import { getProductsBasedOnQuery } from "../../api";
 
 import {
   getProductsOnQuery,
-  globalFailureMessenger,
   holdPreviousProductQuery,
   noMoreResultsFound,
   setPageNumber,
   productsLoading,
 } from "../../actions";
+
+import { globalErrorMessageHandler } from "../HandleAlertSagas";
 
 const { LOAD_GET_PRODUCTS_BASED_ON_QUERY, SET_PAGE_NUMBER } = PRODUCT_TYPES;
 
@@ -55,11 +56,10 @@ function* handleLoadProductWorker() {
       }
 
       yield put(productsLoading(false));
-      yield put(
-        globalFailureMessenger("Something went wrong Please try again later!")
+      yield call(
+        globalErrorMessageHandler,
+        "Something went wrong Please try again later!"
       );
-      yield delay(3200);
-      yield put(globalFailureMessenger(null));
     }
   }
 }
@@ -96,14 +96,12 @@ function* handleLoadMoreResultsWorker() {
     } catch (err) {
       // yield console.clear();
       try {
-        yield put(globalFailureMessenger(err.response.data.message));
+        yield call(globalErrorMessageHandler, err.response.data.message);
       } catch (err) {
-        yield put(
-          globalFailureMessenger("Something went wrong Please try again later!")
+        yield call(
+          globalErrorMessageHandler,
+          "Something went wrong Please try again later!"
         );
-
-        yield delay(3200);
-        yield put(globalFailureMessenger(null));
       }
     }
   }

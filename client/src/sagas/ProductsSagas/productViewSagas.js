@@ -1,3 +1,5 @@
+import { takeLatest, select, call, put } from "redux-saga/effects";
+
 /**
  * Product Detail Saga.
  * @summary - take Product Id to get the Product details from api!
@@ -6,8 +8,6 @@
  *                Instead the details will be fetched from store !!!
  *                To avoid performance-lag once the store requests reaches 30 requests the last item will and re-pushed!!!
  */
-
-import { takeLatest, select, call, put, delay } from "redux-saga/effects";
 
 import { PRODUCT_TYPES } from "../../constants";
 
@@ -20,10 +20,11 @@ import {
   getProductsDetailsForGrpIdsEndPoint,
 } from "../../api";
 
+import { globalErrorMessageHandler } from "../HandleAlertSagas";
+
 // Actions are dispatched using saga put!
 import {
   getProductDetail,
-  globalFailureMessenger,
   reOccuringProductDetailRequests,
 } from "../../actions";
 
@@ -77,12 +78,11 @@ function* handleLoadProductViewWorker() {
     yield history.push(`/${productType.productCategory}/detail`);
   } catch (err) {
     // yield console.clear();
-    yield put(
-      globalFailureMessenger("Server didn't respond please try again later!")
+    yield call(
+      globalErrorMessageHandler,
+      "Server didn't respond please try again later!"
     );
     yield history.goBack();
-    yield delay(3200);
-    yield put(globalFailureMessenger(null));
   }
 }
 
