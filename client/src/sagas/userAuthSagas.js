@@ -9,14 +9,7 @@ import {
 
 import { USER_AUTH_TYPES, COOKIE_NAMES } from "../constants";
 import history from "../history";
-import {
-  loginUser,
-  authSuccessMessage,
-  authFailueMessage,
-  signUpUser,
-  userAccredited,
-  getUser,
-} from "../actions";
+import { loginUser, signUpUser, userAccredited, getUser } from "../actions";
 import {
   UserLogger,
   UserSigner,
@@ -28,6 +21,10 @@ import {
 } from "../api";
 import { useCookies } from "../utils/useCookies";
 import { useSessionStorage } from "../utils/useSessionStorage";
+import {
+  globalErrorMessageHandler,
+  globalSuccessMessageHandler,
+} from "./HandleAlertSagas";
 
 const { setAuthCookie, getCookie, removeCookie } = useCookies;
 const { setSessionItem, getSessionItem, removeSessionItem } = useSessionStorage;
@@ -54,25 +51,17 @@ function* handleUserLoginWorker() {
   // But we are doing this on client side to avoid over fetching.
   if (values) {
     if (!values.hasOwnProperty("email")) {
-      yield put(authFailueMessage("Please Enter Email👻"));
-      yield delay(3200);
-      yield put(authFailueMessage(null));
+      yield call(globalErrorMessageHandler, "Please Enter Email👻");
       return;
     } else if (!/\S+@\S+\.\S+/.test(values.email)) {
-      yield put(authFailueMessage("Please Enter Valid Email👻"));
-      yield delay(3200);
-      yield put(authFailueMessage(null));
+      yield call(globalErrorMessageHandler, "Please Enter Valid Email👻");
       return;
     } else if (!values.hasOwnProperty("password")) {
-      yield put(authFailueMessage("Please Enter Password👻"));
-      yield delay(3200);
-      yield put(authFailueMessage(null));
+      yield call(globalErrorMessageHandler, "Please Enter Password👻");
       return;
     }
   } else {
-    yield put(authFailueMessage("Please Enter Email and Password 👻"));
-    yield delay(3200);
-    yield put(authFailueMessage(null));
+    yield call(globalErrorMessageHandler, "Please Enter Email and Password 👻");
     return;
   }
 
@@ -86,7 +75,7 @@ function* handleUserLoginWorker() {
     );
 
     yield put(loginUser(data));
-    yield put(authSuccessMessage("Logged In Successfully🐱‍🏍"));
+    yield call(globalSuccessMessageHandler, "Logged In Successfully🐱‍🏍");
 
     // If keep-logged in checked store as cookie else in session-storage
     if (values.signedIn) {
@@ -104,18 +93,16 @@ function* handleUserLoginWorker() {
     yield history.goBack();
     yield call(handleUserAccreditationWorker);
     yield delay(3200);
-    yield put(authSuccessMessage(null));
+    yield call(globalSuccessMessageHandler, null);
   } catch (err) {
     // yield console.clear();
     try {
-      yield put(authFailueMessage(err.response.data.message + "🙃"));
-      yield delay(3200);
-      yield put(authFailueMessage(null));
+      yield call(globalErrorMessageHandler, err.response.data.message + "🙃");
     } catch (err) {
-      yield put(authFailueMessage("Something went wrong🤯 try again later⌛"));
-      yield delay(3200);
-      yield put(authFailueMessage(null));
-      // Mail if uncaught error occurs
+      yield call(
+        globalErrorMessageHandler,
+        "Something went wrong🤯 try again later⌛"
+      );
     }
   }
 }
@@ -130,54 +117,36 @@ function* handleUserSignUpWorker() {
   } = yield select(getFormValues);
   if (values) {
     if (!values.hasOwnProperty("name")) {
-      yield put(authFailueMessage("Please Enter Name👻"));
-      yield delay(3200);
-      yield put(authFailueMessage(null));
+      yield call(globalErrorMessageHandler, "Please Enter Name👻");
       return;
     } else if (!values.hasOwnProperty("signUpemail")) {
-      yield put(authFailueMessage("Please Enter Email"));
-      yield delay(3200);
-      yield put(authFailueMessage(null));
+      yield call(globalErrorMessageHandler, "Please Enter Email");
       return;
     } else if (!/\S+@\S+\.\S+/.test(values.signUpemail)) {
-      yield put(authFailueMessage("Please Enter Valid Email👻"));
-      yield delay(3200);
-      yield put(authFailueMessage(null));
+      yield call(globalErrorMessageHandler, "Please Enter Valid Email👻");
       return;
     } else if (!values.hasOwnProperty("phoneNumber")) {
-      yield put(authFailueMessage("Please Enter Phone Number"));
-      yield delay(3200);
-      yield put(authFailueMessage(null));
+      yield call(globalErrorMessageHandler, "Please Enter Phone Number");
       return;
     } else if (
       String(values.phoneNumber).length !== 10 ||
       !String(values.phoneNumber).charAt(0) > 6 ||
       !Number.isInteger(Number(values.phoneNumber))
     ) {
-      yield put(authFailueMessage("Please Enter Valid Phone Number"));
-      yield delay(3200);
-      yield put(authFailueMessage(null));
+      yield call(globalErrorMessageHandler, "Please Enter Valid Phone Number");
       return;
     } else if (!values.hasOwnProperty("signUppassword")) {
-      yield put(authFailueMessage("Please Enter Password👻"));
-      yield delay(3200);
-      yield put(authFailueMessage(null));
+      yield call(globalErrorMessageHandler, "Please Enter Password👻");
       return;
     } else if (!values.hasOwnProperty("confirmPassword")) {
-      yield put(authFailueMessage("Please Enter Password👻"));
-      yield delay(3200);
-      yield put(authFailueMessage(null));
+      yield call(globalErrorMessageHandler, "Please Confirm Your Password👻");
       return;
     } else if (values.signUppassword !== values.confirmPassword) {
-      yield put(authFailueMessage("Password Didn't match👻"));
-      yield delay(3200);
-      yield put(authFailueMessage(null));
+      yield call(globalErrorMessageHandler, "Password Didn't match👻");
       return;
     }
   } else {
-    yield put(authFailueMessage("Please Fill the Form👻"));
-    yield delay(3200);
-    yield put(authFailueMessage(null));
+    yield call(globalErrorMessageHandler, "Please Fill the Form👻");
     return;
   }
 
@@ -192,23 +161,20 @@ function* handleUserSignUpWorker() {
     );
 
     yield put(signUpUser(data));
-    yield put(authSuccessMessage("Thank You ,keep shopping!🐱‍🏍"));
+    yield call(globalSuccessMessageHandler, "Thank You ,keep shopping!🐱‍🏍");
     yield call(setSessionItem, AUTH_TOKEN, data.token);
     yield history.goBack();
     yield call(handleUserAccreditationWorker);
-    yield delay(3200);
-    yield put(authSuccessMessage(null));
+    yield call(globalSuccessMessageHandler, null);
   } catch (err) {
     // yield console.clear();
     try {
-      yield put(authFailueMessage(err.response.data.message + "🙃"));
-      yield delay(3200);
-      yield put(authFailueMessage(null));
+      yield call(globalErrorMessageHandler, err.response.data.message + "🙃");
     } catch (err) {
-      yield put(authFailueMessage("Something went wrong🤯 try again later⌛"));
-      yield delay(3200);
-      yield put(authFailueMessage(null));
-      // Mail if uncaught error occurs
+      yield call(
+        globalErrorMessageHandler,
+        "Something went wrong🤯 try again later⌛"
+      );
     }
   }
 }
@@ -242,9 +208,10 @@ function* handleUserLogoutWorker() {
   yield call(removeCookie, AUTH_TOKEN);
   yield call(removeSessionItem, AUTH_TOKEN);
   yield call(handleUserAccreditationWorker);
-  yield put(authSuccessMessage("Logged Out Successfully, come back soon!🐱‍"));
-  yield delay(3200);
-  yield put(authSuccessMessage(null));
+  yield call(
+    globalSuccessMessageHandler,
+    "Logged Out Successfully, come back soon!🐱‍"
+  );
 }
 
 export function* userLogoutWatcher() {
@@ -262,22 +229,20 @@ function* handleUserForgorPasswordWorker() {
       const { data } = yield call(forgotPassword, values.forgotemail);
 
       if (data) {
-        yield put(
-          authSuccessMessage(`Reset link sent to ${values.forgotemail}`)
+        yield call(
+          globalSuccessMessageHandler,
+          `Reset link sent to ${values.forgotemail}`
         );
-        yield delay(3200);
-        yield put(authSuccessMessage(null));
       }
     } catch (error) {
       // yield console.clear();
-      yield put(authFailueMessage(`Something went wrong try again later!!!`));
-      yield delay(3200);
-      yield put(authFailueMessage(null));
+      yield call(
+        globalErrorMessageHandler,
+        `Something went wrong try again later!!!`
+      );
     }
   } else {
-    yield put(authFailueMessage("Enter Email to get reset link!! 😇"));
-    yield delay(3200);
-    yield put(authFailueMessage(null));
+    yield call(globalErrorMessageHandler, "Enter Email to get reset link!! 😇");
   }
 }
 
@@ -294,23 +259,17 @@ function* handleUserPasswordResetWorker() {
   const resetToken = yield history.location.pathname.split("user_auth/")[1];
   if (values) {
     if (!values.password) {
-      yield put(authFailueMessage("Enter Password"));
-      yield delay(3200);
-      yield put(authFailueMessage(null));
+      yield call(globalErrorMessageHandler, "Enter Password");
       return;
     }
 
     if (!values.confirmPassword) {
-      yield put(authFailueMessage("Confirm Your Password"));
-      yield delay(3200);
-      yield put(authFailueMessage(null));
+      yield call(globalErrorMessageHandler, "Confirm Your Password");
       return;
     }
 
     if (values.password !== values.confirmPassword) {
-      yield put(authFailueMessage("Password didn't match 😬"));
-      yield delay(3200);
-      yield put(authFailueMessage(null));
+      yield call(globalErrorMessageHandler, "Password didn't match 😬");
       return;
     }
     try {
@@ -321,34 +280,28 @@ function* handleUserPasswordResetWorker() {
         values.confirmPassword
       );
 
-      yield put(authSuccessMessage(data.message));
+      yield call(globalSuccessMessageHandler, data.message);
       yield call(setSessionItem, AUTH_TOKEN, data.token);
       yield history.push("/");
       yield call(handleUserAccreditationWorker);
-      yield delay(3200);
-      yield put(authSuccessMessage(null));
     } catch (err) {
       // yield console.clear();
       try {
         if (err.response.data.message) {
-          yield put(authFailueMessage(err.response.data.message));
-          yield delay(3200);
-          yield put(authFailueMessage(null));
+          yield call(globalErrorMessageHandler, err.response.data.message);
         }
       } catch (e) {
-        yield put(
-          authFailueMessage(
-            "Reset Token Expired 😒, Please request for new reset link!!!"
-          )
+        yield call(
+          globalErrorMessageHandler,
+          "Reset Token Expired 😒, Please request for new reset link!!!"
         );
-        yield delay(3200);
-        yield put(authFailueMessage(null));
       }
     }
   } else {
-    yield put(authFailueMessage("Enter Password and Confirm Password"));
-    yield delay(3200);
-    yield put(authFailueMessage(null));
+    yield call(
+      globalErrorMessageHandler,
+      "Enter Password and Confirm Password"
+    );
   }
 }
 
@@ -382,9 +335,7 @@ function* handleUserManageDataWorker() {
     yield put(getUser(data.user));
   } catch (err) {
     // yield console.clear();
-    yield put(authFailueMessage("Something went wrong🤯!!!"));
-    yield delay(3200);
-    yield put(authFailueMessage(null));
+    yield call(globalErrorMessageHandler, "Something went wrong🤯!!!");
   }
 }
 
@@ -400,30 +351,22 @@ function* handleUserPasswordUpdateWorker() {
   const { fields } = yield select(getUserUpdateValueFromStore);
   if (fields) {
     if (!fields.currentPassword) {
-      yield put(authFailueMessage("Enter Current Password🤯!!!"));
-      yield delay(3200);
-      yield put(authFailueMessage(null));
+      yield call(globalErrorMessageHandler, "Enter Current Password🤯!!!");
       return;
     }
     if (!fields.password) {
-      yield put(authFailueMessage("Enter New Password🤯!!!"));
-      yield delay(3200);
-      yield put(authFailueMessage(null));
+      yield call(globalErrorMessageHandler, "Enter New Password🤯!!!");
+      return;
     }
     if (!fields.confirmPassword) {
-      yield put(authFailueMessage("Enter Confirm password🤯!!!"));
-      yield delay(3200);
-      yield put(authFailueMessage(null));
+      yield call(globalErrorMessageHandler, "Enter Confirm password🤯!!!");
       return;
     }
     if (fields.currentPassword === fields.password) {
-      yield put(
-        authFailueMessage(
-          "Current Password and New Password Cannot be Same🤯!!!"
-        )
+      yield call(
+        globalErrorMessageHandler,
+        "Current Password and New Password Cannot be Same🤯!!!"
       );
-      yield delay(3200);
-      yield put(authFailueMessage(null));
       return;
     }
 
@@ -436,21 +379,15 @@ function* handleUserPasswordUpdateWorker() {
         fields.confirmPassword
       );
 
-      yield put(authSuccessMessage(data.message));
-      yield delay(3200);
-      yield put(authSuccessMessage(null));
+      yield call(globalSuccessMessageHandler, data.message);
     } catch (err) {
       // yield console.clear();
       try {
         if (err.response) {
-          yield put(authFailueMessage(err.response.data.message));
-          yield delay(3200);
-          yield put(authFailueMessage(null));
+          yield call(globalErrorMessageHandler, err.response.data.message);
         }
       } catch (error) {
-        yield put(authFailueMessage("Something went wrong🤯"));
-        yield delay(3200);
-        yield put(authFailueMessage(null));
+        yield call(globalErrorMessageHandler, "Something went wrong🤯");
       }
     }
   }

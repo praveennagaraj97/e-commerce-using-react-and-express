@@ -26,9 +26,6 @@ export const globalSuccesMessengerWithImg = (success, image) => ({
 });
 
 export {
-  // Global Auth Messenger
-  authSuccessMessage,
-  authFailueMessage,
   // Login
   loadLogin,
   loginUser,
