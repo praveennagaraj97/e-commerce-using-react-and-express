@@ -11,11 +11,13 @@ export const handleImageUpload = (
 ) =>
   catchAsyncError(async (req, res, next) => {
     if (optional && !req.files) {
-      if (req.files) {
-        req.files.length === 0;
+      return next();
+    }
+    try {
+      if (optional && !req.files.length) {
         return next();
       }
-
+    } catch (err) {
       return next();
     }
 

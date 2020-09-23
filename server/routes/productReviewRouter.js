@@ -24,7 +24,8 @@ productReviewRouter
   .route("/addMobileReview")
   .post(
     // (req, res, next) => {
-    //   res.send(req.body);
+    //   console.log(req.files);
+    //   res.send(req.files);
     // },
     protectRoute,
     preFillUserId,
