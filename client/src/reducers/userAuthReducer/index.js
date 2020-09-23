@@ -2,7 +2,6 @@ import { USER_AUTH_TYPES } from "../../constants";
 
 const {
   LOGIN: { LOAD_LOGIN, LOAD_LOGGGED_USER },
-  MESSAGE: { LOAD_AUTH_SUCCESS_MESSAGE, LOAD_AUTH_FAILURE_MESSAGE },
   SIGNUP: { LOAD_SIGNUP, LOAD_SIGNED_UP_USER },
   USER_STATUS: { IS_LOGGED_IN, GET_USER },
   USER_UPDATE: { USER_PASSWORD_CHANGE },
@@ -18,11 +17,6 @@ const userAuthLoginReducer = (state = {}, action) => {
         ...state,
         userDetails: action.response,
       };
-    case LOAD_AUTH_SUCCESS_MESSAGE:
-      return { ...state, authSuccessMessage: action.message };
-
-    case LOAD_AUTH_FAILURE_MESSAGE:
-      return { ...state, authFailueMessage: action.message };
 
     case LOAD_SIGNUP:
       return { ...state, loadSignUp: true };

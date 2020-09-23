@@ -1,12 +1,14 @@
 .uploaded-image-viewer {
   display: flex;
+  height: 130px;
   overflow-y: hidden;
-  height: 75px;
-  margin-bottom: 10px;
+  padding: 6px;
+
   img {
+    box-shadow: 5px 5px 2px rgba(63, 61, 61, 0.295);
     height: 100%;
-    margin-right: 5px;
-    border-radius: 9px;
-    box-shadow: 4px 2px 3px rgba(34, 33, 33, 0.603);
+    margin-right: 9px;
+    border-radius: 20px;
+    object-fit: contain;
   }
 }
