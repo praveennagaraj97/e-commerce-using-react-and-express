@@ -29,3 +29,17 @@ export const addComputerReview = async (data) => {
     },
   });
 };
+
+export const addElectronicsReview = async (data) => {
+  return await apiBaseEndpoint.post(
+    "/product_review/addElectronicsReview",
+    data,
+    {
+      headers: {
+        authorization: `Bearer ${
+          authTokenFromCookie() || authTokenFromSession()
+        }`,
+      },
+    }
+  );
+};

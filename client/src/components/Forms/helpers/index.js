@@ -1,2 +1,3 @@
-export { ProductMobileReviewFields } from "./ProductMobileReviewFields";
+export { ProductMobileReview } from "./ProductMobileReviewFields";
 export { ProductComputerReview } from "./ProductComputerReview";
+export { ProductElectronicsReview } from "./ProductElectronicsReview";

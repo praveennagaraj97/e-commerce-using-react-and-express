@@ -30,4 +30,8 @@ export {
   reviewFoundHelpfulEndpoint,
 } from "./productEndpoints";
 
-export { addMobileReview, addComputerReview } from "./addon";
+export {
+  addMobileReview,
+  addComputerReview,
+  addElectronicsReview,
+} from "./addon";

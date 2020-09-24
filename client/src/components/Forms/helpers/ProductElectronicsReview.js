@@ -1,72 +1,40 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 
 import { ShowRating } from "../../Rating";
 import UploadedImageViewer from "../../UploadedImageViewer";
-import { addMobileReview } from "../../../api";
+import { addElectronicsReview } from "../../../api";
+import reviewFieldchecker from "./reviewFieldchecker";
+import { useDispatch } from "react-redux";
 import {
-  globalSuccesMessenger,
   globalFailureMessenger,
+  globalSuccesMessenger,
   loadNewProductReview,
 } from "../../../actions";
 
-import reviewFieldchecker from "./reviewFieldchecker";
-
-export const ProductMobileReview = ({ productReviewDetail: { productId } }) => {
-  const [faceRecognition, setFaceRecognition] = useState(5);
-  const [cameraQuality, setCameraQuality] = useState(5);
-  const [pictureQuality, setPictureQuality] = useState(5);
-  const [screenQuality, setScreenQuality] = useState(5);
-  const [soundQuality, setSoundQuality] = useState(5);
-  const [batteryLife, setBatteryLife] = useState(5);
-  const [valueForMoney, setValueForMoney] = useState(5);
-  const [reviewImages, setReviewImages] = useState([]);
-  const [processedImages, setProcessedImages] = useState([]);
-  const [reviewImageLimitBreach, setImageLimitBreach] = useState(false);
+export const ProductElectronicsReview = ({
+  productReviewDetail: { productId },
+}) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [reviewImages, setReviewImages] = useState([]);
   const [disableSubmit, setSubmitbutton] = useState(false);
+  const [processedImages, setProcessedImages] = useState([]);
+  const [reviewImageLimitBreach, setImageLimitBreach] = useState(false);
+
+  const [valueForMoney, setValueForMoney] = useState(5);
+  const [quality, setQuality] = useState(5);
 
   const dispatch = useDispatch();
 
   // Looper
-  const mobileReviewFields = [
+  const computerReviewFields = [
     {
-      title: "Face Recognition",
-      value: faceRecognition,
-      setter: setFaceRecognition,
-      eleName: "faceRecognition",
+      title: "Quality",
+      value: quality,
+      setter: setQuality,
+      eleName: "quality",
     },
-    {
-      title: "Camera Quality",
-      value: cameraQuality,
-      setter: setCameraQuality,
-      eleName: "cameraQuality",
-    },
-    {
-      title: "Picture Quality",
-      value: pictureQuality,
-      setter: setPictureQuality,
-      eleName: "pictureQuality",
-    },
-    {
-      title: "Screen Quality",
-      value: screenQuality,
-      setter: setScreenQuality,
-      eleName: "screenQuality",
-    },
-    {
-      title: "Sound Quality",
-      value: soundQuality,
-      setter: setSoundQuality,
-      eleName: "soundQuality",
-    },
-    {
-      title: "Battery Life ",
-      value: batteryLife,
-      setter: setBatteryLife,
-      eleName: "batteryLife",
-    },
+
     {
       title: "Value For Money",
       value: valueForMoney,
@@ -101,39 +69,39 @@ export const ProductMobileReview = ({ productReviewDetail: { productId } }) => {
     setProcessedImages(images);
   };
 
-  const uploadMobileReview = () => {
+  const uploadReview = () => {
     setSubmitbutton(true);
+
     if (!reviewFieldchecker(title, description, dispatch)) {
       setSubmitbutton(false);
       return;
     }
 
-    const mobileReviewFormData = new FormData();
+    const reviewFormData = new FormData();
 
-    for (let each of mobileReviewFields) {
-      mobileReviewFormData.append(each.eleName, each.value);
+    for (let each of computerReviewFields) {
+      reviewFormData.append(each.eleName, each.value);
     }
 
     if (processedImages.length > 0 && title && description) {
       for (let i = 0; i < processedImages.length; i++) {
-        mobileReviewFormData.append("productReviewImage", processedImages[i]);
+        reviewFormData.append("productReviewImage", processedImages[i]);
       }
     }
 
     if (title && description) {
-      mobileReviewFormData.append("title", title);
-      mobileReviewFormData.append("description", description);
+      reviewFormData.append("title", title);
+      reviewFormData.append("description", description);
     }
 
-    mobileReviewFormData.append("productId", productId);
+    reviewFormData.append("productId", productId);
 
-    addMobileReview(mobileReviewFormData)
+    addElectronicsReview(reviewFormData)
       .then((res) => {
         dispatch(globalSuccesMessenger("Thanks for feedback"));
+
         setSubmitbutton(false);
-
         dispatch(loadNewProductReview(res.data.details));
-
         setTimeout(() => {
           dispatch(globalSuccesMessenger(null));
         }, 3200);
@@ -141,8 +109,8 @@ export const ProductMobileReview = ({ productReviewDetail: { productId } }) => {
       .catch((err) => {
         try {
           if (
-            err.response.data.message ===
-            "MobileReview validation failed: userId: You can only review once"
+            err.response.data.message.split("userId: ")[1] ===
+            "You can only review once"
           )
             dispatch(
               globalFailureMessenger(
@@ -187,21 +155,23 @@ export const ProductMobileReview = ({ productReviewDetail: { productId } }) => {
       </div>
 
       <Fragment>
-        {mobileReviewFields.map(({ title, value, setter, eleName }, index) => {
-          return (
-            <div key={index} className='product-review-input__box'>
-              <p>{title}</p>
-              <ShowRating
-                value={value}
-                name={eleName}
-                input={true}
-                getValue={(value) => {
-                  setter(value);
-                }}
-              />
-            </div>
-          );
-        })}
+        {computerReviewFields.map(
+          ({ title, value, setter, eleName }, index) => {
+            return (
+              <div key={index} className='product-review-input__box'>
+                <p>{title}</p>
+                <ShowRating
+                  value={value}
+                  name={eleName}
+                  input={true}
+                  getValue={(value) => {
+                    setter(value);
+                  }}
+                />
+              </div>
+            );
+          }
+        )}
       </Fragment>
 
       <div className='product-review__imageUploader'>
@@ -238,7 +208,7 @@ export const ProductMobileReview = ({ productReviewDetail: { productId } }) => {
         )}
 
         {!disableSubmit ? (
-          <button type='submit' onClick={uploadMobileReview}>
+          <button type='submit' onClick={uploadReview}>
             Submit
           </button>
         ) : (
