@@ -3,9 +3,11 @@ import "intersection-observer";
 import React from "react";
 import { render } from "react-dom";
 import { Provider } from "react-redux";
+import { ApolloProvider } from "@apollo/client";
 
 import App from "./components/App";
 import store from "./store";
+import { client } from "./api";
 
 const styleLink = document.createElement("link");
 styleLink.rel = "stylesheet";
@@ -14,8 +16,10 @@ styleLink.href =
 document.head.appendChild(styleLink);
 
 render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <ApolloProvider client={client}>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </ApolloProvider>,
   document.querySelector("#root")
 );

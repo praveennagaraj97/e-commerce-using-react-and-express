@@ -4,7 +4,6 @@ export {
   productReviewReducer,
   addNewProductReviewReducer,
 } from "./productReviewReducer";
-export { categoriesReducer } from "./productCategoriesReducer";
 
 const {
   LOAD_GET_PRODUCTS_BASED_ON_QUERY,

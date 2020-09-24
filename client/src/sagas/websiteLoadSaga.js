@@ -1,11 +1,10 @@
-import { call, takeLatest } from "redux-saga/effects";
+import { takeLatest } from "redux-saga/effects";
 
 import { WEBSITE_LOAD } from "../constants";
 
-import { handleProductsCategoryWorker } from "./ProductsSagas/productCategoriesSaga";
-
 function* handleWebsiteLoadWorker() {
-  yield call(handleProductsCategoryWorker);
+  // yield call(handleProductsCategoryWorker);
+  yield;
 }
 
 export function* websiteLoadWatcher() {

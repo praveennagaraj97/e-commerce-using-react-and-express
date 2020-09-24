@@ -4,6 +4,7 @@
   "description": "Website With Shopping, Music, Video-Streaming, Daily-Dive-Of-Community ,Book-Reader",
   "private": true,
   "dependencies": {
+    "@apollo/client": "^3.2.1",
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
@@ -13,6 +14,7 @@
     "animate.css": "^4.1.0",
     "axios": "^0.19.2",
     "faker": "^4.1.0",
+    "graphql": "^15.3.0",
     "intersection-observer": "^0.11.0",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",

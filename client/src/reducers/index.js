@@ -8,7 +8,6 @@ import userAuthLoginReducer, {
   userDetailsUpdateReducer,
 } from "./userAuthReducer";
 import {
-  categoriesReducer,
   getProductsReducer,
   productCartReducer,
   viewProductReducer,
@@ -24,7 +23,6 @@ export default combineReducers({
   userDetails: userDetailsReducer,
   updateUserDetail: userDetailsUpdateReducer,
   form: formReducer,
-  productCategories: categoriesReducer,
   productsList: getProductsReducer,
   globalErrorOrSuccessMessage: globalMessageReducer,
   productCart: productCartReducer,
