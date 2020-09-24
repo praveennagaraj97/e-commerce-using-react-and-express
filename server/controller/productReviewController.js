@@ -5,7 +5,11 @@ import {
   ReviewHelpful,
 } from "../model/productReviewModel";
 
-import { MobileReviewModel, ComputerReviewModel } from "../model/addon";
+import {
+  MobileReviewModel,
+  ComputerReviewModel,
+  ElectronicsReviewModel,
+} from "../model/addon";
 
 import { createNewDocumnet, readAllDocument } from "../handlers/factoryHandler";
 import { GCS_BUCKET_NAME } from "../constants";
@@ -85,9 +89,16 @@ export const reviewHelpfulPost = createNewDocumnet(ReviewHelpful, {
 // Add review
 
 export const addProductMobileReview = createNewDocumnet(MobileReviewModel, {
-  message: "Thank You for reviewing",
+  message: "Thanks for feedback",
 });
 
 export const addProductComputerReview = createNewDocumnet(ComputerReviewModel, {
   message: "Thanks for feedback",
 });
+
+export const addProductElectronicsReview = createNewDocumnet(
+  ElectronicsReviewModel,
+  {
+    message: "Thanks for feedback",
+  }
+);

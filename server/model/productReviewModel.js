@@ -45,6 +45,9 @@ const baseProductReviewSchema = new Schema(
         message: "Description should be atleast 10 letters",
       },
     },
+    averageReview: {
+      type: Number,
+    },
 
     productReviewImages: {
       type: [String],

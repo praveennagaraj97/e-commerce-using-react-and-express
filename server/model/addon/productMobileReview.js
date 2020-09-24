@@ -52,9 +52,6 @@ const mobileReviewSchema = new Schema(
       select: false,
       required: [true, "Mobile Must contain Value For Money review"],
     },
-    averageReview: {
-      type: Number,
-    },
   },
   {
     timestamps: true,

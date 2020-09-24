@@ -37,10 +37,6 @@ const computerReviewSchema = new Schema(
       max: 5,
       required: [true, "Provide Rating for value for money"],
     },
-
-    averageReview: {
-      type: Number,
-    },
   },
   {
     timestamps: true,

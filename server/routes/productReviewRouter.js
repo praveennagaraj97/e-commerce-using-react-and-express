@@ -4,6 +4,7 @@ import multer from "multer";
 import {
   addProductMobileReview,
   addProductComputerReview,
+  addProductElectronicsReview,
 
   // like
   getProductReviewBasedOnProductId,
@@ -57,4 +58,16 @@ productReviewRouter.route("/addComputerReview").post(
   handleProductReviewImage,
   processProductReviewImage,
   addProductComputerReview
+);
+
+productReviewRouter.route("/addElectronicsReview").post(
+  upload.array("productReviewImage"),
+  // (req, res, next) => {
+  //   res.send(req.files);
+  // },
+  protectRoute,
+  preFillUserId,
+  handleProductReviewImage,
+  processProductReviewImage,
+  addProductElectronicsReview
 );
