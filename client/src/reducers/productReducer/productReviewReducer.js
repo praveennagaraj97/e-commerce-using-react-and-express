@@ -28,7 +28,7 @@ export const productReviewReducer = (state = {}, action) => {
 export const addNewProductReviewReducer = (state = {}, action) => {
   switch (action.type) {
     case LOAD_NEW_PRODUCT_REVIEW:
-      return { ...state, reviewingFor: action.reviewForProducttype };
+      return { ...state, addedReview: action.review };
     default:
       return state;
   }

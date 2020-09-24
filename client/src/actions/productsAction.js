@@ -123,7 +123,7 @@ export const reviewFoundHelpful = (reviewId) => ({
   reviewId,
 });
 
-export const loadNewProductReview = (reviewForProducttype) => ({
+export const loadNewProductReview = (review) => ({
   type: LOAD_NEW_PRODUCT_REVIEW,
-  reviewForProducttype,
+  review,
 });

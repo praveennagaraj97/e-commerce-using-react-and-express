@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useRef, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 
 import { ShowRating } from "../../Rating";
 import UploadedImageViewer from "../../UploadedImageViewer";
@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import {
   globalFailureMessenger,
   globalSuccesMessenger,
+  loadNewProductReview,
 } from "../../../actions";
 
 export const ProductComputerReview = ({
@@ -26,8 +27,6 @@ export const ProductComputerReview = ({
   const [processor, setProcessor] = useState(5);
   const [storage, setStorage] = useState(5);
 
-  // Ref to store Image Blobs
-  const file = useRef();
   const dispatch = useDispatch();
 
   // Looper
@@ -104,9 +103,9 @@ export const ProductComputerReview = ({
       reviewFormData.append(each.eleName, each.value);
     }
 
-    if (file.current && title && description) {
-      for (let i = 0; i < file.current.length; i++) {
-        reviewFormData.append("productReviewImage", file.current[i]);
+    if (processedImages.length > 0 && title && description) {
+      for (let i = 0; i < processedImages.length; i++) {
+        reviewFormData.append("productReviewImage", processedImages[i]);
       }
     }
 
@@ -120,7 +119,9 @@ export const ProductComputerReview = ({
     addComputerReview(reviewFormData)
       .then((res) => {
         dispatch(globalSuccesMessenger("Thanks for feedback"));
+
         setSubmitbutton(false);
+        dispatch(loadNewProductReview(res.data.details));
         setTimeout(() => {
           dispatch(globalSuccesMessenger(null));
         }, 3200);
@@ -216,7 +217,6 @@ export const ProductComputerReview = ({
             accept='.png, .jpg, .jpeg'
             onChange={(ev) => {
               setReviewImages(ev.target.files);
-              file.current = ev.target.files;
             }}
           />
         </div>

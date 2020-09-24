@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useRef, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { ShowRating } from "../../Rating";
@@ -7,6 +7,7 @@ import { addMobileReview } from "../../../api";
 import {
   globalSuccesMessenger,
   globalFailureMessenger,
+  loadNewProductReview,
 } from "../../../actions";
 
 import reviewFieldchecker from "./reviewFieldchecker";
@@ -28,8 +29,6 @@ export const ProductMobileReviewFields = ({
   const [description, setDescription] = useState("");
   const [disableSubmit, setSubmitbutton] = useState(false);
 
-  // Ref to store Image Blobs
-  const file = useRef();
   const dispatch = useDispatch();
 
   // Looper
@@ -117,9 +116,9 @@ export const ProductMobileReviewFields = ({
       mobileReviewFormData.append(each.eleName, each.value);
     }
 
-    if (file.current && title && description) {
-      for (let i = 0; i < file.current.length; i++) {
-        mobileReviewFormData.append("productReviewImage", file.current[i]);
+    if (processedImages.length > 0 && title && description) {
+      for (let i = 0; i < processedImages.length; i++) {
+        mobileReviewFormData.append("productReviewImage", processedImages[i]);
       }
     }
 
@@ -134,6 +133,8 @@ export const ProductMobileReviewFields = ({
       .then((res) => {
         dispatch(globalSuccesMessenger("Thanks for feedback"));
         setSubmitbutton(false);
+
+        dispatch(loadNewProductReview(res.data.details));
 
         setTimeout(() => {
           dispatch(globalSuccesMessenger(null));
@@ -228,7 +229,6 @@ export const ProductMobileReviewFields = ({
             accept='.png, .jpg, .jpeg'
             onChange={(ev) => {
               setReviewImages(ev.target.files);
-              file.current = ev.target.files;
             }}
           />
         </div>

@@ -102,8 +102,40 @@ export function* reviewFoundHelfulWatcher() {
   yield takeLatest(REVIEW_FOUND_HELPFUL, handleReviewFoundHelpfulWorker);
 }
 
+const getAddedReviewFromStore = ({ addNewProduct }) => addNewProduct;
+const getCurrentReviewsFromStore = ({ productReview }) => productReview;
+
 function* addNewProductReviewWorker() {
-  yield console.log("ok");
+  const { addedReview } = yield select(getAddedReviewFromStore);
+  const { productReviewsList } = yield select(getCurrentReviewsFromStore);
+
+  if (productReviewsList) {
+    const currentReviews = [...productReviewsList];
+
+    addedReview.foundHelpful = [];
+
+    if (!addedReview.hasOwnProperty("productReviewImages")) {
+      addedReview.productReviewImages = [];
+    }
+
+    currentReviews.unshift(addedReview);
+    const newStructuredReview = {
+      details: currentReviews,
+      reviewForProduct: addedReview.productId,
+    };
+    yield put(getProductReviews(newStructuredReview));
+  } else {
+    addedReview.foundHelpful = [];
+
+    if (!addedReview.hasOwnProperty("productReviewImages")) {
+      addedReview.productReviewImages = [];
+    }
+    const newStructuredReview = {
+      details: [addedReview],
+      reviewForProduct: addedReview.productId,
+    };
+    yield put(getProductReviews(newStructuredReview));
+  }
 }
 
 export function* addNewProductReviewWatcher() {
