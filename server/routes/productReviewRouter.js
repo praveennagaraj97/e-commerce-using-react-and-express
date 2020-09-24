@@ -3,9 +3,11 @@ import multer from "multer";
 
 import {
   addProductMobileReview,
+  addProductComputerReview,
+
+  // like
   getProductReviewBasedOnProductId,
   reviewHelpfulPost,
-  averageReviewOfProducts,
 
   // Middlewares
   protectRoute,
@@ -17,22 +19,9 @@ import {
   processProductReviewImage,
 } from "../controller/productReviewController";
 
-export const productReviewRouter = Router();
+const upload = multer();
 
-productReviewRouter
-  .use(multer().array("productReviewImage"))
-  .route("/addMobileReview")
-  .post(
-    // (req, res, next) => {
-    //   console.log(req.files);
-    //   res.send(req.files);
-    // },
-    protectRoute,
-    preFillUserId,
-    handleProductReviewImage,
-    processProductReviewImage,
-    addProductMobileReview
-  );
+export const productReviewRouter = Router();
 
 productReviewRouter.route("/getReviews").get(getProductReviewBasedOnProductId);
 
@@ -45,4 +34,27 @@ productReviewRouter
     reviewHelpfulPost
   );
 
-productReviewRouter.route("/test").get(averageReviewOfProducts);
+productReviewRouter.route("/addMobileReview").post(
+  upload.array("productReviewImage"),
+  // (req, res, next) => {
+  //   console.log(req.files);
+  //   res.send(req.files);
+  // },
+  protectRoute,
+  preFillUserId,
+  handleProductReviewImage,
+  processProductReviewImage,
+  addProductMobileReview
+);
+
+productReviewRouter.route("/addComputerReview").post(
+  upload.array("productReviewImage"),
+  // (req, res, next) => {
+  //   res.send(req.files);
+  // },
+  protectRoute,
+  preFillUserId,
+  handleProductReviewImage,
+  processProductReviewImage,
+  addProductComputerReview
+);

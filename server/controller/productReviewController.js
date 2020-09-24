@@ -2,9 +2,11 @@ import Mongoose from "mongoose";
 
 import {
   BaseProductReviewModel,
-  MobileReviewModel,
   ReviewHelpful,
 } from "../model/productReviewModel";
+
+import { MobileReviewModel, ComputerReviewModel } from "../model/addon";
+
 import { createNewDocumnet, readAllDocument } from "../handlers/factoryHandler";
 import { GCS_BUCKET_NAME } from "../constants";
 import { aggregationPipeline } from "../utils/Aggregation";
@@ -32,12 +34,8 @@ export const processProductReviewImage = processMultipleImages(
   "productReviewImages"
 );
 
-export const addProductMobileReview = createNewDocumnet(MobileReviewModel, {
-  message: "Thank You for reviewing",
-});
-
 export const getProductReviewBasedOnProductId = readAllDocument(
-  MobileReviewModel,
+  BaseProductReviewModel,
   {
     message: "List Of reviews for this Product",
   }
@@ -82,4 +80,14 @@ export const preFillReviewHelpulForLikeOrUndo = preFillReviewFoundHelpFul(
 );
 export const reviewHelpfulPost = createNewDocumnet(ReviewHelpful, {
   message: "Success",
+});
+
+// Add review
+
+export const addProductMobileReview = createNewDocumnet(MobileReviewModel, {
+  message: "Thank You for reviewing",
+});
+
+export const addProductComputerReview = createNewDocumnet(ComputerReviewModel, {
+  message: "Thanks for feedback",
 });
