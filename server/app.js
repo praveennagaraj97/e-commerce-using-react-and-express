@@ -1,6 +1,7 @@
 import dotenvConfig from "./config/dotenvConfig";
 import { resolve } from "path";
 import express from "express";
+import { ApolloServer } from "apollo-server-express";
 import helmet from "helmet";
 import hpp from "hpp";
 import cors from "cors";
@@ -10,6 +11,8 @@ import rateLimit from "express-rate-limit";
 import morgon from "morgan";
 import cookieParser from "cookie-parser";
 import compression from "compression";
+
+import {} from "./graphql";
 
 import {
   pageNotFoundError,
@@ -23,10 +26,20 @@ import { productRouter } from "./routes/productRouter";
 import { productDetailRouter } from "./routes/productDetailsRouter";
 import { productReviewRouter } from "./routes/productReviewRouter";
 
+import { resolvers, typeDefs } from "./graphql";
+
+const apolloServer = new ApolloServer({
+  typeDefs,
+  resolvers,
+  playground: true,
+});
+
 dotenvConfig();
 process.on("uncaughtException", unCaughtExceptionErrorHandler);
 
 const app = express();
+
+apolloServer.applyMiddleware({ app });
 
 // Logger
 if (process.env.NODE_ENV === "development") {

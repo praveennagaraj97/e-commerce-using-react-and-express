@@ -20,7 +20,7 @@ connect(process.env.URIS, {
 const port = process.env.PORT || 8080;
 
 const server = app.listen(port, () => {
-  console.log(`Listening on http://localhost:${port}`);
+  console.log(`Listening on http://localhost:${port}/graphql`);
 });
 
 process.on("unhandledRejection", (err) => {
