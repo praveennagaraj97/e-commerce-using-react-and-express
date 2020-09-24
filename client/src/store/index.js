@@ -42,10 +42,18 @@ const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const middlewares = [sagaMiddleware];
 
-const store = createStore(
-  persistedReducer,
-  composeEnhancer(applyMiddleware(...middlewares))
-);
+let store;
+if (process.env.NODE_ENV === "production") {
+  store = createStore(
+    persistedReducer,
+    composeEnhancer(applyMiddleware(...middlewares))
+  );
+} else {
+  store = createStore(
+    reducers,
+    composeEnhancer(applyMiddleware(...middlewares))
+  );
+}
 
 export const persistor = persistStore(store);
 
