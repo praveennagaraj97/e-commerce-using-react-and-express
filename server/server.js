@@ -17,8 +17,10 @@ connect(process.env.URIS, {
     console.log(err);
   });
 
-const server = app.listen(process.env.PORT || 8080, () => {
-  console.log(`Listening`);
+const port = process.env.PORT || 8080;
+
+const server = app.listen(port, () => {
+  console.log(`Listening on http://localhost:${port}`);
 });
 
 process.on("unhandledRejection", (err) => {
