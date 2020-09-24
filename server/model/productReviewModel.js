@@ -12,21 +12,22 @@ const baseProductReviewSchema = new Schema(
     userId: {
       type: Schema.Types.ObjectId,
       required: [true, "Provide User Id"],
-      validate: {
-        validator: async function (val) {
-          const review = await BaseProductReviewModel.findOne({
-            userId: val,
-            productId: this.productId,
-          });
-          if (review) {
-            return String(review.productId) !== String(this.productId);
-          } else return true;
-        },
-        message: "You can only review once",
-      },
+      // validate: {
+      //   validator: async function (val) {
+      //     const review = await BaseProductReviewModel.findOne({
+      //       userId: val,
+      //       productId: this.productId,
+      //     });
+      //     if (review) {
+      //       return String(review.productId) !== String(this.productId);
+      //     } else return true;
+      //   },
+      //   message: "You can only review once",
+      // },
     },
     title: {
       type: String,
+      required: [true, "Provide Title for the review"],
       validate: {
         validator: function (val) {
           return String(val).length > 3;
@@ -36,6 +37,7 @@ const baseProductReviewSchema = new Schema(
     },
     description: {
       type: String,
+      required: [true, "Provide Description for the review"],
       validate: {
         validator: function (val) {
           return String(val).length > 10;
@@ -70,7 +72,7 @@ baseProductReviewSchema.pre(/^find/, function (next) {
     select: ["name"],
   }).populate("foundHelpful", ["-helpul"]);
 
-  this.find({ title: { $exists: true } });
+  // this.find({ title: { $exists: true } });
 
   next();
 });

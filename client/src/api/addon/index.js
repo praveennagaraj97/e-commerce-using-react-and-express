@@ -1,1 +1,1 @@
-export { addMobileReview } from "./ProductReviewEndpoints";
+export { addMobileReview, addComputerReview } from "./ProductReviewEndpoints";

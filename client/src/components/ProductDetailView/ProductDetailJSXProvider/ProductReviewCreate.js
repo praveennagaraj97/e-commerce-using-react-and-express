@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
 import "../../../styles/productReviewCreate.scss";
@@ -10,6 +10,10 @@ const ProductReviewCreate = ({
   productReviewDetail,
 }) => {
   const [showReviewForm, setShowReviewForm] = useState(false);
+
+  useEffect(() => {
+    setShowReviewForm(false);
+  }, []);
 
   return (
     <div className='product-review-create-container'>

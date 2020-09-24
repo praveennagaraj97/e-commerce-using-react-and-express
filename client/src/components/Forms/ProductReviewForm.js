@@ -1,7 +1,7 @@
 import React from "react";
 
 import "../../styles/productReviewForm.scss";
-import { ProductMobileReviewFields } from "./helpers";
+import { ProductComputerReview, ProductMobileReviewFields } from "./helpers";
 
 /**
  * @file - productReviewImages.
@@ -14,6 +14,10 @@ export const ProductReviewForm = ({ productReviewDetail }) => {
     return (
       <ProductMobileReviewFields productReviewDetail={productReviewDetail} />
     );
+  }
+
+  if (productReviewDetail.category === "computers") {
+    return <ProductComputerReview productReviewDetail={productReviewDetail} />;
   }
 
   return <h1>Oh</h1>;

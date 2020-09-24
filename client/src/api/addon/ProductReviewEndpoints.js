@@ -19,3 +19,13 @@ export const addMobileReview = async (data) => {
     },
   });
 };
+
+export const addComputerReview = async (data) => {
+  return await apiBaseEndpoint.post("/product_review/addComputerReview", data, {
+    headers: {
+      authorization: `Bearer ${
+        authTokenFromCookie() || authTokenFromSession()
+      }`,
+    },
+  });
+};
