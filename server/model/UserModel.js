@@ -50,7 +50,7 @@ const userSchema = new Schema(
     },
     userRole: {
       type: String,
-      enum: ["user", "seller"],
+      enum: ["user", "seller", "dev"],
       default: "user",
       select: false,
     },

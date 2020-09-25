@@ -46,6 +46,7 @@ export const signInHandler = (ModelName, responseMessage) =>
     const { message } = responseMessage;
 
     res.status(202).json({
+      user,
       message,
       token,
     });
@@ -72,6 +73,13 @@ export const protectRoute = (ModelName) =>
     req.user = user;
     next();
   });
+
+export const restrictTo = (...roles) => {
+  return (req, res, next) => {
+    if (roles.includes(req.user.role)) next();
+    else next(new AppError("You Are Not Allowed to this Operation", 404));
+  };
+};
 
 export const updateUserDetails = (ModelName, responseMessage) =>
   catchAsyncError(async (req, res, next) => {
@@ -203,4 +211,112 @@ export const changeUserPasswordHandler = (ModelName, responseMessage) =>
     user.password = req.body.password;
     await user.save();
     res.status(200).json(responseMessage);
+  });
+
+// Dev - Team Handler
+
+export const addDeveloperHandler = (ModelName, responseMessage) =>
+  catchAsyncError(async (req, res, next) => {
+    // preCheck Owner With Password
+
+    // Generate a random password for employer
+    const randomPassword = [...Array(10)]
+      .map((i) => (~~(Math.random() * 36)).toString(36))
+      .join("");
+
+    req.body.password = randomPassword;
+    req.body.confirmPassword = randomPassword;
+
+    const employer = await ModelName.create(req.body);
+
+    if (!employer)
+      return next(
+        new AppError("Something went wrong while adding employer", 500)
+      );
+
+    // Create Employee ID
+    const employerId = `Lexa-${employer.name.substring(0, 4)}-${String(
+      employer._id
+    ).substring(String(employer._id).length, 16)}`;
+
+    let employeeDetail;
+    try {
+      employeeDetail = await ModelName.findByIdAndUpdate(
+        employer._id,
+        {
+          empId: employerId,
+        },
+        {
+          upsert: true,
+          runValidators: true,
+          setDefaultsOnInsert: true,
+          context: "query",
+          new: true,
+        }
+      );
+    } catch (err) {
+      employeeDetail = await ModelName.findByIdAndUpdate(
+        employer._id,
+        {
+          empId: `Lexa-${employer.name.substring(0, 4)}-${String(
+            employer._id
+          ).substring(String(employer._id))}`,
+        },
+        {
+          upsert: true,
+          runValidators: true,
+          setDefaultsOnInsert: true,
+          context: "query",
+          new: true,
+        }
+      );
+    }
+
+    const mailOptions = {
+      email: employeeDetail.email,
+      username: employeeDetail.name,
+    };
+
+    const url = {
+      empid: employerId,
+      password: randomPassword,
+    };
+
+    await new Email(mailOptions, url).sendNewEmployeeWelcome();
+
+    // Mail which contails details about employee -ID which is MongoID
+    res.status(201).json({
+      message: responseMessage.message,
+      employee_id: employerId,
+      password: randomPassword,
+      employeeDetail,
+    });
+  });
+
+export const employeeLogin = (ModelName, responseMessage) =>
+  catchAsyncError(async (req, res, next) => {
+    if (!req.body.employeeId || !req.body.password)
+      return next(new AppError("Enter employeeId and Password", 422));
+
+    const employee = await ModelName.findOne({
+      empId: req.body.employeeId,
+    }).select("+password");
+
+    if (!employee) return next(new AppError("Enter Valid Employee Id", 401));
+
+    const validPassword = await employee.comparePassword(
+      req.body.password,
+      employee.password
+    );
+
+    if (!validPassword)
+      return next(new AppError("Enter Password is wrong", 401));
+
+    // 8 hrs valid token
+    const token = await generateJWToken({ id: employee._id }, "8h");
+
+    res.status(200).json({
+      message: responseMessage.message,
+      token,
+    });
   });

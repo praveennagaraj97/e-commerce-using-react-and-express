@@ -1,4 +1,6 @@
 import { User } from "../model/UserModel";
+import { DevTeamUserModel } from "../model/addon";
+
 import {
   // middleware
   protectRoute as protectRouteHandler,
@@ -10,9 +12,14 @@ import {
   resetPasswordHandler,
   changeUserPasswordHandler,
   updateUserDetails,
+
+  // dev
+  addDeveloperHandler,
+  employeeLogin,
 } from "../handlers/userHandler";
 
 export { accreditReact } from "../middleware/accreditReact";
+export { restrictTo } from "../handlers/userHandler";
 
 export const protectRoute = protectRouteHandler(User);
 
@@ -45,4 +52,14 @@ export const changeUserPassword = changeUserPasswordHandler(User, {
 
 export const updateMe = updateUserDetails(User, {
   message: "User Details Updated",
+});
+
+// dev
+
+export const addDevTeamUser = addDeveloperHandler(DevTeamUserModel, {
+  message: "Successfully Added Employee",
+});
+
+export const employeeSignIn = employeeLogin(DevTeamUserModel, {
+  message: "Logged in Successfully",
 });

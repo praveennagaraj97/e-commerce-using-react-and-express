@@ -59,4 +59,8 @@ export class Email {
   async sendResetPassword() {
     await this.send("forgotPassword", "Password reset Valid for 5 minutes");
   }
+
+  async sendNewEmployeeWelcome() {
+    await this.send("newEmployeeWelcome", "Welcome to Lexa Team!");
+  }
 }
