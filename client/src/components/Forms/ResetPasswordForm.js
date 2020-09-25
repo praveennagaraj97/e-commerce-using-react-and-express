@@ -1,5 +1,5 @@
 import { Button } from "@material-ui/core";
-import React, { Fragment } from "react";
+import React from "react";
 import { Field } from "redux-form";
 
 export const ResetPasswordForm = ({
@@ -14,7 +14,7 @@ export const ResetPasswordForm = ({
         autoComplete={process.env.NODE_ENV === "development" ? "on" : "off"}
         onSubmit={handleSubmit(onSubmitFormValues)}
         noValidate>
-        <Fragment>
+        <>
           {resetFormFields.map(({ htmlFor, label, type }, index) => {
             return (
               <div className='form-input' key={index}>
@@ -34,7 +34,7 @@ export const ResetPasswordForm = ({
           <Button style={{ backgroundColor: "white" }} type='submit'>
             Reset Password
           </Button>
-        </Fragment>
+        </>
       </form>
     </div>
   );

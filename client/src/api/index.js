@@ -1,18 +1,9 @@
 import Axios from "axios";
-import { ApolloClient, InMemoryCache } from "@apollo/client";
 
 /**
  * @param{G-App-Engine} : "https://lexa-api.uc.r.appspot.com/api/v1"
  * @param Heroku-Engine : "https://lexa-api-v1.herokuapp.com/api/v1"
  */
-
-export const client = new ApolloClient({
-  uri:
-    process.env.NODE_ENV === "production"
-      ? "https://lexa-api-v1.herokuapp.com/graphql"
-      : "http://localhost:8080/graphql",
-  cache: new InMemoryCache(),
-});
 
 export const apiBaseEndpoint = Axios.create({
   baseURL:

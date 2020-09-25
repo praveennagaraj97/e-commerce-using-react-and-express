@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 
 import "../../../styles/productReviewList.scss";
@@ -46,7 +46,7 @@ const ProductReview = ({
     reviewFoundHelpful(reviewId);
   };
   return (
-    <Fragment>
+    <>
       <h3 className='product-review-header' ref={setReviewVisible}>
         Product Reviews
       </h3>
@@ -122,7 +122,7 @@ const ProductReview = ({
           )}
         </div>
       )}
-    </Fragment>
+    </>
   );
 };
 

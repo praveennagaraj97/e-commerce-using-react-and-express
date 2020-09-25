@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 
 import "../styles/notifier.scss";
@@ -66,7 +66,7 @@ const Notifer = ({ error, success, globalSuccessWithImg }) => {
     );
   }
   return (
-    <Fragment>
+    <>
       {open && (success || error) ? (
         <div style={{ backgroundColor: theme }} className='notifier-container'>
           <div className='notifier__message'>{success || error}</div>
@@ -74,7 +74,7 @@ const Notifer = ({ error, success, globalSuccessWithImg }) => {
       ) : (
         ""
       )}
-    </Fragment>
+    </>
   );
 };
 

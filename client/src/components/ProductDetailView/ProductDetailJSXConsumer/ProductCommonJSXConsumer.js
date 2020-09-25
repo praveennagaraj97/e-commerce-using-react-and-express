@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { connect } from "react-redux";
 
 import { makeStyles } from "@material-ui/core";
@@ -24,7 +24,7 @@ const ProductMobileDetail = (props) => {
 
   if (props.images) {
     return (
-      <Fragment>
+      <>
         {/* Product Images | Info-features | AddTocart - direct-buy */}
         <ProductImageAndBrief
           images={props.images}
@@ -35,24 +35,24 @@ const ProductMobileDetail = (props) => {
 
         {/* As Server doesn't provide video intro for all products this column will be null if no video */}
         {props.video ? (
-          <Fragment>
+          <>
             <VideoPlayer src={props.video} />
             {/* <ProductAdvertiseBoard /> */}
             <hr style={{ width: "65%" }} />
-          </Fragment>
+          </>
         ) : (
           ""
         )}
 
         {/* Product Description by Manufacturer as a statement*/}
         {props.productDescription ? (
-          <Fragment>
+          <>
             <ProductBrief
               productDescription={props.productDescription}
               productBoards={props.productBoards}
             />
             <hr style={{ width: "65%" }} />
-          </Fragment>
+          </>
         ) : (
           ""
         )}
@@ -60,23 +60,23 @@ const ProductMobileDetail = (props) => {
         {/* Product Details in table */}
 
         {props.productDetails ? (
-          <Fragment>
+          <>
             <div className={classes.mobileTechnicalDetails}>
               <h2> Technical Details </h2>
               <ProductDetailTable productDetails={props.productDetails} />
             </div>
             <hr style={{ width: "65%" }} />
-          </Fragment>
+          </>
         ) : (
           ""
         )}
 
         {/* About manufacturer */}
         {props.manufacturer ? (
-          <Fragment>
+          <>
             <ProductManufacturer manufacturer={props.manufacturer} />
             <hr style={{ width: "65%" }} />
-          </Fragment>
+          </>
         ) : (
           ""
         )}
@@ -88,7 +88,7 @@ const ProductMobileDetail = (props) => {
             productId: props.id.productId,
           }}
         />
-      </Fragment>
+      </>
     );
   }
   return <h1 style={{ color: "white" }}>Server failed to respond</h1>;

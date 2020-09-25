@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { Menu, Segment, Icon, Button } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
@@ -46,7 +46,7 @@ const Header = (props) => {
     );
 
   return (
-    <Fragment>
+    <>
       <div className='top-header-brand__name'>Lexa</div>
       <Segment inverted className='top-header-mobile-menu'>
         <Menu inverted secondary className='top-header-mobile'>
@@ -56,7 +56,7 @@ const Header = (props) => {
           <UserMenu />
         </Menu>
       </Segment>
-    </Fragment>
+    </>
   );
 };
 

@@ -1,11 +1,3 @@
-import { gql } from "@apollo/client";
+export { client } from "./ApolloSetup";
 
-export const GET_ALL_CATEGORIES = gql`
-  query {
-    getAllCategories {
-      _id
-      categoryName
-      categoryIcon
-    }
-  }
-`;
+export { GET_ALL_CATEGORIES } from "./Queries";

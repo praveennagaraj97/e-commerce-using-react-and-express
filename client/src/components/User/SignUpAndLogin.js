@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { reduxForm, Field } from "redux-form";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
@@ -38,10 +38,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SignUpAndLogin = (props) => {
+const SignUpAndLogin = ({ handleSubmit }) => {
   const classes = useStyles();
   const [showForm, setShowForm] = useState("login");
-  const { handleSubmit, loadLogin, loadSignUp, loadForgotPassword } = props;
+
+  const dispatch = useDispatch();
 
   const keepMeSignedIn = () => {
     return (
@@ -61,7 +62,7 @@ const SignUpAndLogin = (props) => {
 
   const forgotPasswordLink = () => {
     return (
-      <React.Fragment>
+      <>
         <p
           onClick={() => setShowForm("forgotPassword")}
           className={classes.forgotPassword}
@@ -69,19 +70,19 @@ const SignUpAndLogin = (props) => {
           Forgot Password ?
         </p>
         <br />
-      </React.Fragment>
+      </>
     );
   };
 
   const onSubmitForm = () => {
     if (showForm === "login") {
-      loadLogin();
+      dispatch(loadLogin());
     }
     if (showForm === "forgotPassword") {
-      loadForgotPassword();
+      dispatch(loadForgotPassword());
     }
     if (showForm === "signup") {
-      loadSignUp();
+      dispatch(loadSignUp());
     }
   };
 
@@ -110,7 +111,7 @@ const SignUpAndLogin = (props) => {
   };
 
   return (
-    <React.Fragment>
+    <>
       <CssBaseline />
       <Container className={classes.formContainer} maxWidth='md'>
         <Button onClick={() => setShowForm("login")} variant='contained'>
@@ -133,7 +134,7 @@ const SignUpAndLogin = (props) => {
         forgotPasswordLink={showForm === "login" ? forgotPasswordLink() : ""}
         authForm={true}
       />
-    </React.Fragment>
+    </>
   );
 };
 
@@ -141,10 +142,4 @@ const reduxFormWrapper = reduxForm({
   form: "SignUpOrLogin",
 })(SignUpAndLogin);
 
-const mapDispatchToProps = (dispatch) => ({
-  loadLogin: () => dispatch(loadLogin()),
-  loadSignUp: () => dispatch(loadSignUp()),
-  loadForgotPassword: () => dispatch(loadForgotPassword()),
-});
-
-export default connect(null, mapDispatchToProps)(reduxFormWrapper);
+export default reduxFormWrapper;

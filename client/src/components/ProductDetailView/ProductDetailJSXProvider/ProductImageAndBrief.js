@@ -1,20 +1,19 @@
 import { Button } from "@material-ui/core";
-import React, { useEffect, useState, Fragment } from "react";
+import React, { useEffect, useState } from "react";
 
 import "../../../styles/productimageandbrief.scss";
 import { loadViewProductDetail, addItemToCart } from "../../../actions";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const ProductImageAndBrief = ({
   images,
   productBriefInfo,
-  loadViewProductDetail,
-  addItemToCart,
   currentProductId,
 }) => {
   const [previewImage, setPreviewImage] = useState("");
   const [screenAbove1032, setScreenAbove1032] = useState(true);
   const [screenAbove582, setScreenAbove582] = useState(true);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (images.length > 0) setPreviewImage(images[0]);
@@ -45,7 +44,7 @@ const ProductImageAndBrief = ({
       id,
     };
 
-    loadViewProductDetail(productType);
+    dispatch(loadViewProductDetail(productType));
   };
 
   const productBriefDescriptionJSX = (productBriefInfo) => {
@@ -92,7 +91,8 @@ const ProductImageAndBrief = ({
     return (
       <div className='product-detail-description-payment__checkout'>
         <div className='product-detail-description-payment__cart-btn'>
-          <button onClick={() => addItemToCart(currentProductId.productId)}>
+          <button
+            onClick={() => dispatch(addItemToCart(currentProductId.productId))}>
             Add To Cart
           </button>
         </div>
@@ -106,7 +106,7 @@ const ProductImageAndBrief = ({
   // Display JSX
   if (images.length > 0 && productBriefInfo) {
     return (
-      <Fragment>
+      <>
         <div className='product-detail-image-desc-container'>
           {/* First box */}
           <div className='product-detail-imagelist-container'>
@@ -143,21 +143,21 @@ const ProductImageAndBrief = ({
         {/* // Mid-range screenbelow1090 width */}
 
         {!screenAbove1032 ? (
-          <Fragment>
+          <>
             <hr style={{ width: "65%" }} />{" "}
             {productBriefDescriptionJSX(productBriefInfo)}
-          </Fragment>
+          </>
         ) : (
           ""
         )}
         {!screenAbove582 ? (
-          <Fragment>
+          <>
             <hr style={{ width: "65%" }} /> {checkoutAndCartBoxJSX()}
-          </Fragment>
+          </>
         ) : (
           ""
         )}
-      </Fragment>
+      </>
     );
   }
   return (
@@ -168,9 +168,4 @@ const ProductImageAndBrief = ({
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  loadViewProductDetail: (id) => dispatch(loadViewProductDetail(id)),
-  addItemToCart: (id) => dispatch(addItemToCart(id)),
-});
-
-export default connect(null, mapDispatchToProps)(ProductImageAndBrief);
+export default ProductImageAndBrief;

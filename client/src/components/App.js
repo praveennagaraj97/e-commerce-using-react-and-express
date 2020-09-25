@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { Router, Route, Switch } from "react-router-dom";
 import "animate.css";
 
@@ -11,7 +11,7 @@ import SignUpAndLogin from "./User/SignUpAndLogin";
 import ResetPassword from "./User/ResetPassword";
 import ProductCategories from "./Product/ProductCategories";
 import { useWindowSize } from "../utils/useWindowResizeHook";
-import ProductDisplay from "./Product/ProductDisplay";
+import ProductList from "./Product/ProductsList";
 
 import history from "../history";
 
@@ -37,7 +37,7 @@ const App = () => {
   };
 
   return (
-    <Fragment>
+    <>
       <Router history={history}>
         <div id='section-header' className='header-container'>
           <Header navItems={navItems} />
@@ -62,7 +62,7 @@ const App = () => {
             <Route
               exact
               path='/category/:categoryName'
-              component={ProductDisplay}
+              component={ProductList}
             />
             <Route
               exact
@@ -101,7 +101,7 @@ const App = () => {
         }}>
         @Lexa
       </footer> */}
-    </Fragment>
+    </>
   );
 };
 

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { ShowRating } from "../../Rating";
 import UploadedImageViewer from "../../UploadedImageViewer";
@@ -154,7 +154,7 @@ export const ProductElectronicsReview = ({
         />
       </div>
 
-      <Fragment>
+      <>
         {computerReviewFields.map(
           ({ title, value, setter, eleName }, index) => {
             return (
@@ -172,7 +172,7 @@ export const ProductElectronicsReview = ({
             );
           }
         )}
-      </Fragment>
+      </>
 
       <div className='product-review__imageUploader'>
         <h3>

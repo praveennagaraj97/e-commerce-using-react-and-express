@@ -1,15 +1,17 @@
-import React, { useState, Fragment } from "react";
-import { connect } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 
 import { userPasswordUpdate } from "../../actions";
 
 import "../../styles/settings.scss";
 
-const UserDetail = ({ userDetail, userPasswordUpdate }) => {
+const UserDetail = ({ userDetail }) => {
   const [showPasswordFields, setShowPasswordFields] = useState(false);
   const [currentPassword, setCurrentPassword] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  const dispatch = useDispatch();
 
   const handlePasswordChange = () => {
     setShowPasswordFields(true);
@@ -22,7 +24,7 @@ const UserDetail = ({ userDetail, userPasswordUpdate }) => {
       confirmPassword: confirmPassword || null,
     };
 
-    userPasswordUpdate(data);
+    dispatch(userPasswordUpdate(data));
     setShowPasswordFields(false);
     setPassword("");
     setCurrentPassword("");
@@ -93,7 +95,7 @@ const UserDetail = ({ userDetail, userPasswordUpdate }) => {
 
             {/* Show on password change button */}
             {showPasswordFields ? (
-              <Fragment>
+              <>
                 <tr>
                   <td>New Password</td>
                   <td>
@@ -144,7 +146,7 @@ const UserDetail = ({ userDetail, userPasswordUpdate }) => {
                     />
                   </td>
                 </tr>
-              </Fragment>
+              </>
             ) : (
               <tr></tr>
             )}
@@ -156,8 +158,4 @@ const UserDetail = ({ userDetail, userPasswordUpdate }) => {
   return <></>;
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  userPasswordUpdate: (data) => dispatch(userPasswordUpdate(data)),
-});
-
-export default connect(null, mapDispatchToProps)(UserDetail);
+export default UserDetail;

@@ -6,8 +6,9 @@ import { GET_ALL_CATEGORIES } from "../../graphql";
 import "../../styles/productCategories.scss";
 import history from "../../history";
 import { loadGetProductsOnQuery } from "../../actions";
+import { scrollToTop } from "../../utils/scrollTopOnRouteChange";
 
-export const ProductCategories = () => {
+const ProductCategories = () => {
   const { loading, error, data } = useQuery(GET_ALL_CATEGORIES);
   const dispatch = useDispatch();
 
@@ -15,8 +16,7 @@ export const ProductCategories = () => {
     history.push(`/category/${categoryName.toLowerCase()}`);
     const query = `?categoryId=${category_id}`;
     dispatch(loadGetProductsOnQuery(query));
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
+    scrollToTop();
   };
 
   if (error) {
@@ -39,7 +39,7 @@ export const ProductCategories = () => {
 
   if (data)
     return (
-      <Fragment>
+      <>
         {data
           ? data.getAllCategories.map(({ categoryName, _id, categoryIcon }) => {
               return (
@@ -64,7 +64,7 @@ export const ProductCategories = () => {
               );
             })
           : ""}
-      </Fragment>
+      </>
     );
 };
 

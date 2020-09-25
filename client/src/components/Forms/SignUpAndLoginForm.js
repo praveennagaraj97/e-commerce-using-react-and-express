@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { Field } from "redux-form";
 import { Button } from "@material-ui/core";
 
@@ -17,7 +17,7 @@ export const SignUpAndLoginForm = ({
         autoComplete={process.env.NODE_ENV === "development" ? "on" : "off"}
         onSubmit={handleSubmit(onSubmitFormValues)}
         noValidate>
-        <Fragment>
+        <>
           {formSelected.map(({ htmlFor, label, type }, index) => {
             return (
               <div className='form-input' key={index}>
@@ -39,7 +39,7 @@ export const SignUpAndLoginForm = ({
           <Button style={{ backgroundColor: "white" }} type='submit'>
             {buttonToShow}
           </Button>
-        </Fragment>
+        </>
       </form>
     </div>
   );

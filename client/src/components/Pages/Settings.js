@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 
 import UserDetail from "../User/UserDetail";
@@ -16,7 +16,7 @@ const Settings = ({ loadUser, userDetail }) => {
   };
 
   return (
-    <Fragment>
+    <>
       <div className='settings-container'>
         <h1>Manage your Lexa Settings</h1>
         <p>
@@ -50,7 +50,7 @@ const Settings = ({ loadUser, userDetail }) => {
       ) : (
         ""
       )}
-    </Fragment>
+    </>
   );
 };
 

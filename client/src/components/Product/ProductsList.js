@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 
 import {
@@ -6,7 +6,7 @@ import {
   addItemToCart,
   loadViewProductDetail,
 } from "../../actions";
-import ProductFeatures from "../Product/ProductFeatures";
+import ProductFeatures from "./ProductFeatures";
 import { ShowRating } from "../Rating";
 
 import { useInfiniteScrolling } from "../../utils/useInfiniteScrolling";
@@ -15,7 +15,7 @@ import { useWindowSize } from "../../utils/useWindowResizeHook";
 import history from "../../history";
 import "../../styles/productDisplay.scss";
 
-const ProductDisplay = ({
+const ProductList = ({
   productsList,
   loadMoreResults,
   addItemToCart,
@@ -32,14 +32,14 @@ const ProductDisplay = ({
   useInfiniteScrolling(element, loadMoreResultsOnScroll);
 
   const handleViewProduct = (id) => {
-    const productType = {
+    const productModelled = {
       category: history.location.pathname.split("/")[
         history.location.pathname.split("/").length - 1
       ],
       id,
     };
 
-    loadViewDetail(productType);
+    loadViewDetail(productModelled);
   };
 
   const reviewStarRender = (review, reviewerCount) => {
@@ -47,13 +47,13 @@ const ProductDisplay = ({
       <div className='product-display-list-rating'>
         <ShowRating value={review} />
         {reviewerCount > 0 ? (
-          <Fragment>
+          <>
             <p>{reviewerCount}</p>
             <img
               src='https://img.icons8.com/material-sharp/24/000000/reviewer-female.png'
               alt='reviewers'
             />
-          </Fragment>
+          </>
         ) : (
           ""
         )}
@@ -62,7 +62,7 @@ const ProductDisplay = ({
   };
 
   return (
-    <Fragment>
+    <>
       {productsLoading ? (
         <div className='loading-container'>
           <img
@@ -93,7 +93,7 @@ const ProductDisplay = ({
         <div className='product-cards-container'>
           <div className='product-cards'>
             {products.length > 0 ? (
-              <Fragment>
+              <>
                 {products.map(
                   ({
                     _id,
@@ -144,7 +144,7 @@ const ProductDisplay = ({
                     );
                   }
                 )}
-              </Fragment>
+              </>
             ) : (
               ""
             )}
@@ -165,7 +165,7 @@ const ProductDisplay = ({
       ) : products.length > 0 ? (
         <h1 style={{ color: "white", textAlign: "center" }}>End Of Results</h1>
       ) : (
-        <Fragment>
+        <>
           {!productsLoading ? (
             <h1 style={{ color: "white", textAlign: "center" }}>
               No Results Found
@@ -173,9 +173,9 @@ const ProductDisplay = ({
           ) : (
             ""
           )}
-        </Fragment>
+        </>
       )}
-    </Fragment>
+    </>
   );
 };
 
@@ -187,7 +187,8 @@ const mapStateToProps = ({ productsList }) => ({
 const mapDispatchToProps = (dispatch) => ({
   loadMoreResults: (pageNumber) => dispatch(setPageNumber(pageNumber)),
   addItemToCart: (item) => dispatch(addItemToCart(item)),
-  loadViewDetail: (productType) => dispatch(loadViewProductDetail(productType)),
+  loadViewDetail: (productModel) =>
+    dispatch(loadViewProductDetail(productModel)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductDisplay);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductList);

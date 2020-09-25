@@ -208,6 +208,9 @@ function* handleUserLogoutWorker() {
   yield call(removeCookie, AUTH_TOKEN);
   yield call(removeSessionItem, AUTH_TOKEN);
   yield call(handleUserAccreditationWorker);
+
+  yield history.push("/");
+
   yield call(
     globalSuccessMessageHandler,
     "Logged Out Successfully, come back soon!🐱‍"

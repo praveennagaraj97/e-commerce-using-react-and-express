@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { ShowRating } from "../../Rating";
@@ -186,7 +186,7 @@ export const ProductMobileReview = ({ productReviewDetail: { productId } }) => {
         />
       </div>
 
-      <Fragment>
+      <>
         {mobileReviewFields.map(({ title, value, setter, eleName }, index) => {
           return (
             <div key={index} className='product-review-input__box'>
@@ -202,7 +202,7 @@ export const ProductMobileReview = ({ productReviewDetail: { productId } }) => {
             </div>
           );
         })}
-      </Fragment>
+      </>
 
       <div className='product-review__imageUploader'>
         <h3>

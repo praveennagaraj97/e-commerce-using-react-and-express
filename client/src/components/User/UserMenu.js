@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Button, Icon } from "semantic-ui-react";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -40,7 +40,7 @@ const UserMenu = ({ userAccredited, loadLogout }) => {
   }, [userAccredited]);
 
   return (
-    <Fragment>
+    <>
       <Button
         style={{ width: "12vw" }}
         aria-controls='simple-menu'
@@ -76,7 +76,7 @@ const UserMenu = ({ userAccredited, loadLogout }) => {
           ""
         )}
       </Menu>
-    </Fragment>
+    </>
   );
 };
 

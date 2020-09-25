@@ -7,7 +7,7 @@ import { ApolloProvider } from "@apollo/client";
 
 import App from "./components/App";
 import store from "./store";
-import { client } from "./api";
+import { client } from "./graphql";
 
 const styleLink = document.createElement("link");
 styleLink.rel = "stylesheet";

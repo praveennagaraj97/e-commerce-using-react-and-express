@@ -1,12 +1,11 @@
 import React, { Fragment, useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 
 import "../../styles/searchBar.scss";
 import useHandleClose from "../../utils/useHandleClose";
+import { apiBaseEndpoint } from "../../api";
 
 import { loadViewProductDetail, loadGetProductsOnQuery } from "../../actions";
-
-import { apiBaseEndpoint } from "../../api";
-import { connect } from "react-redux";
 
 import history from "../../history";
 
@@ -16,11 +15,12 @@ const getSearchResults = async (searchTerm) => {
   );
 };
 
-const ProductSearchBar = ({ viewProduct, getProductsFromSearchTerm }) => {
+const ProductSearchBar = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [products, setProducts] = useState([]);
   const [showHandle, setShowHandle] = useState(false);
   const ref = useRef();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const timeId = setTimeout(() => {
@@ -51,17 +51,21 @@ const ProductSearchBar = ({ viewProduct, getProductsFromSearchTerm }) => {
 
   const handleProductView = (id, categoryName) => {
     setShowHandle(false);
-    viewProduct({
-      category: categoryName.toLowerCase(),
-      id,
-    });
+    dispatch(
+      loadViewProductDetail({
+        category: categoryName.toLowerCase(),
+        id,
+      })
+    );
   };
 
   const handleSearchList = (categoryId) => {
     setShowHandle(false);
 
-    getProductsFromSearchTerm(
-      `?searchin=productName&searchTerm=${searchTerm}&categoryId=${categoryId._id}&page=1&limit=6`
+    dispatch(
+      loadGetProductsOnQuery(
+        `?searchin=productName&searchTerm=${searchTerm}&categoryId=${categoryId._id}&page=1&limit=6`
+      )
     );
 
     history.push(`/category/${categoryId.categoryName.toLowerCase()}`);
@@ -116,10 +120,4 @@ const ProductSearchBar = ({ viewProduct, getProductsFromSearchTerm }) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  viewProduct: (productDetail) =>
-    dispatch(loadViewProductDetail(productDetail)),
-  getProductsFromSearchTerm: (query) => dispatch(loadGetProductsOnQuery(query)),
-});
-
-export default connect(null, mapDispatchToProps)(ProductSearchBar);
+export default ProductSearchBar;
