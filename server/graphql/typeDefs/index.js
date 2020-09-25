@@ -1,29 +1,8 @@
-const { gql } = require("apollo-server-express");
+import Query from "./Query";
+import Types from "./Types";
+import Mutation from "./Mutation";
+// import Subscription from "./Subscription";
 
-export const typeDefs = gql`
-  type AboutMe {
-    name: String!
-    age: Int!
-    location: String!
-  }
+const typeDefs = [Types, Query, Mutation];
 
-  type Category {
-    _id: ID!
-    categoryName: String!
-    categoryIcon: String!
-  }
-
-  type Product {
-    _id: ID!
-    productName: String!
-    productCoverImage: String!
-    categoryId: Category!
-    productPrice: Float!
-  }
-
-  type Query {
-    aboutDeveloper: AboutMe!
-    getAllCategories: [Category!]
-    getAllProducts: [Product]
-  }
-`;
+export default typeDefs;

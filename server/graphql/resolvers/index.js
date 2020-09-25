@@ -1,13 +1,6 @@
-export const resolvers = {
-  Query: {
-    aboutDeveloper: () => ({
-      name: "Praveen Nagaraj",
-      age: 22,
-      location: "Bangalore",
-    }),
+import Query from "./Query";
+import Mutation from "./Mutation";
 
-    getAllCategories: (parent, args, { Category }, info) => Category.find(),
+const resolvers = Object.assign({}, { Query, Mutation });
 
-    getAllProducts: (parent, args, { Product }, info) => Product.find(),
-  },
-};
+export default resolvers;
