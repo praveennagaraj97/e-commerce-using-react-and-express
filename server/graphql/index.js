@@ -13,7 +13,7 @@ const apolloServer = new ApolloServer({
   resolvers,
   playground: true,
   introspection: true,
-  context: { Category, Product, User, pubsub },
+  context: ({ req, res }) => ({ req, res, Category, Product, User, pubsub }),
   tracing: true,
 });
 

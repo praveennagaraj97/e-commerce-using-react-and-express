@@ -2,6 +2,7 @@ import { gql } from "apollo-server-express";
 
 import UserTypeDefs from "./user";
 import ProductTypeDefs from "./products";
+import ChatTypeDefs from "./chat";
 
 const RootSchema = gql`
   scalar BigInt
@@ -22,6 +23,6 @@ const RootSchema = gql`
   }
 `;
 
-const typeDefs = [RootSchema, UserTypeDefs, ProductTypeDefs];
+const typeDefs = [RootSchema, UserTypeDefs, ProductTypeDefs, ChatTypeDefs];
 
 export default typeDefs;
