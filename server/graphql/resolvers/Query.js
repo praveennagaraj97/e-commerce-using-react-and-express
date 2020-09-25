@@ -1,4 +1,6 @@
 const Query = {
+  // User Auth
+
   aboutDeveloper: () => ({
     name: "Praveen Nagaraj",
     age: 22,
@@ -19,7 +21,7 @@ const Query = {
 
     for (let each of category) {
       const products = await Product.find({ categoryId: each._id });
-      results.push({ ...each._doc, products });
+      results.push({ category: each._doc, products });
     }
 
     return results;

@@ -64,6 +64,9 @@ app.use(mongoSanitize());
 // Data Sanitize for html injection
 app.use(xss());
 
+// Header x-powered-by Express
+app.disable("x-powered-by");
+
 // 130 Requests Per Hour Rate-Limiter
 const limiter = rateLimit({
   max: 30,

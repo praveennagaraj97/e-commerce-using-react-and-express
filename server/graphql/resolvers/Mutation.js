@@ -1,5 +1,7 @@
 import { ApolloError } from "apollo-server-express";
 
+import { signUp, signIn } from "./user/Authentication";
+
 const Mutation = {
   getProductBasedOnCategory: async (
     parent,
@@ -15,6 +17,8 @@ const Mutation = {
     }
     return await Product.find({ categoryId: category._id });
   },
+  signUp,
+  signIn,
 };
 
 export default Mutation;

@@ -7,24 +7,31 @@ export default gql`
     location: String!
   }
 
+  scalar BigInt
+
   type Category {
-    _id: ID
-    categoryName: String
-    categoryIcon: String
+    _id: ID!
+    categoryName: String!
+    categoryIcon: String!
   }
 
   type CategoryWithProducts {
-    _id: ID
-    categoryName: String
-    categoryIcon: String
-    products: [Product]
+    category: Category!
+    products: [Product!]
   }
 
   type Product {
-    _id: ID
-    productName: String
-    productCoverImage: String
-    categoryId: Category
-    productPrice: Float
+    _id: ID!
+    productName: String!
+    productCoverImage: String!
+    categoryId: Category!
+    productPrice: Float!
+  }
+
+  type Chat {
+    _id: ID!
+    title: String!
+    users: [User!]!
+    messages: [String]
   }
 `;
