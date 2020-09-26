@@ -12,6 +12,7 @@ import ResetPassword from "./User/ResetPassword";
 import ProductCategories from "./Product/ProductCategories";
 import { useWindowSize } from "../utils/useWindowResizeHook";
 import ProductList from "./Product/ProductsList";
+import Chat from "./Chat";
 
 import history from "../history";
 
@@ -59,6 +60,7 @@ const App = () => {
             <Route exact path='/user_auth' component={SignUpAndLogin} />
             <Route exact path='/user_auth/:token' component={ResetPassword} />
             <Route exact path='/settings' component={Settings} />
+            <Route exact path='/service/chat' component={Chat} />
             <Route
               exact
               path='/category/:categoryName'

@@ -77,7 +77,7 @@ const ProductReview = ({
               _id,
               productReviewImages,
               averageReview,
-              userId: { name },
+              userId,
               title,
               description,
               createdAt,
@@ -90,7 +90,7 @@ const ProductReview = ({
                       src='https://img.icons8.com/cotton/48/000000/gender-neutral-user.png'
                       alt='reviewer-avatar'
                     />
-                    <p>{name || "Lexa Customer"}</p>
+                    <p>{userId ? userId.name : "Lexa Customer"}</p>
                   </div>
                   <div className='rating'>
                     <ShowRating value={averageReview} />

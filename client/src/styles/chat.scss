@@ -1,0 +1,116 @@
+.chat-container {
+  width: 450px;
+  margin: auto;
+  background-color: rgba(255, 255, 255, 0.575);
+  height: 70vh;
+  border-radius: 10px;
+  .chats {
+    height: 92%;
+  }
+}
+
+@media (max-width: 768px) {
+  .chat-container {
+    width: 90vw;
+  }
+}
+
+.chat-input {
+  display: flex;
+  height: 35px;
+  input {
+    padding: 8px;
+    border-radius: 0px 10px 0px 10px;
+    border: none;
+    outline: none;
+    width: 90%;
+  }
+  img {
+    height: 100%;
+    cursor: pointer;
+  }
+}
+
+//
+
+.messages__container {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 5px 0;
+  height: 100%;
+  overflow-y: scroll;
+  li {
+    padding: 0.5rem;
+    overflow: hidden;
+    display: flex;
+  }
+  .pointer {
+    width: 10px;
+    position: relative;
+  }
+}
+
+.recieved {
+  .pointer {
+    &:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 0;
+      height: 0;
+      border: 5px solid white;
+      border-left-color: transparent;
+      border-bottom-color: transparent;
+    }
+  }
+}
+
+.self {
+  justify-content: flex-end;
+  align-items: flex-end;
+  .messages {
+    order: 1;
+    border-bottom-right-radius: 0;
+  }
+  .pointer {
+    order: 2;
+    &:after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border: 5px solid white;
+      border-right-color: transparent;
+      border-top-color: transparent;
+      box-shadow: 1px 1px 2px rgba(black, 0.2);
+    }
+  }
+}
+
+.messages {
+  background: white;
+  padding: 8px;
+  border-radius: 2px;
+  box-shadow: 0 1px 2px rgba(black, 0.2);
+  width: 80%;
+  p {
+    font-size: 0.8rem;
+    margin: 0 0 0.2rem 0;
+  }
+  time {
+    font-size: 0.7rem;
+    color: #ccc;
+  }
+}
+
+@keyframes pulse {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.5;
+  }
+}
