@@ -1,7 +1,7 @@
 import { ApolloError } from "apollo-server-express";
-import { generateJWToken, verifyJWToken } from "../../../utils/jsonWebToken";
+import { generateJWToken } from "../../../utils/jsonWebToken";
 
-// Utils
+// Resolvers
 const UserAuthenticationResolvers = {
   Mutation: {
     signUp: async (parent, args, { User }, info) => {

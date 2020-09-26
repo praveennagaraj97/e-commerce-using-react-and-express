@@ -6,11 +6,12 @@ const ChatTypeDefs = gql`
   }
 
   extend type Mutation {
-    sendMessage(user: String!, message: String!): Message!
+    sendMessage(to: ID!, message: String!): Message!
   }
 
   type Message {
-    user: String!
+    from: ID!
+    to: ID!
     message: String!
   }
 `;

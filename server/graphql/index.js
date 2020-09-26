@@ -1,6 +1,7 @@
 import { ApolloServer, PubSub } from "apollo-server-express";
 import Category from "../model/categoryModel";
 import { Product } from "../model/productModel";
+import Chat from "../model/chatModel";
 import { User } from "../model/UserModel";
 
 import typeDefs from "./typeDefs";
@@ -13,7 +14,15 @@ const apolloServer = new ApolloServer({
   resolvers,
   playground: true,
   introspection: true,
-  context: ({ req, res }) => ({ req, res, Category, Product, User, pubsub }),
+  context: ({ req, res }) => ({
+    req,
+    res,
+    Category,
+    Product,
+    User,
+    Chat,
+    pubsub,
+  }),
   tracing: true,
 });
 

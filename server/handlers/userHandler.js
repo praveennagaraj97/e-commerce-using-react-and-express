@@ -58,7 +58,7 @@ export const protectRoute = (ModelName) =>
       return next(new AppError("Please Login First", 401));
     if (req.headers.authorization) {
       if (!req.headers.authorization.startsWith("Bearer")) {
-        return next(new AppError("You are not logged In", 401));
+        return next(new AppError("Bearer Token not Found", 401));
       }
     }
 
@@ -68,7 +68,8 @@ export const protectRoute = (ModelName) =>
 
     const user = await ModelName.findById(tokenDetails.id);
     // if user account is deleted
-    if (!user) return next(new AppError("No User Found", 401));
+    if (!user)
+      return next(new AppError("Authentication Error Invalid Token", 401));
 
     req.user = user;
     next();
