@@ -1,4 +1,5 @@
 import dotenvConfig from "./config/dotenvConfig";
+import http from "http";
 import { resolve } from "path";
 import express from "express";
 import helmet from "helmet";
@@ -102,4 +103,7 @@ app.use("*", pageNotFoundError);
 
 app.use(globalErrorHandler);
 
-export default app;
+const httpServer = http.createServer(app);
+apolloServer.installSubscriptionHandlers(httpServer);
+
+export { httpServer as app };

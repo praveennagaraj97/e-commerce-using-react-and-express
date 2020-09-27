@@ -1,6 +1,6 @@
 import { connect, connection } from "mongoose";
 
-import app from "./app";
+import { app } from "./app";
 import { serverCloser } from "./handlers/errorHandler";
 
 connect(process.env.URIS, {

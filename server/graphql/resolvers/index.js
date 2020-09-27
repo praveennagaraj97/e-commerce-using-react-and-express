@@ -27,11 +27,16 @@ const Mutation = {
   ...ChatResolvers.Mutation,
 };
 
+const Subscription = {
+  ...ChatResolvers.Subscription,
+};
+
 const resolvers = Object.assign(
   {},
   {
     Query,
     Mutation,
+    Subscription,
     BigInt: BigIntresolver,
   }
 );

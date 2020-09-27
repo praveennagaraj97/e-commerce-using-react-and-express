@@ -1,6 +1,6 @@
 import { ApolloError, AuthenticationError } from "apollo-server-express";
-import Mongoose from "mongoose";
-import { authCheck } from "../../middleware";
+// import Mongoose from "mongoose";
+// import { authCheck } from "../../middleware";
 
 const MESSENGER = "MESSENGER";
 
