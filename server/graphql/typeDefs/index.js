@@ -16,6 +16,10 @@ const RootSchema = gql`
     _rootMutation(name: String): String
   }
 
+  type Subscription {
+    _rootSubscription: String
+  }
+
   type AboutMe {
     name: String!
     age: Int!

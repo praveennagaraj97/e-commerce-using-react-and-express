@@ -2,6 +2,8 @@ import { ApolloError, AuthenticationError } from "apollo-server-express";
 import Mongoose from "mongoose";
 import { authCheck } from "../../middleware";
 
+const MESSENGER = "MESSENGER";
+
 const ChatResolvers = {
   Query: {
     getMyChats: async (parent, args, { User, Chat, req }, info) => {
@@ -29,7 +31,7 @@ const ChatResolvers = {
   },
 
   Mutation: {
-    sendMessage: async (parent, args, { User, Chat, req }, info) => {
+    sendMessage: async (parent, args, { User, Chat, req, pubsub }, info) => {
       const input = { ...args };
 
       if (!input.to) return new ApolloError("Enter the sender Detail", 422);
@@ -122,8 +124,18 @@ const ChatResolvers = {
         );
       }
 
-      console.log(writtenData);
+      await pubsub.publish(MESSENGER, {
+        newMessage: JSON.stringify(writtenData),
+      });
+
       return writtenData;
+    },
+  },
+
+  Subscription: {
+    newMessage: {
+      subscribe: (parent, args, { pubsub }, info) =>
+        pubsub.asyncIterator([MESSENGER]),
     },
   },
 };

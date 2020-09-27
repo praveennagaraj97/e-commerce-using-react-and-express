@@ -9,6 +9,10 @@ const ChatTypeDefs = gql`
     sendMessage(to: ID!, message: String!): Message!
   }
 
+  extend type Subscription {
+    messenger: String
+  }
+
   type ChatsList {
     message: String
     chats: [Chat]
@@ -22,11 +26,16 @@ const ChatTypeDefs = gql`
     at: String
   }
 
+  type messager {
+    _id: ID!
+    name: String!
+  }
+
   type Message {
     chats: [Chat!]
     _id: ID!
-    sender: ID!
-    reciever: ID!
+    sender: messager
+    reciever: messager
   }
 `;
 

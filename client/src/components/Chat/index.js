@@ -2,8 +2,6 @@ import { useQuery } from "@apollo/client";
 import React from "react";
 import { useSelector } from "react-redux";
 
-import { timeAgo } from "../../utils/timesAgoFormat";
-
 import { GET_CHAT_HISTORY } from "../../graphql";
 
 import "../../styles/chat.scss";
@@ -33,13 +31,12 @@ const Chat = () => {
         <div className='chats'>
           {/* Message container */}
           <ol className='messages__container'>
-            {chats.map(({ _id, from, message, to, at }) => {
+            {chats.map(({ _id, from, message }) => {
               if (from !== user.user) {
                 return (
                   <li className='recieved' key={_id}>
                     <div className='messages'>
                       <p>{message}</p>
-                      <time>{timeAgo.format(Number(at))}</time>
                     </div>
                   </li>
                 );
@@ -48,7 +45,6 @@ const Chat = () => {
                   <li key={_id} className='self'>
                     <div className='messages'>
                       <p>{message}</p>
-                      <time>{timeAgo.format(Number(at))}</time>
                     </div>
                   </li>
                 );
