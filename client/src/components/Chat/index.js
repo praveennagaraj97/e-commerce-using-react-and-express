@@ -1,14 +1,60 @@
+import { useQuery } from "@apollo/client";
 import React from "react";
+import { useSelector } from "react-redux";
+
+import { timeAgo } from "../../utils/timesAgoFormat";
+
+import { GET_CHAT_HISTORY } from "../../graphql";
 
 import "../../styles/chat.scss";
 
 const Chat = () => {
+  const { loading, error, data } = useQuery(GET_CHAT_HISTORY, {
+    variables: { withWhom: "5f70720142afdd4c8c5c09e5" },
+  });
+  const user = useSelector(({ userAccredited }) => userAccredited);
+
+  if (loading) return <h1 style={{ color: "white" }}>Loading...</h1>;
+
+  if (error)
+    return (
+      <h1 style={{ color: "white" }}>
+        {error.message || "Something went wrong"}
+      </h1>
+    );
+
+  const {
+    getMyChats: { chats },
+  } = data;
+
   return (
     <div className='section-service-chat'>
       <div className='chat-container'>
         <div className='chats'>
           {/* Message container */}
-          <div className='messages__container'></div>
+          <ol className='messages__container'>
+            {chats.map(({ _id, from, message, to, at }) => {
+              if (from !== user.user) {
+                return (
+                  <li className='recieved' key={_id}>
+                    <div className='messages'>
+                      <p>{message}</p>
+                      <time>{timeAgo.format(Number(at))}</time>
+                    </div>
+                  </li>
+                );
+              } else {
+                return (
+                  <li key={_id} className='self'>
+                    <div className='messages'>
+                      <p>{message}</p>
+                      <time>{timeAgo.format(Number(at))}</time>
+                    </div>
+                  </li>
+                );
+              }
+            })}
+          </ol>
 
           {/* Char Input */}
           <div className='chat-input'>

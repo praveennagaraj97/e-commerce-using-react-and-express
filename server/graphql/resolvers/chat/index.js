@@ -17,6 +17,8 @@ const ChatResolvers = {
         reciever: String(withWhom),
       });
 
+      if (!chats) return new ApolloError("No Chats Found", 204);
+
       const result = {
         message: `Chats between ${chats.sender.name} and ${chats.reciever.name}`,
         chats: chats.chats,
