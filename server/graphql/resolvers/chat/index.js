@@ -1,9 +1,29 @@
 import { ApolloError, AuthenticationError } from "apollo-server-express";
+import Mongoose from "mongoose";
 import { authCheck } from "../../middleware";
 
 const ChatResolvers = {
   Query: {
-    testChat: () => "Hello",
+    getMyChats: async (parent, args, { User, Chat, req }, info) => {
+      const { user, error } = await authCheck(req, User);
+
+      if (error) return AuthenticationError(error);
+
+      const { withWhom } = args;
+
+      if (!withWhom) return new ApolloError("Provide ID of end User!", 422);
+      const chats = await Chat.findOne({
+        sender: String(user._id),
+        reciever: String(withWhom),
+      });
+
+      const result = {
+        message: `Chats between ${chats.sender.name} and ${chats.reciever.name}`,
+        chats: chats.chats,
+      };
+
+      return result;
+    },
   },
 
   Mutation: {
@@ -23,11 +43,22 @@ const ChatResolvers = {
           422
         );
 
+      const to = Mongoose.Types.ObjectId(input.to);
+
+      const chats = {
+        from: user._id,
+        to,
+        message: input.message,
+        file: "test.jpg",
+      };
+
       // Check If Chat Box exist between reciever and sender!
       const chatExist = await Chat.findOne({
         sender: user._id,
-        reciever: input.to,
+        reciever: to,
       });
+
+      let writtenData;
 
       if (!chatExist || chatExist.length < 1) {
         await Chat.create({
@@ -40,31 +71,57 @@ const ChatResolvers = {
           reciever: user._id,
         });
 
-        await Chat.findOneAndUpdate(
+        writtenData = await Chat.findOneAndUpdate(
           { sender: user._id },
-          { $push: { sent: input.message } }
+          { $push: { chats } },
+          {
+            upsert: true,
+            runValidators: true,
+            setDefaultsOnInsert: true,
+            context: "query",
+            new: true,
+          }
         );
-        await Chat.findOneAndUpdate(
-          { sender: input.to },
-          { $push: { recieved: input.message } }
+
+        await await Chat.findOneAndUpdate(
+          { sender: to },
+          { $push: { chats } },
+          {
+            upsert: true,
+            runValidators: true,
+            setDefaultsOnInsert: true,
+            context: "query",
+            new: true,
+          }
         );
       } else {
-        await Chat.findOneAndUpdate(
+        writtenData = await Chat.findOneAndUpdate(
           { sender: user._id },
-          { $push: { sent: input.message } }
+          { $push: { chats } },
+          {
+            upsert: true,
+            runValidators: true,
+            setDefaultsOnInsert: true,
+            context: "query",
+            new: true,
+          }
         );
+
         await Chat.findOneAndUpdate(
-          { sender: input.to },
-          { $push: { recieved: input.message } }
+          { sender: to },
+          { $push: { chats } },
+          {
+            upsert: true,
+            runValidators: true,
+            setDefaultsOnInsert: true,
+            context: "query",
+            new: true,
+          }
         );
       }
 
-      const chatBody = {
-        from: user._id,
-        ...input,
-      };
-
-      return chatBody;
+      console.log(writtenData);
+      return writtenData;
     },
   },
 };
