@@ -1,4 +1,8 @@
-import { ApolloError, AuthenticationError } from "apollo-server-express";
+import {
+  ApolloError,
+  AuthenticationError,
+  withFilter,
+} from "apollo-server-express";
 import Mongoose from "mongoose";
 import { authCheck } from "../../middleware";
 
@@ -125,7 +129,7 @@ const ChatResolvers = {
       }
 
       await pubsub.publish(MESSENGER, {
-        messenger: JSON.stringify(writtenData),
+        messenger: writtenData,
       });
 
       return writtenData;
@@ -134,8 +138,20 @@ const ChatResolvers = {
 
   Subscription: {
     messenger: {
-      subscribe: (parent, args, { pubsub }, info) =>
-        pubsub.asyncIterator([MESSENGER]),
+      subscribe: withFilter(
+        (parent, args, { pubsub }, info) => pubsub.asyncIterator([MESSENGER]),
+        ({ messenger }, { userId }, context, info) => {
+          console.log(messenger);
+
+          if (
+            userId == messenger.sender.id ||
+            userId == messenger.reciever.id
+          ) {
+            return true;
+          }
+          return false;
+        }
+      ),
     },
   },
 };

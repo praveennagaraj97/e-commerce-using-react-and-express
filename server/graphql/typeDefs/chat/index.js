@@ -10,7 +10,7 @@ const ChatTypeDefs = gql`
   }
 
   extend type Subscription {
-    messenger: String
+    messenger(userId: ID!): Message
   }
 
   type ChatsList {
