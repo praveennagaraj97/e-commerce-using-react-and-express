@@ -141,8 +141,6 @@ const ChatResolvers = {
       subscribe: withFilter(
         (parent, args, { pubsub }, info) => pubsub.asyncIterator([MESSENGER]),
         ({ messenger }, { userId }, context, info) => {
-          console.log(messenger);
-
           if (
             userId == messenger.sender.id ||
             userId == messenger.reciever.id
