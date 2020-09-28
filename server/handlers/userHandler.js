@@ -66,7 +66,7 @@ export const protectRoute = (ModelName) =>
 
     const tokenDetails = await verifyJWToken(auth_token);
 
-    const user = await ModelName.findById(tokenDetails.id);
+    const user = await ModelName.findById(tokenDetails.id).select("+userRole");
     // if user account is deleted
     if (!user)
       return next(new AppError("Authentication Error Invalid Token", 401));
@@ -77,7 +77,7 @@ export const protectRoute = (ModelName) =>
 
 export const restrictTo = (...roles) => {
   return (req, res, next) => {
-    if (roles.includes(req.user.role)) next();
+    if (roles.includes(req.user.userRole)) next();
     else next(new AppError("You Are Not Allowed to this Operation", 404));
   };
 };

@@ -6,18 +6,13 @@ export const navItems = [
     route: "/service",
   },
   {
-    name: "Lexa Pay",
-    icon: "payment",
-    route: "/lexapay",
+    name: "Developers",
+    icon: "code",
+    route: "/devs",
   },
   {
     name: "Orders",
     icon: "unordered list",
     route: "/orders",
-  },
-  {
-    name: "Supreme",
-    icon: "gem",
-    route: "/supreme",
   },
 ];

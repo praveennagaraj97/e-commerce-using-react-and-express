@@ -18,8 +18,7 @@ import history from "../history";
 
 const {
   Home,
-  Supreme,
-  LexaPay,
+  DevelopersTab,
   Service,
   Orders,
   Cart,
@@ -53,9 +52,8 @@ const App = () => {
           <Switch>
             <Route exact path='/' component={Home} />
             <Route exact path='/service' component={Service} />
-            <Route exact path='/lexapay' component={LexaPay} />
+            <Route exact path='/devs' component={DevelopersTab} />
             <Route exact path='/orders' component={Orders} />
-            <Route exact path='/supreme' component={Supreme} />
             <Route exact path='/cart' component={Cart} />
             <Route exact path='/user_auth' component={SignUpAndLogin} />
             <Route exact path='/user_auth/:token' component={ResetPassword} />

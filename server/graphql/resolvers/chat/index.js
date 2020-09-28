@@ -139,8 +139,11 @@ const ChatResolvers = {
     messenger: {
       subscribe: withFilter(
         (parent, args, { pubsub }, info) => pubsub.asyncIterator([MESSENGER]),
-        ({ messenger }, args, context, info) => {
-          return true;
+        ({ messenger }, { userId }, context, info) => {
+          return userId == messenger.sender.id ||
+            userId == messenger.reciever.id
+            ? true
+            : false;
         }
       ),
     },

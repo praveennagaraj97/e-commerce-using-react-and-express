@@ -49,9 +49,11 @@ const wsLink = new WebSocketLink({
       : "ws://localhost:8080/graphql",
   options: {
     reconnect: true,
-  },
-  connectionParams: {
-    authorization: `Bearer ${authTokenFromCookie() || authTokenFromSession()}`,
+    connectionParams: {
+      authorization: `Bearer ${
+        authTokenFromCookie() || authTokenFromSession()
+      }`,
+    },
   },
 });
 
