@@ -1,5 +1,5 @@
 import { ApolloError } from "apollo-server-express";
-// import { generateJWToken } from "../../../utils/jsonWebToken";
+import { generateJWToken } from "../../utils/jsonWebToken";
 
 // Resolvers
 const UserAuthenticationResolvers = {

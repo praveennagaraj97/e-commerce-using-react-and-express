@@ -1,6 +1,10 @@
-import { ApolloError, AuthenticationError } from "apollo-server-express";
-// import Mongoose from "mongoose";
-// import { authCheck } from "../../middleware";
+import {
+  ApolloError,
+  AuthenticationError,
+  withFilter,
+} from "apollo-server-express";
+import Mongoose from "mongoose";
+import { authCheck } from "../../middleware";
 
 const MESSENGER = "MESSENGER";
 
@@ -53,7 +57,6 @@ const ChatResolvers = {
         from: user._id,
         to,
         message: input.message,
-        file: "test.jpg",
       };
 
       // Check If Chat Box exist between reciever and sender!
@@ -125,7 +128,7 @@ const ChatResolvers = {
       }
 
       await pubsub.publish(MESSENGER, {
-        messenger: JSON.stringify(writtenData),
+        messenger: writtenData,
       });
 
       return writtenData;
@@ -134,8 +137,12 @@ const ChatResolvers = {
 
   Subscription: {
     messenger: {
-      subscribe: (parent, args, { pubsub }, info) =>
-        pubsub.asyncIterator([MESSENGER]),
+      subscribe: withFilter(
+        (parent, args, { pubsub }, info) => pubsub.asyncIterator([MESSENGER]),
+        ({ messenger }, args, context, info) => {
+          return true;
+        }
+      ),
     },
   },
 };
