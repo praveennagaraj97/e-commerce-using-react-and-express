@@ -57,7 +57,6 @@ const ChatResolvers = {
         from: user._id,
         to,
         message: input.message,
-        file: "test.jpg",
       };
 
       // Check If Chat Box exist between reciever and sender!
@@ -140,14 +139,8 @@ const ChatResolvers = {
     messenger: {
       subscribe: withFilter(
         (parent, args, { pubsub }, info) => pubsub.asyncIterator([MESSENGER]),
-        ({ messenger }, { userId }, context, info) => {
-          if (
-            userId == messenger.sender.id ||
-            userId == messenger.reciever.id
-          ) {
-            return true;
-          }
-          return false;
+        ({ messenger }, args, context, info) => {
+          return true;
         }
       ),
     },

@@ -20,11 +20,13 @@ const apolloServer = new ApolloServer({
   playground: true,
   introspection: true,
   subscriptions: {
-    onConnect: async ({ authorization }) => {
-      const { error, user } = await authCheck(null, User, authorization);
-      if (error) return new AuthenticationError(error);
+    onConnect: () => {
+      // console.log(authorization);
+
+      // const { error, user } = await authCheck(null, User, authorization);
+      // if (error) return new AuthenticationError(error);
       console.log("websocket Connected!");
-      return user;
+      // return user;
     },
     onDisconnect: () => console.log("ws connection closed"),
   },

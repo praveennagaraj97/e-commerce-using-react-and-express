@@ -1,16 +1,21 @@
-import { useQuery } from "@apollo/client";
-import React from "react";
+import { useMutation, useSubscription } from "@apollo/client";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 
-import { GET_CHAT_HISTORY } from "../../graphql";
+import { MESSAGE_SUBSCRIPTION, SEND_MESSAGE } from "../../graphql";
 
 import "../../styles/chat.scss";
 
 const Chat = () => {
-  const { loading, error, data } = useQuery(GET_CHAT_HISTORY, {
-    variables: { withWhom: "5f70720142afdd4c8c5c09e5" },
-  });
+  const [newMessage, setNewMessage] = useState("");
+
   const user = useSelector(({ userAccredited }) => userAccredited);
+
+  const [handleMessage] = useMutation(SEND_MESSAGE);
+
+  const { loading, error, data } = useSubscription(MESSAGE_SUBSCRIPTION, {
+    variables: { userId: user.user },
+  });
 
   if (loading) return <h1 style={{ color: "white" }}>Loading...</h1>;
 
@@ -21,17 +26,13 @@ const Chat = () => {
       </h1>
     );
 
-  const {
-    getMyChats: { chats },
-  } = data;
-
   return (
     <div className='section-service-chat'>
       <div className='chat-container'>
         <div className='chats'>
           {/* Message container */}
           <ol className='messages__container'>
-            {chats.map(({ _id, from, message }) => {
+            {data.messenger.chats.map(({ _id, from, message }) => {
               if (from !== user.user) {
                 return (
                   <li className='recieved' key={_id}>
@@ -54,9 +55,17 @@ const Chat = () => {
 
           {/* Char Input */}
           <div className='chat-input'>
-            <input type='text' placeholder='type your message' />
+            <input
+              type='text'
+              placeholder='type your message'
+              onChange={(ev) => setNewMessage(ev.target.value)}
+            />
             <img
-              onClick={() => {}}
+              onClick={() =>
+                handleMessage({
+                  variables: { message: newMessage },
+                })
+              }
               src='https://img.icons8.com/fluent/144/000000/filled-sent.png'
               alt='send'
             />

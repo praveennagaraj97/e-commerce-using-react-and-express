@@ -1,7 +1,7 @@
 {
   "name": "lexa",
   "version": "0.1.0",
-  "description": "Website With Shopping, Music, Video-Streaming, Daily-Dive-Of-Community ,Book-Reader",
+  "description": "Website for Shopping",
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.2.1",
@@ -27,7 +27,8 @@
     "redux-persist": "^6.0.0",
     "redux-persist-transform-encrypt": "^2.0.1",
     "redux-saga": "^1.1.3",
-    "semantic-ui-react": "^1.1.1"
+    "semantic-ui-react": "^1.1.1",
+    "subscriptions-transport-ws": "^0.9.18"
   },
   "keywords": [
     "react",

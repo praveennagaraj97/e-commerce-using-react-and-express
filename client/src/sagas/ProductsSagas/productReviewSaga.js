@@ -1,4 +1,4 @@
-import { call, put, select, takeLatest } from "redux-saga/effects";
+import { call, put, select, takeLatest, takeEvery } from "redux-saga/effects";
 
 import { getProductReviews, productReviewLoading } from "../../actions";
 import { PRODUCT_TYPES, COOKIE_NAMES } from "../../constants";
@@ -99,7 +99,7 @@ function* handleReviewFoundHelpfulWorker() {
 }
 
 export function* reviewFoundHelfulWatcher() {
-  yield takeLatest(REVIEW_FOUND_HELPFUL, handleReviewFoundHelpfulWorker);
+  yield takeEvery(REVIEW_FOUND_HELPFUL, handleReviewFoundHelpfulWorker);
 }
 
 const getAddedReviewFromStore = ({ addNewProduct }) => addNewProduct;
@@ -139,5 +139,5 @@ function* addNewProductReviewWorker() {
 }
 
 export function* addNewProductReviewWatcher() {
-  yield takeLatest(LOAD_NEW_PRODUCT_REVIEW, addNewProductReviewWorker);
+  yield takeEvery(LOAD_NEW_PRODUCT_REVIEW, addNewProductReviewWorker);
 }

@@ -77,7 +77,7 @@
 .self {
   justify-content: flex-end;
   align-items: flex-end;
-  animation: backInRight 0.5s;
+  // animation: backInRight 0.5s;
   .messages {
     order: 1;
     background-color: cadetblue;
@@ -85,7 +85,7 @@
 }
 
 .recieved {
-  animation: backInLeft 0.5s;
+  // animation: backInLeft 0.5s;
 }
 
 @keyframes pulse {
