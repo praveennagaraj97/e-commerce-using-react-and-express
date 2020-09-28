@@ -12,38 +12,40 @@ import "../../styles/chat.scss";
 
 const Chat = () => {
   const [newMessage, setNewMessage] = useState("");
-  const [chatsHistory, setChats] = useState([]);
+  // const [chatsHistory, setChats] = useState([]);
 
-  const {
-    // error: error_chat_history,
-    data: chat_history,
-    // loading: prev_chat_loading,
-  } = useQuery(GET_CHAT_HISTORY);
+  // const {
+  //   // error: error_chat_history,
+  //   data: chat_history,
+  //   // loading: prev_chat_loading,
+  // } = useQuery(GET_CHAT_HISTORY);
 
-  useEffect(() => {
-    if (chat_history) {
-      setChats(chat_history.getMyChats.chats);
-      const chats = document.getElementsByClassName("messages__container");
-      chats[0].scrollBy(0, window.innerHeight);
-    }
-  }, [chat_history, chatsHistory]);
+  // useEffect(() => {
+  //   if (chat_history) {
+  //     setChats(chat_history.getMyChats.chats);
+  //     const chats = document.getElementsByClassName("messages__container");
+  //     chats[0].scrollBy(0, window.innerHeight);
+  //   }
+  // }, [chat_history, chatsHistory]);
 
   const user = useSelector(({ userAccredited }) => userAccredited);
 
   const [handleMessage] = useMutation(SEND_MESSAGE);
 
-  // const { loading, error, data } = useSubscription(MESSAGE_SUBSCRIPTION, {
-  //   variables: { userId: user.user },
-  // });
+  const { loading, error, data } = useSubscription(MESSAGE_SUBSCRIPTION, {
+    variables: { userId: user.user },
+  });
 
-  // if (loading) return <h1 style={{ color: "white" }}>Loading...</h1>;
+  if (loading) return <h1 style={{ color: "white" }}>Loading...</h1>;
 
-  // if (error)
-  //   return (
-  //     <h1 style={{ color: "white" }}>
-  //       {error.message || "Something went wrong"}
-  //     </h1>
-  //   );
+  if (error)
+    return (
+      <h1 style={{ color: "white" }}>
+        {error.message || "Something went wrong"}
+      </h1>
+    );
+
+  console.log(data);
 
   return (
     <div onLoad={() => console.log("loaded")} className='section-service-chat'>
@@ -51,7 +53,7 @@ const Chat = () => {
         <div className='chats'>
           {/* Message container */}
           <ol className='messages__container'>
-            {chatsHistory.map(({ _id, from, message }) => {
+            {data.messenger.chats.map(({ _id, from, message }) => {
               if (from !== user.user) {
                 return (
                   <li className='recieved' key={_id}>

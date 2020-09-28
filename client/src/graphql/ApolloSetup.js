@@ -21,7 +21,7 @@ const cache = new InMemoryCache({});
 let httpLink = createHttpLink({
   uri:
     process.env.NODE_ENV === "production"
-      ? "https://lexa-api-v1.herokuapp.com/graphql"
+      ? "https://lexa-api.uc.r.appspot.com/graphql"
       : "http://localhost:8080/graphql",
 });
 
@@ -45,7 +45,7 @@ httpLink = authLink.concat(httpLink);
 const wsLink = new WebSocketLink({
   uri:
     process.env.NODE_ENV === "production"
-      ? "wss://lexa-api-v1.herokuapp.com/graphql"
+      ? "wss://lexa-api.uc.r.appspot.com/graphql"
       : "ws://localhost:8080/graphql",
   options: {
     reconnect: true,
