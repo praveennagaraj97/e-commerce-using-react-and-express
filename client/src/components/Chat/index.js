@@ -1,11 +1,11 @@
-import { useMutation, useQuery, useSubscription } from "@apollo/client";
-import React, { useEffect, useState } from "react";
+import { useMutation, useSubscription } from "@apollo/client";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 
 import {
   MESSAGE_SUBSCRIPTION,
   SEND_MESSAGE,
-  GET_CHAT_HISTORY,
+  // GET_CHAT_HISTORY,
 } from "../../graphql";
 
 import "../../styles/chat.scss";
