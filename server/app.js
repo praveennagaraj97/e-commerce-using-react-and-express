@@ -27,6 +27,7 @@ import { categoryRouter } from "./routes/categoryRouter";
 import { productRouter } from "./routes/productRouter";
 import { productDetailRouter } from "./routes/productDetailsRouter";
 import { productReviewRouter } from "./routes/productReviewRouter";
+import { productAdvertisementRouter } from "./routes/productAdvertisementRouter";
 
 dotenvConfig();
 process.on("uncaughtException", unCaughtExceptionErrorHandler);
@@ -56,7 +57,14 @@ app.use(
 );
 
 // Cross Origin request Service
-app.use(cors());
+app.use(
+  cors()
+
+  //   {
+  //   origin: ["http://localhost:3000","https://testlexa.netlify.app/" ],
+  //   optionsSuccessStatus: 200,
+  // }
+);
 
 // Sanitize Against No-Sql Injection EX :email : { "gt" : '' }
 // This will remove $ signs
@@ -92,6 +100,7 @@ app.use("/api/v1/category", categoryRouter);
 app.use("/api/v1/product", productRouter);
 app.use("/api/v1/product_detail", productDetailRouter);
 app.use("/api/v1/product_review", productReviewRouter);
+app.use("/api/v1/advertise", productAdvertisementRouter);
 
 if (process.env.NODE_ENV === "production") {
   app.use("/api/v1/user", limiter);

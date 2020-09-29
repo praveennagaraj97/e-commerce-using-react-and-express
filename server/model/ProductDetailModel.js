@@ -33,7 +33,7 @@ productDetailSchema.plugin(mongooseUniqueValidator);
 productDetailSchema.pre(/^find/, function (next) {
   this.populate({
     path: "manufacturerId",
-    model: "ProductManufacturer",
+    model: "User",
   });
   next();
 });

@@ -3,8 +3,23 @@ import { Schema, model } from "mongoose";
 const advertisementSchema = new Schema({
   productId: {
     type: Schema.Types.ObjectId,
-    required: [true, "Provide ProductId on which advertisement has to be done"],
   },
+
+  link: {
+    type: String,
+    validate: {
+      validator: function (val) {
+        return this.productId ? false : true;
+      },
+      message: "Link is Allowed only when productId is not specified",
+    },
+  },
+
+  soldTo: {
+    type: Schema.Types.ObjectId,
+    required: [true, "Provide manufacturer Id Who is Buying!"],
+  },
+
   startDate: {
     type: Date,
     required: [
@@ -22,6 +37,16 @@ const advertisementSchema = new Schema({
 });
 
 const AdvertisementModel = model("PaidAdvertisement", advertisementSchema);
+
+advertisementSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: "productId",
+    model: "Product",
+    select: ["categoryId"],
+  });
+
+  next();
+});
 
 // only one advertisement allowed for time duration!!!
 const topLevelAdvertiseSchema = new Schema({

@@ -8,24 +8,27 @@ const {
   SET_NUMBER_OF_RESULTS_PERPAGE,
   SET_PAGE_NUMBER,
   NO_MORE_RESULTS_FOUND,
-  ADD_PRODUCT_TO_CART,
-  REMOVE_PRODUCT_FROM_CART,
-  LOAD_PRODUCT_CART,
-  GET_PRODUCTS_IN_CART,
-
   LOAD_VIEW_PRODUCT_DETAIL,
   PRODUCT_DETAIL,
-
-  LOAD_PRODUCT_REVIEWS,
-  GET_PRODUCT_REVIEWS,
-  REVIEW_FOUND_HELPFUL,
-
-  LOAD_NEW_PRODUCT_REVIEW,
 } = PRODUCT_TYPES;
 
-const { CATEGORY_LOADING, PRODUCTS_LISTS_LOADING, REVIEW_LOADING } = LOADERS;
+const { CATEGORY_LOADING, PRODUCTS_LISTS_LOADING } = LOADERS;
 
 const { RE_OCCURING_PRODUCT_DETAIL } = RE_OCCURING_REQUESTS;
+
+export {
+  getProductReviews,
+  loadNewProductReview,
+  loadProductReview,
+  productReviewLoading,
+  reviewFoundHelpful,
+} from "./review";
+export {
+  addItemToCart,
+  getProductsDetailsInCart,
+  loadProductCart,
+  removeItemFromCart,
+} from "./cart";
 
 export const reOccuringProductDetailRequests = (request) => ({
   type: RE_OCCURING_PRODUCT_DETAIL,
@@ -80,50 +83,11 @@ export const noMoreResultsFound = (isAvailable) => ({
   isAvailable,
 });
 
-// Cart Actions
-export const addItemToCart = (item) => ({
-  type: ADD_PRODUCT_TO_CART,
-  item,
-});
-
-export const removeItemFromCart = (item) => ({
-  type: REMOVE_PRODUCT_FROM_CART,
-  item,
-});
-
-export const loadProductCart = () => ({ type: LOAD_PRODUCT_CART });
-
-export const getProductsDetailsInCart = (details) => ({
-  type: GET_PRODUCTS_IN_CART,
-  details,
-});
-
-export const loadViewProductDetail = (productDetail) => ({
+export const loadViewProductDetail = (
+  productDetail = { category: null, id: null }
+) => ({
   type: LOAD_VIEW_PRODUCT_DETAIL,
   productDetail,
 });
 
 export const getProductDetail = (data) => ({ type: PRODUCT_DETAIL, data });
-
-// Product Review
-export const productReviewLoading = (boolean) => ({
-  type: REVIEW_LOADING,
-  boolean,
-});
-
-export const loadProductReview = () => ({ type: LOAD_PRODUCT_REVIEWS });
-
-export const getProductReviews = (data) => ({
-  type: GET_PRODUCT_REVIEWS,
-  data,
-});
-
-export const reviewFoundHelpful = (reviewId) => ({
-  type: REVIEW_FOUND_HELPFUL,
-  reviewId,
-});
-
-export const loadNewProductReview = (review) => ({
-  type: LOAD_NEW_PRODUCT_REVIEW,
-  review,
-});

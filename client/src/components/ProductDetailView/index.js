@@ -3,6 +3,9 @@ import ProductComputersDetail from "./ProductDetailJSXConsumer/ProductComputersD
 import ProductElectronicsDetail from "./ProductDetailJSXConsumer/ProductElectronicsDetail";
 import ProductBeautyDetail from "./ProductDetailJSXConsumer/ProductBeautyDetail";
 import ProductPetDetail from "./ProductDetailJSXConsumer/ProductPetDetail";
+import ProductsFashion from "./ProductDetailJSXConsumer/ProductsFashion";
+import ProductKitchen from "./ProductDetailJSXConsumer/ProductKitchen";
+import ProductFood from "./ProductDetailJSXConsumer/ProductFood";
 
 export {
   ProductMobileDetail,
@@ -10,4 +13,7 @@ export {
   ProductElectronicsDetail,
   ProductBeautyDetail,
   ProductPetDetail,
+  ProductsFashion,
+  ProductKitchen,
+  ProductFood,
 };

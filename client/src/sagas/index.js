@@ -24,6 +24,8 @@ import {
   addNewProductReviewWatcher,
 } from "./ProductsSagas";
 
+import { loadRecentSearchWatcher } from "./homePageSagas";
+
 function* rootSaga() {
   yield all([
     // website init watch
@@ -48,6 +50,9 @@ function* rootSaga() {
     yield fork(loadProductReviewWatcher),
     yield fork(reviewFoundHelfulWatcher),
     yield fork(addNewProductReviewWatcher),
+
+    // Home Page
+    yield fork(loadRecentSearchWatcher),
   ]);
 }
 

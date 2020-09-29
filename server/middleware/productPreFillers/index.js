@@ -46,7 +46,7 @@ export const getAllProductsWithAverageReviewAttached = catchAsyncError(
     /**
      * @desc - as limit of each request is set to max-10 items
      *         performace doesn't get affected as aggregation pipeline is used!
-     * @requires - this middleware needs to be changes on model fields chanege or virtual fields added
+     * @requires - this middleware needs to be changed on model fields chanege or virtual fields added
      */
     const ids = [];
     for (let i = 0; i < req.details.length; i++) {

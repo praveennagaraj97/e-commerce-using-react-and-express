@@ -9,7 +9,7 @@ import {
   MobileReviewModel,
   ComputerReviewModel,
   ElectronicsReviewModel,
-} from "../model/addon";
+} from "../model/discriminator";
 
 import { createNewDocumnet, readAllDocument } from "../handlers/factoryHandler";
 import { GCS_BUCKET_NAME } from "../constants";

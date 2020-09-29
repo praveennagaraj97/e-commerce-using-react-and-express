@@ -3,3 +3,5 @@ export {
   addComputerReview,
   addElectronicsReview,
 } from "./ProductReviewEndpoints";
+
+export { getTopLevelAdvertiseEndpoint } from "./productAdvertiseEndPoints";

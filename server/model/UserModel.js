@@ -50,7 +50,7 @@ const userSchema = new Schema(
     },
     userRole: {
       type: String,
-      enum: ["user", "seller", "dev"],
+      enum: ["user", "manufacturer", "dev"],
       default: "user",
       select: false,
     },
@@ -71,6 +71,7 @@ const userSchema = new Schema(
     },
   },
   {
+    timestamps: true,
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
   }
@@ -112,48 +113,3 @@ userSchema.methods.createUserResetPasswordToken = async function (userId) {
 };
 
 export const User = model("User", userSchema);
-
-// // Seller Schema
-// const sellerSchema = new Schema({
-//   userId: {
-//     type: Schema.Types.ObjectId,
-//     required: [true, "Please Provide User ID"],
-//     unique: true,
-//   },
-//   warehouseLocation: {
-//     type: {
-//       type: String,
-//       enum: ["Point"],
-//       default: "Point",
-//     },
-//     coordinates: {
-//       type: [Number],
-//       required: true,
-//     },
-//   },
-// });
-
-// sellerSchema.index({ warehouseLocation: "2dsphere" });
-
-// sellerSchema.pre(/^find/, function (next) {
-//   this.populate({
-//     path: "userId",
-//     model: "User",
-//   });
-// });
-
-// sellerSchema.post("save", async function () {
-//   const user = await User.findByIdAndUpdate(
-//     this.userId,
-//     { userRole: "seller" },
-//     {
-//       upsert: true,
-//       runValidators: true,
-//       setDefaultsOnInsert: true,
-//       context: "query",
-//       new: true,
-//     }
-//   );
-// });
-
-// export const SellerModel = model("Seller", sellerSchema);

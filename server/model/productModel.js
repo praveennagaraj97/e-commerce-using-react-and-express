@@ -123,35 +123,6 @@ export const ProductDescriptionAndImages = model(
   productDescriptionAndImagesSchema
 );
 
-const productManufacturerSchema = new Schema(
-  {
-    manufacturerName: {
-      type: String,
-      required: [true, "Provide Manufacturer Name"],
-      unique: true,
-    },
-    countryofOrigin: {
-      type: String,
-      required: [true, "Provide the Country Of Origin Of The Product"],
-    },
-  },
-  {
-    toJSON: {
-      virtuals: true,
-    },
-    toObject: {
-      virtuals: true,
-    },
-  }
-);
-
-productManufacturerSchema.plugin(mongooseUniqueValidator);
-
-export const ProductManufacturer = model(
-  "ProductManufacturer",
-  productManufacturerSchema
-);
-
 const productBoards = new Schema({
   productId: {
     type: [Schema.Types.ObjectId],

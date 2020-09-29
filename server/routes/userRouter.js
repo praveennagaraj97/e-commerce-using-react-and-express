@@ -6,7 +6,7 @@ import {
   protectRoute,
   accreditReact,
   restrictTo,
-
+  preFillManufacturerWareHouseLocation,
   // User
   signUp,
   signIn,
@@ -15,16 +15,17 @@ import {
   getMe,
   changeUserPassword,
   updateMe,
+  addNewManufacturer,
 
   // Dev Team
-  addDevTeamUser,
   employeeSignIn,
+  addDevTeamUser,
 } from "../controller/userController";
 
 export const userRouter = Router();
 
 userRouter.route("/signup").post((req, res, next) => {
-  req.body.userRole = undefined;
+  req.body.userRole = "user";
   next();
 }, signUp);
 
@@ -47,6 +48,23 @@ userRouter
 userRouter.route("/accredit").get(protectRoute, accreditReact);
 
 // Dev team
-userRouter.route("/dev/addEmployer").post(protectRoute, addDevTeamUser);
+userRouter.route("/dev/addEmployer").post(
+  protectRoute,
+  (req, res, next) => {
+    req.body.userRole = "dev";
+    next();
+  },
+  addDevTeamUser
+);
 
 userRouter.route("/dev/signIn").post(employeeSignIn);
+
+// manufacturer / Seller
+userRouter.route("/signUpasManufacturer").post(
+  (req, res, next) => {
+    req.body.userRole = "manufacturer";
+    next();
+  },
+  preFillManufacturerWareHouseLocation,
+  addNewManufacturer
+);

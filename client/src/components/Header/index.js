@@ -47,7 +47,9 @@ const Header = (props) => {
 
   return (
     <>
-      <div className='top-header-brand__name'>Lexa</div>
+      <div onClick={() => history.push("/")} className='top-header-brand__name'>
+        Lexa
+      </div>
       <Segment inverted className='top-header-mobile-menu'>
         <Menu inverted secondary className='top-header-mobile'>
           {renderMobileView()}

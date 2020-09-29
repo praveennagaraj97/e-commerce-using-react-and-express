@@ -1,5 +1,5 @@
 import { User } from "../model/UserModel";
-import { DevTeamUserModel } from "../model/addon";
+import { DevTeamUserModel, ManufacturerModel } from "../model/discriminator";
 
 import {
   // middleware
@@ -20,6 +20,7 @@ import {
 
 export { accreditReact } from "../middleware/accreditReact";
 export { restrictTo } from "../handlers/userHandler";
+export { preFillManufacturerWareHouseLocation } from "../middleware/preFillers";
 
 export const protectRoute = protectRouteHandler(User);
 
@@ -62,4 +63,10 @@ export const addDevTeamUser = addDeveloperHandler(DevTeamUserModel, {
 
 export const employeeSignIn = employeeLogin(DevTeamUserModel, {
   message: "Logged in Successfully",
+});
+
+// Manufacturer
+
+export const addNewManufacturer = signUpHandler(ManufacturerModel, {
+  message: "Thank you for joining",
 });

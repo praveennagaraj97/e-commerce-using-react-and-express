@@ -13,9 +13,11 @@ import {
   viewProductReducer,
   productReviewReducer,
   addNewProductReviewReducer,
+  categoriesReducer,
 } from "./productReducer";
 
 import requestReducer from "./_requestsReduers";
+import { homePageReducer } from "./homePageReducer";
 
 export default combineReducers({
   userAccredited,
@@ -23,6 +25,7 @@ export default combineReducers({
   userDetails: userDetailsReducer,
   updateUserDetail: userDetailsUpdateReducer,
   form: formReducer,
+  productCategories: categoriesReducer,
   productsList: getProductsReducer,
   globalErrorOrSuccessMessage: globalMessageReducer,
   productCart: productCartReducer,
@@ -30,4 +33,5 @@ export default combineReducers({
   productReview: productReviewReducer,
   addNewProduct: addNewProductReviewReducer,
   requests: requestReducer,
+  homePage: homePageReducer,
 });

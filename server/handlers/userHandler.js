@@ -163,27 +163,6 @@ export const resetPasswordHandler = (ModelName, responseMessage) =>
     res.status(202).json(responseMessage);
   });
 
-// Seller
-export const createSellerAccount = (ModelName, responseMessage) =>
-  catchAsyncError(async (req, res, next) => {
-    req.body.warehouseLocation = req.body.warehouseLocation
-      .split(",")
-      .map((each) => Number(each));
-    const sellerData = { ...req.body };
-
-    sellerData.userId = req.user._id;
-
-    delete sellerData.warehouseLocation;
-
-    sellerData.warehouseLocation = {
-      type: "Point",
-      coordinates: req.body.warehouseLocation,
-    };
-
-    const seller = await ModelName.create(sellerData);
-    res.send(seller);
-  });
-
 // User has to be logged in
 export const changeUserPasswordHandler = (ModelName, responseMessage) =>
   catchAsyncError(async (req, res, next) => {

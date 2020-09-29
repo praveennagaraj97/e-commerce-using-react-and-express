@@ -35,4 +35,5 @@ export {
   addMobileReview,
   addComputerReview,
   addElectronicsReview,
+  getTopLevelAdvertiseEndpoint,
 } from "./addon";
