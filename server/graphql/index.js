@@ -23,10 +23,8 @@ const apolloServer = new ApolloServer({
     onConnect: async ({ authorization }) => {
       const { error, user } = await authCheck(null, User, authorization);
       if (error) return new AuthenticationError(error);
-      console.log("websocket Connected!");
       return user;
     },
-    onDisconnect: () => console.log("ws connection closed"),
   },
   context: ({ req, res }) => ({
     req,

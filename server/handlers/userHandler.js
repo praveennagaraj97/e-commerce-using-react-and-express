@@ -273,14 +273,14 @@ export const addDeveloperHandler = (ModelName, responseMessage) =>
     });
   });
 
-export const employeeLogin = (ModelName, responseMessage) =>
+export const employeeLoginHandler = (ModelName, responseMessage) =>
   catchAsyncError(async (req, res, next) => {
     if (!req.body.employeeId || !req.body.password)
       return next(new AppError("Enter employeeId and Password", 422));
 
     const employee = await ModelName.findOne({
       empId: req.body.employeeId,
-    }).select("+password");
+    }).select("+password +userRole");
 
     if (!employee) return next(new AppError("Enter Valid Employee Id", 401));
 
@@ -298,5 +298,119 @@ export const employeeLogin = (ModelName, responseMessage) =>
     res.status(200).json({
       message: responseMessage.message,
       token,
+      user: {
+        _id: employee._id,
+        userRole: employee.userRole,
+        name: employee.name,
+        techRole: employee.techRole,
+        email: employee.email,
+      },
+    });
+  });
+
+export const addManufacturerHandler = (ModelName, responseMessage) =>
+  catchAsyncError(async (req, res, next) => {
+    const manufacturer = await ModelName.create(req.body);
+    if (!manufacturer)
+      return next(new AppError("Something went wrong while signingUp", 500));
+
+    // Create Employee ID
+    const manufacturerId = `Lexa-MFR-${manufacturer.name.substring(
+      0,
+      4
+    )}-${String(manufacturer._id).substring(
+      String(manufacturer._id).length,
+      16
+    )}`;
+
+    let manufacturerDetail;
+    try {
+      manufacturerDetail = await ModelName.findByIdAndUpdate(
+        manufacturer._id,
+        {
+          mfrId: manufacturerId,
+        },
+        {
+          upsert: true,
+          runValidators: false,
+          setDefaultsOnInsert: true,
+          context: "query",
+          new: true,
+        }
+      );
+    } catch (err) {
+      manufacturerDetail = await ModelName.findByIdAndUpdate(
+        manufacturer._id,
+        {
+          mfrId: `Lexa-MFR-${manufacturer.name.substring(0, 4)}-${String(
+            manufacturer._id
+          ).substring(String(manufacturer._id))}`,
+        },
+        {
+          upsert: true,
+          runValidators: false,
+          setDefaultsOnInsert: true,
+          context: "query",
+          new: true,
+        }
+      );
+    }
+
+    const mailOptions = {
+      email: manufacturerDetail.email,
+      username: manufacturerDetail.name,
+    };
+
+    const url = {
+      mfrid: manufacturerId,
+    };
+
+    await new Email(mailOptions, url).sendNewManufacturerWelcome();
+
+    const token = await generateJWToken({ id: manufacturerDetail._id });
+
+    // Mail which contails details about employee -ID which is MongoID
+    res.status(201).json({
+      token,
+      message: responseMessage.message,
+      Manufacturer_id: manufacturerId,
+    });
+  });
+
+export const manufacturerLoginHandler = (ModelName, responseMessage) =>
+  catchAsyncError(async (req, res, next) => {
+    if (!req.body.manufacturerId || !req.body.password)
+      return next(new AppError("Enter manufacturerId and Password", 422));
+
+    const manufacturer = await ModelName.findOne({
+      mfrId: req.body.manufacturerId,
+    }).select("+password +userRole");
+
+    if (!manufacturer)
+      return next(new AppError("Enter Valid manufacturer Id", 401));
+
+    const validPassword = await manufacturer.comparePassword(
+      req.body.password,
+      manufacturer.password
+    );
+
+    if (!validPassword)
+      return next(new AppError("Enter Password is wrong", 401));
+
+    // 8 hrs valid token
+    const token = await generateJWToken(
+      { id: manufacturer._id },
+      req.body.expiresIn || "24h"
+    );
+
+    res.status(200).json({
+      message: responseMessage.message,
+      token,
+      user: {
+        _id: manufacturer._id,
+        userRole: manufacturer.userRole,
+        name: manufacturer.name,
+        email: manufacturer.email,
+      },
     });
   });

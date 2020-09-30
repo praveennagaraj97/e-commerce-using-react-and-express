@@ -16,6 +16,7 @@ import {
   changeUserPassword,
   updateMe,
   addNewManufacturer,
+  manufacturerSignIn,
 
   // Dev Team
   employeeSignIn,
@@ -48,8 +49,8 @@ userRouter
 userRouter.route("/accredit").get(protectRoute, accreditReact);
 
 // Dev team
-userRouter.route("/dev/addEmployer").post(
-  protectRoute,
+userRouter.route("/employeeSignUp").post(
+  // protectRoute,
   (req, res, next) => {
     req.body.userRole = "dev";
     next();
@@ -57,7 +58,7 @@ userRouter.route("/dev/addEmployer").post(
   addDevTeamUser
 );
 
-userRouter.route("/dev/signIn").post(employeeSignIn);
+userRouter.route("/employeeSignIn").post(employeeSignIn);
 
 // manufacturer / Seller
 userRouter.route("/signUpasManufacturer").post(
@@ -68,3 +69,5 @@ userRouter.route("/signUpasManufacturer").post(
   preFillManufacturerWareHouseLocation,
   addNewManufacturer
 );
+
+userRouter.route("/manufacturerSignIn").post(manufacturerSignIn);

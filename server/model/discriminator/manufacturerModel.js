@@ -12,7 +12,9 @@ const userManufacturerSchema = new Schema({
     type: String,
     required: [true, "Provide the Country Of Origin Of Your Company"],
   },
-
+  mfrId: {
+    type: String,
+  },
   warehouseLocation: {
     type: {
       type: String,
@@ -24,6 +26,7 @@ const userManufacturerSchema = new Schema({
       required: true,
       validate: {
         validator: function (val) {
+          console.log(val);
           return val.length === 2;
         },
         message: "Provide Latitude and longitude of your warehouse",

@@ -12,10 +12,12 @@ import {
   resetPasswordHandler,
   changeUserPasswordHandler,
   updateUserDetails,
+  addManufacturerHandler,
+  employeeLoginHandler,
+  manufacturerLoginHandler,
 
   // dev
   addDeveloperHandler,
-  employeeLogin,
 } from "../handlers/userHandler";
 
 export { accreditReact } from "../middleware/accreditReact";
@@ -61,12 +63,16 @@ export const addDevTeamUser = addDeveloperHandler(DevTeamUserModel, {
   message: "Successfully Added Employee",
 });
 
-export const employeeSignIn = employeeLogin(DevTeamUserModel, {
+export const employeeSignIn = employeeLoginHandler(DevTeamUserModel, {
   message: "Logged in Successfully",
 });
 
 // Manufacturer
 
-export const addNewManufacturer = signUpHandler(ManufacturerModel, {
+export const addNewManufacturer = addManufacturerHandler(ManufacturerModel, {
   message: "Thank you for joining",
+});
+
+export const manufacturerSignIn = manufacturerLoginHandler(ManufacturerModel, {
+  message: "Logged In Successfully",
 });

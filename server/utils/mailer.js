@@ -63,4 +63,8 @@ export class Email {
   async sendNewEmployeeWelcome() {
     await this.send("newEmployeeWelcome", "Welcome to Lexa Team!");
   }
+
+  async sendNewManufacturerWelcome() {
+    await this.send("mfrWelcome", "Thank you, Welcome to Lexa");
+  }
 }
