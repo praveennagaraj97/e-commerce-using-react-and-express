@@ -21,8 +21,8 @@ const cache = new InMemoryCache({});
 let httpLink = createHttpLink({
   uri:
     process.env.NODE_ENV === "production"
-      ? "https://lexa-api.uc.r.appspot.com/graphql"
-      : "http://localhost:8080/graphql",
+      ? "http://ec2-13-233-48-194.ap-south-1.compute.amazonaws.com:4000/"
+      : "http://localhost:4000/",
 });
 
 const authTokenFromCookie = () => getCookie(AUTH_TOKEN);
@@ -45,8 +45,8 @@ httpLink = authLink.concat(httpLink);
 const wsLink = new WebSocketLink({
   uri:
     process.env.NODE_ENV === "production"
-      ? "wss://lexa-api.uc.r.appspot.com/graphql"
-      : "ws://localhost:8080/graphql",
+      ? "wss://ec2-13-233-48-194.ap-south-1.compute.amazonaws.com:4000/"
+      : "ws://localhost:4000/",
   options: {
     reconnect: true,
     connectionParams: {
