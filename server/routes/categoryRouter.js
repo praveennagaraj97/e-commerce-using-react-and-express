@@ -12,6 +12,13 @@ import {
   getAllCategories,
   updateCategory,
   deleteCategory,
+
+  // CASCADE
+  deletePrevImageFromGCloud,
+
+  // Protect
+  protectRoute,
+  restrictTo,
 } from "../controller/categoriesController";
 
 export const categoryRouter = Router();
@@ -23,15 +30,29 @@ categoryRouter.route("/getAllCategories").get(getAllCategories);
 
 // Developers Only Routes..
 categoryRouter
-  .use(upload.array("categoryImage"))
   .route("/dev/addNewCategory")
   .post(
+    upload.array("categoryImage"),
+    protectRoute,
+    restrictTo("dev"),
     preCheckCategoryInputs,
     getCatgoryImageProcessed,
     categoryImageLink,
     createNewCategory
   );
 
-categoryRouter.route("/dev/:id/updateCategory").patch(updateCategory);
+categoryRouter
+  .route("/dev/:id/updateCategory")
+  .patch(
+    upload.array("categoryImage"),
+    protectRoute,
+    restrictTo("dev"),
+    deletePrevImageFromGCloud,
+    getCatgoryImageProcessed,
+    categoryImageLink,
+    updateCategory
+  );
 
-categoryRouter.route("/dev/:id/deleteCategory").delete(deleteCategory);
+categoryRouter
+  .route("/dev/:id/deleteCategory")
+  .delete(protectRoute, restrictTo("dev"), deleteCategory);

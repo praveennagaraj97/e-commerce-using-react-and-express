@@ -25,17 +25,7 @@ const categorySchema = new Schema(
 );
 
 categorySchema.plugin(mongooseUniqueValidator);
-
-// categorySchema.virtual("productsList", {
-//   ref: `Product`,
-//   localField: `_id`,
-//   foreignField: `categoryId`,
-// });
-
-// // categorySchema.pre(/^findOne/, function (next) {
-// //   this.populate("productsList");
-// //   next();
-// // });
+categorySchema.index({ categoryName: 1 });
 
 const Category = model("Category", categorySchema);
 

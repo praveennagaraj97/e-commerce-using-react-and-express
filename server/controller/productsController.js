@@ -2,7 +2,6 @@ import { GCS_BUCKET_NAME } from "../constants";
 
 import {
   Product,
-  ProductManufacturer,
   ProductDescriptionAndImages,
   ProductBoards,
 } from "../model/productModel";
@@ -32,7 +31,7 @@ const {
 } = GCS_BUCKET_NAME;
 
 // Protect Middlewares
-export { protectRoute } from "./userController";
+export { protectRoute, restrictTo } from "./userController";
 
 export const getProductImageProcessed = handleImageUpload(
   1,
@@ -53,11 +52,6 @@ export const getAllProducts = readAllDocument(Product, {
 // Cart
 export const getProductDetailsWithProductIds = readAllDocument(Product, {
   message: "Details Of Products in Cart",
-});
-
-// Manufacturer
-export const addProductManufacturer = createNewDocumnet(ProductManufacturer, {
-  message: "Manufactured Details Added",
 });
 
 // Product Description

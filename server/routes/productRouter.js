@@ -16,7 +16,6 @@ import {
   getAllProducts,
   getProductDetailsWithProductIds,
   getProduct,
-  addProductManufacturer,
   addProductDescriptionAndImages,
   addProductBoards,
 
@@ -25,6 +24,7 @@ import {
   preFillProductBoards,
   // Protect
   protectRoute,
+  restrictTo,
 } from "../controller/productsController";
 
 export const productRouter = Router();
@@ -50,12 +50,11 @@ productRouter
   .post(
     upload.array("productCoverImage"),
     protectRoute,
+    restrictTo("manufacturer"),
     getProductImageProcessed,
     productImageLink,
     addNewProduct
   );
-
-productRouter.route("/dev/addManufacturer").post(addProductManufacturer);
 
 productRouter
   .route("/dev/addProductDescAndImages")

@@ -1,7 +1,7 @@
 import catchAsyncError from "../utils/catchAsyncError";
 import { AppError } from "../utils/AppError";
 
-import { uploadImageToGoogle } from "../utils/GCloudStorageService";
+import { uploadImageToGoogle, deleteFile } from "../utils/GCloudStorageService";
 
 export const handleImageUpload = (
   imageCount,
@@ -169,5 +169,7 @@ export const handleImageUploadWithNoImageLimit = (bucketName) =>
     next();
   });
 
-export const deleteSingleImage = (ModelName, responseMessage) =>
-  catchAsyncError(async (req, res, next) => {});
+export const deleteImage = async (bucketName, filename) => {
+  await deleteFile(bucketName, filename);
+  console.log("file deleted");
+};

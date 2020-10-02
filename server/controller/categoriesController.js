@@ -11,6 +11,9 @@ import {
   handleImageUpload,
   processSingleImage,
 } from "../middleware/imageProcessMiddleware";
+import { deleteCategoryCoverImageFromGCloud } from "../middleware/productPreFillers";
+
+export { protectRoute, restrictTo } from "./userController";
 
 const { LEXA_PRODUCT_CATEGORIES } = GCS_BUCKET_NAME;
 
@@ -30,6 +33,10 @@ export const getAllCategories = readAllDocument(Category, {
   message: "List Of Categories",
 });
 
+export const deletePrevImageFromGCloud = deleteCategoryCoverImageFromGCloud(
+  Category,
+  LEXA_PRODUCT_CATEGORIES
+);
 export const updateCategory = updateDocumentByID(Category, {
   message: "Category Update Successfully",
 });

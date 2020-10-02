@@ -11,6 +11,8 @@ import {
   processSingleVideo,
 } from "../middleware/imageProcessMiddleware";
 
+export { protectRoute, restrictTo } from "./userController";
+
 import { preCheckIfPreviousVideoExistsAndDelete } from "../middleware/preChecks";
 
 // This Controller doesn't have ay get Endpoints

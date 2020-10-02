@@ -1,6 +1,7 @@
 import { averageReviewOfProducts } from "../../controller/productReviewController";
 import { AppError } from "../../utils/AppError";
 import catchAsyncError from "../../utils/catchAsyncError";
+import { deleteImage } from "../imageProcessMiddleware";
 
 export const preFillCartIdasParams = (req, res, next) => {
   if (!req.body.cartItems || req.body.cartItems.length === 0)
@@ -62,10 +63,14 @@ export const getAllProductsWithAverageReviewAttached = catchAsyncError(
         _id: response._id,
         productName: response.productName,
         categoryId: {
-          _id: response.categoryId._id,
-          categoryName: response.categoryId.categoryName,
-          categoryIcon: response.categoryId.categoryIcon,
-          id: response.categoryId.id,
+          _id: response.categoryId ? response.categoryId._id : undefined,
+          categoryName: response.categoryId
+            ? response.categoryId.categoryName
+            : undefined,
+          categoryIcon: response.categoryId
+            ? response.categoryId.categoryIcon
+            : undefined,
+          id: response.categoryId ? response.categoryId.id : undefined,
         },
         productPrice: response.productPrice,
         productCoverImage: response.productCoverImage,
@@ -85,3 +90,21 @@ export const getAllProductsWithAverageReviewAttached = catchAsyncError(
     });
   }
 );
+
+export const deleteCategoryCoverImageFromGCloud = (
+  ModelName,
+  bucketName
+) => async (req, res, next) => {
+  const category = await ModelName.findById(req.params.id);
+
+  try {
+    await deleteImage(
+      bucketName,
+      category.categoryIcon.split(bucketName + "/")[1]
+    );
+  } catch (err) {
+    next();
+  }
+
+  next();
+};

@@ -10,22 +10,24 @@ import {
   preCheckifProductUpdateDetailVideoHasFileAttached,
   checkIfVideoExistsAndDeleteBeforeUpdatingNewVideo,
 
-  // Image Processer
-  // handleMobileDataImages,
-  // processMobileDetailsImages,
-
   // Video Process,
   handleProductDetailVideo,
   processProductDetailVideo,
+
+  // Protect
+  protectRoute,
+  restrictTo,
 } from "../controller/productDetailController";
 
 export const productDetailRouter = Router();
 const upload = multer();
 
 productDetailRouter
-  .use(upload.array("productVideo"))
   .route("/addDetail/detail")
   .post(
+    upload.array("productVideo"),
+    protectRoute,
+    restrictTo("manufacturer"),
     preFillProductdetailedDescription,
     handleProductDetailVideo,
     processProductDetailVideo,
