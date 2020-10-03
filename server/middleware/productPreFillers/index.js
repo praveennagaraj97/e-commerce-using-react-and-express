@@ -23,9 +23,7 @@ export const preFillProductdetailedDescription = (req, res, next) => {
       return next(new AppError("Provide manufacturer Id"));
     }
   }
-
-  console.log(req.body);
-  // next();
+  next();
 };
 
 export const preFillProductBoards = (req, res, next) => {

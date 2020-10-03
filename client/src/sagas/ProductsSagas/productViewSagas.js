@@ -15,10 +15,7 @@ import { PRODUCT_TYPES } from "../../constants";
 import history from "../../history";
 
 // API Endpoints!
-import {
-  getProductDetailEndPoint,
-  getProductsDetailsForGrpIdsEndPoint,
-} from "../../api";
+import { getProductDetailEndPoint } from "../../api";
 
 import { globalErrorMessageHandler } from "../HandleAlertSagas";
 
@@ -61,15 +58,6 @@ function* handleLoadProductViewWorker() {
       getProductDetailEndPoint,
       productType.productId
     );
-
-    // Similar Items
-    if (data.detail.productFullDetails.length > 0) {
-      const response = yield call(getProductsDetailsForGrpIdsEndPoint, {
-        cartItems: data.detail.productFullDetails[0].productId,
-      });
-
-      data.detail.productFullDetails[0].productId = response.data.details;
-    }
     yield put(
       reOccuringProductDetailRequests({
         id: [productType.productId],

@@ -4,12 +4,15 @@ import "../../../styles/productManufacturer.scss";
 
 const ProductManufacturer = ({ manufacturer }) => {
   if (!manufacturer) return <></>;
+
+  console.log(manufacturer);
+
   return (
     <>
       <div className='product-manufacturer-container'>
         <h3>Manufacturer Details</h3>
         <div className='product-manufacturer__details'>
-          <p>Manufacturer : {manufacturer.manufacturerName}</p>
+          <p>Manufacturer : {manufacturer.companyName}</p>
           <p>Country Of Origin : {manufacturer.countryofOrigin}</p>
         </div>
       </div>
