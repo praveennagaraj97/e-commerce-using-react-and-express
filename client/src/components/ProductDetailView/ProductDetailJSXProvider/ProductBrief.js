@@ -12,18 +12,10 @@ const ProductBrief = ({ productDescription, productBoards }) => {
 
       {/* Product Boards */}
       {productBoards ? (
-        <div
-          style={{ margin: "10px", backgroundColor: "white" }}
-          className='product-based-boards'>
+        <div className='product-based-boards'>
           {productBoards.map((board) => {
             return (
-              <img
-                style={{ marginTop: "-4px", borderRadius: "5px" }}
-                key={board}
-                width='100%'
-                src={board}
-                alt='ProductBoard'
-              />
+              <img key={board} width='100%' src={board} alt='ProductBoard' />
             );
           })}
         </div>

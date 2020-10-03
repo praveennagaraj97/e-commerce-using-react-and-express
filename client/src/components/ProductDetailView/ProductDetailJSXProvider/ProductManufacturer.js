@@ -4,9 +4,6 @@ import "../../../styles/productManufacturer.scss";
 
 const ProductManufacturer = ({ manufacturer }) => {
   if (!manufacturer) return <></>;
-
-  console.log(manufacturer);
-
   return (
     <>
       <div className='product-manufacturer-container'>
