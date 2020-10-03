@@ -57,7 +57,7 @@ const ProductImageAndBrief = ({
 
         {productBriefInfo.similarProducts.length > 1 ? (
           <div className='product-detail_similar_products'>
-            Similar Products
+            {/* Similar Products */}
             {/* <div className='product-detail_similar_products__container'>
               {productBriefInfo.similarProducts.map(({ _id, productName }) => {
                 return productName !== productBriefInfo.productName ? (
