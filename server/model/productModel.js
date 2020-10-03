@@ -81,7 +81,7 @@ productSchema.pre(/^findOne/, function (next) {
   next();
 });
 
-export const Product = model("Product", productSchema);
+export const Product = model("ProductModel", productSchema);
 
 const productDescriptionAndImagesSchema = new Schema(
   {
@@ -125,11 +125,8 @@ export const ProductDescriptionAndImages = model(
 
 const productBoards = new Schema({
   productId: {
-    type: [Schema.Types.ObjectId],
-    required: [
-      true,
-      "Provide List Of Product Ids To which this Boards Resembeles..",
-    ],
+    type: Schema.Types.ObjectId,
+    required: [true, "Provide Product Id To which this Boards Resembeles.."],
     unique: true,
   },
   boardImages: {

@@ -4,11 +4,11 @@ import mongooseUniqueValidator from "mongoose-unique-validator";
 const productDetailSchema = new Schema({
   // Irrespitive of the mobile sub-type the details applies to all model,
   //   For this Ids Same details will be Shown
-  productId: {
+  similarProductIds: {
     type: [Schema.Types.ObjectId],
     required: [
       true,
-      "productId needs to be provided in order to Get This details, at time of querying!",
+      "productIds needs to be provided in order to group similar products!",
     ],
     unique: true,
   },

@@ -12,29 +12,20 @@ export const preFillCartIdasParams = (req, res, next) => {
 };
 
 export const preFillProductdetailedDescription = (req, res, next) => {
-  if (!req.body.featuresList)
+  if (req.body.featuresList.length < 1)
     return next(new AppError("Provide List Of Features as array!!!", 422));
+  req.body.featuresList = JSON.parse(req.body.featuresList);
+  req.body.productDetails = JSON.parse(req.body.productDetails);
+  if (req.user.userRole == "manufacturer") {
+    req.body.manufacturerId = req.user._id;
+  } else {
+    if (!req.body.manufacturerId) {
+      return next(new AppError("Provide manufacturer Id"));
+    }
+  }
 
-  if (!req.body.productId)
-    return next(
-      new AppError("Provide at least 1 or group of productIds!!!", 422)
-    );
-
-  if (!req.body.manufacturerId)
-    return next(new AppError("Provide a manufacturerId", 422));
-
-  const inputValues = { ...req.body };
-  const technicalDetails = inputValues;
-
-  req.body.productId = technicalDetails.productId.split(",");
-  req.body.featuresList = JSON.parse(technicalDetails.featuresList);
-  req.body.manufacturerId = technicalDetails.manufacturerId;
-  delete technicalDetails.productId;
-  delete technicalDetails.featuresList;
-  delete technicalDetails.manufacturerId;
-  req.body.productDetails = technicalDetails;
-
-  next();
+  console.log(req.body);
+  // next();
 };
 
 export const preFillProductBoards = (req, res, next) => {

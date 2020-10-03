@@ -6,7 +6,7 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { getMainDefinition } from "@apollo/client/utilities";
-import { WebSocketLink } from "@apollo/client/link/ws";
+// import { WebSocketLink } from "@apollo/client/link/ws";
 
 import { useSessionStorage } from "../utils/useSessionStorage";
 import { useCookies } from "../utils/useCookies";
@@ -42,20 +42,20 @@ const authLink = setContext((_, { headers }) => {
 
 httpLink = authLink.concat(httpLink);
 
-const wsLink = new WebSocketLink({
-  uri:
-    process.env.NODE_ENV === "production"
-      ? "wss://ec2-13-233-48-194.ap-south-1.compute.amazonaws.com:4000/"
-      : "ws://localhost:4000/",
-  options: {
-    reconnect: true,
-    connectionParams: {
-      authorization: `Bearer ${
-        authTokenFromCookie() || authTokenFromSession()
-      }`,
-    },
-  },
-});
+// const wsLink = new WebSocketLink({
+//   uri:
+//     process.env.NODE_ENV === "production"
+//       ? "wss://ec2-13-233-48-194.ap-south-1.compute.amazonaws.com:4000/"
+//       : "ws://localhost:4000/graphql",
+//   options: {
+//     reconnect: true,
+//     connectionParams: {
+//       authorization: `Bearer ${
+//         authTokenFromCookie() || authTokenFromSession()
+//       }`,
+//     },
+//   },
+// });
 
 const splitLink = split(
   ({ query }) => {
@@ -65,7 +65,7 @@ const splitLink = split(
       definition.operation === "subscription"
     );
   },
-  wsLink,
+  // wsLink,
   httpLink
 );
 

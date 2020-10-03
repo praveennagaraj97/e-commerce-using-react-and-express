@@ -14,7 +14,7 @@ import history from "../../history";
 
 const ProductDetailView = () => {
   const productCategory = history.location.pathname.split("/")[
-    history.location.pathname.split("/").length - 2
+    history.location.pathname.split("/").length - 3
   ];
   if (productCategory === "mobiles") return <ProductMobileDetail />;
   if (productCategory === "computers") return <ProductComputersDetail />;

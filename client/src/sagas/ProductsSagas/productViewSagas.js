@@ -49,7 +49,9 @@ function* handleLoadProductViewWorker() {
       yield put(
         getProductDetail(productDetailRequests[productType.productId].detail)
       );
-      yield history.push(`/${productType.productCategory}/detail`);
+      yield history.push(
+        `/${productType.productCategory}/detail/${productType.productId}`
+      );
       return;
     }
   }
@@ -75,7 +77,9 @@ function* handleLoadProductViewWorker() {
       })
     );
     yield put(getProductDetail(data.detail));
-    yield history.push(`/${productType.productCategory}/detail`);
+    yield history.push(
+      `/${productType.productCategory}/detail/${productType.productId}`
+    );
   } catch (err) {
     // yield console.clear();
     yield call(
