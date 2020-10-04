@@ -15,7 +15,7 @@ import {
 
 import { loadLogin, loadSignUp, loadForgotPassword } from "../../actions";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   formContainer: {
     margin: "auto",
     marginTop: "5vh",

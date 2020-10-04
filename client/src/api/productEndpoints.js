@@ -4,6 +4,11 @@ export const getAllCategoriesEndpoint = async () => {
   return await apiBaseEndpoint.get(`/category/getAllCategories`);
 };
 
+export const getLatestProductsOnStore = async () =>
+  await apiBaseEndpoint.get(
+    `/product/getProducts?sort=-createdAt&page=1&limit=6`
+  );
+
 export const getProductsBasedOnQuery = async (query) => {
   return await apiBaseEndpoint.get(
     `/product/getProducts${query}&sort=-createdAt`
@@ -25,7 +30,7 @@ export const getProductDetailEndPoint = async (id) => {
 
 export const getListOfProductReviewsEndPoint = async (id) => {
   return await apiBaseEndpoint.get(
-    `/product_review/getReviews?productId=${id}&sort=-createdAt&page=1&limit=4`
+    `/product_review/getReviews?productId=${id}&sort=-createdAt&page=1&limit=6`
   );
 };
 

@@ -1,4 +1,4 @@
-import { takeLatest, select, put, call } from "redux-saga/effects";
+import { takeLatest, select, put, call, takeEvery } from "redux-saga/effects";
 
 import { PRODUCT_TYPES } from "../../constants";
 
@@ -48,8 +48,8 @@ const addQuantityPropToCart = (cartItems) => {
 };
 
 export function* productCartWatcher() {
-  yield takeLatest(ADD_PRODUCT_TO_CART, handleProductAddCartWorker);
-  yield takeLatest(REMOVE_PRODUCT_FROM_CART, handleProductRemoveCartWorker);
+  yield takeEvery(ADD_PRODUCT_TO_CART, handleProductAddCartWorker);
+  yield takeEvery(REMOVE_PRODUCT_FROM_CART, handleProductRemoveCartWorker);
 }
 
 function* handleproductCartWorker() {

@@ -1,6 +1,7 @@
 import React from "react";
 import { Field } from "redux-form";
 import { Button } from "@material-ui/core";
+import { useSelector } from "react-redux";
 
 export const SignUpAndLoginForm = ({
   signedInOption,
@@ -10,6 +11,8 @@ export const SignUpAndLoginForm = ({
   buttonToShow,
   forgotPasswordLink,
 }) => {
+  const loading = useSelector(({ loader: { authLoading } }) => authLoading);
+
   return (
     <div className='form-container'>
       <form
@@ -33,12 +36,23 @@ export const SignUpAndLoginForm = ({
               </div>
             );
           })}
-          {signedInOption}
-          {forgotPasswordLink}
+          {!loading ? signedInOption : ""}
+          {!loading ? forgotPasswordLink : ""}
 
-          <Button style={{ backgroundColor: "white" }} type='submit'>
-            {buttonToShow}
-          </Button>
+          {loading ? (
+            <img
+              className='loading-spinner'
+              src='https://storage.googleapis.com/lexa-component-styles/loading.gif'
+              alt='Loading...'
+            />
+          ) : (
+            <Button
+              style={{ backgroundColor: "white" }}
+              disabled={loading}
+              type='submit'>
+              {buttonToShow}
+            </Button>
+          )}
         </>
       </form>
     </div>

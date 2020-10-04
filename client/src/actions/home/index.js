@@ -1,11 +1,4 @@
-import { RECENT_VIEWED, LOADERS } from "../../constants";
-
-const { TOP_LEVEL_AD_LOADING } = LOADERS;
-
-export const loadTopAdvertiseLoading = (boolean) => ({
-  type: TOP_LEVEL_AD_LOADING,
-  boolean,
-});
+import { RECENT_VIEWED } from "../../constants";
 
 export const recentlyViewedItems = (data) => ({
   type: RECENT_VIEWED,

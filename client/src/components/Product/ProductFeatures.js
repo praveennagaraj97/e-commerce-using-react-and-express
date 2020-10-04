@@ -1,11 +1,22 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 
-import { loadGetProductsOnQuery } from "../../actions";
+import {
+  loadGetProductsOnQuery,
+  sortProductListASCE,
+  sortProductListDESC,
+  sortProductListFEATURED,
+} from "../../actions";
 
 import "../../styles/productFeatures.scss";
 
-const ProductFeatures = ({ loadProductByFilterApplied, query }) => {
+const ProductFeatures = ({
+  loadProductByFilterApplied,
+  query,
+  sortProductListASCE,
+  sortProductListDESC,
+  sortProductListFEATURED,
+}) => {
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [lessThanPrice, setLessThanPrice] = useState("");
@@ -32,15 +43,17 @@ const ProductFeatures = ({ loadProductByFilterApplied, query }) => {
       <div className='price-container'>
         <h4>Price</h4>
         <hr style={{ width: "98%" }} />
-        <p onClick={() => handleProductPriceFilter("lt", 10000)}>
-          less than ₹10000
-        </p>
-        <p onClick={() => handleProductPriceFilter("lt", 20000)}>
-          less than ₹20000
-        </p>
-        <p onClick={() => handleProductPriceFilter("gt", 20000)}>
-          greater than ₹20000
-        </p>
+        <div className='sort-options'>
+          <p onClick={() => handleProductPriceFilter("lt", 10000)}>
+            less than ₹10000
+          </p>
+          <p onClick={() => handleProductPriceFilter("lt", 20000)}>
+            less than ₹20000
+          </p>
+          <p onClick={() => handleProductPriceFilter("gt", 20000)}>
+            greater than ₹20000
+          </p>
+        </div>
 
         <div className='price-lessthan'>
           <input
@@ -91,7 +104,7 @@ const ProductFeatures = ({ loadProductByFilterApplied, query }) => {
         </div>
       </div>
 
-      <div className='brand__container'>
+      {/* <div className='brand__container'>
         <h4>Brand</h4>
         <hr style={{ width: "98%" }} />
         <p onClick={() => handleProductPriceFilter("lt", 10000)}>Apple</p>
@@ -100,18 +113,14 @@ const ProductFeatures = ({ loadProductByFilterApplied, query }) => {
         <p onClick={() => handleProductPriceFilter("gt", 20000)}>Vivo</p>
         <p onClick={() => handleProductPriceFilter("gt", 20000)}>One Plus</p>
         <p onClick={() => handleProductPriceFilter("gt", 20000)}>Mi</p>
-      </div>
+      </div> */}
 
       <div className='sort-by__container'>
         <h4>Sort By</h4>
         <hr style={{ width: "98%" }} />
-        <p onClick={() => handleProductPriceFilter("lt", 10000)}>Featured</p>
-        <p onClick={() => handleProductPriceFilter("lt", 20000)}>
-          Price: Low to High
-        </p>
-        <p onClick={() => handleProductPriceFilter("gt", 20000)}>
-          Price: High to Low
-        </p>
+        <p onClick={sortProductListFEATURED}>Featured</p>
+        <p onClick={sortProductListASCE}>Price: Low to High</p>
+        <p onClick={sortProductListDESC}>Price: High to Low</p>
       </div>
     </div>
   );
@@ -120,6 +129,9 @@ const ProductFeatures = ({ loadProductByFilterApplied, query }) => {
 const mapDispatchToProps = (dispatch) => ({
   loadProductByFilterApplied: (query) =>
     dispatch(loadGetProductsOnQuery(query)),
+  sortProductListASCE: () => dispatch(sortProductListASCE()),
+  sortProductListDESC: () => dispatch(sortProductListDESC()),
+  sortProductListFEATURED: () => dispatch(sortProductListFEATURED()),
 });
 
 const mapStateToProps = ({ productsList: { query } }) => ({ query });

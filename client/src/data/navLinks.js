@@ -1,9 +1,9 @@
 // nav Items
 export const navItems = [
   {
-    name: "Service",
-    icon: "chat",
-    route: "/service",
+    name: "Help",
+    icon: "help",
+    route: "/help",
   },
   {
     name: "Developers",

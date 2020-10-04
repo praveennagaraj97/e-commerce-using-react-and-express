@@ -132,8 +132,9 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = ({
-  productReview: { productReviewsList, reviewLoading },
+  productReview: { productReviewsList },
   userAccredited: { user = null },
+  loader: { reviewLoading },
 }) => ({
   productReviewsList,
   reviewLoading,

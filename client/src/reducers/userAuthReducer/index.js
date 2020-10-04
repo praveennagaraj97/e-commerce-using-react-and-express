@@ -1,7 +1,7 @@
 import { USER_AUTH_TYPES } from "../../constants";
 
 const {
-  LOGIN: { LOAD_LOGIN, LOAD_LOGGGED_USER },
+  LOGIN: { LOAD_LOGGGED_USER },
   SIGNUP: { LOAD_SIGNUP, LOAD_SIGNED_UP_USER },
   USER_STATUS: { IS_LOGGED_IN, GET_USER },
   USER_UPDATE: { USER_PASSWORD_CHANGE },
@@ -9,9 +9,6 @@ const {
 
 const userAuthLoginReducer = (state = {}, action) => {
   switch (action.type) {
-    case LOAD_LOGIN:
-      return { ...state, loadLogin: true };
-
     case LOAD_LOGGGED_USER:
       return {
         ...state,

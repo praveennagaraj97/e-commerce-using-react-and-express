@@ -34,13 +34,6 @@ const Settings = ({ loadUser, userDetail }) => {
               Manage your data
             </button>
           </div>
-          <div className='settings-container__payments settings-container_box'>
-            <h3>Payments</h3>
-            <p>Manage your payment info.</p>
-            <button className='settings-container_btn'>
-              Manage your Payments
-            </button>
-          </div>
         </div>
       </div>
       {showUserData ? (

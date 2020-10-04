@@ -21,12 +21,10 @@ export {
 
 export {
   // Get all categories on website load
-  productCategoryLoading,
   getAllCategories,
   // Load products related to categories clicked
   loadGetProductsOnQuery,
   holdPreviousProductQuery,
-  productsLoading,
   getProductsOnQuery,
   setLimitsPerPage,
   setPageNumber,
@@ -42,12 +40,16 @@ export {
   // Re Occuring request to avoid api over fetch!
   reOccuringProductDetailRequests,
   // Reviews
-  productReviewLoading,
+
   loadProductReview,
   getProductReviews,
   reviewFoundHelpful,
   // Post reviews
   loadNewProductReview,
+  // Sort
+  sortProductListASCE,
+  sortProductListDESC,
+  sortProductListFEATURED,
 } from "./productsAction";
 
 export {
@@ -58,4 +60,11 @@ export {
   websiteLoad,
 } from "./addon";
 
-export { recentlyViewedItems, loadTopAdvertiseLoading } from "./home";
+export { recentlyViewedItems } from "./home";
+
+export {
+  productCategoryLoading,
+  productsLoading,
+  productReviewLoading,
+  authLoading,
+} from "./loaderAction";

@@ -1,4 +1,4 @@
-import { PRODUCT_TYPES, RE_OCCURING_REQUESTS, LOADERS } from "../constants";
+import { PRODUCT_TYPES, RE_OCCURING_REQUESTS } from "../constants";
 
 const {
   GET_ALL_CATEGORIES,
@@ -10,9 +10,11 @@ const {
   NO_MORE_RESULTS_FOUND,
   LOAD_VIEW_PRODUCT_DETAIL,
   PRODUCT_DETAIL,
-} = PRODUCT_TYPES;
 
-const { CATEGORY_LOADING, PRODUCTS_LISTS_LOADING } = LOADERS;
+  SORT_PRODUCTS_ASCE,
+  SORT_PRODUCTS_DESC,
+  SORT_BY_FEATURED,
+} = PRODUCT_TYPES;
 
 const { RE_OCCURING_PRODUCT_DETAIL } = RE_OCCURING_REQUESTS;
 
@@ -20,7 +22,6 @@ export {
   getProductReviews,
   loadNewProductReview,
   loadProductReview,
-  productReviewLoading,
   reviewFoundHelpful,
 } from "./review";
 export {
@@ -35,11 +36,6 @@ export const reOccuringProductDetailRequests = (request) => ({
   request,
 });
 
-// Loads on website load.
-export const productCategoryLoading = (boolean) => ({
-  type: CATEGORY_LOADING,
-  boolean,
-});
 export const getAllCategories = (response) => ({
   type: GET_ALL_CATEGORIES,
   response,
@@ -58,10 +54,7 @@ export const holdPreviousProductQuery = (prevQuery) => ({
 });
 
 // takes products as array and stores them in redux-store
-export const productsLoading = (boolean) => ({
-  type: PRODUCTS_LISTS_LOADING,
-  boolean,
-});
+
 export const getProductsOnQuery = (response) => ({
   type: GET_PRODUCTS_BASED_ON_QUERY,
   response,
@@ -91,3 +84,7 @@ export const loadViewProductDetail = (
 });
 
 export const getProductDetail = (data) => ({ type: PRODUCT_DETAIL, data });
+
+export const sortProductListASCE = () => ({ type: SORT_PRODUCTS_ASCE });
+export const sortProductListDESC = () => ({ type: SORT_PRODUCTS_DESC });
+export const sortProductListFEATURED = () => ({ type: SORT_BY_FEATURED });

@@ -58,7 +58,8 @@ export const ProductCategories = ({
 };
 
 const mapStateToProps = ({
-  productCategories: { categories, categoryLoading },
+  productCategories: { categories },
+  loader: { categoryLoading },
 }) => ({
   categories,
   categoryLoading,

@@ -51,7 +51,7 @@ const App = () => {
         <div id='section-content' className='contents-section'>
           <Switch>
             <Route exact path='/' component={Home} />
-            <Route exact path='/service' component={Service} />
+            <Route exact path='/help' component={Service} />
             <Route exact path='/devs' component={DevelopersTab} />
             <Route exact path='/orders' component={Orders} />
             <Route exact path='/cart' component={Cart} />
@@ -91,16 +91,6 @@ const App = () => {
         </div>
       </Router>
       <Notifer />
-      {/* <footer
-        style={{
-          height: "5vh",
-          backgroundColor: "white",
-          margin: "0px 5px",
-          position: "relative",
-          bottom: "0",
-        }}>
-        @Lexa
-      </footer> */}
     </>
   );
 };

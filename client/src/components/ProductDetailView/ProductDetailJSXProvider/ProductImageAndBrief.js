@@ -1,8 +1,11 @@
-import { Button } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
+// import { Button } from "@material-ui/core";
 
 import "../../../styles/productimageandbrief.scss";
-import { loadViewProductDetail, addItemToCart } from "../../../actions";
+import {
+  // loadViewProductDetail,
+  addItemToCart,
+} from "../../../actions";
 import { useDispatch } from "react-redux";
 
 const ProductImageAndBrief = ({
@@ -38,14 +41,14 @@ const ProductImageAndBrief = ({
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const handleViewSimilarProduct = (id) => {
-    const productType = {
-      category: currentProductId.productCategory,
-      id,
-    };
+  // const handleViewSimilarProduct = (id) => {
+  //   const productType = {
+  //     category: currentProductId.productCategory,
+  //     id,
+  //   };
 
-    dispatch(loadViewProductDetail(productType));
-  };
+  //   dispatch(loadViewProductDetail(productType));
+  // };
 
   const productBriefDescriptionJSX = (productBriefInfo) => {
     return (

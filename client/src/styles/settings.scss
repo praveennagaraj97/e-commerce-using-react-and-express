@@ -7,10 +7,6 @@
 }
 
 .settings-container__options {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 10px;
-
   .settings-container_box {
     background-color: rgba(206, 235, 225, 0.788);
     padding: 7px;
@@ -24,6 +20,7 @@
     border: none;
     border-radius: 10px;
     outline: none;
+    cursor: pointer;
   }
 
   .settings-container_btn:active {
@@ -42,7 +39,7 @@
 
 .settings-user-detail-table {
   border-collapse: collapse;
-  width: 85%;
+  width: 100%;
 
   tr {
     padding: 0 10%;
@@ -59,11 +56,12 @@
     width: 25px;
     position: absolute;
     cursor: pointer;
+    right: 26vw;
   }
 
   .table-input {
     border: none;
     background-color: rgba(255, 255, 255, 0);
-    width: 60%;
+    width: 70%;
   }
 }

@@ -18,8 +18,10 @@ import {
 
 import requestReducer from "./_requestsReduers";
 import { homePageReducer } from "./homePageReducer";
+import loaderReducer from "./loadersReducer";
 
 export default combineReducers({
+  loader: loaderReducer,
   userAccredited,
   userAuthorization: userAuthLoginReducer,
   userDetails: userDetailsReducer,

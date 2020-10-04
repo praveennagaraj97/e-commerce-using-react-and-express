@@ -140,6 +140,7 @@ const UserDetail = ({ userDetail }) => {
                         position: "relative",
                         bottom: "-6px",
                         width: "25px",
+                        left: "10px",
                       }}
                       src='https://img.icons8.com/office/80/000000/cancel.png'
                       alt='cancel'

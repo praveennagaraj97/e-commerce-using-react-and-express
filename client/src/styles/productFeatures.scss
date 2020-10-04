@@ -40,7 +40,7 @@
 
 .sort-by__container {
   height: 107px;
-  overflow-y: auto;
+
   p {
     color: rgb(96, 96, 228);
     font-size: 11px;
@@ -57,4 +57,22 @@
 
   height: 150px;
   overflow-y: auto;
+}
+
+@media (max-width: 702px) {
+  .product-features {
+    display: flex;
+    justify-content: space-around;
+    display: flex;
+    justify-content: space-around;
+    height: 65px;
+    overflow: auto;
+  }
+  .sort-options {
+    display: flex;
+    justify-content: space-between;
+  }
+  .price-container {
+    width: 50%;
+  }
 }

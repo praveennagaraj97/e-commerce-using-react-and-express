@@ -9,7 +9,13 @@ import {
 
 import { USER_AUTH_TYPES, COOKIE_NAMES } from "../constants";
 import history from "../history";
-import { loginUser, signUpUser, userAccredited, getUser } from "../actions";
+import {
+  loginUser,
+  signUpUser,
+  userAccredited,
+  getUser,
+  authLoading,
+} from "../actions";
 import {
   UserLogger,
   UserSigner,
@@ -42,7 +48,9 @@ const { AUTH_TOKEN } = COOKIE_NAMES;
 const getFormValues = ({ form }) => form;
 
 function* handleUserLoginWorker() {
+  yield put(authLoading(true));
   // Get Form Values for Store
+
   const {
     SignUpOrLogin: { values },
   } = yield select(getFormValues);
@@ -52,17 +60,18 @@ function* handleUserLoginWorker() {
   if (values) {
     if (!values.hasOwnProperty("email")) {
       yield call(globalErrorMessageHandler, "Please Enter Email👻");
-      return;
+      return yield put(authLoading(false));
     } else if (!/\S+@\S+\.\S+/.test(values.email)) {
       yield call(globalErrorMessageHandler, "Please Enter Valid Email👻");
-      return;
+      return yield put(authLoading(false));
     } else if (!values.hasOwnProperty("password")) {
       yield call(globalErrorMessageHandler, "Please Enter Password👻");
-      return;
+      return yield put(authLoading(false));
     }
   } else {
     yield call(globalErrorMessageHandler, "Please Enter Email and Password 👻");
-    return;
+
+    return yield put(authLoading(false));
   }
 
   //   Once Field Check is done call API!
@@ -76,7 +85,8 @@ function* handleUserLoginWorker() {
 
     yield put(loginUser(data));
     yield call(globalSuccessMessageHandler, "Logged In Successfully🐱‍🏍");
-
+    yield put(authLoading(false));
+    yield history.goBack();
     // If keep-logged in checked store as cookie else in session-storage
     if (values.signedIn) {
       yield call(
@@ -90,12 +100,12 @@ function* handleUserLoginWorker() {
       yield call(setSessionItem, AUTH_TOKEN, data.token);
     }
 
-    yield history.goBack();
     yield call(handleUserAccreditationWorker);
     yield delay(3200);
     yield call(globalSuccessMessageHandler, null);
   } catch (err) {
-    // yield console.clear();
+    yield console.clear();
+    yield put(authLoading(false));
     try {
       yield call(globalErrorMessageHandler, err.response.data.message + "🙃");
     } catch (err) {
@@ -112,42 +122,43 @@ export function* userLoginWatcher() {
 }
 
 function* handleUserSignUpWorker() {
+  yield put(authLoading(true));
   const {
     SignUpOrLogin: { values },
   } = yield select(getFormValues);
   if (values) {
     if (!values.hasOwnProperty("name")) {
       yield call(globalErrorMessageHandler, "Please Enter Name👻");
-      return;
+      return yield put(authLoading(false));
     } else if (!values.hasOwnProperty("signUpemail")) {
       yield call(globalErrorMessageHandler, "Please Enter Email");
-      return;
+      return yield put(authLoading(false));
     } else if (!/\S+@\S+\.\S+/.test(values.signUpemail)) {
       yield call(globalErrorMessageHandler, "Please Enter Valid Email👻");
-      return;
+      return yield put(authLoading(false));
     } else if (!values.hasOwnProperty("phoneNumber")) {
       yield call(globalErrorMessageHandler, "Please Enter Phone Number");
-      return;
+      return yield put(authLoading(false));
     } else if (
       String(values.phoneNumber).length !== 10 ||
       !String(values.phoneNumber).charAt(0) > 6 ||
       !Number.isInteger(Number(values.phoneNumber))
     ) {
       yield call(globalErrorMessageHandler, "Please Enter Valid Phone Number");
-      return;
+      return yield put(authLoading(false));
     } else if (!values.hasOwnProperty("signUppassword")) {
       yield call(globalErrorMessageHandler, "Please Enter Password👻");
-      return;
+      return yield put(authLoading(false));
     } else if (!values.hasOwnProperty("confirmPassword")) {
       yield call(globalErrorMessageHandler, "Please Confirm Your Password👻");
-      return;
+      return yield put(authLoading(false));
     } else if (values.signUppassword !== values.confirmPassword) {
       yield call(globalErrorMessageHandler, "Password Didn't match👻");
-      return;
+      return yield put(authLoading(false));
     }
   } else {
     yield call(globalErrorMessageHandler, "Please Fill the Form👻");
-    return;
+    return yield put(authLoading(false));
   }
 
   try {
@@ -162,13 +173,27 @@ function* handleUserSignUpWorker() {
 
     yield put(signUpUser(data));
     yield call(globalSuccessMessageHandler, "Thank You ,keep shopping!🐱‍🏍");
+    yield put(authLoading(false));
     yield call(setSessionItem, AUTH_TOKEN, data.token);
     yield history.goBack();
     yield call(handleUserAccreditationWorker);
     yield call(globalSuccessMessageHandler, null);
   } catch (err) {
-    // yield console.clear();
+    yield console.clear();
+    yield put(authLoading(false));
     try {
+      if (err.response.data.message.split(": ")[1] === "email") {
+        return yield call(
+          globalErrorMessageHandler,
+          `User with ${values.signUpemail} already exist`
+        );
+      }
+      if (err.response.data.message.split(": ")[1] === "phoneNumber") {
+        return yield call(
+          globalErrorMessageHandler,
+          `User with ${values.phoneNumber} already exist`
+        );
+      }
       yield call(globalErrorMessageHandler, err.response.data.message + "🙃");
     } catch (err) {
       yield call(

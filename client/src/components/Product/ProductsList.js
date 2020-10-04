@@ -12,7 +12,6 @@ import { ShowRating } from "../Rating";
 import { useInfiniteScrolling } from "../../utils/useInfiniteScrolling";
 import { useWindowSize } from "../../utils/useWindowResizeHook";
 
-import history from "../../history";
 import "../../styles/productDisplay.scss";
 
 const ProductList = ({
@@ -31,11 +30,9 @@ const ProductList = ({
 
   useInfiniteScrolling(element, loadMoreResultsOnScroll);
 
-  const handleViewProduct = (id) => {
+  const handleViewProduct = (id, category) => {
     const productModelled = {
-      category: history.location.pathname.split("/")[
-        history.location.pathname.split("/").length - 1
-      ],
+      category,
       id,
     };
 
@@ -74,15 +71,16 @@ const ProductList = ({
         ""
       )}
 
-      {useWindowSize().width < 702 ? (
+      {useWindowSize().width < 702 && products.length ? (
         <div className='products-container-filter-mobile'>
           {/* Filter options */}
+          <ProductFeatures />
         </div>
       ) : (
         ""
       )}
       <div className='products-container'>
-        {useWindowSize().width > 700 ? (
+        {useWindowSize().width > 700 && products.length > 0 ? (
           <div className='products-container-filter-column'>
             {/* Filter options */}
             <ProductFeatures />
@@ -101,6 +99,7 @@ const ProductList = ({
                     productName,
                     productPrice,
                     averageReview,
+                    categoryId: { categoryName },
                   }) => {
                     return (
                       <div key={_id} className='product-card'>
@@ -134,7 +133,12 @@ const ProductList = ({
                               Add To Cart
                             </button>
                             <button
-                              onClick={() => handleViewProduct(_id)}
+                              onClick={() =>
+                                handleViewProduct(
+                                  _id,
+                                  categoryName.toLowerCase()
+                                )
+                              }
                               className='product-card__btn product__view-btn'>
                               View Product
                             </button>
@@ -179,9 +183,9 @@ const ProductList = ({
   );
 };
 
-const mapStateToProps = ({ productsList }) => ({
+const mapStateToProps = ({ productsList, loader: { productsLoading } }) => ({
   productsList,
-  productsLoading: productsList.productsLoading,
+  productsLoading,
 });
 
 const mapDispatchToProps = (dispatch) => ({

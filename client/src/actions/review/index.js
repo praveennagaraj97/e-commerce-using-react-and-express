@@ -1,4 +1,4 @@
-import { PRODUCT_TYPES, LOADERS } from "../../constants";
+import { PRODUCT_TYPES } from "../../constants";
 
 const {
   REVIEW_FOUND_HELPFUL,
@@ -6,13 +6,6 @@ const {
   LOAD_NEW_PRODUCT_REVIEW,
   LOAD_PRODUCT_REVIEWS,
 } = PRODUCT_TYPES;
-const { REVIEW_LOADING } = LOADERS;
-
-// Product Review
-export const productReviewLoading = (boolean) => ({
-  type: REVIEW_LOADING,
-  boolean,
-});
 
 export const loadProductReview = () => ({ type: LOAD_PRODUCT_REVIEWS });
 

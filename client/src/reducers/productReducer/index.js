@@ -1,4 +1,4 @@
-import { PRODUCT_TYPES, LOADERS } from "../../constants";
+import { PRODUCT_TYPES } from "../../constants";
 
 export {
   productReviewReducer,
@@ -19,9 +19,11 @@ const {
   GET_PRODUCTS_IN_CART,
   LOAD_VIEW_PRODUCT_DETAIL,
   PRODUCT_DETAIL,
-} = PRODUCT_TYPES;
 
-const { PRODUCTS_LISTS_LOADING } = LOADERS;
+  SORT_PRODUCTS_ASCE,
+  SORT_PRODUCTS_DESC,
+  SORT_BY_FEATURED,
+} = PRODUCT_TYPES;
 
 const getProductsrelatedToQuery = {
   products: [],
@@ -41,11 +43,33 @@ export const getProductsReducer = (
       state.query["prev"] = action.prevQuery;
       return { ...state };
 
-    case PRODUCTS_LISTS_LOADING:
-      return { ...state, productsLoading: action.boolean };
-
     case GET_PRODUCTS_BASED_ON_QUERY:
       return { ...state, products: action.response };
+
+    case SORT_PRODUCTS_ASCE:
+      if (!state.hasOwnProperty("featured")) {
+        state["featured"] = state.products;
+      }
+      state["products"] = [...state.products].sort(
+        (a, b) => a.productPrice - b.productPrice
+      );
+
+      return { ...state };
+
+    case SORT_PRODUCTS_DESC:
+      if (!state.hasOwnProperty("featured")) {
+        state["featured"] = state.products;
+      }
+      state["products"] = [...state.products].sort(
+        (a, b) => b.productPrice - a.productPrice
+      );
+      return { ...state };
+
+    case SORT_BY_FEATURED:
+      if (state.hasOwnProperty("featured")) {
+        state["products"] = state.featured;
+      }
+      return { ...state };
 
     case SET_PAGE_NUMBER:
       state.query["pageNumber"] = action.pageNumber;

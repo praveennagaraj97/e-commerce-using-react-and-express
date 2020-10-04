@@ -29,6 +29,7 @@ export {
   getProductDetailEndPoint,
   getListOfProductReviewsEndPoint,
   reviewFoundHelpfulEndpoint,
+  getLatestProductsOnStore,
 } from "./productEndpoints";
 
 export {

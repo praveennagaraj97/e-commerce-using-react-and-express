@@ -21,8 +21,6 @@ const RecentSearchedItems = () => {
     return null;
   if (recentviewedItems.viewedItems.length === 0) return null;
 
-  if (recentviewedItems.topAdLoading) return null;
-
   const { viewedItems } = recentviewedItems;
 
   const handleViewProduct = (id) => {
@@ -59,7 +57,7 @@ const RecentSearchedItems = () => {
   return (
     <div className='recent-viewed-items__container'>
       <div className='recent-viewed-items__title'>
-        Related to items you've viewed
+        Products we think you love the most
       </div>
       <div className='viewed-items'>
         {viewedItems.map(
