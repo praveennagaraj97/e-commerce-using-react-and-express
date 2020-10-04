@@ -171,5 +171,4 @@ export const handleImageUploadWithNoImageLimit = (bucketName) =>
 
 export const deleteImage = async (bucketName, filename) => {
   await deleteFile(bucketName, filename);
-  console.log("file deleted");
 };

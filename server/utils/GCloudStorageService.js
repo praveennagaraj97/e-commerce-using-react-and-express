@@ -23,7 +23,7 @@ export class GCloudStorageServices {
         location: "ASIA",
         storageClass: "STANDARD",
       });
-      console.log(`Bucket ${bucket.name} created.`);
+      // console.log(`Bucket ${bucket.name} created.`);
     } catch (err) {
       throw new Error(err.message);
     }
@@ -46,7 +46,7 @@ export class GCloudStorageServices {
   async deleteBucket() {
     try {
       await this.storage.bucket(bucketName).delete();
-      console.log(`Bucket ${bucketName} deleted.`);
+      // console.log(`Bucket ${bucketName} deleted.`);
     } catch (err) {
       throw new Error(err.message);
     }
@@ -96,7 +96,7 @@ export const uploadImageToGoogle = async (file, bucketName) => {
   if (!bucketsList.includes(bucketName)) {
     await createStorage(bucketName);
   } else {
-    console.log(`bucket name : ${bucketName} already exists!!!`);
+    // console.log(`bucket name : ${bucketName} already exists!!!`);
   }
   const googleStorage = storageBucketAssigner(bucketName);
   const publicUrl = await uploadImage(file, googleStorage);

@@ -26,7 +26,6 @@ const userManufacturerSchema = new Schema({
       required: true,
       validate: {
         validator: function (val) {
-          console.log(val);
           return val.length === 2;
         },
         message: "Provide Latitude and longitude of your warehouse",
