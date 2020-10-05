@@ -56,10 +56,19 @@
 
 .product-cart-checkout {
   color: white;
+  text-align: right;
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
-}
-.product-cart-checkout-price {
-  margin-right: 3vw;
+  button {
+    padding: 1%;
+    margin-right: 12px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+  }
+
+  button:active {
+    background-color: grey;
+  }
 }

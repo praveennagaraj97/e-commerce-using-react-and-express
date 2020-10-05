@@ -5,6 +5,7 @@ const {
   PRODUCTS_LISTS_LOADING,
   REVIEW_LOADING,
   AUTH_LOADING,
+  CHECKOUT_LOADING,
 } = LOADERS;
 
 // Loads on website load.
@@ -26,5 +27,10 @@ export const productReviewLoading = (state = false) => ({
 
 export const authLoading = (state = false) => ({
   type: AUTH_LOADING,
+  state,
+});
+
+export const checkoutLoading = (state = false) => ({
+  type: CHECKOUT_LOADING,
   state,
 });

@@ -50,6 +50,8 @@ export {
   sortProductListASCE,
   sortProductListDESC,
   sortProductListFEATURED,
+  // checkout
+  loadCheckout,
 } from "./productsAction";
 
 export {
@@ -67,4 +69,5 @@ export {
   productsLoading,
   productReviewLoading,
   authLoading,
+  checkoutLoading,
 } from "./loaderAction";

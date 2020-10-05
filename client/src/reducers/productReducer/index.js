@@ -13,10 +13,12 @@ const {
   SET_NUMBER_OF_RESULTS_PERPAGE,
   SET_PAGE_NUMBER,
   NO_MORE_RESULTS_FOUND,
+
   ADD_PRODUCT_TO_CART,
   REMOVE_PRODUCT_FROM_CART,
   LOAD_PRODUCT_CART,
   GET_PRODUCTS_IN_CART,
+
   LOAD_VIEW_PRODUCT_DETAIL,
   PRODUCT_DETAIL,
 
@@ -105,9 +107,11 @@ export const productCartReducer = (state = { cart: [] }, action) => {
     case LOAD_PRODUCT_CART:
       state["loadProductCart"] = true;
       return { ...state };
+
     case GET_PRODUCTS_IN_CART:
       state["productsInCart"] = action.details;
       return { ...state };
+
     default:
       return state;
   }

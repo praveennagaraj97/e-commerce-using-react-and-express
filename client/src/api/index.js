@@ -37,4 +37,5 @@ export {
   addComputerReview,
   addElectronicsReview,
   getTopLevelAdvertiseEndpoint,
+  buyProductsSessionEndpoint,
 } from "./addon";

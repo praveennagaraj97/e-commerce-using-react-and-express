@@ -1,4 +1,8 @@
-export { productCartWatcher, productCartLoadWatcher } from "./productCartSaga";
+export {
+  productCartWatcher,
+  productCartLoadWatcher,
+  loadProductsCheckoutWatcher,
+} from "./productCartSaga";
 
 export { loadProductsWatcher, loadMoreResultsWatcher } from "./productListSaga";
 

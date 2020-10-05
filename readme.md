@@ -1,6 +1,6 @@
 # Lexa
 
-[![Node|React|Apollo](https://miro.medium.com/max/744/1*J_oJtTVwa2RKSwwALe8S3Q.png)]()
+[![Node|React|Apollo|MongoDB|Express](https://i.imgur.com/EaBcbef.jpg)]()
 
 [Lexa live](https://lexa.netlify.app/)
 

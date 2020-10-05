@@ -75,6 +75,8 @@ export const PRODUCT_TYPES = {
   SORT_PRODUCTS_ASCE: "@productlistfeatures/SORT_PRODUCTS_ASCE",
   SORT_PRODUCTS_DESC: "@productlistfeatures/SORT_PRODUCTS_DESC",
   SORT_BY_FEATURED: "@productlistfeatures/SORT_BY_FEATURED",
+
+  LOAD_CHECKOUT: "@cart/LOAD_CHECKOUT",
 };
 
 export const LOADERS = {
@@ -82,6 +84,7 @@ export const LOADERS = {
   PRODUCTS_LISTS_LOADING: "@productslistsaga/PRODUCTS_LISTS_LOADING",
   REVIEW_LOADING: "@productreviewsaga/REVIEW_LOADING",
   AUTH_LOADING: "@authsaga/AUTH_LOADING",
+  CHECKOUT_LOADING: "@cart-saga/CHECKOUT_LOADINg",
 };
 
 export const RECENT_VIEWED = "@home-manage-saga/RECENT_VIEWED";

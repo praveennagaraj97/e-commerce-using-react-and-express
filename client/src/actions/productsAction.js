@@ -29,6 +29,7 @@ export {
   getProductsDetailsInCart,
   loadProductCart,
   removeItemFromCart,
+  loadCheckout,
 } from "./cart";
 
 export const reOccuringProductDetailRequests = (request) => ({

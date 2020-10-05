@@ -21,6 +21,10 @@ const productSchema = new Schema(
       type: Number,
       required: [true, "Please Enter Product Price"],
     },
+    quantity: {
+      type: Number,
+      required: [true, "Please Provide Number of available product qunatity"],
+    },
   },
   {
     timestamps: true,
@@ -61,6 +65,8 @@ productSchema.virtual("averageReview", {
 });
 
 productSchema.pre(/^find/, function (next) {
+  // this.find({ quantity: { $gt: 0 } });
+
   this.populate({
     path: "categoryId",
     model: "Category",

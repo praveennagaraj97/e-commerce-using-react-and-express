@@ -22,6 +22,7 @@ import {
   loadProductReviewWatcher,
   reviewFoundHelfulWatcher,
   addNewProductReviewWatcher,
+  loadProductsCheckoutWatcher,
 } from "./ProductsSagas";
 
 import { loadRecentSearchWatcher } from "./homePageSagas";
@@ -50,6 +51,9 @@ function* rootSaga() {
     yield fork(loadProductReviewWatcher),
     yield fork(reviewFoundHelfulWatcher),
     yield fork(addNewProductReviewWatcher),
+
+    // checkout
+    yield fork(loadProductsCheckoutWatcher),
 
     // Home Page
     yield fork(loadRecentSearchWatcher),

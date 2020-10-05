@@ -8,8 +8,6 @@ import RecentSearchedItems from "./RecentSearchedItems";
 import PetSection from "./PetSection";
 import NewOnStore from "./NewOnStore";
 
-import Payment from "../Payment";
-
 const HomePage = () => {
   scrollToTop();
   return (
@@ -18,7 +16,6 @@ const HomePage = () => {
         <span className='a1'>Everything you love,</span>
         <span className='a2'>is online.</span>
       </h1>
-      <Payment />
 
       {/* Link To Pet section */}
       <PetSection />

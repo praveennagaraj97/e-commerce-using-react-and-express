@@ -5,6 +5,7 @@ const {
   PRODUCTS_LISTS_LOADING,
   REVIEW_LOADING,
   AUTH_LOADING,
+  CHECKOUT_LOADING,
 } = LOADERS;
 
 const loaderReducer = (state = {}, action) => {
@@ -18,6 +19,8 @@ const loaderReducer = (state = {}, action) => {
       return { ...state, reviewLoading: action.state };
     case AUTH_LOADING:
       return { ...state, authLoading: action.state };
+    case CHECKOUT_LOADING:
+      return { ...state, checkoutLoading: action.state };
     default:
       return state;
   }

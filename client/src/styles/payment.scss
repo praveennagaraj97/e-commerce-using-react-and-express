@@ -1,0 +1,14 @@
+.payment-checkout {
+  display: flex;
+  .product-check__img {
+    width: 30vw;
+    img {
+      width: 100%;
+    }
+  }
+
+  .product-checked__description {
+    margin-left: 10px;
+    color: white;
+  }
+}

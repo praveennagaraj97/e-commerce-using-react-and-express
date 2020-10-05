@@ -1,20 +1,25 @@
 import { takeLatest, select, put, call, takeEvery } from "redux-saga/effects";
+import { loadStripe } from "@stripe/stripe-js";
 
 import { PRODUCT_TYPES } from "../../constants";
 
-import { getProductsDetailsInCart } from "../../actions";
+import { checkoutLoading, getProductsDetailsInCart } from "../../actions";
 
 import {
   globalErrorMessageHandler,
   globalSuccessMessageWithImageHandler,
 } from "../HandleAlertSagas";
 
-import { getProductsDetailsForGrpIdsEndPoint } from "../../api";
+import {
+  getProductsDetailsForGrpIdsEndPoint,
+  buyProductsSessionEndpoint,
+} from "../../api";
 
 const {
   ADD_PRODUCT_TO_CART,
   REMOVE_PRODUCT_FROM_CART,
   LOAD_PRODUCT_CART,
+  LOAD_CHECKOUT,
 } = PRODUCT_TYPES;
 
 const getProductsListFromStore = ({ productsList }) => productsList;
@@ -79,4 +84,44 @@ function* handleproductCartWorker() {
 
 export function* productCartLoadWatcher() {
   yield takeLatest(LOAD_PRODUCT_CART, handleproductCartWorker);
+}
+
+// Checkout
+const stripePromise = loadStripe(
+  "pk_test_51HYtDFLCMj9x3nR3UVeGBuAyKSdyjCNZkou1DUa4vpJoIspv2xVyH0H2Bzzk3e4jJplpqWuE44dn6Nz4zwW8jmJk00DxC4rymc"
+);
+
+function* productsCheckoutWorker() {
+  yield put(checkoutLoading(true));
+
+  const { cart } = yield select(getCartStatefromStore);
+
+  if (cart) {
+    if (!cart.length) {
+      yield call(
+        globalErrorMessageHandler,
+        "No Products listed under checkout"
+      );
+      return;
+    }
+  }
+  const stripe = yield stripePromise;
+
+  yield console.log(cart);
+
+  try {
+    const {
+      data: { id },
+    } = yield call(buyProductsSessionEndpoint, { products: cart });
+
+    const result = yield stripe.redirectToCheckout({
+      sessionId: id,
+    });
+
+    yield console.log(result);
+  } catch (err) {}
+}
+
+export function* loadProductsCheckoutWatcher() {
+  yield takeEvery(LOAD_CHECKOUT, productsCheckoutWorker);
 }

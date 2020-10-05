@@ -5,3 +5,5 @@ export {
 } from "./ProductReviewEndpoints";
 
 export { getTopLevelAdvertiseEndpoint } from "./productAdvertiseEndPoints";
+
+export { buyProductsSessionEndpoint } from "./paymentEndpoints";

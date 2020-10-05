@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
 import "../../styles/productCart.scss";
@@ -6,9 +6,32 @@ import {
   addItemToCart,
   removeItemFromCart,
   loadProductCart,
+  loadCheckout,
 } from "../../actions";
 
-const ProductCart = ({ productCart, addItem, removeItem, loadCart }) => {
+const ProductCart = ({
+  productCart,
+  addItem,
+  removeItem,
+  loadCart,
+  loadCheckout,
+}) => {
+  const [totalAmount, setTotalAmount] = useState(0);
+
+  useEffect(() => {
+    let total = 0;
+
+    if (productCart) {
+      if (productCart.hasOwnProperty("productsInCart")) {
+        for (let i = 0; i < productCart.productsInCart.length; i++) {
+          total += productCart.productsInCart[i].price;
+        }
+      }
+    }
+
+    setTotalAmount(total);
+  }, [productCart]);
+
   if (productCart.hasOwnProperty("productsInCart")) {
     return (
       <div className='product-cart'>
@@ -58,8 +81,12 @@ const ProductCart = ({ productCart, addItem, removeItem, loadCart }) => {
         )}
         <hr />
         <div className='product-cart-checkout'>
-          <h2>Subtotal ({5} item):</h2>
-          <h4 className='product-cart-checkout-price'>₹{789655}.00</h4>
+          <div className='sub-total'>
+            <p>
+              Subtotal ({productCart.cart.length} items) :{totalAmount}
+            </p>
+          </div>
+          <button onClick={loadCheckout}>Checkout</button>
         </div>
       </div>
     );
@@ -67,12 +94,15 @@ const ProductCart = ({ productCart, addItem, removeItem, loadCart }) => {
   return <h1 style={{ color: "white" }}>No Items In Cart</h1>;
 };
 
-const mapStateToProps = ({ productCart }) => ({ productCart });
+const mapStateToProps = ({ productCart }) => ({
+  productCart,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   addItem: (id) => dispatch(addItemToCart(id)),
   removeItem: (id) => dispatch(removeItemFromCart(id)),
   loadCart: () => dispatch(loadProductCart()),
+  loadCheckout: () => dispatch(loadCheckout()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductCart);
