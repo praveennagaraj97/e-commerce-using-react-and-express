@@ -2,6 +2,8 @@
 
 [![Node|React|Apollo](https://miro.medium.com/max/744/1*J_oJtTVwa2RKSwwALe8S3Q.png)]()
 
+[Lexa live](https://lexa.netlify.app/)
+
 Lexa is an E-Commerce based C2C web application built using nodejs and reactjs
 
 - BE - ExpressJS, GraphQL
@@ -12,16 +14,19 @@ Lexa is an E-Commerce based C2C web application built using nodejs and reactjs
 
 - This application doesn't make unnecessary api calls. The application catches the most re-occuring requests and serves the re-occured requests from store , without making a new api call! .To reduce the load balance of store the application uses queue system to store the data - by popping out old ones, when the set limit reaches .
 - For the user authentication - the application makes use of ES6 generators(redux-saga) to handle the validation process by not requesting api for simple auth checks !.
-- The application is designed with non - fatty action-creators , all the actions that are dispatched throughout the application are just plain object with async logic inside them(which makes the action can to get delayed)!.
+- The application is designed with non - fatty action-creators , all the actions that are dispatched throughout the application are just plain object with no async logic inside them(which makes the action triggering delayed)!.
 - The application is also fully-responsive , the styles for the application are manually coded with the help of sass. The app has different designs for - phones, iPad and desktops.
 
 And also:
 
 - The api is available in both graphQL and REST version.
-- The api is documented with postman App.
+- The api is documented with postman App
+- The api documention can be accessed via this repo under [docs](https://github.com/praveenNagaraj97-au7/Lexa/tree/master/Docs/API) section where each endpoint is explained with examaple I/O which helps in building frontend.
 
-> The GraphQL version of the application is deployed on EC2 with nginx proxy .
-> The Restful version is deployed on google app engine and heroku.
+  - [✔] collection https://www.getpostman.com/collections/36831846ccaff2ca5659.
+
+  > The GraphQL version of the application is deployed on EC2 with nginx proxy .
+  > The Restful version is deployed on google app engine and heroku.
 
 ### Tech
 
@@ -63,7 +68,7 @@ $ yarn start
 
 ### Todos
 
-- Write MORE Tests
+- Write Tests
 - Add Light Mode
 
 ## License
@@ -71,24 +76,3 @@ $ yarn start
 MIT
 
 **Free Software, Hell Yeah!**
-
-[//]: # "These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax"
-[dill]: https://github.com/joemccann/dillinger
-[git-repo-url]: https://github.com/joemccann/dillinger.git
-[john gruber]: http://daringfireball.net
-[df1]: http://daringfireball.net/projects/markdown/
-[markdown-it]: https://github.com/markdown-it/markdown-it
-[ace editor]: http://ace.ajax.org
-[node.js]: http://nodejs.org
-[twitter bootstrap]: http://twitter.github.com/bootstrap/
-[jquery]: http://jquery.com
-[@tjholowaychuk]: http://twitter.com/tjholowaychuk
-[express]: http://expressjs.com
-[angularjs]: http://angularjs.org
-[gulp]: http://gulpjs.com
-[pldb]: https://github.com/joemccann/dillinger/tree/master/plugins/dropbox/README.md
-[plgh]: https://github.com/joemccann/dillinger/tree/master/plugins/github/README.md
-[plgd]: https://github.com/joemccann/dillinger/tree/master/plugins/googledrive/README.md
-[plod]: https://github.com/joemccann/dillinger/tree/master/plugins/onedrive/README.md
-[plme]: https://github.com/joemccann/dillinger/tree/master/plugins/medium/README.md
-[plga]: https://github.com/RahulHP/dillinger/blob/master/plugins/googleanalytics/README.md
