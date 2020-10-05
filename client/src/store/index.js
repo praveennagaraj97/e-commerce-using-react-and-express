@@ -30,6 +30,7 @@ const persistConfig = {
     "updateUserDetail",
     "requests",
     "loader",
+    "payment",
   ],
 
   transforms: [encryptor],

@@ -14,7 +14,7 @@ import { ShowRating } from "../Rating";
  */
 
 const RecentSearchedItems = () => {
-  const recentviewedItems = useSelector(({ homePage }) => homePage);
+  const recentviewedItems = useSelector(({ landing }) => landing);
   const dispatch = useDispatch();
 
   if (!recentviewedItems || !recentviewedItems.hasOwnProperty("viewedItems"))

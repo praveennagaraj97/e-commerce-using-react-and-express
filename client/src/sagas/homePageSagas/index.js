@@ -9,7 +9,7 @@ const { LOAD_VIEW_PRODUCT_DETAIL } = PRODUCT_TYPES;
 const getRecentelyViewingItem = ({ productDetail }) => productDetail;
 const getProductsList = ({ productsList }) => productsList;
 
-const getCurrentViewedItems = ({ homePage: { viewedItems } }) => viewedItems;
+const getCurrentViewedItems = ({ landing: { viewedItems } }) => viewedItems;
 
 export function* handleRecentSearchWorker() {
   const {

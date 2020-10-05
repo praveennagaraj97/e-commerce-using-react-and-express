@@ -22,10 +22,11 @@ import {
   loadProductReviewWatcher,
   reviewFoundHelfulWatcher,
   addNewProductReviewWatcher,
-  loadProductsCheckoutWatcher,
 } from "./ProductsSagas";
 
 import { loadRecentSearchWatcher } from "./homePageSagas";
+
+import { loadProductsCheckoutWatcher } from "./paymentSagas";
 
 function* rootSaga() {
   yield all([

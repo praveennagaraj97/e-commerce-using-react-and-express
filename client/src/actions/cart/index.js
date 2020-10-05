@@ -5,7 +5,6 @@ const {
   REMOVE_PRODUCT_FROM_CART,
   GET_PRODUCTS_IN_CART,
   LOAD_PRODUCT_CART,
-  LOAD_CHECKOUT,
 } = PRODUCT_TYPES;
 
 // Cart Actions
@@ -25,5 +24,3 @@ export const getProductsDetailsInCart = (details) => ({
   type: GET_PRODUCTS_IN_CART,
   details,
 });
-
-export const loadCheckout = () => ({ type: LOAD_CHECKOUT });

@@ -17,23 +17,25 @@ import {
 } from "./productReducer";
 
 import requestReducer from "./_requestsReduers";
-import { homePageReducer } from "./homePageReducer";
+import landingPageReducer from "./landingPageReducer";
 import loaderReducer from "./loadersReducer";
+import paymentReducer from "./paymentReducer";
 
 export default combineReducers({
   loader: loaderReducer,
   userAccredited,
   userAuthorization: userAuthLoginReducer,
-  userDetails: userDetailsReducer,
+  globalErrorOrSuccessMessage: globalMessageReducer,
   updateUserDetail: userDetailsUpdateReducer,
   form: formReducer,
+  payment: paymentReducer,
   productCategories: categoriesReducer,
   productsList: getProductsReducer,
-  globalErrorOrSuccessMessage: globalMessageReducer,
+  userDetails: userDetailsReducer,
   productCart: productCartReducer,
   productDetail: viewProductReducer,
   productReview: productReviewReducer,
   addNewProduct: addNewProductReviewReducer,
+  landing: landingPageReducer,
   requests: requestReducer,
-  homePage: homePageReducer,
 });

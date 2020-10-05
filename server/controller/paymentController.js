@@ -13,7 +13,6 @@ dotenvConfig();
 const stripe = new Stripe(process.env.SECRET_KEY);
 
 export const paymentSession = catchAsyncError(async (req, res, next) => {
-  console.log("reached");
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
     line_items: [
@@ -39,7 +38,7 @@ export const paymentSession = catchAsyncError(async (req, res, next) => {
 });
 
 export const buyProducts = catchAsyncError(async (req, res, next) => {
-  if (requestedProducts.length < 1)
+  if (req.body.products.length < 1)
     return next(new AppError("No Products selected", 422));
 
   const requestedProducts = req.body.products;

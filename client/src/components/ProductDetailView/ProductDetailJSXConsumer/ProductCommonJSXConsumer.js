@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProductMobileDetail = (props) => {
+const ALLProductDetail = (props) => {
   scrollToTop();
 
   const classes = useStyles();
@@ -105,4 +105,4 @@ const mapStateToProps = ({ productDetail }) => ({
   id: productDetail.productType,
 });
 
-export default connect(mapStateToProps)(ProductMobileDetail);
+export default connect(mapStateToProps)(ALLProductDetail);
