@@ -1,8 +1,6 @@
 # Lexa
 
-[![Node|React]()](https://nodesource.com/products/nsolid)
-
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
+[![Node|React|Apollo](https://miro.medium.com/max/744/1*J_oJtTVwa2RKSwwALe8S3Q.png)]()
 
 Lexa is an E-Commerce based C2C web application built using nodejs and reactjs
 
