@@ -28,6 +28,7 @@ import { productRouter } from "./routes/productRouter";
 import { productDetailRouter } from "./routes/productDetailsRouter";
 import { productReviewRouter } from "./routes/productReviewRouter";
 import { productAdvertisementRouter } from "./routes/productAdvertisementRouter";
+import { paymentRouter } from "./routes/paymentRouter";
 
 dotenvConfig();
 process.on("uncaughtException", unCaughtExceptionErrorHandler);
@@ -96,6 +97,7 @@ app.get("/", (req, res, next) => {
   res.render("apiIntro");
 });
 
+app.use("/api/v1/", paymentRouter);
 app.use("/api/v1/category", categoryRouter);
 app.use("/api/v1/product", productRouter);
 app.use("/api/v1/product_detail", productDetailRouter);
