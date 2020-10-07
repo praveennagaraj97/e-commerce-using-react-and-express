@@ -1,4 +1,3 @@
-import { resolve } from "path";
 import dotenvConfig from "../config/dotenvConfig";
 
 dotenvConfig();

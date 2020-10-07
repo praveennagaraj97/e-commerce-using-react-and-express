@@ -1,4 +1,4 @@
-import { PRODUCT_TYPES } from "../../constants";
+import { PRODUCT_TYPES, PAYMENT_TYPES } from "../../constants";
 
 export {
   productReviewReducer,
@@ -16,7 +16,6 @@ const {
 
   ADD_PRODUCT_TO_CART,
   REMOVE_PRODUCT_FROM_CART,
-  LOAD_PRODUCT_CART,
   GET_PRODUCTS_IN_CART,
 
   LOAD_VIEW_PRODUCT_DETAIL,
@@ -26,6 +25,8 @@ const {
   SORT_PRODUCTS_DESC,
   SORT_BY_FEATURED,
 } = PRODUCT_TYPES;
+
+const { ORDER_SUCCESS } = PAYMENT_TYPES;
 
 const getProductsrelatedToQuery = {
   products: [],
@@ -92,8 +93,18 @@ export const getProductsReducer = (
 export const productCartReducer = (state = { cart: [] }, action) => {
   switch (action.type) {
     case ADD_PRODUCT_TO_CART:
+      if (state.cart.filter((each) => each === action.item).length >= 3) {
+        return { ...state };
+      }
       state["addedItem"] = action.item;
       state.cart.push(action.item);
+      return { ...state };
+
+    case ORDER_SUCCESS:
+      state.cart = [];
+      state.productsInCart = [];
+      state.addedItem = null;
+      state.subTotal = null;
       return { ...state };
 
     case REMOVE_PRODUCT_FROM_CART:
@@ -104,12 +115,9 @@ export const productCartReducer = (state = { cart: [] }, action) => {
       if (state.cart.length === 0) delete state["productsInCart"];
       return { ...state };
 
-    case LOAD_PRODUCT_CART:
-      state["loadProductCart"] = true;
-      return { ...state };
-
     case GET_PRODUCTS_IN_CART:
-      state["productsInCart"] = action.details;
+      state["productsInCart"] = action.details.details;
+      state["subTotal"] = action.details.subTotal;
       return { ...state };
 
     default:
@@ -146,6 +154,8 @@ export const viewProductReducer = (state = {}, action) => {
         action.data.productImagesAndDesc.length > 0
           ? action.data.productImagesAndDesc[0].productDescription
           : null;
+
+      state["quantity"] = action.data.quantity;
 
       state["productInfo"] =
         action.data.productFullDetails.length > 0

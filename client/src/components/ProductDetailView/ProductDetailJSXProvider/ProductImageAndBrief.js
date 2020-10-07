@@ -12,6 +12,7 @@ const ProductImageAndBrief = ({
   images,
   productBriefInfo,
   currentProductId,
+  quantity,
 }) => {
   const [previewImage, setPreviewImage] = useState("");
   const [screenAbove1032, setScreenAbove1032] = useState(true);
@@ -56,6 +57,13 @@ const ProductImageAndBrief = ({
         <div className='product-detail_name_and_price'>
           <h3>{productBriefInfo.productName}</h3>
           <p>M.R.P {productBriefInfo.productPrice} </p>
+          <div className='quantity-container'>
+            {quantity < 10 ? (
+              <p className='limited'>Only {quantity} items in stock</p>
+            ) : (
+              <p className='in-stock'>In stock</p>
+            )}
+          </div>
         </div>
 
         {productBriefInfo.similarProducts.length > 1 ? (

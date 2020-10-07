@@ -252,3 +252,14 @@
     margin-top: 5px;
   }
 }
+
+.quantity-container {
+  font-size: 14px;
+  font-weight: bold;
+  .limited {
+    color: red;
+  }
+  .in-stock {
+    color: green;
+  }
+}

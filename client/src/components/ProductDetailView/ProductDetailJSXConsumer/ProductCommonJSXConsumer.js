@@ -30,6 +30,7 @@ const ALLProductDetail = (props) => {
           images={props.images}
           productBriefInfo={props.productInfo}
           currentProductId={props.id}
+          quantity={props.quantity}
         />
         <hr style={{ width: "65%" }} />
 
@@ -103,6 +104,7 @@ const mapStateToProps = ({ productDetail }) => ({
   productDescription: productDetail.productBrief,
   productBoards: productDetail.productBoards,
   id: productDetail.productType,
+  quantity: productDetail.quantity,
 });
 
 export default connect(mapStateToProps)(ALLProductDetail);

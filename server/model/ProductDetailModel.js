@@ -7,10 +7,6 @@ const productDetailSchema = new Schema({
     required: true,
     unique: true,
   },
-  manufacturerId: {
-    type: Schema.Types.ObjectId,
-    required: [true, "please Enter Manufacture Id"],
-  },
   featuresList: {
     type: [String],
     required: [true, "Enter List Of Feature for this Mobile"],

@@ -5,3 +5,5 @@ export {
   forgotPasswordFields,
   resetFormFields,
 } from "./userAuthForm";
+
+export { states } from "./stateData";

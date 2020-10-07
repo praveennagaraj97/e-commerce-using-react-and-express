@@ -70,4 +70,9 @@ export {
   checkoutLoading,
 } from "./loaderAction";
 
-export { loadCheckout, checkoutSuccess } from "./payment";
+export {
+  loadCheckout,
+  checkoutSuccess,
+  orderSuccess,
+  orderFailed,
+} from "./payment";

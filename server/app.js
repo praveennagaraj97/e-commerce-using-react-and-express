@@ -29,6 +29,7 @@ import { productDetailRouter } from "./routes/productDetailsRouter";
 import { productReviewRouter } from "./routes/productReviewRouter";
 import { productAdvertisementRouter } from "./routes/productAdvertisementRouter";
 import { paymentRouter } from "./routes/paymentRouter";
+import { ordersRouter } from "./routes/ordersRouter";
 
 dotenvConfig();
 process.on("uncaughtException", unCaughtExceptionErrorHandler);
@@ -97,12 +98,13 @@ app.get("/", (req, res, next) => {
   res.render("apiIntro");
 });
 
-app.use("/api/v1/", paymentRouter);
+app.use("/api/v1/payment", paymentRouter);
 app.use("/api/v1/category", categoryRouter);
 app.use("/api/v1/product", productRouter);
 app.use("/api/v1/product_detail", productDetailRouter);
 app.use("/api/v1/product_review", productReviewRouter);
 app.use("/api/v1/advertise", productAdvertisementRouter);
+app.use("/api/v1/orders", ordersRouter);
 
 if (process.env.NODE_ENV === "production") {
   app.use("/api/v1/user", limiter);

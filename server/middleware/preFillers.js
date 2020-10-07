@@ -18,3 +18,15 @@ export const preFillManufacturerWareHouseLocation = (req, res, next) => {
   };
   next();
 };
+
+export const preFillGetUserOrders = (req, res, next) => {
+  req.query.userId = req.user._id;
+  req.query.sort = "-createdAt";
+  next();
+};
+
+export const preFillGetManufacturerOrders = (req, res, next) => {
+  req.query.manufacturerId = req.user._id;
+  req.query.sort = "-createdAt";
+  next();
+};

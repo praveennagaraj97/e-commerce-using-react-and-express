@@ -23,8 +23,15 @@ const getProductsListFromStore = ({ productsList }) => productsList;
 const getCartStatefromStore = ({ productCart }) => productCart;
 
 function* handleProductAddCartWorker() {
-  const { addedItem } = yield select(getCartStatefromStore);
+  const { addedItem, cart } = yield select(getCartStatefromStore);
   const { products } = yield select(getProductsListFromStore);
+
+  if (cart.filter((each) => each === addedItem).length >= 3) {
+    return yield call(
+      globalErrorMessageHandler,
+      "Only 3 items are allowed of same type"
+    );
+  }
 
   const addedProduct = yield products.find((item) => item._id === addedItem);
   const { productCoverImage, productName } = addedProduct;
@@ -55,18 +62,28 @@ function* handleproductCartWorker() {
   const { cart } = yield select(getCartStatefromStore);
   if (cart.length < 1) return put(getProductsDetailsInCart([]));
 
-  const qunatityOfCartItems = addQuantityPropToCart(cart);
+  const qunatityOfCartItems = yield addQuantityPropToCart(cart);
   try {
     const { data } = yield call(getProductsDetailsForGrpIdsEndPoint, {
       cartItems: cart,
     });
+
+    let subTotal = 0;
+
     data.details.map((item) => {
       item.quantity = qunatityOfCartItems[item._id];
+
       item.price = item.productPrice * item.quantity;
+      subTotal += item.price;
       return item;
     });
 
-    yield put(getProductsDetailsInCart(data.details));
+    const cartData = {
+      details: data.details,
+      subTotal,
+    };
+
+    yield put(getProductsDetailsInCart(cartData));
   } catch (err) {
     // yield console.clear();
     yield call(

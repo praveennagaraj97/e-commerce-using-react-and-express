@@ -90,4 +90,8 @@ export const RECENT_VIEWED = "@home-manage-saga/RECENT_VIEWED";
 export const PAYMENT_TYPES = {
   LOAD_CHECKOUT: "@cart/LOAD_CHECKOUT",
   CHECKOUT_SUCCESS: "@cart-saga/CHECKOUT_SUCCESS",
+  ORDER_SUCCESS: "@checkout/ORDER_SUCCESS",
+  ORDER_FAILED: "@checkout/ORDER_FAILED",
 };
+
+export const SAVE_ADDRESS = "@checkout/SAVE_ADDRESS";

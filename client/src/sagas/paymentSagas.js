@@ -2,7 +2,7 @@ import { takeEvery, call, put, select } from "redux-saga/effects";
 
 import { PAYMENT_TYPES } from "../constants";
 import { checkoutLoading, checkoutSuccess } from "../actions";
-import { buyProductsSessionEndpoint } from "../api";
+import { buyProductsViaPaymentIntentEndpoint } from "../api";
 import history from "../history";
 import { globalErrorMessageHandler } from "./HandleAlertSagas";
 
@@ -28,12 +28,12 @@ function* productsCheckoutWorker() {
 
   try {
     const {
-      data: { id },
-    } = yield call(buyProductsSessionEndpoint, { products: cart });
+      data: { clientSecret },
+    } = yield call(buyProductsViaPaymentIntentEndpoint, { products: cart });
 
-    yield put(checkoutSuccess(id));
+    yield put(checkoutSuccess(clientSecret));
     yield put(checkoutLoading(false));
-    if (id) {
+    if (clientSecret) {
       history.push(`/checkout/session`);
       return;
     }

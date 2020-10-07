@@ -24,6 +24,11 @@ const productSchema = new Schema(
     quantity: {
       type: Number,
       required: [true, "Please Provide Number of available product qunatity"],
+      min: 0,
+    },
+    manufacturerId: {
+      type: Schema.Types.ObjectId,
+      required: [true, "please Enter Manufacture Id"],
     },
   },
   {
@@ -87,7 +92,13 @@ productSchema.pre(/^findOne/, function (next) {
   next();
 });
 
-export const Product = model("ProductModel", productSchema);
+productSchema.pre("save", function (next) {
+  this.productPrice =
+    Number(this.productPrice) + 0.02 * Number(this.productPrice);
+  next();
+});
+
+export const Product = model("Product", productSchema);
 
 const productDescriptionAndImagesSchema = new Schema(
   {

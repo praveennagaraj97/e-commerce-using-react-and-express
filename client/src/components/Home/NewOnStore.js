@@ -11,11 +11,15 @@ const NewOnStore = () => {
 
   useEffect(() => {
     (async () => {
-      const {
-        data: { details },
-      } = await getLatestProductsOnStore();
+      try {
+        const {
+          data: { details },
+        } = await getLatestProductsOnStore();
 
-      setLatestProducts(details);
+        setLatestProducts(details);
+      } catch (err) {
+        console.clear();
+      }
     })();
   }, []);
 

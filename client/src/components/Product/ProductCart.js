@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 
 import "../../styles/productCart.scss";
@@ -8,6 +8,7 @@ import {
   loadProductCart,
   loadCheckout,
 } from "../../actions";
+import history from "../../history";
 
 const ProductCart = ({
   productCart,
@@ -15,24 +16,19 @@ const ProductCart = ({
   removeItem,
   loadCart,
   loadCheckout,
+  isSigned,
 }) => {
-  const [totalAmount, setTotalAmount] = useState(0);
-
-  useEffect(() => {
-    let total = 0;
-
-    if (productCart) {
-      if (productCart.hasOwnProperty("productsInCart")) {
-        for (let i = 0; i < productCart.productsInCart.length; i++) {
-          total += productCart.productsInCart[i].price;
-        }
-      }
+  if (productCart.hasOwnProperty("productsInCart")) {
+    if (productCart.productsInCart.length < 1) {
+      return (
+        <div className='product-cart'>
+          <div className='product-card-header'>
+            <h1>No Items in cart</h1>
+          </div>
+        </div>
+      );
     }
 
-    setTotalAmount(total);
-  }, [productCart]);
-
-  if (productCart.hasOwnProperty("productsInCart")) {
     return (
       <div className='product-cart'>
         <div className='product-card-header'>
@@ -41,6 +37,7 @@ const ProductCart = ({
         </div>
 
         <hr />
+
         {productCart.productsInCart.map(
           ({ _id, productName, price, productCoverImage, quantity }, index) => {
             return (
@@ -83,10 +80,18 @@ const ProductCart = ({
         <div className='product-cart-checkout'>
           <div className='sub-total'>
             <p>
-              Subtotal ({productCart.cart.length} items) :{totalAmount}
+              Subtotal ({productCart.cart.length} items) :{productCart.subTotal}
             </p>
           </div>
-          <button onClick={loadCheckout}>Checkout</button>
+          {isSigned ? (
+            productCart.cart.length ? (
+              <button onClick={loadCheckout}>Checkout</button>
+            ) : (
+              ""
+            )
+          ) : (
+            <button onClick={() => history.push("/user_auth")}>Login</button>
+          )}
         </div>
       </div>
     );
@@ -94,8 +99,12 @@ const ProductCart = ({
   return <h1 style={{ color: "white" }}>No Items In Cart</h1>;
 };
 
-const mapStateToProps = ({ productCart }) => ({
+const mapStateToProps = ({
   productCart,
+  userAccredited: { isSigned = false },
+}) => ({
+  productCart,
+  isSigned,
 });
 
 const mapDispatchToProps = (dispatch) => ({

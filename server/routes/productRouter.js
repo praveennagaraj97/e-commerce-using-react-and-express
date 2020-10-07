@@ -22,6 +22,7 @@ import {
   // Middlewares
   preFillCartIdasParams,
   preFillProductBoards,
+  preFillManufacturerId,
   // Protect
   protectRoute,
   restrictTo,
@@ -51,6 +52,7 @@ productRouter
     upload.array("productCoverImage"),
     protectRoute,
     restrictTo("manufacturer"),
+    preFillManufacturerId,
     getProductImageProcessed,
     productImageLink,
     addNewProduct

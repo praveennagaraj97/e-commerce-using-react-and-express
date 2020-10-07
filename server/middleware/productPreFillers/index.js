@@ -16,6 +16,15 @@ export const preFillProductdetailedDescription = (req, res, next) => {
     return next(new AppError("Provide List Of Features as array!!!", 422));
   req.body.featuresList = JSON.parse(req.body.featuresList);
   req.body.productDetails = JSON.parse(req.body.productDetails);
+  next();
+};
+
+export const preFillProductBoards = (req, res, next) => {
+  req.body.productId = req.body.productId.split(",");
+  next();
+};
+
+export const preFillManufacturerId = (req, res, next) => {
   if (req.user.userRole == "manufacturer") {
     req.body.manufacturerId = req.user._id;
   } else {
@@ -23,11 +32,6 @@ export const preFillProductdetailedDescription = (req, res, next) => {
       return next(new AppError("Provide manufacturer Id"));
     }
   }
-  next();
-};
-
-export const preFillProductBoards = (req, res, next) => {
-  req.body.productId = req.body.productId.split(",");
   next();
 };
 
@@ -63,8 +67,10 @@ export const getAllProductsWithAverageReviewAttached = catchAsyncError(
         },
         productPrice: response.productPrice,
         productCoverImage: response.productCoverImage,
+        quantity: response.quantity,
         createdAt: response.createdAt,
         updatedAt: response.updatedAt,
+        manufacturerId: response.manufacturerId,
         id: response.id,
         averageReview: averageReview.filter(
           (each) => String(each._id) === String(response._id)

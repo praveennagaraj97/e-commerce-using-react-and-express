@@ -6,4 +6,12 @@ export {
 
 export { getTopLevelAdvertiseEndpoint } from "./productAdvertiseEndPoints";
 
-export { buyProductsSessionEndpoint } from "./paymentEndpoints";
+export {
+  buyProductsSessionEndpoint,
+  buyProductsViaPaymentIntentEndpoint,
+} from "./paymentEndpoints";
+
+export {
+  getUserOrdersEndpoint,
+  retrievePaymentIntent,
+} from "./ordersEndpoints";

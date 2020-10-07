@@ -38,4 +38,7 @@ export {
   addElectronicsReview,
   getTopLevelAdvertiseEndpoint,
   buyProductsSessionEndpoint,
+  buyProductsViaPaymentIntentEndpoint,
+  getUserOrdersEndpoint,
+  retrievePaymentIntent,
 } from "./addon";

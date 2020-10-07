@@ -22,6 +22,7 @@ export {
   preFillCartIdasParams,
   preFillProductBoards,
   getAllProductsWithAverageReviewAttached,
+  preFillManufacturerId,
 } from "../middleware/productPreFillers";
 
 const {
