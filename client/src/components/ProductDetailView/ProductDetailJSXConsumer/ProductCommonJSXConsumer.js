@@ -12,13 +12,17 @@ import ProductBrief from "../ProductDetailJSXProvider/ProductBrief";
 import ProductReview from "../ProductDetailJSXProvider/ProductReview";
 
 const useStyles = makeStyles((theme) => ({
-  mobileTechnicalDetails: {
+  technicalDetails: {
     color: "white",
   },
 }));
 
+const productDetails = ["beauty", "kitchen", "pet", "food", "fashion"];
+
 const ALLProductDetail = (props) => {
   scrollToTop();
+
+  const pid = props.id;
 
   const classes = useStyles();
 
@@ -63,8 +67,15 @@ const ALLProductDetail = (props) => {
 
         {props.productDetails ? (
           <>
-            <div className={classes.mobileTechnicalDetails}>
-              <h2> Technical Details </h2>
+            <div className={classes.technicalDetails}>
+              <h2>
+                {" "}
+                {pid
+                  ? productDetails.includes(pid.productCategory)
+                    ? `Product Details`
+                    : "Technical Details"
+                  : "Details"}{" "}
+              </h2>
               <ProductDetailTable productDetails={props.productDetails} />
             </div>
             <hr style={{ width: "65%" }} />

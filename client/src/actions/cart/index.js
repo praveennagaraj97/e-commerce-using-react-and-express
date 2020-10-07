@@ -5,6 +5,7 @@ const {
   REMOVE_PRODUCT_FROM_CART,
   GET_PRODUCTS_IN_CART,
   LOAD_PRODUCT_CART,
+  SET_BACK_REACHED_LIMIT,
 } = PRODUCT_TYPES;
 
 // Cart Actions
@@ -23,4 +24,9 @@ export const loadProductCart = () => ({ type: LOAD_PRODUCT_CART });
 export const getProductsDetailsInCart = (details) => ({
   type: GET_PRODUCTS_IN_CART,
   details,
+});
+
+export const setBackReachedLimit = (bool) => ({
+  type: SET_BACK_REACHED_LIMIT,
+  bool,
 });

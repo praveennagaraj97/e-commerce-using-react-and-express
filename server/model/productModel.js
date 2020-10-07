@@ -70,7 +70,7 @@ productSchema.virtual("averageReview", {
 });
 
 productSchema.pre(/^find/, function (next) {
-  // this.find({ quantity: { $gt: 0 } });
+  this.find({ quantity: { $gt: 0 } });
 
   this.populate({
     path: "categoryId",

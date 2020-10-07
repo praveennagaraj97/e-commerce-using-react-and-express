@@ -36,6 +36,7 @@ export {
   addMobileReview,
   addComputerReview,
   addElectronicsReview,
+  addBeautyReview,
   getTopLevelAdvertiseEndpoint,
   buyProductsSessionEndpoint,
   buyProductsViaPaymentIntentEndpoint,

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { ShowRating } from "../../Rating";
 import UploadedImageViewer from "../../UploadedImageViewer";
-import { addElectronicsReview } from "../../../api";
+import { addBeautyReview } from "../../../api";
 import reviewFieldchecker from "./reviewFieldchecker";
 import { useDispatch } from "react-redux";
 import {
@@ -11,9 +11,7 @@ import {
   loadNewProductReview,
 } from "../../../actions";
 
-export const ProductElectronicsReview = ({
-  productReviewDetail: { productId },
-}) => {
+export const ProductBeautyReview = ({ productReviewDetail: { productId } }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [reviewImages, setReviewImages] = useState([]);
@@ -22,17 +20,25 @@ export const ProductElectronicsReview = ({
   const [reviewImageLimitBreach, setImageLimitBreach] = useState(false);
 
   const [valueForMoney, setValueForMoney] = useState(5);
-  const [quality, setQuality] = useState(5);
+  const [freshness, setFreshness] = useState(5);
+  const [packaging, setPackaging] = useState(5);
 
   const dispatch = useDispatch();
 
   // Looper
   const reviewFields = [
     {
-      title: "Quality",
-      value: quality,
-      setter: setQuality,
-      eleName: "quality",
+      title: "Freshness",
+      value: freshness,
+      setter: setFreshness,
+      eleName: "freshness",
+    },
+
+    {
+      title: "Packaging",
+      value: packaging,
+      setter: setPackaging,
+      eleName: "packaging",
     },
 
     {
@@ -96,7 +102,7 @@ export const ProductElectronicsReview = ({
 
     reviewFormData.append("productId", productId);
 
-    addElectronicsReview(reviewFormData)
+    addBeautyReview(reviewFormData)
       .then((res) => {
         dispatch(globalSuccesMessenger("Thanks for feedback"));
 

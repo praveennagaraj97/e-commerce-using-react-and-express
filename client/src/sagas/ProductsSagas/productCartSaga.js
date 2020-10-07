@@ -1,7 +1,7 @@
 import { takeLatest, select, put, call, takeEvery } from "redux-saga/effects";
 import { PRODUCT_TYPES } from "../../constants";
 
-import { getProductsDetailsInCart } from "../../actions";
+import { getProductsDetailsInCart, setBackReachedLimit } from "../../actions";
 
 import {
   globalErrorMessageHandler,
@@ -23,13 +23,14 @@ const getProductsListFromStore = ({ productsList }) => productsList;
 const getCartStatefromStore = ({ productCart }) => productCart;
 
 function* handleProductAddCartWorker() {
-  const { addedItem, cart } = yield select(getCartStatefromStore);
+  const { addedItem, reached } = yield select(getCartStatefromStore);
   const { products } = yield select(getProductsListFromStore);
 
-  if (cart.filter((each) => each === addedItem).length >= 3) {
+  if (reached) {
+    yield put(setBackReachedLimit(false));
     return yield call(
       globalErrorMessageHandler,
-      "Only 3 items are allowed of same type"
+      "Product is already in cart 1 item per customer"
     );
   }
 

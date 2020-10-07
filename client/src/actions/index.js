@@ -34,6 +34,7 @@ export {
   removeItemFromCart,
   loadProductCart,
   getProductsDetailsInCart,
+  setBackReachedLimit,
   // View Products
   loadViewProductDetail,
   getProductDetail,

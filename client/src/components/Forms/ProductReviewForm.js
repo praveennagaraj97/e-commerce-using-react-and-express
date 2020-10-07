@@ -5,6 +5,7 @@ import {
   ProductComputerReview,
   ProductElectronicsReview,
   ProductMobileReview,
+  ProductBeautyReview,
 } from "./helpers";
 
 /**
@@ -26,6 +27,10 @@ export const ProductReviewForm = ({ productReviewDetail }) => {
     return (
       <ProductElectronicsReview productReviewDetail={productReviewDetail} />
     );
+  }
+
+  if (productReviewDetail.category === "beauty") {
+    return <ProductBeautyReview productReviewDetail={productReviewDetail} />;
   }
 
   return <h1>Oh</h1>;

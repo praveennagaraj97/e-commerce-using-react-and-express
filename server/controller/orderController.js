@@ -1,4 +1,5 @@
 import { Order } from "../model/OrderModel";
+import { Product } from "../model/productModel";
 
 import { AppError } from "../utils/AppError";
 import catchAsyncError from "../utils/catchAsyncError";
@@ -33,6 +34,34 @@ export const processOrder = catchAsyncError(async (req, res, next) => {
     };
     orders.push(modelledOrderData);
   }
+
+  const orderIds = Object.keys(req.productIdsQuantity);
+
+  // Get Actual Quantity
+  const getCurrentQuantity = await Product.find({ _id: orderIds }).select(
+    "quantity"
+  );
+
+  let quantityReduceModel = [];
+
+  for (let each of orderIds) {
+    const model = {
+      quantity:
+        getCurrentQuantity.find(({ _id }) => _id == each).quantity -
+        req.productIdsQuantity[each],
+    };
+    quantityReduceModel.push(model);
+  }
+
+  console.log(quantityReduceModel);
+
+  const data = await Product.updateMany(
+    { _id: { $in: orderIds } },
+    ...quantityReduceModel
+  );
+
+  console.log(data);
+
   const order = await Order.create(orders);
   if (!order || order.length < 1)
     return next(new AppError("Something went wrong", 500));

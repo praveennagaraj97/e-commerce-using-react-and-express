@@ -96,7 +96,8 @@ function* handleLoadMoreResultsWorker() {
     } catch (err) {
       yield console.clear();
       try {
-        yield call(globalErrorMessageHandler, err.response.data.message);
+        yield put(noMoreResultsFound(false));
+        // yield call(globalErrorMessageHandler, err.response.data.message);
       } catch (err) {
         yield call(
           globalErrorMessageHandler,

@@ -17,6 +17,7 @@ const {
   ADD_PRODUCT_TO_CART,
   REMOVE_PRODUCT_FROM_CART,
   GET_PRODUCTS_IN_CART,
+  SET_BACK_REACHED_LIMIT,
 
   LOAD_VIEW_PRODUCT_DETAIL,
   PRODUCT_DETAIL,
@@ -93,11 +94,20 @@ export const getProductsReducer = (
 export const productCartReducer = (state = { cart: [] }, action) => {
   switch (action.type) {
     case ADD_PRODUCT_TO_CART:
-      if (state.cart.filter((each) => each === action.item).length >= 3) {
+      if (state.cart.includes(action.item)) {
+        state["reached"] = true;
+        return { ...state };
+      }
+
+      if (state.cart.filter((each) => each === action.item).length >= 1) {
         return { ...state };
       }
       state["addedItem"] = action.item;
       state.cart.push(action.item);
+      return { ...state };
+
+    case SET_BACK_REACHED_LIMIT:
+      state["reached"] = action.bool;
       return { ...state };
 
     case ORDER_SUCCESS:

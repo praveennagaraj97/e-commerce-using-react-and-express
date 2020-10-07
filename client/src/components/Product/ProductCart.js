@@ -53,19 +53,19 @@ const ProductCart = ({
                   <h3>{productName}</h3>
                   <h4>Qty : {quantity}</h4>
                   <div>
-                    <button
+                    {/* <button
                       onClick={() => {
                         addItem(_id);
                         loadCart();
                       }}>
                       +
-                    </button>
+                    </button> */}
                     <button
                       onClick={() => {
                         removeItem(_id);
                         loadCart();
                       }}>
-                      -
+                      remove from cart
                     </button>
                   </div>
                 </div>

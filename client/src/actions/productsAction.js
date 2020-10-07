@@ -29,6 +29,7 @@ export {
   getProductsDetailsInCart,
   loadProductCart,
   removeItemFromCart,
+  setBackReachedLimit,
 } from "./cart";
 
 export const reOccuringProductDetailRequests = (request) => ({
