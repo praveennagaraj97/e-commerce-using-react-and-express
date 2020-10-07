@@ -36,8 +36,12 @@ export const signInHandler = (ModelName, responseMessage) =>
     // Check If User Exists
     if (!user) return next(new AppError(`No user Found With ${email}`, 401));
 
-    // Check Whether Password matches.
+    // Check user role
+    if (user.userRole != "user")
+      return next(new AppError("You are not allowed here", 401));
+
     if (!(await user.comparePassword(password, user.password)))
+      // Check Whether Password matches.
       return next(new AppError("Entered Password is Wrong", 401));
 
     // If password is correct create New Token And Give Access.
@@ -66,7 +70,7 @@ export const protectRoute = (ModelName) =>
 
     const tokenDetails = await verifyJWToken(auth_token);
 
-    const user = await ModelName.findById(tokenDetails.id).select("+userRole");
+    const user = await ModelName.findById(tokenDetails.id);
     // if user account is deleted
     if (!user)
       return next(new AppError("Authentication Error Invalid Token", 401));
@@ -280,7 +284,7 @@ export const employeeLoginHandler = (ModelName, responseMessage) =>
 
     const employee = await ModelName.findOne({
       empId: req.body.employeeId,
-    }).select("+password +userRole");
+    }).select("+password");
 
     if (!employee) return next(new AppError("Enter Valid Employee Id", 401));
 
@@ -367,13 +371,9 @@ export const addManufacturerHandler = (ModelName, responseMessage) =>
 
     await new Email(mailOptions, url).sendNewManufacturerWelcome();
 
-    const token = await generateJWToken({ id: manufacturerDetail._id });
-
     // Mail which contails details about employee -ID which is MongoID
     res.status(201).json({
-      token,
       message: responseMessage.message,
-      Manufacturer_id: manufacturerId,
     });
   });
 
@@ -384,7 +384,7 @@ export const manufacturerLoginHandler = (ModelName, responseMessage) =>
 
     const manufacturer = await ModelName.findOne({
       mfrId: req.body.manufacturerId,
-    }).select("+password +userRole");
+    }).select("+password");
 
     if (!manufacturer)
       return next(new AppError("Enter Valid manufacturer Id", 401));

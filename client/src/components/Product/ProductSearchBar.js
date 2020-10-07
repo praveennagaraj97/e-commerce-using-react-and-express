@@ -72,7 +72,10 @@ const ProductSearchBar = () => {
   };
 
   return (
-    <div ref={ref} className='products-search__bar'>
+    <div
+      onClick={() => setSearchTerm("")}
+      ref={ref}
+      className='products-search__bar'>
       <input
         onChange={(ev) => {
           setSearchTerm(ev.target.value);

@@ -1,5 +1,4 @@
 import Home from "./Home";
-import Supreme from "./Supreme";
 import Service from "./Service";
 import DevelopersTab from "./DevelopersTab";
 import Orders from "./Orders";
@@ -9,7 +8,6 @@ import Settings from "./Settings";
 
 export default {
   Home,
-  Supreme,
   Service,
   DevelopersTab,
   Orders,

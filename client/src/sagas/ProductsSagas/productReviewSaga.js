@@ -45,13 +45,13 @@ function* handleGetProductReviewWorker() {
     yield put(productReviewLoading(false));
     yield put(getProductReviews(data));
   } catch (err) {
-    // yield console.clear();
+    yield console.clear();
     let data = {};
     yield put(productReviewLoading(false));
     data.reviewForProduct = productId;
     yield put(getProductReviews(data));
     // Clear API FETCH LOG
-    // yield console.clear();
+    yield console.clear();
   }
 }
 
@@ -91,6 +91,7 @@ function* handleReviewFoundHelpfulWorker() {
     };
     yield put(getProductReviews(newStructuredReview));
   } catch (err) {
+    console.clear();
     yield call(
       globalErrorMessageHandler,
       "Something went wrong 🤯 Please try again later"

@@ -93,8 +93,10 @@ productSchema.pre(/^findOne/, function (next) {
 });
 
 productSchema.pre("save", function (next) {
-  this.productPrice =
-    Number(this.productPrice) + 0.02 * Number(this.productPrice);
+  this.productPrice = parseInt(
+    Number(this.productPrice) + 0.02 * Number(this.productPrice),
+    10
+  );
   next();
 });
 

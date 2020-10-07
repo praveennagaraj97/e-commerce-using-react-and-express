@@ -186,6 +186,7 @@ export const viewProductReducer = (state = {}, action) => {
         action.data.productBoards.length > 0
           ? action.data.productBoards[0].boardImages
           : null;
+      state["similarProducts"] = action.data.similarProducts;
 
       return { ...state };
     default:

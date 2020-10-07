@@ -25,6 +25,9 @@ import {
   reOccuringProductDetailRequests,
 } from "../../actions";
 
+// Alg to find similar products
+import { similarity } from "../../utils/algoritms";
+
 const { LOAD_VIEW_PRODUCT_DETAIL } = PRODUCT_TYPES;
 
 // To get the Product Detail
@@ -33,11 +36,13 @@ const getViewDetailsDataFromStore = ({ productDetail }) => productDetail;
 
 // To get Stores Product Details Requests
 const getStoredRequestsFromStore = ({ requests }) => ({ requests });
-
+const getProductListsFromStore = ({ productsList: { products } }) => ({
+  products,
+});
 // Saga-Worker
 function* handleLoadProductViewWorker() {
   const { productType } = yield select(getViewDetailsDataFromStore);
-
+  const { products } = yield select(getProductListsFromStore);
   const {
     requests: { productDetailRequests },
   } = yield select(getStoredRequestsFromStore);
@@ -58,13 +63,32 @@ function* handleLoadProductViewWorker() {
       getProductDetailEndPoint,
       productType.productId
     );
+
+    const similarProducts = [];
+
+    if (products) {
+      if (products.length > 1) {
+        for (let i = 0; i < products.length; i++) {
+          let similar = similarity(
+            data.detail.productName,
+            products[i].productName
+          );
+          if (similar > 0.5) {
+            similarProducts.push(products[i]);
+          }
+        }
+      }
+    }
+
+    // ret
+    data.detail.similarProducts = similarProducts;
     yield put(
       reOccuringProductDetailRequests({
         id: [productType.productId],
         data: data,
       })
     );
-    yield put(getProductDetail(data.detail));
+    yield put(getProductDetail({ ...data.detail, similarProducts }));
     yield history.push(
       `/${productType.productCategory}/detail/${productType.productId}`
     );

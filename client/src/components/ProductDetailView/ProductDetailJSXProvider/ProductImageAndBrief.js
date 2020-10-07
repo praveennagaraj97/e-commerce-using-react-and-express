@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
-// import { Button } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 
 import "../../../styles/productimageandbrief.scss";
-import {
-  // loadViewProductDetail,
-  addItemToCart,
-} from "../../../actions";
+import { loadViewProductDetail, addItemToCart } from "../../../actions";
 import { useDispatch } from "react-redux";
 
 const ProductImageAndBrief = ({
@@ -13,6 +10,7 @@ const ProductImageAndBrief = ({
   productBriefInfo,
   currentProductId,
   quantity,
+  similarProducts,
 }) => {
   const [previewImage, setPreviewImage] = useState("");
   const [screenAbove1032, setScreenAbove1032] = useState(true);
@@ -42,14 +40,13 @@ const ProductImageAndBrief = ({
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // const handleViewSimilarProduct = (id) => {
-  //   const productType = {
-  //     category: currentProductId.productCategory,
-  //     id,
-  //   };
-
-  //   dispatch(loadViewProductDetail(productType));
-  // };
+  const handleViewSimilarProduct = (id) => {
+    const productType = {
+      category: currentProductId.productCategory,
+      id,
+    };
+    dispatch(loadViewProductDetail(productType));
+  };
 
   const productBriefDescriptionJSX = (productBriefInfo) => {
     return (
@@ -66,11 +63,11 @@ const ProductImageAndBrief = ({
           </div>
         </div>
 
-        {productBriefInfo.similarProducts.length > 1 ? (
+        {similarProducts.length > 0 ? (
           <div className='product-detail_similar_products'>
             {/* Similar Products */}
-            {/* <div className='product-detail_similar_products__container'>
-              {productBriefInfo.similarProducts.map(({ _id, productName }) => {
+            <div className='product-detail_similar_products__container'>
+              {similarProducts.map(({ _id, productName }) => {
                 return productName !== productBriefInfo.productName ? (
                   <Button
                     onClick={() => handleViewSimilarProduct(_id)}
@@ -82,7 +79,7 @@ const ProductImageAndBrief = ({
                   ""
                 );
               })}
-            </div> */}
+            </div>
           </div>
         ) : (
           ""

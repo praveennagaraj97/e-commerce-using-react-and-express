@@ -113,7 +113,11 @@ const ProductReview = ({
                   )}
 
                   <div className='review-helpful-or-not'>
-                    <p>{foundHelpful.length} People Found Helpful</p>
+                    <p>
+                      {foundHelpful.length}{" "}
+                      {foundHelpful.length === 1 ? "User" : "People"} Found
+                      Helpful
+                    </p>
                     {reviewFoundHelpfulJSX(foundHelpful, _id)}
                   </div>
                 </div>
