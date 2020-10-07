@@ -53,3 +53,13 @@ export const addBeautyReview = async (data) => {
     },
   });
 };
+
+export const addFashionReview = async (data) => {
+  return await apiBaseEndpoint.post("/product_review/addFashionReview", data, {
+    headers: {
+      authorization: `Bearer ${
+        authTokenFromCookie() || authTokenFromSession()
+      }`,
+    },
+  });
+};

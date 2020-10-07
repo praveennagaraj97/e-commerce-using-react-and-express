@@ -3,6 +3,7 @@ export {
   addComputerReview,
   addElectronicsReview,
   addBeautyReview,
+  addFashionReview,
 } from "./ProductReviewEndpoints";
 
 export { getTopLevelAdvertiseEndpoint } from "./productAdvertiseEndPoints";
