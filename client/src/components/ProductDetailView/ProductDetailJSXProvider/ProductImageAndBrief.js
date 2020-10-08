@@ -2,8 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Button } from "@material-ui/core";
 
 import "../../../styles/productimageandbrief.scss";
-import { loadViewProductDetail, addItemToCart } from "../../../actions";
-import { useDispatch } from "react-redux";
+import {
+  loadViewProductDetail,
+  addItemToCart,
+  loadCheckout,
+} from "../../../actions";
+import { useDispatch, useSelector } from "react-redux";
+import history from "../../../history";
 
 const ProductImageAndBrief = ({
   images,
@@ -16,6 +21,9 @@ const ProductImageAndBrief = ({
   const [screenAbove1032, setScreenAbove1032] = useState(true);
   const [screenAbove582, setScreenAbove582] = useState(true);
   const dispatch = useDispatch();
+  const isSigned = useSelector(
+    ({ userAccredited: { isSigned = false } }) => isSigned
+  );
 
   useEffect(() => {
     if (images.length > 0) setPreviewImage(images[0]);
@@ -110,7 +118,20 @@ const ProductImageAndBrief = ({
           </button>
         </div>
         <div className='product-detail-description-payment__buy-btn'>
-          <button>Buy Now</button>
+          {isSigned ? (
+            <button
+              disabled={quantity === 0 ? true : false}
+              onClick={() => {
+                dispatch(addItemToCart(currentProductId.productId));
+                dispatch(loadCheckout());
+              }}>
+              {quantity === 0 ? "Not Available" : "Book now"}
+            </button>
+          ) : (
+            <button onClick={() => history.push("/user_auth")}>
+              Login to book
+            </button>
+          )}
         </div>
       </div>
     );
