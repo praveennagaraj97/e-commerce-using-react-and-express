@@ -39,7 +39,7 @@ Object.defineProperty(exports, "restrictTo", {
     return _userController.restrictTo;
   }
 });
-exports.addProductBoards = exports.processProductBoards = exports.handleProductBoardImages = exports.getProduct = exports.addProductDescriptionAndImages = exports.processProductImages = exports.handleProductImages = exports.getProductDetailsWithProductIds = exports.getAllProducts = exports.addNewProduct = exports.productImageLink = exports.getProductImageProcessed = void 0;
+exports.updateProduct = exports.addProductBoards = exports.processProductBoards = exports.handleProductBoardImages = exports.getProduct = exports.addProductDescriptionAndImages = exports.processProductImages = exports.handleProductImages = exports.getProductDetailsWithProductIds = exports.getAllProducts = exports.addNewProduct = exports.productImageLink = exports.getProductImageProcessed = void 0;
 
 var _constants = require("../constants");
 
@@ -97,3 +97,7 @@ var addProductBoards = (0, _factoryHandler.createNewDocumnet)(_productModel.Prod
   message: "Product Boards Added"
 });
 exports.addProductBoards = addProductBoards;
+var updateProduct = (0, _factoryHandler.updateDocumentByID)(_productModel.Product, {
+  message: "Product Updated"
+});
+exports.updateProduct = updateProduct;
