@@ -8,6 +8,8 @@ import {
   ProductBeautyReview,
   ProductFashionReview,
   ProductKitchenReview,
+  ProductPetReview,
+  ProductFoodReview,
 } from "./helpers";
 
 /**
@@ -43,5 +45,12 @@ export const ProductReviewForm = ({ productReviewDetail }) => {
     return <ProductKitchenReview productReviewDetail={productReviewDetail} />;
   }
 
-  return <h1>Oh</h1>;
+  if (productReviewDetail.category === "pet") {
+    return <ProductPetReview productReviewDetail={productReviewDetail} />;
+  }
+  if (productReviewDetail.category === "food") {
+    return <ProductFoodReview productReviewDetail={productReviewDetail} />;
+  }
+
+  return <h1>Something went wrong this is not page you are suppose to see</h1>;
 };

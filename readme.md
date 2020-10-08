@@ -8,7 +8,7 @@ Lexa is an E-Commerce based C2C web application built using nodejs and reactjs
 
 - BE - ExpressJS, GraphQL
 - FE - React-Redux, Apollo
-- Storage and deployement - GCP, EC2
+- Storage and deployement - [GCP](https://lexa-api.uc.r.appspot.com/graphql), [EC2](http://ec2-13-233-48-194.ap-south-1.compute.amazonaws.com:4000/)
 
 # New features
 
@@ -47,10 +47,53 @@ This application uses a number of open source projects /packages to work properl
 - [Babel] - to compile es6 to es5.
 - [SendGrid] - for mailing service.
 - [JWT] for secured auth tokens.
+- [Stripe] for Payment gateway
 
 ### Installation
 
-Lexa requires [Node.js](https://nodejs.org/) v10+ to run.
+Lexa requires [Node.js](https://nodejs.org/) v10+ and [google api credentials](https://console.cloud.google.com/) to run.
+
+### Design
+
+#### Frontend(netlify)
+
+- The application is designed in a way to achieve better user experience with less api calls.
+- If the required data is already available on the client side, instead of making new api request for data,the app modifies the existing data, which is way faster than getting new data and processing it.
+- The application uses redux-saga to handle the side-effects.
+- The application uses queue algorithm to store the reoccuring requests and to decide user-liking products.
+- Distance algorithm/Levenshtein distance is used to find the similar products that are 50% similar to one other.
+- The app also supports redirects/refresh.
+- The actions that are being dispatched are named with the place/file they are being dispatched.
+- The application has a single source of error handle(global error handler) which is handled using redux-saga.
+- Redux-form is used for handling forms data.
+- Help Page and some buttons are designed using material-Ui and other part of the app uses custom styles.
+- The Apollo client is configured with subscription (which can also be used instead of redux)(apollo-gql version soon!).
+- The actions in the application are pure objects with logics/async calls inside them.
+  - The actions describes - what happened ,where it happened.
+- Even the reducer contains the very simple logic
+- All the logics are handled using selectors, sagas and even simple utility functions/classes.
+- The store is persited with redux-persistance.
+- All the Detail Page and review page are unique.
+- The application is designed with keeping space for future upgrades.
+
+##### Payment Gateway
+
+- Lexa uses Stripe Payment api to handle payment options.
+- Reason for using stripe is there excellent documentation😍.
+- The application uses payment intent method to handle checkouts /instead of redirects.
+
+#### Backend
+
+- MongoDB is used as database server for the application.
+- API follows single handler for CRUD operations/Factory concept and MVC pattern.
+- API is written in ES6 syntax.
+- File/Image Processing class is written to handle Image and Video uploads.
+- Google Storage service is used for Uploads.
+- Different Categories of images/files are stored in it's own folder/bucket.
+  -Ex :- Product Cover images are stored in product-cover bucket ,where as differnt categories of review images are stored in it's own bucket.
+- Most of the document based logics are handled in mongodb document middleware.
+- The Api provides different set of data for differnt product category.
+- The Backend server makes used mongoDB discriminator to store differnt set of data for the same model.
 
 Install the dependencies and devDependencies and start the server.
 
@@ -70,6 +113,11 @@ $ yarn start
 
 - Write Tests
 - Add Light Mode
+
+###### Improvements
+
+- Order quantity is restricted to one per customer(for same product)- differnt products with 1 quantity can be grouped.
+- As mongodb doesn't supports multiple data querying which is needed to modify the ordered quantity / Transcations can be moved sql.
 
 ## License
 

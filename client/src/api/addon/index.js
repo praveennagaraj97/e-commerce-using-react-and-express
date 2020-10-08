@@ -5,6 +5,8 @@ export {
   addBeautyReview,
   addFashionReview,
   addKitchenReview,
+  addPetReview,
+  addFoodReview,
 } from "./ProductReviewEndpoints";
 
 export { getTopLevelAdvertiseEndpoint } from "./productAdvertiseEndPoints";

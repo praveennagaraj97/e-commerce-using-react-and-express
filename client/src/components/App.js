@@ -76,7 +76,13 @@ const App = () => {
             <Route
               path='*'
               component={() => (
-                <h1 style={{ color: "white", textAlign: "center" }}>
+                <h1
+                  style={{
+                    fontFamily: "Niconne",
+                    color: "white",
+                    textAlign: "center",
+                    fontSize: "90px",
+                  }}>
                   Page Not Found
                 </h1>
               )}

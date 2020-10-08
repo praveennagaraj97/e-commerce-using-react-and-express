@@ -8,7 +8,7 @@ import Axios from "axios";
 export const apiBaseEndpoint = Axios.create({
   baseURL:
     process.env.NODE_ENV === "production"
-      ? `https://lexa-api-v1.herokuapp.com/api/v1`
+      ? `https://lexa-api.uc.r.appspot.com/api/v1`
       : `http://localhost:8080/api/v1`,
 });
 
@@ -39,6 +39,8 @@ export {
   addBeautyReview,
   addFashionReview,
   addKitchenReview,
+  addPetReview,
+  addFoodReview,
   getTopLevelAdvertiseEndpoint,
   buyProductsSessionEndpoint,
   buyProductsViaPaymentIntentEndpoint,

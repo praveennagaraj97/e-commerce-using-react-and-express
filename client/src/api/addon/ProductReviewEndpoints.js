@@ -73,3 +73,23 @@ export const addKitchenReview = async (data) => {
     },
   });
 };
+
+export const addPetReview = async (data) => {
+  return await apiBaseEndpoint.post("/product_review/addPetReview", data, {
+    headers: {
+      authorization: `Bearer ${
+        authTokenFromCookie() || authTokenFromSession()
+      }`,
+    },
+  });
+};
+
+export const addFoodReview = async (data) => {
+  return await apiBaseEndpoint.post("/product_review/addFoodReview", data, {
+    headers: {
+      authorization: `Bearer ${
+        authTokenFromCookie() || authTokenFromSession()
+      }`,
+    },
+  });
+};

@@ -28,6 +28,7 @@ const ProductSearchBar = () => {
         try {
           if (searchTerm) {
             const response = await getSearchResults(searchTerm);
+
             if (response.data.message !== "No Document Found")
               setProducts(response.data.details);
             else {
@@ -35,6 +36,7 @@ const ProductSearchBar = () => {
             }
           }
         } catch (err) {
+          console.clear();
           setProducts([]);
         }
       })(searchTerm);
@@ -72,10 +74,7 @@ const ProductSearchBar = () => {
   };
 
   return (
-    <div
-      onClick={() => setSearchTerm("")}
-      ref={ref}
-      className='products-search__bar'>
+    <div ref={ref} className='products-search__bar'>
       <input
         onChange={(ev) => {
           setSearchTerm(ev.target.value);
@@ -84,10 +83,13 @@ const ProductSearchBar = () => {
         className='input-bar'
         spellCheck={false}
         placeholder='🔎'
+        value={searchTerm}
       />
 
       {products.length > 0 && showHandle ? (
-        <div className='searched-product__details'>
+        <div
+          onClick={() => setSearchTerm("")}
+          className='searched-product__details'>
           <div
             onClick={() => handleSearchList(products[0].categoryId)}
             className='search-in-option'>
