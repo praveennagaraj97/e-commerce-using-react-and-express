@@ -1,0 +1,16 @@
+.notifier {
+  color: white;
+  position: absolute;
+  bottom: 15px;
+  right: 50px;
+  padding: 10px;
+  border-radius: 5px;
+  animation: backInLeft 0.5s;
+}
+
+.success {
+  background-color: rgb(64, 248, 64);
+}
+.failure {
+  background-color: rgb(247, 40, 40);
+}

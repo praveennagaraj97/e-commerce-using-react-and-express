@@ -1,0 +1,49 @@
+.user-auth-container {
+  color: white;
+  width: 300px;
+  margin: auto;
+  background-color: grey;
+  padding: 5%;
+  border-radius: 10px;
+  margin-top: 10vh;
+  animation: bounce 1s;
+  p {
+    text-align: center;
+    color: blue;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}
+
+.auth-form {
+  display: grid;
+  /* grid-template-columns: 222px 32px; */
+  justify-content: center;
+  grid-gap: 10px;
+  label {
+    display: block;
+    text-align: left;
+  }
+
+  .auth-fields {
+    width: 280px;
+    padding: 8px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+  }
+
+  button {
+    width: 50%;
+    margin: auto;
+    padding: 10px;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  button:active {
+    background-color: rgb(175, 170, 170);
+  }
+}

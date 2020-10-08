@@ -1,0 +1,40 @@
+@import url("https://fonts.googleapis.com/css2?family=Parisienne&display=swap");
+
+.keyboarder-roles-container {
+  .role__products-category-crud {
+    background-color: rgb(211, 207, 207);
+    border-radius: 5px;
+    padding: 10px;
+
+    p {
+      padding: 0;
+      margin: 0;
+      text-align: center;
+      font-family: "Parisienne", cursive;
+      font-size: 28px;
+      font-weight: 600;
+    }
+
+    .options {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 5px;
+      overflow: auto;
+      font-family: cursive;
+
+      .option {
+        background-color: grey;
+        padding: 15px;
+        border-radius: 5px;
+        text-align: center;
+        cursor: pointer;
+      }
+
+      .option:active {
+        background-color: rgb(37, 35, 35);
+        color: white;
+      }
+    }
+  }
+}

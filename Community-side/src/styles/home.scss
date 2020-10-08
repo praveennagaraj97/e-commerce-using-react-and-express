@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap");
+
+.home-page-container {
+  color: white;
+  text-align: center;
+  font-family: "Berkshire Swash", cursive;
+  animation: backInLeft 1s;
+  margin-top: 80px;
+
+  .t1 {
+    font-size: 78px;
+  }
+
+  .t2 {
+    font-size: 70px;
+  }
+  .t3 {
+    font-size: 50px;
+  }
+}
+
+.notify-for-other {
+  color: white;
+  position: absolute;
+  bottom: 5px;
+  background-color: rgb(255, 149, 149);
+  border-radius: 10px;
+  padding: 5px;
+  cursor: not-allowed;
+  animation: backInUp 1s;
+}
