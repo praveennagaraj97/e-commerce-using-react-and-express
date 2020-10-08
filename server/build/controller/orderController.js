@@ -9,6 +9,12 @@ Object.defineProperty(exports, "protectRoute", {
     return _userController.protectRoute;
   }
 });
+Object.defineProperty(exports, "restrictTo", {
+  enumerable: true,
+  get: function get() {
+    return _userController.restrictTo;
+  }
+});
 Object.defineProperty(exports, "buyProducts", {
   enumerable: true,
   get: function get() {
@@ -33,7 +39,7 @@ Object.defineProperty(exports, "preFillGetManufacturerOrders", {
     return _preFillers.preFillGetManufacturerOrders;
   }
 });
-exports.getOrders = exports.processOrder = void 0;
+exports.updateOrderStatus = exports.getOrders = exports.processOrder = void 0;
 
 var _OrderModel = require("../model/OrderModel");
 
@@ -171,3 +177,7 @@ var getOrders = (0, _factoryHandler.readAllDocument)(_OrderModel.Order, {
   message: "List Of Order"
 });
 exports.getOrders = getOrders;
+var updateOrderStatus = (0, _factoryHandler.updateDocumentByID)(_OrderModel.Order, {
+  message: "Order Status Updated"
+});
+exports.updateOrderStatus = updateOrderStatus;

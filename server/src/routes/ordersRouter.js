@@ -8,6 +8,8 @@ import {
   processOrder,
   preFillGetUserOrders,
   preFillGetManufacturerOrders,
+  updateOrderStatus,
+  restrictTo,
 } from "../controller/orderController";
 
 export const ordersRouter = Router();
@@ -23,3 +25,7 @@ ordersRouter
 ordersRouter
   .route("/getManufacturerOrders")
   .get(protectRoute, preFillGetManufacturerOrders, getOrders);
+
+ordersRouter
+  .route("/updateDeliveryStatus/:id")
+  .patch(protectRoute, restrictTo("manufacturer"), updateOrderStatus);

@@ -1,12 +1,12 @@
 {
   "name": "lexa",
   "version": "1.0.0",
-  "description": "C2C Ecommerce application",
+  "description": "clone of itunes netflix amazon",
   "main": "index.js",
   "author": "Praveen Nagaraj",
   "license": "MIT",
   "scripts": {
-    "start": "babel-node build/server.js",
+    "start": "node build/server.js",
     "start-dev": "nodemon --exec babel-node src/server.js",
     "deploy": "gcloud app deploy",
     "pre-start-build": "babel src -d build"

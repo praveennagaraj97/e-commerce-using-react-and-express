@@ -3,9 +3,12 @@ import { Product } from "../model/productModel";
 
 import { AppError } from "../utils/AppError";
 import catchAsyncError from "../utils/catchAsyncError";
-import { readAllDocument } from "../handlers/factoryHandler";
+import {
+  readAllDocument,
+  updateDocumentByID,
+} from "../handlers/factoryHandler";
 
-export { protectRoute } from "./userController";
+export { protectRoute, restrictTo } from "./userController";
 export { buyProducts, retrievePaymentIntent } from "./paymentController";
 export {
   preFillGetUserOrders,
@@ -69,4 +72,8 @@ export const processOrder = catchAsyncError(async (req, res, next) => {
 
 export const getOrders = readAllDocument(Order, {
   message: "List Of Order",
+});
+
+export const updateOrderStatus = updateDocumentByID(Order, {
+  message: "Order Status Updated",
 });

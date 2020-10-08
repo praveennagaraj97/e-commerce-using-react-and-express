@@ -60,10 +60,12 @@ app.use(
 
 // Cross Origin request Service
 app.use(
-  cors({
-    origin: ["http://localhost:3000", "https://lexa.netlify.app"],
-    optionsSuccessStatus: 200,
-  })
+  cors()
+
+  //   {
+  //   origin: ["http://localhost:3000","https://testlexa.netlify.app/" ],
+  //   optionsSuccessStatus: 200,
+  // }
 );
 
 // Sanitize Against No-Sql Injection EX :email : { "gt" : '' }
