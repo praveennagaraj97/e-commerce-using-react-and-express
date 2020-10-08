@@ -78,7 +78,7 @@ const Checkout = () => {
       return;
     }
 
-    console.log(Getters);
+    // console.log(Getters);
     setActiveForm(1);
   };
 

@@ -45,7 +45,7 @@ const Chat = () => {
       </h1>
     );
 
-  console.log(data);
+  // console.log(data);
 
   return (
     <div onLoad={() => console.log("loaded")} className='section-service-chat'>
