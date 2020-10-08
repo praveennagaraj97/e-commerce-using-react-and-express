@@ -10,6 +10,7 @@ import {
   createNewDocumnet,
   readAllDocument,
   readDocumentByIdThroughQuery,
+  updateDocumentByID,
 } from "../handlers/factoryHandler";
 import {
   processSingleImage,
@@ -83,4 +84,8 @@ export const handleProductBoardImages = handleImageUploadWithNoImageLimit(
 export const processProductBoards = processMultipleImages("boardImages");
 export const addProductBoards = createNewDocumnet(ProductBoards, {
   message: "Product Boards Added",
+});
+
+export const updateProduct = updateDocumentByID(Product, {
+  message: "Product Updated",
 });

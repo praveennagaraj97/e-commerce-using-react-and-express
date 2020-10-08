@@ -26,6 +26,7 @@ import {
   // Protect
   protectRoute,
   restrictTo,
+  updateProduct,
 } from "../controller/productsController";
 
 export const productRouter = Router();
@@ -76,3 +77,7 @@ productRouter
     processProductBoards,
     addProductBoards
   );
+
+productRouter
+  .route("/dev/updateProduct/:id")
+  .patch(protectRoute, restrictTo("manufacturer"), updateProduct);
