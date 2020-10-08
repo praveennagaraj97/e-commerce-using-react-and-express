@@ -99,6 +99,7 @@ const ProductList = ({
                     productName,
                     productPrice,
                     averageReview,
+                    quantity,
                     categoryId: { categoryName },
                   }) => {
                     return (
@@ -126,11 +127,12 @@ const ProductList = ({
                           <p className='product-card__price'>₹{productPrice}</p>
                           <div className='product-card__view__cart_btn_option'>
                             <button
+                              disabled={quantity === 0 ? true : false}
                               onClick={() => {
                                 addItemToCart(_id);
                               }}
                               className='product-card__btn product__cart-btn'>
-                              Add To Cart
+                              {quantity === 0 ? "Not Available" : "Add to Cart"}
                             </button>
                             <button
                               onClick={() =>

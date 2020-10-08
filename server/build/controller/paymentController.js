@@ -260,7 +260,7 @@ var buyProducts = (0, _catchAsyncError["default"])( /*#__PURE__*/function () {
               break;
             }
 
-            return _context4.abrupt("return", next(new _AppError.AppError("".concat(quantityCheck[i].productName, " are Not available"), 500)));
+            return _context4.abrupt("return", next(new _AppError.AppError("".concat(quantityCheck[i].productName, " is Not available"), 500)));
 
           case 19:
             i++;

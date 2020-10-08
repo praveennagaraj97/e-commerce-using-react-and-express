@@ -38,8 +38,14 @@ function* productsCheckoutWorker() {
       return;
     }
   } catch (err) {
-    yield put(checkoutLoading(false));
-    yield call(globalErrorMessageHandler, "Sorry Something went Wrong");
+    console.clear();
+    try {
+      yield put(checkoutLoading(false));
+      yield call(globalErrorMessageHandler, err.response.data.message);
+    } catch (e) {
+      yield put(checkoutLoading(false));
+      yield call(globalErrorMessageHandler, "Sorry Something we");
+    }
   }
 }
 

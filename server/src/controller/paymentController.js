@@ -130,7 +130,7 @@ export const buyProducts = catchAsyncError(async (req, res, next) => {
       quantityCheck[i].quantity < productIdQuantityCheck[quantityCheck[i]._id]
     ) {
       return next(
-        new AppError(`${quantityCheck[i].productName} are Not available`, 500)
+        new AppError(`${quantityCheck[i].productName} is Not available`, 500)
       );
     }
   }

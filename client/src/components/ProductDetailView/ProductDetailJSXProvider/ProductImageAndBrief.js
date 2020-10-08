@@ -56,7 +56,11 @@ const ProductImageAndBrief = ({
           <p>M.R.P {productBriefInfo.productPrice} </p>
           <div className='quantity-container'>
             {quantity < 10 ? (
-              <p className='limited'>Only {quantity} items in stock</p>
+              <p className='limited'>
+                {quantity === 0
+                  ? "Not in stock"
+                  : `Only ${quantity} items in stock`}
+              </p>
             ) : (
               <p className='in-stock'>In stock</p>
             )}
@@ -100,8 +104,9 @@ const ProductImageAndBrief = ({
       <div className='product-detail-description-payment__checkout'>
         <div className='product-detail-description-payment__cart-btn'>
           <button
+            disabled={quantity === 0 ? true : false}
             onClick={() => dispatch(addItemToCart(currentProductId.productId))}>
-            Add To Cart
+            {quantity === 0 ? "Not Available" : "Add to cart"}
           </button>
         </div>
         <div className='product-detail-description-payment__buy-btn'>
