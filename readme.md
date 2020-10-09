@@ -21,9 +21,10 @@ And also:
 
 - The api is available in both graphQL and REST version.
 - The api is documented with postman App
-- The api documention can be accessed via this repo under [docs](https://explore.postman.com/praveenNagarajDev) section where each endpoint is explained with examaple I/O which helps in building frontend.
+- The api documention can be accessed via this repo under [docs]() section where each endpoint is explained with examaple I/O which helps in building frontend.
 
-  - [✔] collection https://www.getpostman.com/collections/36831846ccaff2ca5659.
+
+  - [✔] collection [explore](https://explore.postman.com/praveenNagarajDev).
 
   > The GraphQL version of the application is deployed on EC2 with nginx proxy .
   > The Restful version is deployed on google app engine and heroku.
