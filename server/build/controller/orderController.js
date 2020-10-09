@@ -75,7 +75,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
  */
 var processOrder = (0, _catchAsyncError["default"])( /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(req, res, next) {
-    var orders, _iterator, _step, prod, modelledOrderData, orderIds, getCurrentQuantity, quantityReduceModel, _loop, _i, _orderIds, order;
+    var orders, _iterator, _step, prod, modelledOrderData, orderIds, order;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
@@ -106,61 +106,37 @@ var processOrder = (0, _catchAsyncError["default"])( /*#__PURE__*/function () {
               _iterator.f();
             }
 
-            orderIds = Object.keys(req.productIdsQuantity); // Get Actual Quantity
-
+            orderIds = Object.keys(req.productIdsQuantity);
             _context.next = 6;
-            return _productModel.Product.find({
+            return _productModel.Product.updateMany({
               _id: orderIds
-            }).select("quantity");
+            }, {
+              $inc: {
+                quantity: -1
+              }
+            });
 
           case 6:
-            getCurrentQuantity = _context.sent;
-            quantityReduceModel = [];
-
-            _loop = function _loop() {
-              var each = _orderIds[_i];
-              var model = {
-                quantity: getCurrentQuantity.find(function (_ref2) {
-                  var _id = _ref2._id;
-                  return _id == each;
-                }).quantity - 1
-              };
-              quantityReduceModel.push(model);
-            };
-
-            for (_i = 0, _orderIds = orderIds; _i < _orderIds.length; _i++) {
-              _loop();
-            } // console.log(quantityReduceModel);
-
-
-            _context.next = 12;
-            return _productModel.Product.updateMany.apply(_productModel.Product, [{
-              _id: {
-                $in: orderIds
-              }
-            }].concat(quantityReduceModel));
-
-          case 12:
-            _context.next = 14;
+            _context.next = 8;
             return _OrderModel.Order.create(orders);
 
-          case 14:
+          case 8:
             order = _context.sent;
 
             if (!(!order || order.length < 1)) {
-              _context.next = 17;
+              _context.next = 11;
               break;
             }
 
             return _context.abrupt("return", next(new _AppError.AppError("Something went wrong", 500)));
 
-          case 17:
+          case 11:
             res.status(201).json({
               message: "Ordered Successfull",
               orderDetails: order
             });
 
-          case 18:
+          case 12:
           case "end":
             return _context.stop();
         }

@@ -40,25 +40,7 @@ export const processOrder = catchAsyncError(async (req, res, next) => {
 
   const orderIds = Object.keys(req.productIdsQuantity);
 
-  // Get Actual Quantity
-  const getCurrentQuantity = await Product.find({ _id: orderIds }).select(
-    "quantity"
-  );
-
-  let quantityReduceModel = [];
-
-  for (let each of orderIds) {
-    const model = {
-      quantity: getCurrentQuantity.find(({ _id }) => _id == each).quantity - 1,
-    };
-    quantityReduceModel.push(model);
-  }
-
-  // console.log(quantityReduceModel);
-
-  await Product.updateMany({ _id: { $in: orderIds } }, ...quantityReduceModel);
-
-  // console.log(data);
+  await Product.updateMany({ _id: orderIds }, { $inc: { quantity: -1 } });
 
   const order = await Order.create(orders);
   if (!order || order.length < 1)
